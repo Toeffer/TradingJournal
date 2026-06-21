@@ -39,7 +39,7 @@ Columns:
 
 ```
 trade_id,date_opened,ticker,direction,catalyst,catalyst_date,setup_type,thesis,
-entry_price,stop_price,target_price,position_size,conviction,status,
+entry_price,stop_price,target_price,position_size,conviction,source,status,
 date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
 ```
 
@@ -52,6 +52,9 @@ Field notes:
 - `thesis` — one short line: why I'm in.
 - `position_size` — record as I give it (shares, or % of account). Stay consistent.
 - `conviction` — `low` / `med` / `high`.
+- `source` — `routine` (came from the LLM research playbook) or `own` (your own idea).
+  This is set at entry and never changed. It's the column that answers "is outsourcing
+  the research worth it?" — stats and reviews break down by source so you can compare.
 - `status` — `open` or `closed`.
 - `followed_plan` — `yes` / `no` / `partial` (set at close).
 - `lesson` — one short line (set at close).
@@ -64,6 +67,7 @@ Field notes:
 1. Parse what I gave you. **Required to log:** ticker, `entry_price`, `stop_price`
    (needed for R), `setup_type`, and the catalyst. If one of those is missing, ask
    for it in a single question. Everything else is optional and can be added later.
+   Default `source` to `own` unless I mention the playbook / routine / candidates list.
 2. Default `date_opened` to today (my local time) unless I say otherwise.
 3. Generate a `trade_id`, set `status = open`, append the row.
 4. When I give a catalyst date, **remind me once** to verify it against a real
@@ -101,6 +105,8 @@ Report, concisely:
 - Expectancy per trade in R = `(win% × avgWinR) − (loss% × avgLossR)`.
 - Profit factor (gross wins / gross losses).
 - Breakdown by `setup_type` and by `catalyst` — where I actually make and lose money.
+- Breakdown by `source` (`routine` vs `own`) — expectancy, win rate, and avg R for
+  each. This is the scorecard for whether the research playbook is earning its keep.
 
 Lead with expectancy and the by-setup breakdown; that's what tells me what's working.
 
@@ -118,8 +124,12 @@ encouragement. Cover:
    inconsistent sizing, revenge trades after a loss, conviction not matching outcomes.
 3. **Setup & catalyst performance** — which `setup_type` / catalyst I should do more of
    and which I should drop, with the numbers behind it.
-4. **What I'm avoiding** — anything the entries suggest I'm not looking at honestly.
-5. **Two or three concrete changes** for the next period. Specific, not platitudes.
+4. **Source performance** — compare `routine` vs `own` trades on expectancy, win rate,
+   and avg R. If one source consistently underperforms, say so plainly.
+5. **Risk-rules compliance** — check trades against `RISK_RULES.md` (max risk per trade,
+   max open positions, hold-through-earnings policy). Flag any violations with trade_ids.
+6. **What I'm avoiding** — anything the entries suggest I'm not looking at honestly.
+7. **Two or three concrete changes** for the next period. Specific, not platitudes.
 
 Rules for review:
 - No cheerleading. If the honest read is "you'd do better just holding your ETFs,"

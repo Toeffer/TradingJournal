@@ -37,9 +37,42 @@ catalysts, and ask it for *judgment*, not predictions. Then verify the facts you
 
 ---
 
+## Continuity — giving the routine memory of last week
+
+Each run starts cold (new session, fresh repo clone). To avoid re-reviewing the same
+names and missing imminent catalysts, do this before running Prompt 1:
+
+1. **Save last week's output.** After each Prompt 1 run, save the candidates to
+   `research/candidates-YYYY-MM-DD.md` (create the `research/` directory if needed).
+   Include ticker, catalyst, catalyst date, and your pass/watch/act verdict.
+
+2. **Feed last week's file into the new run.** Before Prompt 1, open the most recent
+   `research/candidates-*.md` and paste it into the prompt context (or attach the file
+   if the model supports it). Add this instruction block before the main prompt:
+
+```
+CONTINUITY — LAST WEEK'S CANDIDATES:
+
+[paste or attach the previous candidates file]
+
+Before generating new candidates:
+- MARK REPEATS: if a name appeared last week and still qualifies, note it as
+  "REPEAT" and say what changed (price moved, catalyst closer, new info).
+- DROP EXPIRED: if a catalyst date has already passed, drop the name unless there's
+  a new catalyst.
+- FLAG ACT-NOW: if any remaining catalyst is within 7 calendar days, tag it "ACT-NOW"
+  at the top of your output so I see it before anything else.
+```
+
+3. **Archive, don't delete.** Keep old candidates files — they feed the monthly
+   self-grading routine (see `MONTHLY_SELF_GRADE.md`).
+
+---
+
 ## PROMPT 1 — Weekly candidate discovery
 
 Run this once a week. Fill the brackets first. Paste into a research-enabled model.
+Include the continuity block above if you have a previous candidates file.
 
 ```
 You are an experienced swing-trading research analyst. Use web search and cite
@@ -82,6 +115,7 @@ Format as a table or one clean block per candidate.
 
 **After running it:** verify every date against your calendar, throw out anything you
 can't confirm, and keep the 1–3 best setups on a watchlist. Don't act on the rest.
+Save the output to `research/candidates-YYYY-MM-DD.md` so next week's run has memory.
 
 ---
 
@@ -157,7 +191,8 @@ If you can't verify it, you don't trade it.
 
 ## A realistic weekly rhythm (for a full-time job + family)
 
-- **Sunday, ~30 min:** Run Prompt 1. Verify dates. Pick 1–3 candidates to watch.
+- **Sunday, ~30 min:** Open last week's candidates file, paste into continuity block,
+  run Prompt 1. Verify dates. Pick 1–3 candidates to watch. Save output to `research/`.
 - **Per candidate, ~10 min before entry:** Run Prompt 2. Decide pass / small / normal.
 - **During the week, minimal:** Only act if your level/plan triggers. No screen-watching.
 - **Weekend, ~10 min:** Update the journal. Run Prompt 3 every 2–4 weeks.
@@ -175,6 +210,16 @@ and the only part that tells you whether the edge is real.
 - This won't beat just holding your ETFs unless your decision-making genuinely adds
   value. The journal is how you find out, cheaply, before it costs much.
 - Short volatility / binary catalysts cut both ways. Size so no single gap can hurt you.
+
+---
+
+## Grading the engine (optional, after one month)
+
+After a month of live use, run the monthly self-grading routine described in
+`MONTHLY_SELF_GRADE.md`. It looks back at old candidates files and records how each
+name actually moved around its catalyst — grading the *discovery process* itself,
+separate from your trading. This tells you whether the research playbook has any
+signal before you bet more time or money on it.
 
 ---
 
