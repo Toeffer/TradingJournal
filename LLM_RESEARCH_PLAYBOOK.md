@@ -2,6 +2,7 @@
 
 A no-build system for using large language models (Claude, ChatGPT, etc.) to prep
 1–4 week swing-trade candidates when you don't have time to do the research yourself.
+Covers **US, European, and Asian** listed shares.
 
 **Not financial advice.** This is a research-and-triage workflow. You make every
 trade decision. Treat the first few months as *measurement* (is this improving my
@@ -83,24 +84,31 @@ next 1 to 4 weeks. I hold positions for days to a few weeks. I trade these mysel
 you are surfacing candidates for me to research, not giving advice.
 
 HARD CONSTRAINTS:
-- US-listed common shares only.
-- Market cap roughly [$500M] to [$10B]. Small and mid cap.
+- Common shares listed on major US, European, or Asian exchanges. Accepted
+  exchanges include (not exhaustive): NYSE, NASDAQ, LSE, XETRA, Euronext,
+  SIX, TSE (Tokyo), HKEX, SGX, ASX, KRX.
+- Market cap roughly [$500M] to [$10B] USD equivalent. Small and mid cap.
 - EXCLUDE mega-caps, the "Magnificent 7," and the obvious AI/headline names.
   If a name is the first thing a generic list would mention, leave it out.
-- Minimum liquidity: average daily dollar volume above [$10M]. Skip illiquid names.
+- Minimum liquidity: average daily dollar volume above [$10M] USD equivalent
+  for US names, above [$5M] USD equivalent for European and Asian names
+  (thinner markets, but still tradeable). Skip anything below the floor.
 - The catalyst must be SPECIFIC and DATED (e.g., earnings on a known date, a product
   launch, FDA/regulatory decision, investor day, index rebalance, lockup expiry).
   "General momentum" is not a catalyst.
+- For non-US names: state the exchange and the local currency. Note if the stock
+  has a US-listed ADR as an alternative.
 
 FOR EACH CANDIDATE, give me:
-1. Ticker and one-line description of the company.
+1. Ticker, exchange, currency, and one-line description of the company.
+   (For non-US names, note if a US ADR exists.)
 2. The catalyst and its exact date (or date window).
 3. Why now — the current price setup in plain language (e.g., basing near support,
    breaking out of a range, pulling back in an uptrend).
 4. Bull case — what goes right.
 5. Bear case — what goes wrong, including downside-gap risk.
 6. What would INVALIDATE the idea (the level or event that means "I'm wrong, get out").
-7. Liquidity note (approx. avg daily dollar volume).
+7. Liquidity note (approx. avg daily dollar volume in USD equivalent).
 8. Your confidence (low/med/high) and what specifically would raise it.
 
 RULES:
@@ -134,13 +142,17 @@ Give me:
    EXPECTS (consensus). I want to avoid trading something already priced in.
 2. The bull case and the bear case, each in 3-4 specific points.
 3. Key technical levels in plain terms: where support and resistance are, and a
-   sensible level where the idea is clearly wrong.
+   sensible level where the idea is clearly wrong. State levels in the local currency.
 4. The main risk specific to this name (e.g., binary gap risk through earnings,
    thin float, dilution history, sector dependence).
-5. A PRE-MORTEM: assume I took this trade and lost money. What is the single most
+5. For non-US names: any region-specific risks — FX headwinds/tailwinds relative to
+   USD, local regulatory or political risk, settlement differences, restricted trading
+   hours, or thin after-hours liquidity. If there's a US ADR, compare liquidity.
+6. A PRE-MORTEM: assume I took this trade and lost money. What is the single most
    likely reason? What would I have ignored?
-6. Position-sizing consideration: given the gap/binary risk, what should I keep in
-   mind about size? (Not a recommendation — just the risk framing.)
+7. Position-sizing consideration: given the gap/binary risk (and FX risk for non-USD
+   trades), what should I keep in mind about size? (Not a recommendation — just the
+   risk framing.)
 
 Be concrete. If something can't be known, say so rather than guessing.
 ```
@@ -185,6 +197,22 @@ personally confirm:
 - **Whether the catalyst already happened** — recency gaps are real, even with search.
 - **That the name actually meets your liquidity floor** — check real volume yourself.
 
+**Additional checks for non-US names:**
+- **Exchange and ticker** — verify the exact exchange. Many European companies trade on
+  multiple exchanges (e.g., Philips on Euronext Amsterdam vs XETRA) with different
+  liquidity. Trade the most liquid listing.
+- **Trading hours and holidays** — European and Asian exchanges have different trading
+  hours and local holidays. A catalyst timed to a US event may land outside your
+  market's hours, causing a gap open. Know when your exchange is open.
+- **Currency** — confirm the listing currency. Some LSE stocks trade in GBX (pence),
+  not GBP. Some HKEX stocks are denominated in HKD, others in CNH.
+- **Settlement rules** — T+2 is standard in the US and EU, but some Asian markets
+  differ (e.g., T+1 in India/China, T+2 in Japan/HK). Know when you actually receive
+  shares and can sell.
+- **ADR vs local** — if both exist, check which is more liquid and whether the ADR
+  has a premium/discount. ADR fees (depositary charges) eat into returns on small
+  positions.
+
 If you can't verify it, you don't trade it.
 
 ---
@@ -207,6 +235,13 @@ and the only part that tells you whether the edge is real.
 - The model surfaces *ideas*; it has no edge of its own. The edge, if any, is your
   judgment and discipline applied to a good shortlist.
 - Small-cap coverage is thin even with search — expect gaps and the occasional dud.
+- **International coverage is thinner still.** LLM web search is biased toward
+  English-language US financial media. European and Asian small/mid-caps get less
+  coverage, so expect more gaps, stale data, and occasional wrong exchange/ticker
+  mappings. Verify everything harder for non-US names.
+- **FX adds a hidden variable.** A winning trade in local currency can be a losing
+  trade in USD terms (and vice versa). The journal tracks both, but the research
+  prompt doesn't forecast FX — that's your judgment call.
 - This won't beat just holding your ETFs unless your decision-making genuinely adds
   value. The journal is how you find out, cheaply, before it costs much.
 - Short volatility / binary catalysts cut both ways. Size so no single gap can hurt you.

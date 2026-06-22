@@ -38,13 +38,21 @@ This is the source of truth. Append rows; never silently rewrite history.
 Columns:
 
 ```
-trade_id,date_opened,ticker,direction,catalyst,catalyst_date,setup_type,thesis,
-entry_price,stop_price,target_price,position_size,conviction,source,status,
-date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
+trade_id,date_opened,ticker,market,currency,direction,catalyst,catalyst_date,setup_type,
+thesis,entry_price,stop_price,target_price,position_size,conviction,source,status,
+date_closed,exit_price,pnl,pnl_usd,r_multiple,followed_plan,lesson
 ```
 
 Field notes:
 - `trade_id` — short unique id you generate (e.g. `2025-0042`).
+- `market` — exchange or region code where the share is listed. Use short, consistent
+  labels: `NYSE`, `NASDAQ`, `XETRA`, `LSE`, `EURONEXT`, `SIX`, `TSE`, `HKEX`, `SGX`,
+  `ASX`, `KRX`, etc. If I just say "it's on Frankfurt" or "London," normalize to the
+  exchange code. Keep these consistent so by-market stats work.
+- `currency` — the currency the trade is priced in: `USD`, `EUR`, `GBP`, `CHF`, `JPY`,
+  `HKD`, `SGD`, `AUD`, `KRW`, etc. Set this from the exchange default unless I say
+  otherwise. This determines the denomination of `entry_price`, `stop_price`,
+  `target_price`, and `pnl`.
 - `direction` — `long` or `short`.
 - `setup_type` — my setup category (e.g. `breakout`, `pullback`, `base`,
   `post-earnings-drift`, `special-situation`). Keep these consistent so by-setup
@@ -56,6 +64,10 @@ Field notes:
   This is set at entry and never changed. It's the column that answers "is outsourcing
   the research worth it?" — stats and reviews break down by source so you can compare.
 - `status` — `open` or `closed`.
+- `pnl` — profit/loss in the trade's native `currency`.
+- `pnl_usd` — profit/loss converted to USD at the approximate exchange rate on close
+  date. For USD-denominated trades, `pnl_usd` = `pnl`. This column keeps cross-market
+  stats comparable. Use a rough rate — precision doesn't matter, directionality does.
 - `followed_plan` — `yes` / `no` / `partial` (set at close).
 - `lesson` — one short line (set at close).
 - Longer narrative, if I want it, goes in `notes/<trade_id>.md`. Keep the CSV clean.
@@ -68,6 +80,10 @@ Field notes:
    (needed for R), `setup_type`, and the catalyst. If one of those is missing, ask
    for it in a single question. Everything else is optional and can be added later.
    Default `source` to `own` unless I mention the playbook / routine / candidates list.
+   Default `market` and `currency` from context — if the ticker or my language makes
+   the exchange obvious, set it; otherwise ask. Common defaults: US tickers → `NYSE`
+   or `NASDAQ` / `USD`; `.DE` suffix → `XETRA` / `EUR`; `.L` → `LSE` / `GBP`;
+   `.T` → `TSE` / `JPY`; `.HK` → `HKEX` / `HKD`.
 2. Default `date_opened` to today (my local time) unless I say otherwise.
 3. Generate a `trade_id`, set `status = open`, append the row.
 4. When I give a catalyst date, **remind me once** to verify it against a real
@@ -86,9 +102,13 @@ not as advice, just so I see the risk/reward I'm signing up for.
 1. Find the **open** row for that ticker. If more than one is open, ask which.
 2. Set `status = closed`, `date_closed` (today unless told), `exit_price`.
 3. Compute and store:
-   - `pnl` — based on `position_size`, entry, exit (state the convention you used).
+   - `pnl` — based on `position_size`, entry, exit, in the trade's native `currency`.
+     State the convention you used.
+   - `pnl_usd` — convert `pnl` to USD using an approximate rate for the close date.
+     For USD trades this is identical. State the rate you used.
    - `r_multiple` = `(exit - entry) / (entry - stop)` for longs (inverted for shorts).
-     This is the key number — it tells me how the *decision* did, independent of size.
+     This is the key number — it tells me how the *decision* did, independent of size
+     or currency.
 4. Ask me two short things: `followed_plan` (yes/no/partial) and a one-line `lesson`.
 5. Confirm in one line: result in $ and in R.
 
@@ -107,8 +127,13 @@ Report, concisely:
 - Breakdown by `setup_type` and by `catalyst` — where I actually make and lose money.
 - Breakdown by `source` (`routine` vs `own`) — expectancy, win rate, and avg R for
   each. This is the scorecard for whether the research playbook is earning its keep.
+- Breakdown by `market` — are certain exchanges or regions performing differently?
+  Use `pnl_usd` for cross-market dollar comparisons; use R-multiple for
+  currency-neutral decision quality.
 
 Lead with expectancy and the by-setup breakdown; that's what tells me what's working.
+When trades span multiple currencies, always report aggregate P&L in USD (from
+`pnl_usd`) and note the currencies involved.
 
 ---
 
