@@ -30,12 +30,14 @@ For each candidate file from the past month:
 For every candidate that was surfaced, look up what actually happened:
 
 ```
-| Ticker | Catalyst date | Price at discovery | Price at catalyst | Move % | Direction called? | Traded? |
-|--------|--------------|-------------------|------------------|--------|------------------|---------|
+| Ticker | Exchange | Currency | Catalyst date | Price at discovery | Price at catalyst | Move % (local) | Move % (USD) | Direction called? | Traded? |
+|--------|----------|----------|--------------|-------------------|------------------|----------------|-------------|------------------|---------|
 ```
 
-- **Move %** — from discovery price to the close on catalyst day (or +2 days if the
-  catalyst was after-hours).
+- **Move % (local)** — from discovery price to the close on catalyst day (or +2 days
+  if the catalyst was after-hours), in the stock's native currency.
+- **Move % (USD)** — same move converted to USD. For US stocks these are identical.
+  For non-US stocks, this captures whether FX helped or hurt. Use approximate rates.
 - **Direction called?** — did the bull/bear framing match what happened? `yes` / `no` / `mixed`.
 - **Traded?** — did you actually take the trade? `yes` / `no` / `watched` / `missed`.
 
@@ -51,6 +53,10 @@ These grade the *engine*, not you:
   correlate with a better outcome? (i.e., was the routine right to keep surfacing them?)
 - **ACT-NOW accuracy** — for names flagged ACT-NOW (catalyst within 7 days), what was
   the hit rate? These are the highest-urgency calls.
+- **By-region quality** — break hit rate and average move by region (US / Europe / Asia).
+  Is the engine better at surfacing candidates in one region? International coverage is
+  thinner, so expect lower quality initially for non-US names. If a region consistently
+  drags the average down, consider dropping it from Prompt 1's constraints.
 
 ### 3. Compare against your actual trades
 
@@ -104,5 +110,12 @@ time. Include the raw data table and your grade.
 - **Survivorship in your trades.** You only traded the ones that looked best, so
   comparing traded vs passed is biased. The "missed opportunity" analysis partially
   corrects for this, but it's not perfect.
+- **FX distortion on non-US names.** A stock can move +5% in local currency while the
+  USD-equivalent move is +2% (or −1%) due to currency swings. The local move grades
+  the *idea*; the USD move grades the *outcome for your account*. Track both, but
+  grade the engine on local moves — FX is not something the discovery prompt controls.
+- **International data gaps.** Non-US small/mid-cap price data is harder to find
+  after the fact. If you can't look up a reliable close for a candidate, mark it as
+  "data unavailable" rather than guessing — incomplete data is better than wrong data.
 
 Do this for 3+ months before making any strong conclusions about the engine.

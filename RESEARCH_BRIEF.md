@@ -1,127 +1,178 @@
 # RESEARCH_BRIEF.md — Autonomous Weekly Candidate Research
 
-This file is the instruction set for an **unattended, scheduled research run** (a Claude
-Code on the web *Routine*). It turns the manual "Prompt 1" discovery step into something
-that runs in the cloud on a cadence and writes a candidate shortlist into this repo —
-so the recurring research happens without you.
+This file is the instruction set for an unattended, scheduled research run (a Claude
+Code on the web *Routine*). It runs in the cloud on a weekly cadence and writes a
+candidate shortlist — now with a per-candidate **risk rating**, **risk-per-share** (and
+optional position sizing from your own fixed rule), plus a **deep-dive workup on the top
+few front-runners** — into this repo. So the recurring research happens without you.
 
-**Not financial advice.** This produces a *draft shortlist for a human to verify and
-judge*. It does not decide trades. Every date and number it outputs must be checked by
-you before any decision.
+**Not financial advice.** This produces a *draft for a human to verify and judge*. It
+does not decide trades. Every date and number must be checked before any decision. Any
+position size it shows is **your own fixed rule applied as arithmetic — not a
+recommendation**, and the routine must never invent or change that rule.
 
 ---
+
+## Recommended routine settings
+
+- **Model: Opus, high effort.** This is judgment work (filtering, bull/bear reasoning,
+  risk rating) that runs only once a week — use the strongest model at full effort.
+- Schedule: weekly (e.g. Sunday evening). Web search on. Include your finance connector
+  if you've connected one.
 
 ## How to set this up (once)
 
-1. Keep this file in your repo (the same one as your journal is fine, or a dedicated
-   `trading-research` repo).
-2. Go to **claude.ai/code/routines** → New routine. Point it at this repo. Turn on
-   **web search**. Set the schedule to **weekly** (e.g. Sunday evening or early Monday,
-   your local time).
-3. As the routine's prompt, you can simply write:
-   > Follow the instructions in RESEARCH_BRIEF.md and produce this week's candidate
-   > shortlist, writing the output file exactly as specified.
-4. Click **Run now** once to check the output. Fix the CONFIG below if needed. Then
-   activate the schedule and leave it.
-
-Each run clones the repo, does the research, and writes the output file on a new branch
-(reviewable from the Code tab). You read it; you decide.
+1. Keep this file in your repo.
+2. claude.ai/code/routines -> New routine -> point it at this repo -> web search on.
+3. Routine prompt (one line): "Follow the instructions in RESEARCH_BRIEF.md and produce
+   this week's shortlist and deep dives, writing the output file exactly as specified."
+4. Run Now once to verify the output, fix the CONFIG below if needed, then activate.
 
 ---
 
-## CONFIG — edit these to tune the search
+## CONFIG — edit these to tune
 
 ```
 REGION:                 US-listed common shares
 MARKET_CAP_MIN:         500000000        # $500M
 MARKET_CAP_MAX:         10000000000      # $10B
 MIN_AVG_DOLLAR_VOLUME:  10000000         # $10M average daily $ volume (liquidity floor)
-NUM_CANDIDATES:         5                # max to return; fewer is fine (see rules)
+NUM_CANDIDATES:         5                # max shortlist size; fewer is fine
+NUM_DEEP_DIVES:         3                # how many front-runners to deep-dive
 CATALYST_WINDOW_DAYS:   28               # catalyst must fall within the next N days
-EXCLUDE:                mega-caps, the "Magnificent 7", and obvious headline AI names
-SECTOR_FOCUS:           none             # or list sectors to favor / avoid
+EXCLUDE:                mega-caps, the "Magnificent 7", obvious headline AI names
+SECTOR_FOCUS:           none
+
+# Position sizing (OPTIONAL — your fixed rule). Leave blank to skip suggested sizing.
+# If set, the routine computes suggested shares as pure arithmetic from these values.
+# NOTE: filling ACCOUNT_SIZE puts that number in your repo — use a PRIVATE repo, or
+# leave it blank and just do the one division yourself.
+ACCOUNT_SIZE:           <blank>          # e.g. 25000
+RISK_PER_TRADE_PCT:     <blank>          # e.g. 1   (risk 1% of the account per trade)
 ```
 
 ---
 
-## THE TASK (what the routine executes)
+## STAGE 1 — Weekly scan + risk rating
 
 You are an experienced swing-trading research analyst running an automated weekly scan.
-Use web search and cite recent sources; flag anything older than 2 weeks. Determine
-today's date at run time.
+Use web search (and the finance connector if available); cite recent sources; flag
+anything older than 2 weeks. Determine today's date at run time.
 
-GOAL: Produce up to `NUM_CANDIDATES` swing-trade **candidates** — names with a specific,
-dated catalyst falling within the next `CATALYST_WINDOW_DAYS` days — for a human to
-research further. These are candidates to investigate, not recommendations.
+GOAL: up to `NUM_CANDIDATES` swing-trade **candidates** with a specific, dated catalyst
+within the next `CATALYST_WINDOW_DAYS` days, for a human to research further.
 
-HARD CONSTRAINTS (from CONFIG):
-- `REGION` only.
-- Market cap between `MARKET_CAP_MIN` and `MARKET_CAP_MAX`.
-- Average daily dollar volume above `MIN_AVG_DOLLAR_VOLUME`. Skip illiquid names.
-- `EXCLUDE` these. If a name is the first thing a generic list would mention, drop it.
-- The catalyst must be SPECIFIC and DATED (earnings on a known date, product launch,
-  FDA/regulatory decision, investor day, index rebalance, lockup expiry). "General
-  momentum" is not a catalyst.
+HARD CONSTRAINTS (from CONFIG): `REGION` only; market cap within range; average daily
+dollar volume above `MIN_AVG_DOLLAR_VOLUME`; `EXCLUDE` the named groups; the catalyst
+must be SPECIFIC and DATED. "General momentum" is not a catalyst. Do NOT pad — fewer
+good names beats a padded list; if you find only 2, return 2 and say so.
 
 FOR EACH CANDIDATE, produce:
 1. Ticker + one-line company description.
-2. Catalyst and its exact date (or date window).
-3. Why now — the current price setup in plain language (basing, breakout, pullback).
-4. Bull case (3–4 points).
-5. Bear case (3–4 points), including downside-gap risk.
-6. Invalidation — the level or event that means the idea is wrong.
-7. Liquidity note (approx. avg daily dollar volume).
-8. Confidence (low/med/high) + one line on what would raise it.
-9. `DATE_VERIFIED: NO` — always; the human must confirm the catalyst date.
-
-RULES (important for an unattended run):
-- Do NOT pad to hit the number. If you can only find 2 solid, current, specific
-  catalysts, return 2 and say so. Fewer good names beats a padded list.
-- Cite a recent source for every catalyst date.
-- If you cannot verify something, include it but mark it clearly as unverified rather
-  than guessing.
-- No generic large-caps. No names that fail the constraints.
+2. Catalyst + exact date/window.   | DATE_VERIFIED: NO
+3. Why now — the current setup in plain language (basing, breakout, pullback).
+4. Bull case (brief) and bear case (brief, including downside-gap risk).
+5. Invalidation — the level or event that means the idea is wrong.
+6. Liquidity note (approx. average daily dollar volume).
+7. **Risk rating — Low / Medium / High**, with one short reason per factor. Push toward
+   HIGHER risk when these apply, LOWER when they don't:
+   - Liquidity: dollar volume near/below the floor; wide spread.
+   - Event type: a binary event held *through* (earnings, FDA, ruling) vs a drift or
+     structural catalyst (index inclusion, already-reported drift). Binary = higher.
+   - Volatility: large historical moves on past catalysts (e.g. frequent +/-15% gaps).
+   - Float / short: very low float or high short interest (violent moves either way).
+   - Setup: weak reward-to-risk, or no clear invalidation level.
+   - Data: thin coverage or unverified / low-confidence catalyst info.
+   State plainly that this is a caution gauge from imperfect data, not a precise score.
+   Higher risk means size smaller or skip — NEVER size up.
+8. **Risk per share** = entry - stop (absolute, per share). Always show this.
+9. **Suggested size** — ONLY if `ACCOUNT_SIZE` and `RISK_PER_TRADE_PCT` are both set:
+   suggested_shares = floor( (ACCOUNT_SIZE * RISK_PER_TRADE_PCT / 100) / risk_per_share )
+   Show the arithmetic. If either is blank, write the formula and "set your rule in
+   CONFIG to get a suggested size." Use ONLY the CONFIG values — never invent or adjust
+   the risk %, the account size, or the suggested size. This is arithmetic, not judgment.
+10. Confidence (low/med/high) + one line on what would raise it. Cite a recent source.
 
 ---
 
-## OUTPUT (write exactly this file)
+## STAGE 2 — Deep-dive the front-runners
 
-Create `candidates/CANDIDATES_<YYYY-MM-DD>.md` (today's date) in the repo, with:
+SELECT the top `NUM_DEEP_DIVES` candidates by **setup quality, confidence, and
+reward-to-risk — NOT by raw upside or excitement**. When two are close, prefer the
+LOWER risk rating. (Deepen the most tradeable names, not the most dangerous.)
+
+For EACH selected front-runner, write a fuller workup:
+- **Catalyst mechanics:** what happens, when, and crucially **what the market already
+  expects** (consensus / what is priced in) — so we don't chase something already in the
+  price.
+- **Bull case** — 3-4 specific points.
+- **Bear case** — 3-4 specific points, including downside-gap risk.
+- **Key levels:** support, resistance, and the invalidation level.
+- **Main risk** specific to this name.
+- **Pre-mortem:** assume this trade lost money a month from now — the single most likely
+  reason, and what I would have ignored.
+- Carry over the **risk rating, risk-per-share, and suggested size** from Stage 1.
+- Cite recent sources. DATE_VERIFIED: NO.
+
+---
+
+## OUTPUT — write exactly this file
+
+Create `candidates/CANDIDATES_<YYYY-MM-DD>.md` (today's date), structured as:
 
 ```
 # Candidate Shortlist — <YYYY-MM-DD>
-Generated automatically. DRAFT for human review. Verify all dates/numbers before trading.
+DRAFT for human review. Verify all dates/numbers before trading.
+Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 
 ## Summary
-- <N> candidates found. <one line on overall quality / any data gaps this week>
+- <N> candidates, <M> deep-dived. <one line on overall quality / data gaps this week>
 
-## Candidates
+## Shortlist
 ### 1. <TICKER> — <company>
 - Catalyst: <what> on <date>   | DATE_VERIFIED: NO
 - Why now: <setup>
-- Bull: <...>
-- Bear (incl. gap risk): <...>
-- Invalidation: <...>
+- Bull / Bear: <brief> / <brief, incl. gap risk>
+- Invalidation: <level/event>
 - Liquidity: ~$<X>M ADV
+- Risk: <Low/Med/High> — <factor reasons>
+- Risk/share: <entry - stop>   | Suggested size: <shares, or "set rule in CONFIG">
 - Confidence: <low/med/high> — <what would raise it>
 - Source: <recent citation>
-
 ### 2. ...
+
+## Deep Dives (top <M> front-runners)
+### <TICKER> — <company>
+- Catalyst mechanics & what's priced in: ...
+- Bull: ...
+- Bear (incl. gap risk): ...
+- Key levels (support / resistance / invalidation): ...
+- Main risk: ...
+- Pre-mortem: ...
+- Risk: <...>  | Risk/share: <...>  | Suggested size: <...>
+- Sources: <...>   | DATE_VERIFIED: NO
 ```
 
-SUCCESS = the output file exists, every candidate meets the CONFIG constraints, every
-catalyst has a cited recent source and `DATE_VERIFIED: NO`, and the count is honest
-(no padding). If no qualifying candidates exist this week, still create the file and
-state that plainly.
+SUCCESS = the file exists; every candidate meets CONFIG; every catalyst has a cited
+recent source and DATE_VERIFIED: NO; risk rating and risk-per-share are present for all;
+suggested size appears only if the CONFIG rule is set; the top `NUM_DEEP_DIVES` names are
+deep-dived; counts are honest (no padding). If nothing qualifies this week, still create
+the file and say so.
 
 ---
 
 ## Reminders to my future self (the human)
 
-- This is a **draft**. Before acting on any name: verify the catalyst date against a
-  real calendar, verify any number against a primary source, and run your Prompt 2
-  deep-dive. The routine finds; you decide.
-- Quality is capped by free web data on small caps — expect some misses and the
-  occasional stale date. That's why DATE_VERIFIED defaults to NO.
-- When you want higher reliability, swap the web-search discovery for the data-driven
-  screener (see the screener AGENTS.md) and have this routine rank *its* output instead.
+- This is a **draft**. Before acting: verify the catalyst date against a real calendar,
+  verify numbers against a primary source, and re-read the deep-dive bear case and
+  pre-mortem.
+- The **risk rating** is a caution gauge from imperfect data — use it to size down or
+  skip, not as a precise measurement.
+- Any **suggested size** is your own fixed rule done as arithmetic. The size decision
+  belongs to you and your rule — never the model.
+- The **deep dive teaches the bear case** you might not think of — that's its main value
+  while you're still building expertise. Read it before you look at the upside.
+- For higher reliability later, feed Stage 1 the data-driven screener (see the screener
+  AGENTS.md) and have this routine rank *its* output. And log what you trade in the
+  journal, so you can check whether the risk rating and the routine's picks actually
+  predict anything.

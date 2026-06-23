@@ -48,6 +48,27 @@ If you choose to hold, the journal will flag it against this rule at close.
 
 ---
 
+## Currency and international exposure
+
+Trading across US, European, and Asian markets adds FX risk on top of position risk.
+These rules keep that from becoming a hidden blow-up.
+
+- **Max non-USD exposure:** no more than ___% of account in non-USD-denominated
+  positions at any one time.
+- **FX hedging policy:**
+  - [ ] **No hedging** — accept FX as part of the trade. Simpler, works for short holds.
+  - [ ] **Hedge positions held longer than ___ days** (via FX forward, inverse ETF, etc.)
+  - [ ] _(your own rule)_
+- **Reduced size for non-USD trades:** use ___% of normal size for non-USD positions
+  to account for the additional FX variable. (Or leave at normal if you're comfortable.)
+- **Overlap hours only:** only enter non-US positions during hours when both your local
+  market and the foreign market are open (or within ___ minutes of open). This ensures
+  you can react to news in real time.
+  - [ ] Yes, overlap-hours-only
+  - [ ] No, I'll use limit orders and accept gap risk
+
+---
+
 ## Loss limits (circuit breakers)
 
 - **Daily loss limit:** stop trading for the day after losing $___ or ___R total.
