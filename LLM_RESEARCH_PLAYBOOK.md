@@ -4,6 +4,11 @@ A no-build system for using large language models (Claude, ChatGPT, etc.) to pre
 1–4 week swing-trade candidates when you don't have time to do the research yourself.
 Covers **US, European, and Asian** listed shares.
 
+**This is the model-agnostic layer.** The prompts below work in any research-enabled
+model (Claude, ChatGPT, Gemini, etc.). The automated routine (`RESEARCH_BRIEF.md`) runs
+on Claude Code; this playbook is for manual use and for cross-checking with a different
+model. Keep them in sync — same intent, same constraints, same discipline.
+
 **Not financial advice.** This is a research-and-triage workflow. You make every
 trade decision. Treat the first few months as *measurement* (is this improving my
 hit rate?), not income.
@@ -221,12 +226,17 @@ If you can't verify it, you don't trade it.
 
 - **Sunday, ~30 min:** Open last week's candidates file, paste into continuity block,
   run Prompt 1. Verify dates. Pick 1–3 candidates to watch. Save output to `research/`.
+- **Sunday, ~10 min extra:** Paste the `CANDIDATES_<date>.md` into a *different* model
+  (e.g. ChatGPT) using the `SECOND_OPINION.md` red-team prompt. Where the two models
+  **disagree** is exactly where you should dig hardest before trading.
 - **Per candidate, ~10 min before entry:** Run Prompt 2. Decide pass / small / normal.
 - **During the week, minimal:** Only act if your level/plan triggers. No screen-watching.
 - **Weekend, ~10 min:** Update the journal. Run Prompt 3 every 2–4 weeks.
 
-Total: well under an hour most weeks. The journal review is the part most people skip
-and the only part that tells you whether the edge is real.
+Total: well under an hour most weeks. The second-opinion step adds a few minutes but
+catches correlated blind spots — two models agreeing means less than one model
+disagreeing. The journal review is the part most people skip and the only part that
+tells you whether the edge is real.
 
 ---
 
