@@ -8,6 +8,15 @@ Covers **US, European, and Asian** listed shares.
 trade decision. Treat the first few months as *measurement* (is this improving my
 hit rate?), not income.
 
+**This playbook is the model-agnostic layer.** Everything here runs in ChatGPT, Claude,
+Gemini, or any research-enabled model — it is plain prompts, not a tool. The automated
+`RESEARCH_BRIEF.md` routine is the *Claude-side* engine that produces
+`candidates/CANDIDATES_<date>.md`; this file is the *manual + second-model* layer that
+sits around it. Keep the two in sync in intent (same universe, same catalyst discipline,
+same "verify every date" rule). The highest-value habit added here is the **second
+opinion**: run the routine's shortlist past a *different* model (see
+`SECOND_OPINION.md`) so its blind spots aren't correlated with the first model's.
+
 ---
 
 ## The one idea that makes this work
@@ -217,10 +226,32 @@ If you can't verify it, you don't trade it.
 
 ---
 
+## Second opinion — red-team the shortlist with a different model
+
+A second model is valuable only when it *challenges* the shortlist rather than re-running
+it. A different model's mistakes aren't correlated with the first model's, so where the
+two **disagree** is the signal — that's where to dig hardest before risking money.
+
+- After the routine writes `candidates/CANDIDATES_<date>.md` (or after you run Prompt 1),
+  paste that file into a **different** model along with the prompt in `SECOND_OPINION.md`.
+- That prompt makes the second model attack each name: strongest bear case, what's already
+  priced in, the single invalidating fact (and whether it's knowable *before* the
+  catalyst), an independent catalyst/date check, and a PASS / WORTH-A-LOOK verdict.
+- Treat **disagreement between the two models** as a flag, not a tiebreaker: if the second
+  model calls a name uninvestable or can't verify its catalyst, that's your cue to verify
+  harder or drop it — never to size up.
+- This sharpens *reasoning*, not data. It does not fix a wrong web-sourced date — keep the
+  `DATE_VERIFIED: NO` discipline and confirm every date yourself regardless.
+
+---
+
 ## A realistic weekly rhythm (for a full-time job + family)
 
 - **Sunday, ~30 min:** Open last week's candidates file, paste into continuity block,
-  run Prompt 1. Verify dates. Pick 1–3 candidates to watch. Save output to `research/`.
+  run Prompt 1 (or let the `RESEARCH_BRIEF.md` routine produce the shortlist). Verify
+  dates. Pick 1–3 candidates to watch. Save output to `research/`.
+- **Sunday, ~10 min:** Red-team the shortlist with a second model using `SECOND_OPINION.md`.
+  Where the two models disagree, dig hardest before trading.
 - **Per candidate, ~10 min before entry:** Run Prompt 2. Decide pass / small / normal.
 - **During the week, minimal:** Only act if your level/plan triggers. No screen-watching.
 - **Weekend, ~10 min:** Update the journal. Run Prompt 3 every 2–4 weeks.
