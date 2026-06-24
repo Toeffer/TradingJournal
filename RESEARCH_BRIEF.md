@@ -19,13 +19,14 @@ recommendation**, and the routine must never invent or change that rule.
   risk rating) that runs only once a week — use the strongest model at full effort.
 - Schedule: weekly (e.g. Sunday evening). Web search on. Include your finance connector
   if you've connected one.
+- Repository branch/ref: use the `main` branch unless you intentionally test a different
+  branch. Do not silently use another branch.
 
 ## How to set this up (once)
 
 1. Keep this file in your repo.
 2. claude.ai/code/routines -> New routine -> point it at this repo -> web search on.
-3. Routine prompt (one line): "Follow the instructions in RESEARCH_BRIEF.md and produce
-   this week's shortlist and deep dives, writing the output file exactly as specified."
+3. Routine prompt (one line): "Follow the instructions in RESEARCH_BRIEF.md from the main branch of Toeffer/TradingJournal and produce this week's shortlist and deep dives, writing the output file exactly as specified."
 4. Run Now once to verify the output, fix the CONFIG below if needed, then activate.
 
 ---
@@ -33,31 +34,60 @@ recommendation**, and the routine must never invent or change that rule.
 ## CONFIG — edit these to tune
 
 ```
-REGION:                 US-listed common shares
-MARKET_CAP_MIN:         500000000        # $500M
-MARKET_CAP_MAX:         10000000000      # $10B
-MIN_AVG_DOLLAR_VOLUME:  10000000         # $10M average daily $ volume (liquidity floor)
-NUM_CANDIDATES:         5                # max shortlist size; fewer is fine
-NUM_DEEP_DIVES:         3                # how many front-runners to deep-dive
-CATALYST_WINDOW_DAYS:   28               # catalyst must fall within the next N days
-EXCLUDE:                mega-caps, the "Magnificent 7", obvious headline AI names
-SECTOR_FOCUS:           none
+REGION:                   US-listed common shares
+MARKET_CAP_MIN:           500000000        # $500M
+MARKET_CAP_MAX:           10000000000      # $10B
+MIN_AVG_DOLLAR_VOLUME:    25000000         # $25M average daily $ volume (liquidity floor)
+PRELIMINARY_SCAN_COUNT:   12               # first pass breadth before filtering down
+NUM_CANDIDATES:           5                # max shortlist size; fewer is fine
+NUM_DEEP_DIVES:           3                # how many front-runners to deep-dive
+CATALYST_WINDOW_DAYS:     28               # catalyst must fall within the next N days
+EXCLUDE:                  mega-caps, the "Magnificent 7", obvious headline AI names
+SECTOR_FOCUS:             none
 
 # Position sizing (OPTIONAL — your fixed rule). Leave blank to skip suggested sizing.
 # If set, the routine computes suggested shares as pure arithmetic from these values.
 # NOTE: filling ACCOUNT_SIZE puts that number in your repo — use a PRIVATE repo, or
 # leave it blank and just do the one division yourself.
-ACCOUNT_SIZE:           <blank>          # e.g. 25000
-RISK_PER_TRADE_PCT:     <blank>          # e.g. 1   (risk 1% of the account per trade)
+ACCOUNT_SIZE:             <blank>          # e.g. 25000
+RISK_PER_TRADE_PCT:       <blank>          # e.g. 1   (risk 1% of the account per trade)
 ```
+
+If `RISK_RULES.md` exists, read it before interpreting risk, sizing, or portfolio context.
+If a relevant rule in `RISK_RULES.md` is blank, do not infer it. Write "risk rule not set."
+
+---
+
+## Source quality and bias controls
+
+Use web search (and the finance connector if available). Determine today's date at run
+time. Prefer recent sources and flag anything older than 2 weeks.
+
+Source priority:
+1. Company investor relations, SEC filings, exchange notices, official index/event
+   calendars, and other primary sources.
+2. Reputable financial news and data providers.
+3. Analyst notes, blogs, newsletters, forums, and social sources only as secondary context.
+
+Every catalyst must have at least one primary or high-quality source. If the catalyst is
+not verifiable from a primary or high-quality source, reject the candidate.
+
+Bias-control pass:
+- First build a broad preliminary list of up to `PRELIMINARY_SCAN_COUNT` candidates.
+- Then run a skeptical pass that tries to disqualify each candidate.
+- For every surviving candidate, explicitly ask: "What would make this already priced in?"
+- Reject candidates mainly driven by social/news hype rather than a dated catalyst.
+- Remove any candidate where the bear case is stronger than the bull case.
+- Do not select exciting/high-upside names over cleaner reward-to-risk names.
+
+A sparse report is better than a stretched report. If fewer than 3 high-quality candidates
+qualify, say so. A "no strong candidates this week" output is a successful output.
 
 ---
 
 ## STAGE 1 — Weekly scan + risk rating
 
 You are an experienced swing-trading research analyst running an automated weekly scan.
-Use web search (and the finance connector if available); cite recent sources; flag
-anything older than 2 weeks. Determine today's date at run time.
 
 **Methodology skills:** Apply the screening methodology from the `idea-generation` skill
 (`.claude/skills/idea-generation/SKILL.md`) to structure the quantitative and thematic
@@ -78,9 +108,10 @@ FOR EACH CANDIDATE, produce:
 2. Catalyst + exact date/window.   | DATE_VERIFIED: NO
 3. Why now — the current setup in plain language (basing, breakout, pullback).
 4. Bull case (brief) and bear case (brief, including downside-gap risk).
-5. Invalidation — the level or event that means the idea is wrong.
-6. Liquidity note (approx. average daily dollar volume).
-7. **Risk rating — Low / Medium / High**, with one short reason per factor. Push toward
+5. Priced-in check — why the catalyst may already be reflected in the price.
+6. Invalidation — the level or event that means the idea is wrong.
+7. Liquidity note (approx. average daily dollar volume).
+8. **Risk rating — Low / Medium / High**, with one short reason per factor. Push toward
    HIGHER risk when these apply, LOWER when they don't:
    - Liquidity: dollar volume near/below the floor; wide spread.
    - Event type: a binary event held *through* (earnings, FDA, ruling) vs a drift or
@@ -91,13 +122,18 @@ FOR EACH CANDIDATE, produce:
    - Data: thin coverage or unverified / low-confidence catalyst info.
    State plainly that this is a caution gauge from imperfect data, not a precise score.
    Higher risk means size smaller or skip — NEVER size up.
-8. **Risk per share** = entry - stop (absolute, per share). Always show this.
-9. **Suggested size** — ONLY if `ACCOUNT_SIZE` and `RISK_PER_TRADE_PCT` are both set:
-   suggested_shares = floor( (ACCOUNT_SIZE * RISK_PER_TRADE_PCT / 100) / risk_per_share )
-   Show the arithmetic. If either is blank, write the formula and "set your rule in
-   CONFIG to get a suggested size." Use ONLY the CONFIG values — never invent or adjust
-   the risk %, the account size, or the suggested size. This is arithmetic, not judgment.
-10. Confidence (low/med/high) + one line on what would raise it. Cite a recent source.
+9. **Risk per share** = entry - stop (absolute, per share). Always show this.
+10. **Suggested size** — ONLY if `ACCOUNT_SIZE` and `RISK_PER_TRADE_PCT` are both set:
+    suggested_shares = floor( (ACCOUNT_SIZE * RISK_PER_TRADE_PCT / 100) / risk_per_share )
+    Show the arithmetic. If either is blank, write the formula and "set your rule in
+    CONFIG to get a suggested size." Use ONLY the CONFIG values — never invent or adjust
+    the risk %, the account size, or the suggested size. This is arithmetic, not judgment.
+11. Confidence (low/med/high) + one line on what would raise it. Cite a recent source.
+
+Also include a short **Rejected Candidates** section with 3-5 names that looked promising
+but were rejected, plus the exact reason: no dated catalyst, too illiquid, catalyst already
+priced in, binary gap risk too high, unclear invalidation, weak source quality, or another
+specific failure.
 
 ---
 
@@ -131,7 +167,7 @@ For EACH selected front-runner, write a fuller workup:
 
 ## OUTPUT — write exactly this file
 
-Create `candidates/CANDIDATES_<YYYY-MM-DD>.md` (today's date), structured as:
+Create `research/candidates-<YYYY-MM-DD>.md` (today's date), structured as:
 
 ```
 # Candidate Shortlist — <YYYY-MM-DD>
@@ -146,6 +182,7 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 - Catalyst: <what> on <date>   | DATE_VERIFIED: NO
 - Why now: <setup>
 - Bull / Bear: <brief> / <brief, incl. gap risk>
+- Priced-in check: <why this may already be reflected in price>
 - Invalidation: <level/event>
 - Liquidity: ~$<X>M ADV
 - Risk: <Low/Med/High> — <factor reasons>
@@ -153,6 +190,9 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 - Confidence: <low/med/high> — <what would raise it>
 - Source: <recent citation>
 ### 2. ...
+
+## Rejected Candidates
+- <TICKER> — rejected because <specific reason>
 
 ## Deep Dives (top <M> front-runners)
 ### <TICKER> — <company>
@@ -166,11 +206,11 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 - Sources: <...>   | DATE_VERIFIED: NO
 ```
 
-SUCCESS = the file exists; every candidate meets CONFIG; every catalyst has a cited
-recent source and DATE_VERIFIED: NO; risk rating and risk-per-share are present for all;
-suggested size appears only if the CONFIG rule is set; the top `NUM_DEEP_DIVES` names are
-deep-dived; counts are honest (no padding). If nothing qualifies this week, still create
-the file and say so.
+SUCCESS = the file exists at `research/candidates-<YYYY-MM-DD>.md`; every candidate meets
+CONFIG; every catalyst has a cited recent source and DATE_VERIFIED: NO; risk rating and
+risk-per-share are present for all; suggested size appears only if the CONFIG rule is set;
+the top `NUM_DEEP_DIVES` names are deep-dived; rejected candidates are included; counts are
+honest (no padding). If nothing qualifies this week, still create the file and say so.
 
 ---
 
