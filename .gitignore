@@ -1,0 +1,54 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and temporary files
+logs/
+*.log
+tmp/
+.tmp/
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Node / web
+node_modules/
+.next/
+.nuxt/
+out/
+coverage/
+.vite/
+
+# Databases and local state
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+
+# Private trading data exports
+exports/
+imports/private/
+broker_exports/
+account_exports/
+screenshots/private/
