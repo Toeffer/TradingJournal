@@ -16,10 +16,14 @@ This repository is intended to be the system of record for trades, research note
 
 ```text
 .
+├── CLAUDE.md                  # Claude Code session startup guide
 ├── AGENTS.md                  # Operating instructions for AI-assisted journaling
 ├── LLM_RESEARCH_PLAYBOOK.md   # Research routine / discovery workflow
+├── RESEARCH_BRIEF.md          # Automated weekly research routine spec
 ├── MONTHLY_SELF_GRADE.md      # Monthly review template for the research process
-├── RISK_RULES.md              # Personal risk-rule template
+├── RISK_RULES.md              # Personal risk rules (position sizing, loss limits)
+├── ETORO_TRADEABILITY.md      # Broker overlay for eToro Germany/EU
+├── SECOND_OPINION.md          # Red-team prompt for a second model
 ├── trades.csv                 # Structured trade log; source of truth
 ├── notes/                     # Optional longer notes per trade
 ├── research/                  # Weekly/monthly research outputs and candidates
@@ -28,11 +32,12 @@ This repository is intended to be the system of record for trades, research note
 
 ## Quick start
 
-1. Fill out `RISK_RULES.md` before logging live trades.
-2. Use `trades.csv` as the structured source of truth.
+1. `RISK_RULES.md` is filled in with learning-phase rules (€150/trade fixed sizing).
+2. Use `trades.csv` as the structured source of truth — log every trade.
 3. Put longer narratives in `notes/<trade_id>.md` instead of overloading the CSV.
 4. Store research outputs in `research/` so weekly reviews can compare ideas against actual trades.
-5. Review the journal regularly using `MONTHLY_SELF_GRADE.md` and the review guidance in `AGENTS.md`.
+5. Save second-opinion output to `research/second-opinion-YYYY-MM-DD.md` alongside candidates.
+6. Review the journal regularly using `MONTHLY_SELF_GRADE.md` and the review guidance in `AGENTS.md`.
 
 ## Trade log schema
 
@@ -59,4 +64,6 @@ Use `.env.example` for placeholders only.
 
 ## Status
 
-Early-stage private project. The documentation and data skeleton are in place; application code can be added later once the preferred stack is decided.
+Learning phase. Risk rules are set (€150/trade fixed sizing), trade log is ready,
+research routine is active. Application code can be added later once the preferred
+stack is decided.

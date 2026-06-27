@@ -41,16 +41,17 @@ MIN_AVG_DOLLAR_VOLUME:    25000000         # $25M average daily $ volume (liquid
 PRELIMINARY_SCAN_COUNT:   12               # first pass breadth before filtering down
 NUM_CANDIDATES:           5                # max shortlist size; fewer is fine
 NUM_DEEP_DIVES:           3                # how many front-runners to deep-dive
-CATALYST_WINDOW_DAYS:     28               # catalyst must fall within the next N days
+CATALYST_WINDOW_DAYS:     42               # catalyst must fall within the next N days
 EXCLUDE:                  mega-caps, the "Magnificent 7", obvious headline AI names
 SECTOR_FOCUS:             none
+MAX_EARNINGS_CANDIDATES:  2                # max candidates with earnings as primary catalyst
 
-# Position sizing (OPTIONAL — your fixed rule). Leave blank to skip suggested sizing.
-# If set, the routine computes suggested shares as pure arithmetic from these values.
-# NOTE: filling ACCOUNT_SIZE puts that number in your repo — use a PRIVATE repo, or
-# leave it blank and just do the one division yourself.
-ACCOUNT_SIZE:             <blank>          # e.g. 25000
-RISK_PER_TRADE_PCT:       <blank>          # e.g. 1   (risk 1% of the account per trade)
+# Position sizing — FIXED €150 per trade (learning phase).
+# The routine should note this as context but cannot change the rule.
+# When graduating to %-based sizing, replace with ACCOUNT_SIZE and RISK_PER_TRADE_PCT.
+FIXED_POSITION_SIZE:      150              # €150 per trade
+ACCOUNT_SIZE:             <blank>          # not used during learning phase
+RISK_PER_TRADE_PCT:       <blank>          # not used during learning phase
 ```
 
 If `RISK_RULES.md` exists, read it before interpreting risk, sizing, or portfolio context.
@@ -103,6 +104,12 @@ dollar volume above `MIN_AVG_DOLLAR_VOLUME`; `EXCLUDE` the named groups; the cat
 must be SPECIFIC and DATED. "General momentum" is not a catalyst. Do NOT pad — fewer
 good names beats a padded list; if you find only 2, return 2 and say so.
 
+CATALYST DIVERSITY: no more than `MAX_EARNINGS_CANDIDATES` candidates may have earnings
+as their primary catalyst. Prioritize structural and non-binary catalysts — index
+inclusion, lockup expiry, regulatory decisions, product launches, investor days,
+conference presentations, insider-buying clusters — over binary earnings events. The
+wider `CATALYST_WINDOW_DAYS` window exists to make non-earnings catalysts easier to find.
+
 FOR EACH CANDIDATE, produce:
 1. Ticker + one-line company description.
 2. Catalyst + exact date/window.   | DATE_VERIFIED: NO
@@ -123,11 +130,14 @@ FOR EACH CANDIDATE, produce:
    State plainly that this is a caution gauge from imperfect data, not a precise score.
    Higher risk means size smaller or skip — NEVER size up.
 9. **Risk per share** = entry - stop (absolute, per share). Always show this.
-10. **Suggested size** — ONLY if `ACCOUNT_SIZE` and `RISK_PER_TRADE_PCT` are both set:
+10. **Suggested size** — If `FIXED_POSITION_SIZE` is set, compute:
+    suggested_shares = floor( FIXED_POSITION_SIZE / entry_price )
+    Show the arithmetic. This is the learning-phase rule: €150 per trade, regardless of
+    stop distance. If `FIXED_POSITION_SIZE` is blank but `ACCOUNT_SIZE` and
+    `RISK_PER_TRADE_PCT` are both set, use the risk-based formula instead:
     suggested_shares = floor( (ACCOUNT_SIZE * RISK_PER_TRADE_PCT / 100) / risk_per_share )
-    Show the arithmetic. If either is blank, write the formula and "set your rule in
-    CONFIG to get a suggested size." Use ONLY the CONFIG values — never invent or adjust
-    the risk %, the account size, or the suggested size. This is arithmetic, not judgment.
+    Use ONLY the CONFIG values — never invent or adjust the size, risk %, or account
+    size. This is arithmetic, not judgment.
 11. Confidence (low/med/high) + one line on what would raise it. Cite a recent source.
 
 Also include a short **Rejected Candidates** section with 3-5 names that looked promising
@@ -186,7 +196,7 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 - Invalidation: <level/event>
 - Liquidity: ~$<X>M ADV
 - Risk: <Low/Med/High> — <factor reasons>
-- Risk/share: <entry - stop>   | Suggested size: <shares, or "set rule in CONFIG">
+- Risk/share: <entry - stop>   | Suggested size: <shares> (€150 ÷ entry = floor)
 - Confidence: <low/med/high> — <what would raise it>
 - Source: <recent citation>
 ### 2. ...
@@ -221,8 +231,8 @@ honest (no padding). If nothing qualifies this week, still create the file and s
   pre-mortem.
 - The **risk rating** is a caution gauge from imperfect data — use it to size down or
   skip, not as a precise measurement.
-- Any **suggested size** is your own fixed rule done as arithmetic. The size decision
-  belongs to you and your rule — never the model.
+- Any **suggested size** is your own fixed rule (€150/trade, learning phase) done as
+  arithmetic. The size decision belongs to you and your rule — never the model.
 - The **deep dive teaches the bear case** you might not think of — that's its main value
   while you're still building expertise. Read it before you look at the upside.
 - For higher reliability later, feed Stage 1 the data-driven screener (see the screener
