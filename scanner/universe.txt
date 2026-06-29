@@ -1,76 +1,76 @@
-# Starter U.S. universe for pump/momentum scanning.
-# Keep this list modest while validating the workflow. Add/remove tickers based on journal evidence.
+# U.S. scanner universe for unusual-volume / breakout discovery.
+# Targets: $500M-$10B core, up to $50B for exception candidates.
 # One ticker per line. Lines starting with # are ignored.
+#
+# REMOVED (mega-cap >$50B, violates CONFIG):
+#   PLTR (~$250B), APP (~$120B), MRVL (~$80B), MU (~$100B), VRT (~$50B+)
+#
+# REMOVED (obvious headline AI/quantum names, excluded by CONFIG):
+#   IONQ, RGTI, QBTS, SOUN, SMCI
+#
+# REMOVED (likely sub-$500M market cap):
+#   DNA, LAZR, STEM, QS, BLDP, BFLY, ARBE, EVGO, EOSE, OUST, CLBT, GCT
+#
+# MOVED to verify (borderline market cap — check before re-adding):
+#   BBAI, FLNC, NNE, WULF, LUNR
+#
+# NOTE: market caps shift. Re-verify quarterly against CONFIG range.
+# Add tickers from journal evidence, remove those that never trigger.
 
-AI
-ALAB
-APP
-ARBE
-ARRY
+# --- Energy / clean tech ---
+BE
+FSLR
+SEDG
+WOLF
+
+# --- Aerospace / defense / space ---
 ASTS
 AVAV
-BE
-BBAI
-BFLY
-BLDP
-BTDR
-CAVA
-CELH
-CLBT
+JOBY
+KTOS
+RKLB
+
+# --- Software / cloud ---
+AI
+DOCN
+PATH
+S
+UPST
+
+# --- Semiconductor / hardware ---
+ALAB
 COHR
 CRDO
+ENVX
+
+# --- Biotech / genomics ---
 CRSP
 CRWV
-DNA
-DOCN
-ENVX
-EOSE
-EVGO
-FLEX
-FLNC
-FSLR
-GCT
-GILT
-GRAB
+RXRX
+SMMT
+TWST
+
+# --- Consumer / fintech ---
+CAVA
+CELH
 HIMS
 HOOD
-IONQ
+SOFI
+TOST
+
+# --- Industrials / EV / other ---
+ARRY
+BTDR
+FLEX
+GRAB
 IREN
-JOBY
 KD
 KRNT
-KTOS
 LAC
-LAZR
 LCID
-LUNR
 MARA
-MRVL
-MU
-NNE
 NOVA
 OKLO
-OUST
-PATH
-PLTR
-QBTS
-QS
-RKLB
-RGTI
 RIVN
-RXRX
-S
-SEDG
-SMCI
-SMMT
-SOFI
-SOUN
-STEM
 SYM
 TMDX
-TOST
-TWST
-UPST
-VRT
-WOLF
-WULF
