@@ -1,21 +1,15 @@
 # U.S. scanner universe for unusual-volume / breakout discovery.
-# Targets: $500M-$10B core, up to $50B for exception candidates.
+# The scanner detects price/volume anomalies across ALL market caps.
+# Market-cap filtering happens downstream in RESEARCH_BRIEF.md.
 # One ticker per line. Lines starting with # are ignored.
 #
-# REMOVED (mega-cap >$50B, violates CONFIG):
-#   PLTR (~$250B), APP (~$120B), MRVL (~$80B), MU (~$100B), VRT (~$50B+)
-#
-# REMOVED (obvious headline AI/quantum names, excluded by CONFIG):
-#   IONQ, RGTI, QBTS, SOUN, SMCI
-#
-# REMOVED (likely sub-$500M market cap):
+# REMOVED (likely sub-$500M — too thin for reliable anomaly detection):
 #   DNA, LAZR, STEM, QS, BLDP, BFLY, ARBE, EVGO, EOSE, OUST, CLBT, GCT
 #
 # MOVED to verify (borderline market cap — check before re-adding):
 #   BBAI, FLNC, NNE, WULF, LUNR
 #
-# NOTE: market caps shift. Re-verify quarterly against CONFIG range.
-# Add tickers from journal evidence, remove those that never trigger.
+# NOTE: Add tickers from journal evidence, remove those that never trigger.
 
 # --- Energy / clean tech ---
 BE
@@ -30,18 +24,28 @@ JOBY
 KTOS
 RKLB
 
-# --- Software / cloud ---
+# --- Software / cloud / AI ---
 AI
+APP
 DOCN
+IONQ
 PATH
+PLTR
+QBTS
+RGTI
 S
+SOUN
 UPST
+VRT
 
 # --- Semiconductor / hardware ---
 ALAB
 COHR
 CRDO
 ENVX
+MRVL
+MU
+SMCI
 
 # --- Biotech / genomics ---
 CRSP
