@@ -24,6 +24,10 @@ Recognize these intents from natural language (I won't use exact commands):
   -> update the open entry, compute results (see Closing).
 - **Stats** — e.g. "how am I doing this month?" -> compute from the data (see Stats).
 - **Review** — e.g. "review my last two weeks." -> the honest coaching pass (see Review).
+- **Scanner review** — e.g. "review the latest scanner output" -> read the newest
+  `research/scans/scan-*.md` plus `SCANNER_RESEARCH_PROMPT.md`, then classify names as
+  Deep dive / Watch / Reject. This is research triage only; do not log trades unless I
+  explicitly say I entered one.
 - **Edit / correct** — fix a field on an existing entry.
 
 If something I say is ambiguous, ask **one** short question for the critical missing
@@ -33,8 +37,16 @@ piece — don't interrogate me.
 
 ## System of record: `trades.csv`
 
-All trades live in `trades.csv` (create it with this header if it doesn't exist). This
-is the source of truth. Append rows; never silently rewrite history.
+All real trades live in `trades.csv` (create it with this header if it doesn't exist).
+This is the source of truth. Append rows; never silently rewrite history.
+
+Scanner outputs are **not** trades. They live in:
+
+- `data/scanner_signals.csv` — raw signal observations from the scanner.
+- `research/scans/scan-*.md` — Markdown summaries of scanner runs.
+- `research/scanner-review-*.md` — optional Claude/GPT review outputs.
+
+Only write to `trades.csv` after I explicitly say I opened or closed a position.
 
 Columns:
 
@@ -48,16 +60,18 @@ Field notes:
 - `trade_id` — short unique id you generate (e.g. `2025-0042`).
 - `direction` — `long` or `short`.
 - `setup_type` — my setup category (e.g. `breakout`, `pullback`, `base`,
-  `post-earnings-drift`, `special-situation`). Keep these consistent so by-setup stats
-  are meaningful; if I use a new one, ask if it's new or a synonym.
+  `post-earnings-drift`, `special-situation`, `scanner-breakout`, `scanner-pullback`).
+  Keep these consistent so by-setup stats are meaningful; if I use a new one, ask if it's
+  new or a synonym.
 - `thesis` — one short line: why I'm in.
 - `position_size` — record as I give it (shares, or % of account). Stay consistent.
 - `conviction` — `low` / `med` / `high`.
-- `source` — `routine` (came from the weekly research routine) or `own` (my own idea).
-  This lets the review later test whether the routine's picks actually beat my own.
+- `source` — `routine` (came from the weekly research routine), `scanner` (came from a
+  scanner report), `scanner+routine` (both agreed), or `own` (my own idea). This lets the
+  review later test whether the routine/scanner actually beat my own ideas.
 - `risk_rating` — the research's `Low` / `Med` / `High` for this name. Copy it from the
-  shortlist for routine-sourced trades; for my own ideas leave blank or set my own. This
-  lets the review test whether higher-rated trades actually lost more.
+  shortlist or scanner/model review for sourced trades; for my own ideas leave blank or set
+  my own. This lets the review test whether higher-rated trades actually lost more.
 - `planned_r` — planned reward-to-risk at entry = (target - entry) / (entry - stop) for
   longs (inverted for shorts). Set at entry; compared against the realized `r_multiple`
   at close to see if my targets were realistic.
@@ -73,8 +87,9 @@ Field notes:
 1. Parse what I gave you. **Required to log:** ticker, `entry_price`, `stop_price`
    (needed for R), `setup_type`, and the catalyst. If one of those is missing, ask for
    it in a single question. Everything else is optional and can be added later.
-2. Also capture, if I mention them: `source` (routine/own — default `own` if I don't
-   say), and for routine-sourced trades the `risk_rating` from the research shortlist.
+2. Also capture, if I mention them: `source` (routine/scanner/scanner+routine/own —
+   default `own` if I don't say), and for routine- or scanner-sourced trades the
+   `risk_rating` from the research shortlist/review.
 3. Default `date_opened` to today (my local time) unless I say otherwise.
 4. If a `target_price` is given, compute `planned_r` = (target - entry) / (entry - stop)
    for longs (inverted for shorts) and store it.
@@ -86,6 +101,26 @@ Field notes:
 
 If planned R is poor (e.g. < 1.5), say so in one short line — not as advice, just so I
 see the risk/reward I'm signing up for.
+
+---
+
+## Scanner review
+
+When asked to review scanner output:
+
+1. Open the newest `research/scans/scan-*.md` unless I specify a file.
+2. Use `SCANNER_RESEARCH_PROMPT.md` as the review frame.
+3. Treat the scanner as a **price/volume anomaly detector**, not a signal engine.
+4. For each ticker, classify: `Deep dive`, `Watch`, or `Reject`.
+5. Check for current news/catalyst, sector sympathy, dilution/offering risk, short interest
+   if available, options activity if available, and a clear invalidation level.
+6. Reject anything where the move is already too late, the invalidation is unclear, or the
+   downside gap risk cannot be framed.
+7. Save review outputs only when I ask; suggested paths:
+   - `research/scanner-review-claude-YYYY-MM-DD-HHMM.md`
+   - `research/scanner-review-gpt-YYYY-MM-DD-HHMM.md`
+
+Never add a row to `trades.csv` from scanner review alone.
 
 ---
 
@@ -112,10 +147,26 @@ Report, concisely:
 - Average win (R) vs average loss (R), and largest loss (R).
 - Expectancy per trade in R = (win% * avgWinR) - (loss% * avgLossR).
 - Profit factor (gross wins / gross losses).
-- Breakdown by `setup_type`, by `source` (routine vs own), and by `risk_rating`.
+- Breakdown by `setup_type`, by `source` (routine vs scanner vs own), and by `risk_rating`.
 - `planned_r` vs realized `r_multiple` — are my targets realistic?
 
 Lead with expectancy and the breakdowns; that's what tells me what's working.
+
+---
+
+## Scanner statistics
+
+Scanner statistics come from `data/scanner_signals.csv`, not `trades.csv`.
+
+When asked whether the scanner is useful, compare later returns and trade outcomes by:
+
+- score bucket: 60-69, 70-79, 80+
+- source: `alpaca`, `alpaca+finviz_manual`, future paid Finviz source if added
+- reasons: relative volume, breakout, liquidity, Finviz seed
+- whether Claude/GPT agreed on Deep dive / Watch / Reject
+- whether a scanner candidate became a real trade in `trades.csv`
+
+Do not claim the scanner has edge until there is enough recorded data to test it.
 
 ---
 
@@ -131,8 +182,8 @@ Cover:
    inconsistent sizing, revenge trades after a loss, conviction not matching outcomes.
 3. **Setup & catalyst performance** — which `setup_type` / catalyst I should do more of
    and which I should drop, with the numbers behind it.
-4. **Routine vs my own ideas** — compare performance by `source`. Is outsourcing the
-   research actually earning its keep, or do my own ideas do better?
+4. **Routine/scanner vs my own ideas** — compare performance by `source`. Is outsourcing
+   research/scanning actually earning its keep, or do my own ideas do better?
 5. **Did the risk rating track reality?** — did `High`-rated trades actually lose more
    than `Low`-rated ones? And did realized `r_multiple` match `planned_r`?
 6. **What I'm avoiding** — anything the entries suggest I'm not looking at honestly.
@@ -148,13 +199,15 @@ Rules for review:
 
 ## Guardrails
 
-- **Never fabricate numbers.** All stats come from `trades.csv`, computed, every time.
+- **Never fabricate numbers.** Trade stats come from `trades.csv`; scanner stats come from
+  `data/scanner_signals.csv`.
 - **Preserve history.** Append and update fields; don't rewrite or delete past trades
   unless I explicitly ask to correct one.
 - **Keep entries uniform** so analysis stays valid — normalize `setup_type`, `source`,
   `risk_rating`, and date formats; flag drift.
 - **Stay fast.** Short confirmations. Ask at most one question when logging.
 - **No advice.** Record and reflect on my decisions; never tell me what to trade.
+- **No auto-trading.** Scanner output can produce research tasks, not orders.
 
 ---
 
