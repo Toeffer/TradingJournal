@@ -1,0 +1,80 @@
+# U.S. scanner universe for unusual-volume / breakout discovery.
+# The scanner detects price/volume anomalies across ALL market caps.
+# Market-cap filtering happens downstream in RESEARCH_BRIEF.md.
+# One ticker per line. Lines starting with # are ignored.
+#
+# REMOVED (likely sub-$500M — too thin for reliable anomaly detection):
+#   DNA, LAZR, STEM, QS, BLDP, BFLY, ARBE, EVGO, EOSE, OUST, CLBT, GCT
+#
+# MOVED to verify (borderline market cap — check before re-adding):
+#   BBAI, FLNC, NNE, WULF, LUNR
+#
+# NOTE: Add tickers from journal evidence, remove those that never trigger.
+
+# --- Energy / clean tech ---
+BE
+FSLR
+SEDG
+WOLF
+
+# --- Aerospace / defense / space ---
+ASTS
+AVAV
+JOBY
+KTOS
+RKLB
+
+# --- Software / cloud / AI ---
+AI
+APP
+DOCN
+IONQ
+PATH
+PLTR
+QBTS
+RGTI
+S
+SOUN
+UPST
+VRT
+
+# --- Semiconductor / hardware ---
+ALAB
+COHR
+CRDO
+ENVX
+MRVL
+MU
+SMCI
+
+# --- Biotech / genomics ---
+CRSP
+CRWV
+RXRX
+SMMT
+TWST
+
+# --- Consumer / fintech ---
+CAVA
+CELH
+HIMS
+HOOD
+SOFI
+TOST
+
+# --- Industrials / EV / other ---
+ARRY
+BTDR
+FLEX
+GRAB
+IREN
+KD
+KRNT
+LAC
+LCID
+MARA
+NOVA
+OKLO
+RIVN
+SYM
+TMDX

@@ -1,0 +1,41 @@
+# TradingJournal scanner configuration
+# Purpose: discover and measure unusual-volume / breakout candidates.
+# This is NOT an auto-trading config and does not create trades in trades.csv.
+
+[scanner]
+timezone = "Europe/Berlin"
+min_score_to_record = 60
+min_score_to_alert = 70
+max_candidates_per_report = 10
+
+[universe]
+# Starter list used for the API scan. Keep this intentionally modest while learning.
+file = "scanner/universe.txt"
+# Optional manual input from Finviz free screener. Put one ticker per row under a `ticker` column.
+finviz_manual_file = "data/finviz_watchlist.csv"
+
+[alpaca]
+# Free tier can use IEX data. Upgrade later only if the journal proves the scanner is useful.
+base_url = "https://data.alpaca.markets"
+feed = "iex"
+batch_size = 50
+lookback_days = 90
+
+[filters]
+min_price = 2.0
+max_price = 500.0
+min_change_pct = 3.0
+max_change_pct = 15.0
+min_rel_volume = 2.0
+max_extension_5d_pct = 25.0
+min_avg_volume_20d = 300000
+
+[score]
+rel_volume = 20
+break_20d_high = 15
+daily_change = 10
+close_above_open = 5
+finviz_seed = 10
+liquidity = 10
+not_overextended = 10
+watchlist_bonus = 5

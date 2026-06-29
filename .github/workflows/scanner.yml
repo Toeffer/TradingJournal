@@ -1,0 +1,48 @@
+name: Pump Scanner
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron is UTC. These are Berlin summer-time approximations for US session checks.
+    # Scheduled workflows only run from the default branch once merged. On this feature branch,
+    # use workflow_dispatch or open a PR to test.
+    - cron: "05 13 * * 1-5"  # 15:05 Europe/Berlin during CEST
+    - cron: "00 14 * * 1-5"  # 16:00 Europe/Berlin during CEST
+    - cron: "30 15 * * 1-5"  # 17:30 Europe/Berlin during CEST
+    - cron: "15 19 * * 1-5"  # 21:15 Europe/Berlin during CEST
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run scanner
+        env:
+          APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
+          APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
+        run: python scanner/run_scan.py
+
+      - name: Commit scanner output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/scanner_signals.csv research/scans/
+          if git diff --cached --quiet; then
+            echo "No scanner output changes to commit."
+          else
+            git commit -m "Record scanner output"
+            git push
+          fi
