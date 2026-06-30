@@ -50,3 +50,19 @@ None. No candidate met the final-main-shortlist bar, so there are no front-runne
 - Project instructions: `RESEARCH_BRIEF.md`, `ETORO_TRADEABILITY.md`, `RISK_RULES.md` on the `main` branch of `Toeffer/TradingJournal`.
 - eToro public pages used for tradeability/price/market-cap/volume evidence: CROX, ELF, OSCR, SG.
 - Public web-search gap: current primary/high-quality catalyst dates were not sufficiently verified for final inclusion.
+
+## Catalyst Update — added 2026-06-30 (NOT independently verified)
+
+User-supplied catalyst dates for the rejected names, closing the gap that failed each
+of them in the original run. **Source: recalled/secondhand, not a primary or
+high-quality source.** Verify against company IR or an exchange earnings calendar
+before sizing or entering any of these.
+
+- **ELF** — earnings expected 2026-08-05. EPS beat of roughly +$0.69/share speculated (unverified, speculative).
+- **CROX** — earnings window 2026-07-31 to 2026-08-07 (date not yet pinned down).
+- **OSCR** — earnings expected 2026-08-05.
+- **SG** — earnings window 2026-08-06 to 2026-08-10 (date not yet pinned down).
+
+All four are still earnings-driven setups, not yet re-run through Stage 2 deep-dive.
+None of this constitutes a final shortlist promotion — that would require re-running
+the candidate evaluation with verified dates.
