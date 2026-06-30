@@ -1,1 +1,14 @@
 ticker,added_at,finviz_screen,notes
+FBIN,2026-06-30,manual-existing:etoro-checked,Existing seed from starter file; eToro-confirmed but not from current screenshot. Keep only if still matches scanner criteria.
+OC,2026-06-30,manual-existing:etoro-checked,Existing seed from starter file; eToro-confirmed but not from current screenshot. Keep only if still matches scanner criteria.
+SMWB,2026-06-30,manual-existing:etoro-checked,Existing seed from starter file; eToro-confirmed but not from current screenshot. Keep only if still matches scanner criteria.
+ABCL,2026-06-30,finviz-free-screenshot:etoro-checked,"Clean screenshot fit: +10.03%, very high volume, $2.48B cap. Biotech, so catalyst/dilution check required."
+ALGM,2026-06-30,finviz-free-screenshot:etoro-checked,"Semiconductor theme, strong +14.65% move with 6.98M volume. Slightly above normal market-cap target but useful quality seed."
+ATEX,2026-06-30,finviz-free-screenshot:etoro-checked,"Telecom services name with +9.56% move, $1.92B cap, positive P/E. Good anomaly seed if news confirms."
+INNV,2026-06-30,finviz-free-screenshot:etoro-checked,Fits move range at +7.60% with $1.58B cap. Lower-volume but acceptable as a seed.
+OPEN,2026-06-30,finviz-free-screenshot:etoro-checked,"Best liquidity in screenshot: 78M volume, +5.26%, $4.44B cap. Good anomaly seed."
+PRME,2026-06-30,finviz-free-screenshot:etoro-checked,"Fits scanner: +8.45%, $672M cap, 5.29M volume. Biotech, but liquid enough."
+SLN,2026-06-30,finviz-free-screenshot:etoro-checked,"ADR, +6.41%, $510M cap, acceptable volume. Just above minimum cap."
+CHTR,2026-06-30,finviz-free-screenshot:etoro-checked,Substitute for ALLT: eToro-confirmed telecom/communications alternative from screenshot; very liquid but larger-cap than scanner target; verify catalyst/news before review.
+IFRX,2026-06-30,finviz-free-screenshot:etoro-checked,Substitute for BCAX: eToro-confirmed biotech alternative from screenshot; tradeable but below target cap and already extended; treat as high-risk observation.
+RPAY,2026-06-30,finviz-free-screenshot:etoro-checked,Substitute for PTRN: eToro-confirmed software/infrastructure alternative from screenshot; tradeable but below target cap and already extended; treat as high-risk observation.
