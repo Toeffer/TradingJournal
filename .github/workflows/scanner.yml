@@ -3,11 +3,11 @@ name: Pump Scanner
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron is UTC. These are Berlin summer-time approximations for US session checks.
-    # Scheduled workflows only run from the default branch once merged. On this feature branch,
-    # use workflow_dispatch or open a PR to test.
-    - cron: "05 13 * * 1-5"  # 15:05 Europe/Berlin during CEST
-    - cron: "00 14 * * 1-5"  # 16:00 Europe/Berlin during CEST
+    # GitHub cron is UTC. These are Berlin summer-time checks for the US session.
+    # Main useful windows are shortly after the US regular-market open at 15:30 Europe/Berlin during CEST.
+    - cron: "50 13 * * 1-5"  # 15:50 Europe/Berlin during CEST
+    - cron: "10 14 * * 1-5"  # 16:10 Europe/Berlin during CEST
+    - cron: "45 14 * * 1-5"  # 16:45 Europe/Berlin during CEST
     - cron: "30 15 * * 1-5"  # 17:30 Europe/Berlin during CEST
     - cron: "15 19 * * 1-5"  # 21:15 Europe/Berlin during CEST
 
