@@ -4,9 +4,11 @@
 
 [scanner]
 timezone = "Europe/Berlin"
-# TEMPORARY (2026-07-01): lowered from 60 to 40 to see the real score distribution,
-# since no run has recorded a candidate at 60+ in 2 days. Revert to 60 after calibrating.
-min_score_to_record = 40
+# 2026-07-01: reverted to 60 now that relative volume is normalized against the
+# elapsed fraction of the US session instead of the full-day average (see
+# session_elapsed_fraction in run_scan.py). The old raw comparison made rel_volume
+# nearly unreachable mid-session, which is why nothing cleared 60 before.
+min_score_to_record = 60
 min_score_to_alert = 70
 max_candidates_per_report = 10
 
@@ -18,6 +20,9 @@ finviz_manual_file = "data/finviz_watchlist.csv"
 
 [alpaca]
 # Free tier can use IEX data. Upgrade later only if the journal proves the scanner is useful.
+# NOTE: all volume/avg_volume_20d/min_avg_volume_20d figures are IEX-only volume, a
+# minority of consolidated U.S. tape, not full-market volume. Thresholds below are
+# calibrated in IEX terms; don't read them as real total liquidity.
 base_url = "https://data.alpaca.markets"
 feed = "iex"
 batch_size = 50
@@ -40,4 +45,3 @@ close_above_open = 5
 finviz_seed = 10
 liquidity = 10
 not_overextended = 10
-watchlist_bonus = 5
