@@ -98,22 +98,19 @@ Without Alpaca secrets, the script still writes a report explaining that market 
 
 The workflow is at `.github/workflows/scanner.yml`.
 
-Important: scheduled GitHub Actions workflows only run from the repository's default branch. Because this implementation is intentionally on `feature/scanner-workflow` and not merged to `main`, the schedule will not become active yet.
+Scheduled GitHub Actions workflows run from the repository's default branch. The scanner workflow is now on `main`, so scheduled runs are active when Actions are enabled.
 
-Once you are ready, either:
-
-1. run it manually if GitHub exposes the workflow for the branch, or
-2. open a pull request and test, or
-3. merge after review so the schedule starts running from `main`.
-
-The planned schedule is four U.S.-session checks during Berlin summer time:
+The schedule is aligned to the U.S. regular-market open. During Berlin summer time, U.S. regular trading starts at 15:30 Europe/Berlin, so the main useful scans are shortly after the open:
 
 ```text
-15:05 Berlin — pre-market / setup scan
-16:00 Berlin — first U.S. open confirmation
-17:30 Berlin — continuation scan
+15:50 Berlin — first useful early-momentum scan after the initial volatility burst
+16:10 Berlin — early confirmation scan
+16:45 Berlin — cleaner VWAP / continuation check
+17:30 Berlin — mid-session continuation scan
 21:15 Berlin — late-day / next-day setup scan
 ```
+
+Finviz free-tier data is manual. For best results, update `data/finviz_watchlist.csv` around 15:40-15:45 Berlin so the 15:50 and 16:10 runs can validate fresh Finviz names through Alpaca.
 
 ## Human review prompt
 
@@ -139,12 +136,10 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 
 ## 30-day evaluation
 
-After 30 days, answer:
+After 30 days, check:
 
-- Did 70+ score candidates outperform 60-69 score candidates?
-- Did Finviz-seeded names perform better than base-universe names?
-- Were alerts early enough to enter calmly, or already too late?
-- Which signals mattered most: relative volume, breakout, Finviz seed, or liquidity?
-- Did the scanner reduce randomness or increase overtrading?
-
-If the answer is unclear, keep the free tier and collect more data before spending money.
+- Did scores above 70 actually follow through better than scores 60-69?
+- Did Finviz-seeded names perform better than scanner-universe-only names?
+- Did Claude/GPT agreement improve candidate quality?
+- Did the scanner reduce time spent or only create more noise?
+- Did any actual trades come from scanner candidates, and how did they compare to your own ideas?
