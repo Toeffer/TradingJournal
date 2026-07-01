@@ -1,14 +1,16 @@
 ticker,added_at,finviz_screen,notes
-FBIN,2026-06-30,manual-existing:etoro-checked,Existing seed from starter file; eToro-confirmed but not from current screenshot. Keep only if still matches scanner criteria.
-OC,2026-06-30,manual-existing:etoro-checked,Existing seed from starter file; eToro-confirmed but not from current screenshot. Keep only if still matches scanner criteria.
-SMWB,2026-06-30,manual-existing:etoro-checked,Existing seed from starter file; eToro-confirmed but not from current screenshot. Keep only if still matches scanner criteria.
-ABCL,2026-06-30,finviz-free-screenshot:etoro-checked,"Clean screenshot fit: +10.03%, very high volume, $2.48B cap. Biotech, so catalyst/dilution check required."
-ALGM,2026-06-30,finviz-free-screenshot:etoro-checked,"Semiconductor theme, strong +14.65% move with 6.98M volume. Slightly above normal market-cap target but useful quality seed."
-ATEX,2026-06-30,finviz-free-screenshot:etoro-checked,"Telecom services name with +9.56% move, $1.92B cap, positive P/E. Good anomaly seed if news confirms."
-INNV,2026-06-30,finviz-free-screenshot:etoro-checked,Fits move range at +7.60% with $1.58B cap. Lower-volume but acceptable as a seed.
-OPEN,2026-06-30,finviz-free-screenshot:etoro-checked,"Best liquidity in screenshot: 78M volume, +5.26%, $4.44B cap. Good anomaly seed."
-PRME,2026-06-30,finviz-free-screenshot:etoro-checked,"Fits scanner: +8.45%, $672M cap, 5.29M volume. Biotech, but liquid enough."
-SLN,2026-06-30,finviz-free-screenshot:etoro-checked,"ADR, +6.41%, $510M cap, acceptable volume. Just above minimum cap."
-CHTR,2026-06-30,finviz-free-screenshot:etoro-checked,Substitute for ALLT: eToro-confirmed telecom/communications alternative from screenshot; very liquid but larger-cap than scanner target; verify catalyst/news before review.
-IFRX,2026-06-30,finviz-free-screenshot:etoro-checked,Substitute for BCAX: eToro-confirmed biotech alternative from screenshot; tradeable but below target cap and already extended; treat as high-risk observation.
-RPAY,2026-06-30,finviz-free-screenshot:etoro-checked,Substitute for PTRN: eToro-confirmed software/infrastructure alternative from screenshot; tradeable but below target cap and already extended; treat as high-risk observation.
+ABX,2026-07-01,finviz-free-screenshot,"Abacus Global Management; +5.57%, $1.08B cap, price $11.31. Lower volume in screenshot, but within scanner move range."
+ALSN,2026-07-01,finviz-free-screenshot,"Allison Transmission; +5.97%, $9.91B cap, price $119.47. Large but tradable quality seed."
+GIS,2026-07-01,finviz-free-screenshot,"General Mills; +7.72%, $20.01B cap, price $37.49. Defensive large-cap context seed; may be less explosive."
+GRND,2026-07-01,finviz-free-screenshot,"Grindr; +11.00%, $2.83B cap, price $15.95. Clean move-range seed with software/app profile."
+KD,2026-07-01,finviz-free-screenshot,"Kyndryl; +6.32%, $2.65B cap, price $12.03. Already in base scanner universe; Finviz seed boosts current anomaly."
+MSM,2026-07-01,finviz-free-screenshot,"MSC Industrial Direct; +5.67%, $7.02B cap, price $125.70. Industrials continuation/earnings-type seed."
+ACHV,2026-07-01,finviz-free-screenshot,"Achieve Life Sciences; +7.75%, $722.29M cap, price $7.04. Biotech seed; catalyst/dilution check required."
+ACRS,2026-07-01,finviz-free-screenshot,"Aclaris Therapeutics; +5.39%, $778.62M cap, price $5.57. Biotech seed; catalyst/dilution check required."
+AIOT,2026-07-01,finviz-free-screenshot,"PowerFleet; +11.10%, $570.94M cap, price $4.26. Software/infrastructure seed in target move range."
+CCXI,2026-07-01,finviz-free-screenshot,"Churchill Capital Corp XI; +7.39%, $1.04B cap, price $18.74. SPAC/shell-company risk; review carefully."
+DLO,2026-07-01,finviz-free-screenshot,"DLocal; +10.16%, $4.22B cap, price $14.31. Software/infrastructure seed; non-US country exposure."
+EYPT,2026-07-01,finviz-free-screenshot,"EyePoint; +10.21%, $1.32B cap, price $15.76. Biotech seed; catalyst/dilution check required."
+FWDI,2026-07-01,finviz-free-screenshot,"Forward Industries; +10.75%, $349M cap, price $4.67. Below preferred market-cap floor; high-risk observation only."
+GH,2026-07-01,finviz-free-screenshot,"Guardant Health; +6.91%, $21.27B cap, price $160.40. Liquid healthcare seed but above normal market-cap target."
+PRGS,2026-07-01,finviz-free-screenshot,"Progress Software; +14.90%, $1.62B cap, price $38.58. Near top of target move range; check if already extended."
