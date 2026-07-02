@@ -79,6 +79,11 @@ Two workflows keep derived reports fresh without manual steps:
   `main`): regenerates `research/journal-stats.md` — expectancy, win rate, breakdowns
   by source/setup/risk rating, weekly realized R vs the loss limit, open positions,
   rule-check flags, and a list of data gaps to fill.
+- **Weekly digest** (`.github/workflows/digest.yml`, Mondays ~07:00 Berlin): writes
+  `research/digest-YYYY-MM-DD.md` — last week's closed trades and realized R, open
+  positions with catalysts inside 14 days flagged for verification, how recent
+  scanner runners ended up, the newest candidate shortlist summary, and data-gap
+  hygiene reminders.
 
 Both output files are derived artifacts: never edit them by hand, and never treat
 them as signals. `trades.csv` and `data/scanner_signals.csv` remain the sources of
