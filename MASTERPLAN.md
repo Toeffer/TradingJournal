@@ -141,6 +141,10 @@ Things worth testing *someday*, recorded so they stop occupying headspace:
 - Partial profit-taking at +1R (test: does it raise or lower expectancy?)
 - Slippage tracking: record intended vs actual fill in trades.csv notes
 - Sector-momentum ranking to tilt the scanner universe
+- Form 4 insider cluster-buy screener as a discovery input (EDGAR is free; slots
+  in where the Finviz seeds do) — build ONLY if the `insider-cluster` proposal
+  tag shows measurable value first; insider *selling* stays a triage red flag,
+  and politician/STOCK-Act feeds stay out (30-45 day lag kills timing value)
 - FX overlay decision once average position size crosses ~€1,000
 - Earnings-season calendar playbook (density of catalysts ≠ density of edges)
 - A quarterly "red-team" pass where SECOND_OPINION.md is run against the

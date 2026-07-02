@@ -37,6 +37,12 @@ Proposals are logged to `data/proposals.csv` whether or not I trade them. The
 untraded ones are the control group — they're how I learn whether my picking among
 proposals adds value or subtracts it.
 
+**Optional confirmation tags** (in `notes`): when a proposal has a verified insider
+open-market **cluster buy** (SEC Form 4, multiple insiders, last 90 days), tag it
+`insider-cluster`. Tags are recorded so their value can be *measured* across
+proposals later — a tag is never by itself a reason to propose, size up, or skip
+the card standard.
+
 ---
 
 ## Setup 1: `breakout`
