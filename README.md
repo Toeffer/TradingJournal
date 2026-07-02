@@ -24,11 +24,14 @@ This repository is intended to be the system of record for trades, research note
 ├── SCANNER_RESEARCH_PROMPT.md # Claude/GPT review prompt for scanner reports
 ├── MONTHLY_SELF_GRADE.md      # Monthly review template for the research process
 ├── RISK_RULES.md              # Personal risk rules (position sizing, loss limits)
+├── SETUPS.md                  # Setup definitions + the proposal card standard
 ├── ETORO_TRADEABILITY.md      # Broker overlay for eToro Germany/EU
 ├── SECOND_OPINION.md          # Red-team prompt for a second model
 ├── trades.csv                 # Structured trade log; source of truth for real trades
 ├── data/
 │   ├── scanner_signals.csv    # Append-only scanner signal dataset
+│   ├── proposals.csv          # Proposal ledger (every surviving idea, traded or not)
+│   ├── market_regime.csv      # Per-scan market backdrop (SPY vs 50d, breadth)
 │   ├── finviz_watchlist.csv   # Manual Finviz free-tier/Elite seed list
 │   └── TradingJournalCandidatesTry_updated.xlsx  # Legacy Excel journal (used to backfill trades.csv; CSV is source of truth)
 ├── scanner/                   # Optional Python scanner for unusual volume/breakouts
@@ -72,9 +75,11 @@ The scheduled workflow lives at `.github/workflows/scanner.yml`. Scheduled runs 
 
 Two workflows keep derived reports fresh without manual steps:
 
-- **Scanner** (`.github/workflows/scanner.yml`, scheduled): runs the scan, backfills
-  1/3/5/10/21-trading-day returns for past signals, and regenerates
-  `research/scanner-summary.md` (outcomes by score bucket/source plus a runner board).
+- **Scanner** (`.github/workflows/scanner.yml`, scheduled): runs the scan (recording
+  the market regime per run), backfills 1/3/5/10/21-trading-day returns for past
+  signals, regenerates `research/scanner-summary.md` (outcomes by score bucket/source
+  plus a runner board), and simulates open proposals from `data/proposals.csv` into
+  `research/proposal-stats.md`.
 - **Journal stats** (`.github/workflows/journal.yml`, on every `trades.csv` change on
   `main`): regenerates `research/journal-stats.md` — expectancy, win rate, breakdowns
   by source/setup/risk rating, weekly realized R vs the loss limit, open positions,

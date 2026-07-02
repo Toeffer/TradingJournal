@@ -162,6 +162,27 @@ def main() -> int:
         lines.append("- No recent signals have a 5-day outcome yet.")
     lines.append("")
 
+    # --- Proposals ---
+    proposals = load_csv(REPO_ROOT / "data/proposals.csv")
+    if proposals:
+        lines.append("## Proposals (SETUPS.md pipeline)")
+        lines.append("")
+        by_status: dict[str, int] = {}
+        for p in proposals:
+            by_status[p.get("status", "?")] = by_status.get(p.get("status", "?"), 0) + 1
+        lines.append("- " + " | ".join(f"{k}: {v}" for k, v in sorted(by_status.items())))
+        resolved = [p for p in proposals if p.get("status") in ("stopped", "target", "timeout")]
+        rs = [v for p in resolved if (v := parse_float(p.get("sim_r"))) is not None]
+        if rs:
+            lines.append(f"- Simulated expectancy across {len(rs)} resolved proposal(s): "
+                         f"**{fmt(sum(rs) / len(rs))}R**. Details: `research/proposal-stats.md`.")
+        pending = [p for p in proposals if p.get("status") in ("pending", "triggered")]
+        if pending:
+            lines.append("- Waiting: " + ", ".join(
+                f"{p.get('ticker','')} ({p.get('status','')}, entry {p.get('entry_price','')})"
+                for p in pending))
+        lines.append("")
+
     # --- Research ---
     lines.append("## Research: newest candidate shortlist")
     lines.append("")

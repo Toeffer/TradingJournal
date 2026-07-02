@@ -454,6 +454,73 @@ def append_signal_rows(path: Path, candidates: list[Candidate]) -> None:
             writer.writerow(row)
 
 
+REGIME_CSV = REPO_ROOT / "data/market_regime.csv"
+REGIME_FIELDS = [
+    "timestamp",
+    "spy_close",
+    "spy_50d_ma",
+    "spy_above_50d",
+    "breadth_pct_above_20d_ma",
+    "regime",
+]
+
+
+def compute_regime(
+    timestamp: str,
+    spy_bars: list[dict[str, Any]],
+    universe_bars: dict[str, list[dict[str, Any]]],
+) -> dict[str, Any] | None:
+    """Classify the market backdrop so every proposal/signal carries its context.
+
+    Deliberately crude: SPY vs its 50-day MA plus universe breadth (% of scanned
+    tickers above their own 20-day MA). The point is not precision — it's that
+    'did breakout proposals work in defensive tape?' becomes answerable later.
+    """
+    spy_closes = [float(b.get("c", 0)) for b in spy_bars if b.get("c") is not None]
+    if len(spy_closes) < 50:
+        return None
+    spy_close = spy_closes[-1]
+    spy_50 = float(statistics.mean(spy_closes[-50:]))
+
+    above = 0
+    counted = 0
+    for ticker_bars in universe_bars.values():
+        closes = [float(b.get("c", 0)) for b in ticker_bars if b.get("c") is not None]
+        if len(closes) < 20:
+            continue
+        counted += 1
+        if closes[-1] > statistics.mean(closes[-20:]):
+            above += 1
+    breadth = (100.0 * above / counted) if counted else None
+
+    spy_above = spy_close > spy_50
+    if spy_above and breadth is not None and breadth >= 50:
+        label = "supportive"
+    elif not spy_above and breadth is not None and breadth < 35:
+        label = "defensive"
+    else:
+        label = "mixed"
+
+    return {
+        "timestamp": timestamp,
+        "spy_close": fmt_float(spy_close, 2),
+        "spy_50d_ma": fmt_float(spy_50, 2),
+        "spy_above_50d": str(spy_above).lower(),
+        "breadth_pct_above_20d_ma": fmt_float(breadth, 1) if breadth is not None else "",
+        "regime": label,
+    }
+
+
+def append_regime_row(path: Path, row: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    is_new = not path.exists() or path.stat().st_size == 0
+    with path.open("a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=REGIME_FIELDS)
+        if is_new:
+            writer.writeheader()
+        writer.writerow(row)
+
+
 def write_report(
     timestamp: datetime,
     candidates: list[Candidate],
@@ -462,6 +529,7 @@ def write_report(
     warnings: list[str],
     universe_count: int,
     finviz_count: int,
+    regime: dict[str, Any] | None = None,
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     local_ts = timestamp.strftime("%Y-%m-%d %H:%M %Z")
@@ -480,6 +548,12 @@ def write_report(
     lines.append("Volume figures use the IEX feed only (a minority of consolidated U.S. volume), not full-tape liquidity. Relative volume is normalized against the elapsed fraction of the US regular session (9:30-16:00 ET), not the full-day average.")
     lines.append("")
     lines.append("## Run summary")
+    if regime:
+        lines.append(
+            f"- Market regime: **{regime['regime']}** (SPY {regime['spy_close']} vs 50d MA "
+            f"{regime['spy_50d_ma']}; breadth {regime['breadth_pct_above_20d_ma'] or 'n/a'}% "
+            "of universe above 20d MA)"
+        )
     lines.append(f"- Universe tickers scanned: {universe_count}")
     lines.append(f"- Finviz manual seeds loaded: {finviz_count}")
     lines.append(f"- Candidates scored: {len(candidates)}")
@@ -569,12 +643,20 @@ def main() -> int:
 
     try:
         snapshots = fetch_snapshots(tickers, config)
-        bars = fetch_daily_bars(tickers, config)
+        # SPY is fetched for regime context only; it is never scored or recorded.
+        bars = fetch_daily_bars(tickers + ["SPY"], config)
     except Exception as exc:  # noqa: BLE001 - report and keep workflow non-destructive
         warnings.append(f"Data fetch failed: {exc}")
         report = write_report(now, [], [], config, warnings, len(tickers), len(finviz_manual))
         print(f"Wrote report after data error: {report}")
         return 0
+
+    spy_bars = bars.pop("SPY", [])
+    regime = compute_regime(timestamp, spy_bars, bars)
+    if regime:
+        append_regime_row(REGIME_CSV, regime)
+    else:
+        warnings.append("Market regime not computed (insufficient SPY history).")
 
     candidates: list[Candidate] = []
     for ticker in tickers:
@@ -593,7 +675,7 @@ def main() -> int:
     record_score = int(config["scanner"].get("min_score_to_record", 60))
     recorded = sorted([c for c in candidates if c.score >= record_score], key=lambda c: c.score, reverse=True)
     append_signal_rows(SIGNALS_CSV, recorded)
-    report = write_report(now, candidates, recorded, config, warnings, len(tickers), len(finviz_manual))
+    report = write_report(now, candidates, recorded, config, warnings, len(tickers), len(finviz_manual), regime)
     print(f"Wrote report: {report}")
     print(f"Recorded candidates: {len(recorded)}")
     return 0

@@ -7,11 +7,12 @@ is structured data (CSV), documentation (Markdown), and Claude Code integration.
 
 1. `AGENTS.md` — how the journal works (intents, CSV schema, logging/closing/stats/review rules)
 2. `RISK_RULES.md` — personal risk framework (position sizing, loss limits, earnings policy)
-3. `RESEARCH_BRIEF.md` — automated weekly research routine spec
-4. `ETORO_TRADEABILITY.md` — broker overlay (eToro Germany/EU account)
-5. `LLM_RESEARCH_PLAYBOOK.md` — manual research workflow and prompts
-6. `MONTHLY_SELF_GRADE.md` — monthly grading of the discovery engine
-7. `SECOND_OPINION.md` — red-team prompt for a second model
+3. `SETUPS.md` — setup definitions and the proposal card standard (feeds `data/proposals.csv`)
+4. `RESEARCH_BRIEF.md` — automated weekly research routine spec
+5. `ETORO_TRADEABILITY.md` — broker overlay (eToro Germany/EU account)
+6. `LLM_RESEARCH_PLAYBOOK.md` — manual research workflow and prompts
+7. `MONTHLY_SELF_GRADE.md` — monthly grading of the discovery engine
+8. `SECOND_OPINION.md` — red-team prompt for a second model
 
 ## Key data
 

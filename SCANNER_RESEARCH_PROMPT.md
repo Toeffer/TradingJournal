@@ -23,6 +23,10 @@ For each ticker, return:
 5. Setup quality: clean breakout / pullback candidate / too extended / failed move.
 6. Clear invalidation level or event. If no clear invalidation exists, say Reject.
 7. What would make me wait instead of chase.
+8. For Deep dive verdicts only: a draft proposal card per SETUPS.md — usually a
+   `pullback` (retest entry zone, stop, first target, planned R computed from the
+   PULLBACK entry). If no acceptable pullback zone exists, say "no proposal — chase
+   only," which means pass. Never draft a card that chases the day's move.
 
 Rules:
 - Cite current sources for every factual catalyst claim.
@@ -38,4 +42,6 @@ Rules:
    - `research/scanner-review-claude-YYYY-MM-DD-HHMM.md`
    - `research/scanner-review-gpt-YYYY-MM-DD-HHMM.md`
 3. Prioritize overlap, but treat disagreement as the best place to investigate.
-4. Only log an actual trade in `trades.csv` after you make the decision yourself.
+4. Log surviving proposal cards to `data/proposals.csv` (see SETUPS.md and AGENTS.md) —
+   traded or not, so the pipeline gets graded on everything it produces.
+5. Only log an actual trade in `trades.csv` after you make the decision yourself.
