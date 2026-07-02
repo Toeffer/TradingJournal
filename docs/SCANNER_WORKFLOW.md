@@ -20,7 +20,8 @@ The scanner gives Claude/GPT a cleaner input set:
 scanner/config.toml              # thresholds and data-source config
 scanner/universe.txt             # starter U.S. ticker universe
 scanner/run_scan.py              # scanner script
-data/scanner_signals.csv         # append-only signal dataset
+scanner/backfill_returns.py      # fills in 1/3/5-trading-day returns once elapsed
+data/scanner_signals.csv         # signal dataset, deduped to one row per ticker/day
 data/finviz_watchlist.csv        # optional manual Finviz seed tickers
 research/scans/                  # Markdown reports per run
 .github/workflows/scanner.yml    # scheduled/manual GitHub Actions workflow
@@ -38,6 +39,11 @@ APCA_API_SECRET_KEY
 ```
 
 Start with the free tier/IEX feed. Upgrade only if the scanner proves useful in the journal.
+
+**IEX caveat:** the IEX feed only reports IEX-exchange volume, a minority of
+consolidated U.S. tape. `volume`, `avg_volume_20d`, and `min_avg_volume_20d` are all
+in IEX-only terms, not real total liquidity — read them as relative/internal signals,
+not absolute share counts.
 
 ### Finviz free tier
 
@@ -64,7 +70,10 @@ SOUN,2026-06-29,unusual-volume,"AI/voice name from Finviz rel-volume screen"
 
 The scanner scores each ticker using:
 
-- relative volume
+- relative volume, normalized against the elapsed fraction of the US regular
+  session (9:30-16:00 America/New_York) rather than the full-day average — a
+  mid-session snapshot only has a partial day's volume, so comparing it to a
+  full-day average made the trigger nearly unreachable except right at the close
 - daily price move
 - breakout above 20-day high
 - breakout above 50-day high as context
@@ -110,6 +119,13 @@ The schedule is aligned to the U.S. regular-market open. During Berlin summer ti
 21:15 Berlin — late-day / next-day setup scan
 ```
 
+GitHub cron doesn't follow DST, so `scanner.yml` lists both a CEST-offset and a
+CET-offset cron for each of the five times above, targeting the same Berlin
+wall-clock time year-round. Whichever set doesn't match the season's actual Berlin
+offset fires an hour off from the intended local time instead of silently drifting;
+runs are non-destructive and same-day duplicates are deduped, so the extra/off-target
+runs are harmless.
+
 Finviz free-tier data is manual. For best results, update `data/finviz_watchlist.csv` around 15:40-15:45 Berlin so the 15:50 and 16:10 runs can validate fresh Finviz names through Alpaca.
 
 ## Human review prompt
@@ -133,6 +149,17 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 - Do not hold through binary events unless it fits `RISK_RULES.md`.
 - Keep all API keys in GitHub Actions secrets, never in the repo.
 - Review results after 30 days before paying for better data.
+- `data/scanner_signals.csv` is deduped to one row per (date, ticker), keeping the
+  highest-scoring run of the day, so a name that stays elevated all session doesn't
+  overweight later score-bucket stats.
+
+## Return backfill
+
+`scanner/backfill_returns.py` runs after each scan (wired into `scanner.yml`). For
+any recorded signal where 1/3/5 trading days have now elapsed, it fetches daily bars
+from Alpaca and fills `one_day_return` / `three_day_return` / `five_day_return`
+relative to the price recorded at scan time. It only fills blank cells and is safe
+to re-run. Without this, the 30-day evaluation below has no data to work from.
 
 ## 30-day evaluation
 

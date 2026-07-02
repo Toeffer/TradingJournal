@@ -1,5 +1,5 @@
 ticker,added_at,finviz_screen,notes
-ABX,2026-07-01,finviz-free-screenshot,"Abacus Global Management; +5.57%, $1.08B cap, price $11.31. Lower volume in screenshot, but within scanner move range."
+ABL,2026-07-01,finviz-free-screenshot,"Abacus Global Management; +5.57%, $1.08B cap, price $11.31. Lower volume in screenshot, but within scanner move range. (Corrected from ABX, which is Barrick Gold's legacy NYSE ticker, not Abacus.)"
 ALSN,2026-07-01,finviz-free-screenshot,"Allison Transmission; +5.97%, $9.91B cap, price $119.47. Large but tradable quality seed."
 GIS,2026-07-01,finviz-free-screenshot,"General Mills; +7.72%, $20.01B cap, price $37.49. Defensive large-cap context seed; may be less explosive."
 GRND,2026-07-01,finviz-free-screenshot,"Grindr; +11.00%, $2.83B cap, price $15.95. Clean move-range seed with software/app profile."
