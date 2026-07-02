@@ -28,6 +28,9 @@ Recognize these intents from natural language (I won't use exact commands):
   `research/scans/scan-*.md` plus `SCANNER_RESEARCH_PROMPT.md`, then classify names as
   Deep dive / Watch / Reject. This is research triage only; do not log trades unless I
   explicitly say I entered one.
+- **Log a proposal** — e.g. "propose HIMS pullback, entry 34.20, stop 32.80, target 38"
+  -> append to `data/proposals.csv` (see Proposals below). A proposal is not a trade;
+  it's a fully-specified idea the simulator will grade whether or not I take it.
 - **Edit / correct** — fix a field on an existing entry.
 
 If something I say is ambiguous, ask **one** short question for the critical missing
@@ -154,6 +157,34 @@ Never add a row to `trades.csv` from scanner review alone.
 
 ---
 
+## Proposals (`data/proposals.csv`)
+
+Proposals are the pipeline between research and trades — defined by `SETUPS.md`.
+Log every idea that survives triage, traded or not; the untraded ones are the
+control group that shows whether my picking adds value.
+
+When I log a proposal:
+
+1. **Required:** ticker, `entry_price` (a level, not "current"), `stop_price`,
+   `target_price`, and a `setup_type` that matches a definition in `SETUPS.md`.
+   If the setup doesn't match any definition, say so — that's a finding, not a
+   blocker; I decide whether to fix the proposal or the definition.
+2. Compute `planned_r`. If it's below 1.5, flag it — `SETUPS.md` says that fails
+   the proposal standard.
+3. Copy `regime` from the newest row of `data/market_regime.csv` (if present).
+   For a `breakout` proposal in a `defensive` regime, add `regime-against` to notes.
+4. Generate a `proposal_id` (e.g. `P2026-0001`), set `status = pending`, default
+   `date` to today, append the row. One-line confirmation.
+5. If I later trade it: set `traded = yes` and `trade_id`, and put
+   `proposals.csv#<proposal_id>` in the trade's `candidate_ref`.
+6. If I say "cancel proposal X": set `status = cancelled` — never delete rows.
+
+`scanner/simulate_proposals.py` (wired into the scanner workflow) mechanically
+resolves proposals on daily bars and regenerates `research/proposal-stats.md`.
+Never overwrite its resolved statuses by hand.
+
+---
+
 ## Closing a trade
 
 1. Find the **open** row for that ticker. If more than one is open, ask which.
@@ -171,6 +202,11 @@ Never add a row to `trades.csv` from scanner review alone.
 
 Compute everything **from `trades.csv`** over the range I ask for. Never estimate or
 fabricate a number — if the data isn't there, say so.
+
+`research/journal-stats.md` is an auto-generated snapshot of the headline numbers
+(refreshed by `.github/workflows/journal.yml` whenever `trades.csv` changes on main).
+Use it for a quick read, but recompute from `trades.csv` for anything decision-
+relevant — the CSV is the source of truth, the report is a cache.
 
 Report, concisely:
 - Number of trades, win rate.

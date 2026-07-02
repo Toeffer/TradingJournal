@@ -1,0 +1,46 @@
+name: Weekly Digest
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Monday ~07:00 Europe/Berlin. GitHub cron is UTC and ignores DST, so both
+    # seasonal offsets are listed; the digest file is dated (not timestamped),
+    # so the second firing regenerates identical content and commits nothing.
+    - cron: "0 5 * * 1"  # 07:00 Berlin during CEST
+    - cron: "0 6 * * 1"  # 07:00 Berlin during CET
+
+concurrency:
+  group: weekly-digest
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate weekly digest
+        run: python scripts/weekly_digest.py
+
+      - name: Commit digest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/digest-*.md
+          if git diff --cached --quiet; then
+            echo "No digest changes to commit."
+          else
+            git commit -m "Add weekly digest"
+            git pull --rebase origin main
+            git push -u origin main
+          fi
