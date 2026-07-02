@@ -124,12 +124,9 @@ The schedule is aligned to the U.S. regular-market open. During Berlin summer ti
 21:15 Berlin — late-day / next-day setup scan
 ```
 
-GitHub cron doesn't follow DST, so `scanner.yml` lists both a CEST-offset and a
-CET-offset cron for each of the five times above, targeting the same Berlin
-wall-clock time year-round. Whichever set doesn't match the season's actual Berlin
-offset fires an hour off from the intended local time instead of silently drifting;
-runs are non-destructive and same-day duplicates are deduped, so the extra/off-target
-runs are harmless.
+GitHub cron runs in UTC and can be delayed. To reduce the impact of delays without running too early, `scanner.yml` now triggers each scheduled run about 5 minutes before the intended Berlin wall-clock time, then waits inside the workflow until the target time before running `scanner/run_scan.py`.
+
+Both a CEST-offset and a CET-offset cron are listed for each target time so the Berlin wall-clock schedule survives daylight-saving changes. The timing step skips the inactive seasonal cron when it fires too early or too late for the mapped target time.
 
 Finviz free-tier data is manual. For best results, update `data/finviz_watchlist.csv` around 15:40-15:45 Berlin so the 15:50 and 16:10 runs can validate fresh Finviz names through Alpaca.
 
