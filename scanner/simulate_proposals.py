@@ -33,6 +33,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from eu_history import bars_for as eu_bars_for, is_eu_symbol  # noqa: E402
 from run_scan import alpaca_credentials, alpaca_get, load_config  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -238,7 +239,11 @@ def main() -> int:
             config = load_config()
             for row in open_rows:
                 try:
-                    bars = fetch_daily_bars(row["ticker"], row["date"], config)
+                    if is_eu_symbol(row["ticker"]):
+                        # EU proposals simulate on the self-accumulated local history.
+                        bars = [b for b in eu_bars_for(row["ticker"]) if b["t"] >= row["date"]]
+                    else:
+                        bars = fetch_daily_bars(row["ticker"], row["date"], config)
                 except Exception as exc:  # noqa: BLE001 - one bad ticker shouldn't stop the run
                     print(f"Skipping {row.get('ticker')}: {exc}", file=sys.stderr)
                     continue

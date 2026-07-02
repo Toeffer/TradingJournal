@@ -141,6 +141,14 @@ def main() -> int:
     lines.extend(stats_table(source_groups))
     lines.append("")
 
+    markets = sorted({r.get("market", "") for r in rows if r.get("market")})
+    if len(markets) > 1:
+        lines.append("## Outcomes by market")
+        lines.append("")
+        market_groups = [(m, [r for r in rows if r.get("market") == m]) for m in markets]
+        lines.extend(stats_table(market_groups))
+        lines.append("")
+
     lines.append("## Runner board (every recorded signal)")
     lines.append("")
     lines.append("| Date | Ticker | Score | Signal price | Day move | 1d | 5d | 10d | 21d |")

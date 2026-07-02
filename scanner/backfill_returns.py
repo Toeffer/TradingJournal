@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from eu_history import bars_for as eu_bars_for, is_eu_symbol  # noqa: E402
 from run_scan import alpaca_credentials, alpaca_get, load_config  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -129,7 +130,12 @@ def main() -> int:
             datetime.strptime(oldest_signal_date, "%Y-%m-%d").date() - timedelta(days=3)
         ).isoformat()
         try:
-            closes = fetch_bars_for_ticker(ticker, start, config)
+            if is_eu_symbol(ticker):
+                # EU tickers have no Alpaca coverage; closes come from the
+                # self-accumulated local history (see eu_history.py).
+                closes = {b["t"]: b["c"] for b in eu_bars_for(ticker) if b["c"] is not None}
+            else:
+                closes = fetch_bars_for_ticker(ticker, start, config)
         except Exception as exc:  # noqa: BLE001 - one bad ticker shouldn't stop the run
             print(f"Skipping {ticker}: {exc}", file=sys.stderr)
             continue

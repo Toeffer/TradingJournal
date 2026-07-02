@@ -37,7 +37,10 @@ recommendation**, and the routine must never invent or change that rule.
 ## CONFIG — edit these to tune
 
 ```
-REGION:                   US-listed common shares
+REGION:                   US-listed common shares + XETRA (Frankfurt) listed shares.
+                          # XETRA names trade in EUR (no FX for the EUR account).
+                          # LSE only case-by-case: +0.5% UK stamp duty per buy and GBP
+                          # exposure must be named in the candidate's risk factors.
 MARKET_CAP_MIN:           500000000        # $500M
 MARKET_CAP_MAX:           10000000000      # $10B
 MIN_AVG_DOLLAR_VOLUME:    25000000         # $25M average daily $ volume (liquidity floor)

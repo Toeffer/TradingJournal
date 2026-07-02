@@ -28,6 +28,23 @@ feed = "iex"
 batch_size = 50
 lookback_days = 90
 
+[eu]
+# EU scanner (run_scan_eu.py): FMP real-time quotes + self-accumulating local
+# history (data/eu_quote_history.csv), because the current FMP plan has no EU
+# historical bars. Breakout/rel-volume components come online as history grows.
+universe_file = "scanner/universe_eu.txt"
+base_url = "https://financialmodelingprep.com"
+min_history_days_for_breakout = 15
+
+[eu.filters]
+min_price = 2.0
+max_price = 2000.0        # EUR; XETRA has four-digit names (e.g. RHM)
+min_change_pct = 3.0
+max_change_pct = 15.0
+min_rel_volume = 2.0
+max_extension_5d_pct = 25.0
+min_avg_volume_20d = 100000  # shares; XETRA volumes run lower than US consolidated
+
 [filters]
 min_price = 2.0
 max_price = 500.0
