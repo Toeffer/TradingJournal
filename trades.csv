@@ -1,14 +1,14 @@
-trade_id,date_opened,ticker,direction,catalyst,catalyst_date,setup_type,thesis,entry_price,stop_price,target_price,position_size,conviction,source,risk_rating,planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
-2026-0003,2026-06-24,AYI,long,Fiscal Q3 earnings,2026-06-25,base,Earnings catalyst with QSC/Intelligent Spaces margin story,310.65,,,138,,routine,Med,,closed,2026-06-25,372.18,27.33,,,
-2026-0004,2026-06-23,CELC,long,PDUFA date for gedatolisib (Jul 17); Q2 financial earnings and business update expected Aug 12-14,2026-07-17,,,89.86,,,,,own,,,open,,,,,,
-2026-0005,2026-06-25,VERA,long,FDA PDUFA decision on atacicept BLA,2026-07-07,special-situation,"Binary FDA approval, first-in-class BAFF/APRIL agent for IgAN, strong Phase 3 data",40.95,38.9,56.04,150,,routine,Med,7.36,closed,2026-06-30,43.21,8.28,1.1,partial,5% trailing stop was likely too tight for this setup; got shaken out before the catalyst.
-2026-0006,2026-06-29,FCEL,long,,,,,29.67,28.18,,97,,routine,,,closed,2026-06-29,28.18,-4.87,-1,,
-2026-0007,2026-06-03,ALI1.DE,long,,,,,17.71,,,174.19,,own,,,closed,2026-06-29,13.87,-40.04,,,
-2026-0008,2026-06-08,AMD,long,,,,,491.47,466.9,,143,,own,,,closed,2026-06-30,582.91,26.61,3.72,,
-2026-0009,2026-06-29,DAL,long,,,,,92.75,88.57,,90,,routine,,,open,,,,,,
-2026-0010,2026-06-29,ENR.DE,long,,,,,155.44,145.54,,132,,routine,,,closed,2026-06-30,165.22,8.31,0.99,,
-2026-0011,2026-06-29,RHM,long,Q2 and H1 2026 financial results,2026-08-06,,,956.6,922.6,,131.62,,own,,,open,,,,,,
-2026-0012,2026-06-30,ELF,long,Q2 FY earnings; ~$0.69/share EPS beat speculated (unverified),2026-08-05,,,74,69,,85,,routine,,,open,,,,,,
-2026-0013,2026-06-29,MSM,long,Fiscal Q3 earnings,2026-07-01,breakout,"Breakout to new 52-wk highs into earnings, industrial demand improving",118.95,113,,150,,routine,Med,,open,,,,,,
-2026-0014,2026-06-30,OPFI,long,,,,Found via Finviz screener; reviewed with Opus (Claude) before entry.,9.93,4.93,,85,,own,,,open,,,,,,
-2026-0015,2026-06-30,NBIS,long,,,,,240,228,,145,,own,,,open,,,,,,
+trade_id,date_opened,ticker,direction,sector,catalyst,catalyst_date,setup_type,thesis,entry_price,stop_price,target_price,position_size,conviction,source,candidate_ref,risk_rating,planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
+2026-0003,2026-06-24,AYI,long,,Fiscal Q3 earnings,2026-06-25,base,Earnings catalyst with QSC/Intelligent Spaces margin story,310.65,,,138,,routine,,Med,,closed,2026-06-25,372.18,27.33,,,
+2026-0004,2026-06-23,CELC,long,,PDUFA date for gedatolisib (Jul 17); Q2 financial earnings and business update expected Aug 12-14,2026-07-17,,,89.86,,,,,own,,,,open,,,,,,
+2026-0005,2026-06-25,VERA,long,,FDA PDUFA decision on atacicept BLA,2026-07-07,special-situation,"Binary FDA approval, first-in-class BAFF/APRIL agent for IgAN, strong Phase 3 data",40.95,38.9,56.04,150,,routine,,Med,7.36,closed,2026-06-30,43.21,8.28,1.1,partial,5% trailing stop was likely too tight for this setup; got shaken out before the catalyst.
+2026-0006,2026-06-29,FCEL,long,,,,,,29.67,28.18,,97,,routine,,,,closed,2026-06-29,28.18,-4.87,-1,,
+2026-0007,2026-06-03,ALI1.DE,long,,,,,,17.71,,,174.19,,own,,,,closed,2026-06-29,13.87,-40.04,,,
+2026-0008,2026-06-08,AMD,long,,,,,,491.47,466.9,,143,,own,,,,closed,2026-06-30,582.91,26.61,3.72,,
+2026-0009,2026-06-29,DAL,long,,,,,,92.75,88.57,,90,,routine,,,,open,,,,,,
+2026-0010,2026-06-29,ENR.DE,long,,,,,,155.44,145.54,,132,,routine,,,,closed,2026-06-30,165.22,8.31,0.99,,
+2026-0011,2026-06-29,RHM,long,,Q2 and H1 2026 financial results,2026-08-06,,,956.6,922.6,,131.62,,own,,,,open,,,,,,
+2026-0012,2026-06-30,ELF,long,,Q2 FY earnings; ~$0.69/share EPS beat speculated (unverified),2026-08-05,,,74,69,,85,,routine,,,,open,,,,,,
+2026-0013,2026-06-29,MSM,long,,Fiscal Q3 earnings,2026-07-01,breakout,"Breakout to new 52-wk highs into earnings, industrial demand improving",118.95,113,,150,,routine,,Med,,open,,,,,,
+2026-0014,2026-06-30,OPFI,long,,,,,Found via Finviz screener; reviewed with Opus (Claude) before entry.,9.93,4.93,,85,,own,,,,open,,,,,,
+2026-0015,2026-06-30,NBIS,long,,,,,,240,228,,145,,own,,,,open,,,,,,

@@ -29,7 +29,8 @@ This repository is intended to be the system of record for trades, research note
 ├── trades.csv                 # Structured trade log; source of truth for real trades
 ├── data/
 │   ├── scanner_signals.csv    # Append-only scanner signal dataset
-│   └── finviz_watchlist.csv   # Manual Finviz free-tier/Elite seed list
+│   ├── finviz_watchlist.csv   # Manual Finviz free-tier/Elite seed list
+│   └── TradingJournalCandidatesTry_updated.xlsx  # Legacy Excel journal (used to backfill trades.csv; CSV is source of truth)
 ├── scanner/                   # Optional Python scanner for unusual volume/breakouts
 ├── notes/                     # Optional longer notes per trade
 ├── research/
@@ -68,7 +69,7 @@ The scheduled workflow lives at `.github/workflows/scanner.yml`. Scheduled runs 
 `trades.csv` uses this header:
 
 ```csv
-trade_id,date_opened,ticker,direction,catalyst,catalyst_date,setup_type,thesis,entry_price,stop_price,target_price,position_size,conviction,source,risk_rating,planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
+trade_id,date_opened,ticker,direction,sector,catalyst,catalyst_date,setup_type,thesis,entry_price,stop_price,target_price,position_size,conviction,source,candidate_ref,risk_rating,planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
 ```
 
 See `AGENTS.md` for field definitions and logging rules.
@@ -89,4 +90,4 @@ Use `.env.example` for placeholders only. Use GitHub Actions secrets for API key
 
 ## Status
 
-Learning phase. Risk rules are set (€150/trade fixed sizing), trade log is ready, weekly research routine is active, and an optional scanner workflow is available on the `feature/scanner-workflow` branch for data collection and review before any merge to `main`.
+Learning phase. Risk rules are set (€150/trade fixed sizing, R-based loss limits), the trade log is live in `trades.csv` (backfilled from the legacy Excel journal), the weekly research routine is active, and the scanner workflow runs on a schedule from `main` via GitHub Actions.

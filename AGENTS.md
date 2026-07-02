@@ -51,14 +51,17 @@ Only write to `trades.csv` after I explicitly say I opened or closed a position.
 Columns:
 
 ```
-trade_id,date_opened,ticker,direction,catalyst,catalyst_date,setup_type,thesis,
-entry_price,stop_price,target_price,position_size,conviction,source,risk_rating,
-planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
+trade_id,date_opened,ticker,direction,sector,catalyst,catalyst_date,setup_type,thesis,
+entry_price,stop_price,target_price,position_size,conviction,source,candidate_ref,
+risk_rating,planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
 ```
 
 Field notes:
 - `trade_id` — short unique id you generate (e.g. `2025-0042`).
 - `direction` — `long` or `short`.
+- `sector` — short sector/theme label (e.g. `biotech`, `defense`, `ai-software`,
+  `industrials`). Keep labels consistent — this is what makes the max-2-per-sector
+  rule in `RISK_RULES.md` checkable. Ask once if unclear, then reuse existing labels.
 - `setup_type` — my setup category (e.g. `breakout`, `pullback`, `base`,
   `post-earnings-drift`, `special-situation`, `scanner-breakout`, `scanner-pullback`).
   Keep these consistent so by-setup stats are meaningful; if I use a new one, ask if it's
@@ -69,6 +72,10 @@ Field notes:
 - `source` — `routine` (came from the weekly research routine), `scanner` (came from a
   scanner report), `scanner+routine` (both agreed), or `own` (my own idea). This lets the
   review later test whether the routine/scanner actually beat my own ideas.
+- `candidate_ref` — for sourced trades, the research artifact this trade came from,
+  e.g. `candidates-2026-06-28.md#ELF` or `scan-2026-07-01-2252.md#HIMS`. Blank for
+  `own` ideas. This makes the monthly grading's traded-vs-passed comparison a lookup
+  instead of archaeology.
 - `risk_rating` — the research's `Low` / `Med` / `High` for this name. Copy it from the
   shortlist or scanner/model review for sourced trades; for my own ideas leave blank or set
   my own. This lets the review test whether higher-rated trades actually lost more.
@@ -88,8 +95,8 @@ Field notes:
    (needed for R), `setup_type`, and the catalyst. If one of those is missing, ask for
    it in a single question. Everything else is optional and can be added later.
 2. Also capture, if I mention them: `source` (routine/scanner/scanner+routine/own —
-   default `own` if I don't say), and for routine- or scanner-sourced trades the
-   `risk_rating` from the research shortlist/review.
+   default `own` if I don't say), `sector`, and for routine- or scanner-sourced trades
+   the `risk_rating` and `candidate_ref` from the research shortlist/review.
 3. Default `date_opened` to today (my local time) unless I say otherwise.
 4. If a `target_price` is given, compute `planned_r` = (target - entry) / (entry - stop)
    for longs (inverted for shorts) and store it.
@@ -101,6 +108,29 @@ Field notes:
 
 If planned R is poor (e.g. < 1.5), say so in one short line — not as advice, just so I
 see the risk/reward I'm signing up for.
+
+### Pre-trade gate (check BEFORE appending the row)
+
+Before appending, check the new trade against `RISK_RULES.md` and the current state of
+`trades.csv`. One short line per violation — flag, don't lecture, and never refuse to
+log (the journal records reality; catching the break before entry is the point):
+
+1. **Position count** — count `status = open` rows. If this trade makes it more than
+   the max (currently 5), say so.
+2. **Sector concentration** — if 2 or more open trades share this trade's `sector`,
+   say so (max 2 per sector/theme).
+3. **Consecutive losses** — if the last 3 closed trades were all losses and fewer than
+   3 days have passed since the last close, remind me the pause rule is active.
+4. **Weekly circuit breaker** — if realized R this week is at/below the weekly limit,
+   remind me no new entries are allowed this week.
+5. **Size** — if `position_size` exceeds the per-trade cap (currently €150), say so.
+6. **Earnings hold** — if the catalyst is a binary event (earnings, FDA, ruling) and
+   the plan is to hold through it, check the size against the half-size rule (€75).
+7. **Missing stop** — if there's no `stop_price`, say the trade has no defined risk
+   and no R can ever be computed for it. Ask for the stop once.
+
+If I say "log it anyway," log it and set `followed_plan` expectations accordingly —
+the review will pick it up.
 
 ---
 
@@ -162,7 +192,9 @@ no additional dedup is needed before computing stats.
 
 When asked whether the scanner is useful, compare later returns and trade outcomes by:
 
-- score bucket: 60-69, 70-79, 80+
+- score bucket: 40-59, 60-69, 70-79, 80+ (the 40-59 bucket exists because
+  `min_score_to_record` was temporarily 40 from 2026-06-30 to 2026-07-01; keep those
+  rows in their own bucket rather than mixing or dropping them)
 - source: `alpaca`, `alpaca+finviz_manual`, future paid Finviz source if added
 - reasons: relative volume, breakout, liquidity, Finviz seed
 - whether Claude/GPT agreed on Deep dive / Watch / Reject
