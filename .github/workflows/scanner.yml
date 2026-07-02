@@ -3,25 +3,23 @@ name: Pump Scanner
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron is UTC and does not follow DST, so both a CEST-offset and a
-    # CET-offset set of crons are listed below targeting the same Berlin wall-clock
-    # times (15:50 / 16:10 / 16:45 / 17:30 / 21:15). Whichever set doesn't match the
-    # current Berlin offset just fires an hour off from the intended local time
-    # instead of silently drifting all season - runs are non-destructive and
-    # deduplicated in scanner_signals.csv, so the extra/off-target runs are harmless.
+    # GitHub cron is UTC and can be delayed. Each cron below fires about 5 minutes
+    # before the intended Berlin wall-clock scan time; the workflow then waits until
+    # the target time before running. Both CEST and CET offsets are listed so the
+    # local Berlin targets stay stable across daylight saving changes.
     #
-    # CEST (UTC+2, roughly late Mar - late Oct):
-    - cron: "50 13 * * 1-5"  # 15:50 Europe/Berlin during CEST
-    - cron: "10 14 * * 1-5"  # 16:10 Europe/Berlin during CEST
-    - cron: "45 14 * * 1-5"  # 16:45 Europe/Berlin during CEST
-    - cron: "30 15 * * 1-5"  # 17:30 Europe/Berlin during CEST
-    - cron: "15 19 * * 1-5"  # 21:15 Europe/Berlin during CEST
-    # CET (UTC+1, roughly late Oct - late Mar):
-    - cron: "50 14 * * 1-5"  # 15:50 Europe/Berlin during CET
-    - cron: "10 15 * * 1-5"  # 16:10 Europe/Berlin during CET
-    - cron: "45 15 * * 1-5"  # 16:45 Europe/Berlin during CET
-    - cron: "30 16 * * 1-5"  # 17:30 Europe/Berlin during CET
-    - cron: "15 20 * * 1-5"  # 21:15 Europe/Berlin during CET
+    # CEST (UTC+2, roughly late Mar - late Oct) — targets 15:50 / 16:10 / 16:45 / 17:30 / 21:15 Berlin:
+    - cron: "45 13 * * 1-5"  # target 15:50 Europe/Berlin during CEST
+    - cron: "05 14 * * 1-5"  # target 16:10 Europe/Berlin during CEST
+    - cron: "40 14 * * 1-5"  # target 16:45 Europe/Berlin during CEST
+    - cron: "25 15 * * 1-5"  # target 17:30 Europe/Berlin during CEST
+    - cron: "10 19 * * 1-5"  # target 21:15 Europe/Berlin during CEST
+    # CET (UTC+1, roughly late Oct - late Mar) — targets 15:50 / 16:10 / 16:45 / 17:30 / 21:15 Berlin:
+    - cron: "45 14 * * 1-5"  # target 15:50 Europe/Berlin during CET
+    - cron: "05 15 * * 1-5"  # target 16:10 Europe/Berlin during CET
+    - cron: "40 15 * * 1-5"  # target 16:45 Europe/Berlin during CET
+    - cron: "25 16 * * 1-5"  # target 17:30 Europe/Berlin during CET
+    - cron: "10 20 * * 1-5"  # target 21:15 Europe/Berlin during CET
 
 concurrency:
   group: pump-scanner
@@ -33,31 +31,91 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
+      - name: Wait until target Berlin scan time
+        id: timing
+        if: github.event_name == 'schedule'
+        env:
+          TRIGGER_CRON: ${{ github.event.schedule }}
+        run: |
+          set -euo pipefail
+
+          case "$TRIGGER_CRON" in
+            "45 13 * * 1-5"|"45 14 * * 1-5") TARGET_HHMM="15:50" ;;
+            "05 14 * * 1-5"|"05 15 * * 1-5") TARGET_HHMM="16:10" ;;
+            "40 14 * * 1-5"|"40 15 * * 1-5") TARGET_HHMM="16:45" ;;
+            "25 15 * * 1-5"|"25 16 * * 1-5") TARGET_HHMM="17:30" ;;
+            "10 19 * * 1-5"|"10 20 * * 1-5") TARGET_HHMM="21:15" ;;
+            *)
+              echo "Unknown schedule '$TRIGGER_CRON'; running without wait."
+              echo "should_run=true" >> "$GITHUB_OUTPUT"
+              exit 0
+              ;;
+          esac
+
+          BERLIN_DATE=$(TZ=Europe/Berlin date +%Y-%m-%d)
+          NOW_EPOCH=$(TZ=Europe/Berlin date +%s)
+          TARGET_EPOCH=$(TZ=Europe/Berlin date -d "$BERLIN_DATE $TARGET_HHMM:00" +%s)
+          DIFF_SECONDS=$((TARGET_EPOCH - NOW_EPOCH))
+          MAX_EARLY_WAIT_SECONDS=600
+          MAX_LATE_RUN_SECONDS=1800
+
+          echo "Schedule: $TRIGGER_CRON"
+          echo "Berlin now: $(TZ=Europe/Berlin date '+%Y-%m-%d %H:%M:%S %Z')"
+          echo "Target Berlin scan time: $TARGET_HHMM"
+
+          if [ "$DIFF_SECONDS" -gt "$MAX_EARLY_WAIT_SECONDS" ]; then
+            echo "Triggered more than $MAX_EARLY_WAIT_SECONDS seconds before target; likely inactive seasonal cron. Skipping."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$DIFF_SECONDS" -gt 0 ]; then
+            echo "Waiting $DIFF_SECONDS seconds until target scan time."
+            sleep "$DIFF_SECONDS"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LATE_SECONDS=$((0 - DIFF_SECONDS))
+          if [ "$LATE_SECONDS" -gt "$MAX_LATE_RUN_SECONDS" ]; then
+            echo "Triggered $LATE_SECONDS seconds after target; likely inactive seasonal cron or too delayed. Skipping."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Already at/past target by $LATE_SECONDS seconds; running immediately."
+          echo "should_run=true" >> "$GITHUB_OUTPUT"
+
       - name: Check out repository
+        if: steps.timing.outputs.should_run != 'false'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
 
       - name: Set up Python
+        if: steps.timing.outputs.should_run != 'false'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Run scanner
+        if: steps.timing.outputs.should_run != 'false'
         env:
           APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: python scanner/run_scan.py
 
       - name: Backfill scanner returns
+        if: steps.timing.outputs.should_run != 'false'
         env:
           APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: python scanner/backfill_returns.py
 
       - name: Commit scanner output
+        if: steps.timing.outputs.should_run != 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
