@@ -32,9 +32,13 @@ This repository is intended to be the system of record for trades, research note
 │   ├── finviz_watchlist.csv   # Manual Finviz free-tier/Elite seed list
 │   └── TradingJournalCandidatesTry_updated.xlsx  # Legacy Excel journal (used to backfill trades.csv; CSV is source of truth)
 ├── scanner/                   # Optional Python scanner for unusual volume/breakouts
+├── scripts/
+│   └── journal_stats.py       # Regenerates research/journal-stats.md from trades.csv
 ├── notes/                     # Optional longer notes per trade
 ├── research/
-│   └── scans/                 # Scanner reports used as input for Claude/GPT review
+│   ├── scans/                 # Scanner reports used as input for Claude/GPT review
+│   ├── scanner-summary.md     # Auto-generated signal outcomes (derived, do not edit)
+│   └── journal-stats.md       # Auto-generated trade stats (derived, do not edit)
 └── docs/                      # Architecture, setup, and project notes
 ```
 
@@ -63,6 +67,22 @@ APCA_API_SECRET_KEY
 ```
 
 The scheduled workflow lives at `.github/workflows/scanner.yml`. Scheduled runs only become active when that workflow exists on the default branch. While testing on a feature branch, run it manually or open a PR first.
+
+## Automation
+
+Two workflows keep derived reports fresh without manual steps:
+
+- **Scanner** (`.github/workflows/scanner.yml`, scheduled): runs the scan, backfills
+  1/3/5/10/21-trading-day returns for past signals, and regenerates
+  `research/scanner-summary.md` (outcomes by score bucket/source plus a runner board).
+- **Journal stats** (`.github/workflows/journal.yml`, on every `trades.csv` change on
+  `main`): regenerates `research/journal-stats.md` — expectancy, win rate, breakdowns
+  by source/setup/risk rating, weekly realized R vs the loss limit, open positions,
+  rule-check flags, and a list of data gaps to fill.
+
+Both output files are derived artifacts: never edit them by hand, and never treat
+them as signals. `trades.csv` and `data/scanner_signals.csv` remain the sources of
+truth.
 
 ## Trade log schema
 

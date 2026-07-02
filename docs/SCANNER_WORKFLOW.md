@@ -153,10 +153,20 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 ## Return backfill
 
 `scanner/backfill_returns.py` runs after each scan (wired into `scanner.yml`). For
-any recorded signal where 1/3/5 trading days have now elapsed, it fetches daily bars
-from Alpaca and fills `one_day_return` / `three_day_return` / `five_day_return`
-relative to the price recorded at scan time. It only fills blank cells and is safe
-to re-run. Without this, the 30-day evaluation below has no data to work from.
+any recorded signal where 1/3/5/10/21 trading days have now elapsed, it fetches
+daily bars from Alpaca and fills `one_day_return` / `three_day_return` /
+`five_day_return` / `ten_day_return` / `twenty_one_day_return` relative to the
+price recorded at scan time (roughly next day / week / two weeks / month). It only
+fills blank cells and is safe to re-run. Without this, the 30-day evaluation below
+has no data to work from.
+
+## Signal summary
+
+`scanner/summarize_signals.py` runs after the backfill and regenerates
+`research/scanner-summary.md`: outcome stats by score bucket and source (average,
+median, hit rate, best/worst per horizon) plus a runner board listing every
+recorded signal with its 1d/5d/10d/21d outcomes. It is a derived artifact —
+regenerated on every run, never edited by hand, and never a trade signal.
 
 ## 30-day evaluation
 

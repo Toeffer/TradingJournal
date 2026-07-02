@@ -1,0 +1,45 @@
+name: Journal Stats
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - trades.csv
+      - scripts/journal_stats.py
+
+concurrency:
+  group: journal-stats
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Recompute journal stats
+        run: python scripts/journal_stats.py
+
+      - name: Commit stats report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/journal-stats.md
+          if git diff --cached --quiet; then
+            echo "No stats changes to commit."
+          else
+            git commit -m "Refresh journal stats"
+            git pull --rebase origin main
+            git push -u origin main
+          fi

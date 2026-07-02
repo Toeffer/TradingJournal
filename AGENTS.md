@@ -172,6 +172,11 @@ Never add a row to `trades.csv` from scanner review alone.
 Compute everything **from `trades.csv`** over the range I ask for. Never estimate or
 fabricate a number — if the data isn't there, say so.
 
+`research/journal-stats.md` is an auto-generated snapshot of the headline numbers
+(refreshed by `.github/workflows/journal.yml` whenever `trades.csv` changes on main).
+Use it for a quick read, but recompute from `trades.csv` for anything decision-
+relevant — the CSV is the source of truth, the report is a cache.
+
 Report, concisely:
 - Number of trades, win rate.
 - Average win (R) vs average loss (R), and largest loss (R).

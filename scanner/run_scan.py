@@ -64,6 +64,8 @@ CSV_FIELDS = [
     "one_day_return",
     "three_day_return",
     "five_day_return",
+    "ten_day_return",
+    "twenty_one_day_return",
     "notes",
 ]
 
@@ -106,6 +108,8 @@ class Candidate:
             "one_day_return": "",
             "three_day_return": "",
             "five_day_return": "",
+            "ten_day_return": "",
+            "twenty_one_day_return": "",
             "notes": "",
         }
 
@@ -390,7 +394,14 @@ def score_candidate(
     return candidate
 
 
-RETURN_FIELDS = ("one_day_return", "three_day_return", "five_day_return", "notes")
+RETURN_FIELDS = (
+    "one_day_return",
+    "three_day_return",
+    "five_day_return",
+    "ten_day_return",
+    "twenty_one_day_return",
+    "notes",
+)
 
 
 def _merge_return_fields(preferred: dict[str, Any], other: dict[str, Any]) -> dict[str, Any]:

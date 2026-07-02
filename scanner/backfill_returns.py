@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Backfill 1/3/5-trading-day forward returns for recorded scanner signals.
+"""Backfill 1/3/5/10/21-trading-day forward returns for recorded scanner signals.
 
 run_scan.py writes candidates with one_day_return/three_day_return/five_day_return
 left blank, since those outcomes don't exist yet at scan time. Nothing else in the
@@ -27,7 +27,26 @@ from run_scan import alpaca_credentials, alpaca_get, load_config  # noqa: E402
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SIGNALS_CSV = REPO_ROOT / "data/scanner_signals.csv"
 
-RETURN_OFFSETS = {"one_day_return": 1, "three_day_return": 3, "five_day_return": 5}
+RETURN_OFFSETS = {
+    "one_day_return": 1,
+    "three_day_return": 3,
+    "five_day_return": 5,
+    "ten_day_return": 10,
+    "twenty_one_day_return": 21,
+}
+
+
+def ensure_return_columns(fieldnames: list[str], rows: list[dict[str, Any]]) -> list[str]:
+    """Add any missing return columns (before `notes`) so older files keep working."""
+    missing = [f for f in RETURN_OFFSETS if f not in fieldnames]
+    if not missing:
+        return fieldnames
+    insert_at = fieldnames.index("notes") if "notes" in fieldnames else len(fieldnames)
+    fieldnames = fieldnames[:insert_at] + missing + fieldnames[insert_at:]
+    for row in rows:
+        for f in missing:
+            row.setdefault(f, "")
+    return fieldnames
 
 
 def read_rows(path: Path) -> tuple[list[str], list[dict[str, Any]]]:
@@ -85,6 +104,8 @@ def main() -> int:
         return 0
 
     fieldnames, rows = read_rows(SIGNALS_CSV)
+    original_fieldnames = list(fieldnames)
+    fieldnames = ensure_return_columns(fieldnames, rows)
     today = datetime.now(timezone.utc).date()
 
     pending_by_ticker: dict[str, list[dict[str, Any]]] = {}
@@ -94,7 +115,11 @@ def main() -> int:
         pending_by_ticker.setdefault(row["ticker"], []).append(row)
 
     if not pending_by_ticker:
-        print("No rows need return backfilling.")
+        if fieldnames != original_fieldnames:
+            write_rows(SIGNALS_CSV, fieldnames, rows)
+            print("Migrated signals file to include new return columns.")
+        else:
+            print("No rows need return backfilling.")
         return 0
 
     changed = 0
@@ -143,7 +168,7 @@ def main() -> int:
             if row_changed:
                 changed += 1
 
-    if changed:
+    if changed or fieldnames != original_fieldnames:
         write_rows(SIGNALS_CSV, fieldnames, rows)
         print(f"Backfilled returns for {changed} row(s).")
     else:

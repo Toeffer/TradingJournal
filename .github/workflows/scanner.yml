@@ -114,12 +114,16 @@ jobs:
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: python scanner/backfill_returns.py
 
+      - name: Summarize signal outcomes
+        if: steps.timing.outputs.should_run != 'false'
+        run: python scanner/summarize_signals.py
+
       - name: Commit scanner output
         if: steps.timing.outputs.should_run != 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/scanner_signals.csv research/scans/
+          git add data/scanner_signals.csv research/scans/ research/scanner-summary.md
           if git diff --cached --quiet; then
             echo "No scanner output changes to commit."
           else
