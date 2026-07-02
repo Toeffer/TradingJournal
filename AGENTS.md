@@ -156,7 +156,9 @@ Lead with expectancy and the breakdowns; that's what tells me what's working.
 
 ## Scanner statistics
 
-Scanner statistics come from `data/scanner_signals.csv`, not `trades.csv`.
+Scanner statistics come from `data/scanner_signals.csv`, not `trades.csv`. This file
+is deduped to one row per (date, ticker) — the highest-scoring run of the day — so
+no additional dedup is needed before computing stats.
 
 When asked whether the scanner is useful, compare later returns and trade outcomes by:
 

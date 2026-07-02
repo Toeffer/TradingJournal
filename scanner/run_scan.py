@@ -31,6 +31,8 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+NY_TZ = ZoneInfo("America/New_York")
+
 try:
     import tomllib
 except ModuleNotFoundError:  # pragma: no cover - GitHub Actions uses Python 3.11+
@@ -233,6 +235,30 @@ def safe_mean(values: list[float]) -> float | None:
     return float(statistics.mean(clean))
 
 
+def session_elapsed_fraction(now: datetime) -> float | None:
+    """Fraction of the US regular session (9:30-16:00 America/New_York) elapsed at `now`.
+
+    avg_volume_20d is a full-day average, but a mid-session snapshot only has a
+    partial day's volume. Comparing the two directly (as before) makes relative
+    volume nearly unreachable except right at the close. This gives a cheap
+    pro-rata baseline instead of requiring intraday bars.
+    """
+    now_ny = now.astimezone(NY_TZ)
+    if now_ny.weekday() >= 5:
+        return None
+    open_dt = now_ny.replace(hour=9, minute=30, second=0, microsecond=0)
+    close_dt = now_ny.replace(hour=16, minute=0, second=0, microsecond=0)
+    if now_ny < open_dt:
+        return None
+    if now_ny >= close_dt:
+        return 1.0
+    elapsed = (now_ny - open_dt).total_seconds()
+    total = (close_dt - open_dt).total_seconds()
+    # Floor at 5% of the session so the first few minutes after the open don't
+    # divide by a near-zero expected volume and produce absurd ratios.
+    return max(elapsed / total, 0.05)
+
+
 def latest_price(snapshot: dict[str, Any], daily_bar: dict[str, Any] | None) -> float | None:
     trade = snapshot.get("latestTrade") or {}
     for candidate in [trade.get("p"), (daily_bar or {}).get("c")]:
@@ -244,6 +270,7 @@ def latest_price(snapshot: dict[str, Any], daily_bar: dict[str, Any] | None) -> 
 def score_candidate(
     ticker: str,
     timestamp: str,
+    now: datetime,
     snapshot: dict[str, Any],
     bars: list[dict[str, Any]],
     finviz_manual: dict[str, dict[str, str]],
@@ -276,7 +303,15 @@ def score_candidate(
         return None
 
     volume = int(float(daily.get("v", 0) or 0))
-    rel_volume = volume / avg_volume_20d if avg_volume_20d else None
+    session_fraction = session_elapsed_fraction(now)
+    expected_volume_to_date = (
+        avg_volume_20d * session_fraction if session_fraction is not None else None
+    )
+    rel_volume = (
+        volume / expected_volume_to_date
+        if expected_volume_to_date
+        else None
+    )
     prev_close = float(prev.get("c", 0) or 0)
     change_pct = ((price / prev_close) - 1) * 100 if prev_close > 0 else None
 
@@ -306,12 +341,14 @@ def score_candidate(
     max_change_pct = float(filters.get("max_change_pct", 15.0))
     max_extension = float(filters.get("max_extension_5d_pct", 25.0))
 
-    if rel_volume and rel_volume >= min_rel_volume:
+    if session_fraction is None:
+        candidate.warnings.append("relative volume not computed (outside US regular session)")
+    elif rel_volume and rel_volume >= min_rel_volume:
         rel_points = int(round(float(weights.get("rel_volume", 20)) * min(rel_volume / 3.0, 1.0)))
         candidate.score += rel_points
-        candidate.reasons.append(f"relative volume {rel_volume:.2f}x")
+        candidate.reasons.append(f"relative volume {rel_volume:.2f}x pace (session {session_fraction * 100:.0f}% elapsed)")
     else:
-        candidate.warnings.append(f"relative volume below trigger ({fmt_float(rel_volume) or 'n/a'}x)")
+        candidate.warnings.append(f"relative volume below trigger ({fmt_float(rel_volume) or 'n/a'}x pace)")
 
     if change_pct is not None and min_change_pct <= change_pct <= max_change_pct:
         candidate.score += int(weights.get("daily_change", 10))
@@ -353,17 +390,57 @@ def score_candidate(
     return candidate
 
 
+RETURN_FIELDS = ("one_day_return", "three_day_return", "five_day_return", "notes")
+
+
+def _merge_return_fields(preferred: dict[str, Any], other: dict[str, Any]) -> dict[str, Any]:
+    """Keep `preferred`'s values but backfill any blank return/notes fields from `other`."""
+    merged = dict(preferred)
+    for key in RETURN_FIELDS:
+        if not merged.get(key) and other.get(key):
+            merged[key] = other[key]
+    return merged
+
+
 def append_signal_rows(path: Path, candidates: list[Candidate]) -> None:
+    """Write new candidates, deduped to one row per (date, ticker) keeping the highest score.
+
+    A stock that stays elevated all session gets re-recorded on every scan run, which
+    would bias later score-bucket stats toward persistent names. Same-day duplicates are
+    collapsed here; rows from other days are left untouched. Backfilled return columns
+    are preserved across the merge regardless of which run's row is kept.
+    """
     if not candidates:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
-    exists = path.exists() and path.stat().st_size > 0
-    with path.open("a", newline="", encoding="utf-8") as f:
+
+    existing: list[dict[str, Any]] = []
+    if path.exists() and path.stat().st_size > 0:
+        with path.open("r", newline="", encoding="utf-8") as f:
+            existing = list(csv.DictReader(f))
+
+    best: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in existing:
+        key = (row["timestamp"][:10], row["ticker"])
+        if key not in best or int(row.get("score") or 0) > int(best[key].get("score") or 0):
+            best[key] = row
+
+    for candidate in candidates:
+        key = (candidate.timestamp[:10], candidate.ticker)
+        new_row = candidate.to_csv_row()
+        if key not in best:
+            best[key] = new_row
+        elif candidate.score > int(best[key].get("score") or 0):
+            best[key] = _merge_return_fields(new_row, best[key])
+        else:
+            best[key] = _merge_return_fields(best[key], new_row)
+
+    rows = sorted(best.values(), key=lambda r: (r["timestamp"], r["ticker"]))
+    with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
-        if not exists:
-            writer.writeheader()
-        for candidate in candidates:
-            writer.writerow(candidate.to_csv_row())
+        writer.writeheader()
+        for row in rows:
+            writer.writerow(row)
 
 
 def write_report(
@@ -388,6 +465,8 @@ def write_report(
     lines.append(f"# Pump Scanner — {local_ts}")
     lines.append("")
     lines.append("DRAFT for human review. This is candidate discovery, not financial advice and not a trade signal.")
+    lines.append("")
+    lines.append("Volume figures use the IEX feed only (a minority of consolidated U.S. volume), not full-tape liquidity. Relative volume is normalized against the elapsed fraction of the US regular session (9:30-16:00 ET), not the full-day average.")
     lines.append("")
     lines.append("## Run summary")
     lines.append(f"- Universe tickers scanned: {universe_count}")
@@ -491,6 +570,7 @@ def main() -> int:
         candidate = score_candidate(
             ticker=ticker,
             timestamp=timestamp,
+            now=now,
             snapshot=snapshots.get(ticker, {}),
             bars=bars.get(ticker, []),
             finviz_manual=finviz_manual,
