@@ -124,9 +124,46 @@ The schedule is aligned to the U.S. regular-market open. During Berlin summer ti
 21:15 Berlin — late-day / next-day setup scan
 ```
 
-GitHub cron runs in UTC and can be delayed. To reduce the impact of delays without running too early, `scanner.yml` now triggers each scheduled run about 5 minutes before the intended Berlin wall-clock time, then waits inside the workflow until the target time before running `scanner/run_scan.py`.
+### Scheduling reality and the timing policy
 
-Both a CEST-offset and a CET-offset cron are listed for each target time so the Berlin wall-clock schedule survives daylight-saving changes. The timing step skips the inactive seasonal cron when it fires too early or too late for the mapped target time.
+GitHub Actions cron is **best-effort**: on this repo, scheduled starts have been
+observed 1.5-2.5 hours late (e.g. all of 2026-07-01 ran ~2h behind). No cron
+syntax fixes that — it's queueing on GitHub's side. `workflow_dispatch` runs, by
+contrast, start within seconds.
+
+The timing step in `scanner.yml` therefore works like this:
+
+- Each target time has a CEST cron and a CET cron; the step detects Berlin's
+  current UTC offset and **skips only the wrong-season duplicate**.
+- Crons fire ~5 minutes early; if the runner starts before the target, it waits.
+- **Late runs still scan** (up to 3.5h late). A late scan is a valid observation:
+  relative volume is normalized by elapsed session time, and same-day dedup in
+  `scanner_signals.csv` keeps one row per ticker/day. Late data beats no data —
+  the old policy of skipping runs more than 30 minutes late silently produced
+  zero scheduled scans on delayed days.
+- Runs later than 3.5h after their slot are skipped as stale.
+
+### Exact timing (optional upgrade): external scheduler -> workflow_dispatch
+
+If scan timing needs to be tight (e.g. the 15:50 open-momentum scan), trigger the
+workflow from an external scheduler instead of relying on GitHub cron:
+
+1. Create a fine-grained GitHub personal access token scoped to this repo with
+   **Actions: read and write** permission only.
+2. On any reliable scheduler (cron-job.org free tier, a home server/Raspberry Pi
+   cron, or a cloud scheduler), create one job per scan time that POSTs:
+
+   ```text
+   POST https://api.github.com/repos/<owner>/TradingJournal/actions/workflows/scanner.yml/dispatches
+   Authorization: Bearer <token>
+   Accept: application/vnd.github+json
+   Body: {"ref": "main"}
+   ```
+
+3. Keep the GitHub crons as a fallback; duplicate runs are harmless (same-day
+   dedup) and the digest/summary files regenerate idempotently.
+
+The token stays in the external scheduler's secret store — never in this repo.
 
 Finviz free-tier data is manual. For best results, update `data/finviz_watchlist.csv` around 15:40-15:45 Berlin so the 15:50 and 16:10 runs can validate fresh Finviz names through Alpaca.
 

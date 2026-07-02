@@ -41,12 +41,24 @@ jobs:
         run: |
           set -euo pipefail
 
+          # GitHub cron starts are best-effort and have been observed 1.5-2.5h
+          # late on this repo. Policy: a LATE run still scans (relative volume is
+          # normalized by elapsed session time, so a late scan is a valid
+          # observation taken later in the session; same-day dedup keeps stats
+          # clean). Only two things skip a run: the wrong-season duplicate cron,
+          # and delays beyond MAX_LATE_RUN_SECONDS where the data would describe
+          # a different market phase than any intended scan slot.
           case "$TRIGGER_CRON" in
-            "45 13 * * 1-5"|"45 14 * * 1-5") TARGET_HHMM="15:50" ;;
-            "05 14 * * 1-5"|"05 15 * * 1-5") TARGET_HHMM="16:10" ;;
-            "40 14 * * 1-5"|"40 15 * * 1-5") TARGET_HHMM="16:45" ;;
-            "25 15 * * 1-5"|"25 16 * * 1-5") TARGET_HHMM="17:30" ;;
-            "10 19 * * 1-5"|"10 20 * * 1-5") TARGET_HHMM="21:15" ;;
+            "45 13 * * 1-5") TARGET_HHMM="15:50"; CRON_SEASON="CEST" ;;
+            "05 14 * * 1-5") TARGET_HHMM="16:10"; CRON_SEASON="CEST" ;;
+            "40 14 * * 1-5") TARGET_HHMM="16:45"; CRON_SEASON="CEST" ;;
+            "25 15 * * 1-5") TARGET_HHMM="17:30"; CRON_SEASON="CEST" ;;
+            "10 19 * * 1-5") TARGET_HHMM="21:15"; CRON_SEASON="CEST" ;;
+            "45 14 * * 1-5") TARGET_HHMM="15:50"; CRON_SEASON="CET" ;;
+            "05 15 * * 1-5") TARGET_HHMM="16:10"; CRON_SEASON="CET" ;;
+            "40 15 * * 1-5") TARGET_HHMM="16:45"; CRON_SEASON="CET" ;;
+            "25 16 * * 1-5") TARGET_HHMM="17:30"; CRON_SEASON="CET" ;;
+            "10 20 * * 1-5") TARGET_HHMM="21:15"; CRON_SEASON="CET" ;;
             *)
               echo "Unknown schedule '$TRIGGER_CRON'; running without wait."
               echo "should_run=true" >> "$GITHUB_OUTPUT"
@@ -54,38 +66,54 @@ jobs:
               ;;
           esac
 
-          BERLIN_DATE=$(TZ=Europe/Berlin date +%Y-%m-%d)
-          NOW_EPOCH=$(TZ=Europe/Berlin date +%s)
-          TARGET_EPOCH=$(TZ=Europe/Berlin date -d "$BERLIN_DATE $TARGET_HHMM:00" +%s)
-          DIFF_SECONDS=$((TARGET_EPOCH - NOW_EPOCH))
-          MAX_EARLY_WAIT_SECONDS=600
-          MAX_LATE_RUN_SECONDS=1800
+          # Which season is Berlin actually in right now?
+          case "$(TZ=Europe/Berlin date +%z)" in
+            "+0200") CURRENT_SEASON="CEST" ;;
+            "+0100") CURRENT_SEASON="CET" ;;
+            *) CURRENT_SEASON="$CRON_SEASON" ;;  # unexpected offset: don't skip
+          esac
 
-          echo "Schedule: $TRIGGER_CRON"
-          echo "Berlin now: $(TZ=Europe/Berlin date '+%Y-%m-%d %H:%M:%S %Z')"
+          echo "Schedule: $TRIGGER_CRON (intended for $CRON_SEASON)"
+          echo "Berlin now: $(TZ=Europe/Berlin date '+%Y-%m-%d %H:%M:%S %Z') (season $CURRENT_SEASON)"
           echo "Target Berlin scan time: $TARGET_HHMM"
 
-          if [ "$DIFF_SECONDS" -gt "$MAX_EARLY_WAIT_SECONDS" ]; then
-            echo "Triggered more than $MAX_EARLY_WAIT_SECONDS seconds before target; likely inactive seasonal cron. Skipping."
+          if [ "$CRON_SEASON" != "$CURRENT_SEASON" ]; then
+            echo "Wrong-season duplicate cron; the $CURRENT_SEASON cron covers this slot. Skipping."
             echo "should_run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          if [ "$DIFF_SECONDS" -gt 0 ]; then
+          BERLIN_DATE=$(TZ=Europe/Berlin date +%Y-%m-%d)
+          NOW_EPOCH=$(TZ=Europe/Berlin date +%s)
+          TARGET_EPOCH=$(TZ=Europe/Berlin date -d "$BERLIN_DATE $TARGET_HHMM:00" +%s)
+          DIFF_SECONDS=$((TARGET_EPOCH - NOW_EPOCH))
+          MAX_EARLY_WAIT_SECONDS=900
+          MAX_LATE_RUN_SECONDS=12600  # 3.5h: covers observed GitHub delays
+
+          if [ "$DIFF_SECONDS" -gt 0 ] && [ "$DIFF_SECONDS" -le "$MAX_EARLY_WAIT_SECONDS" ]; then
             echo "Waiting $DIFF_SECONDS seconds until target scan time."
             sleep "$DIFF_SECONDS"
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
+          if [ "$DIFF_SECONDS" -gt "$MAX_EARLY_WAIT_SECONDS" ]; then
+            # More than the wait cap BEFORE today's target: with the season check
+            # above this should not happen from GitHub delays; run without waiting
+            # rather than lose the slot entirely.
+            echo "Unexpectedly early ($DIFF_SECONDS s before target); running immediately without wait."
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           LATE_SECONDS=$((0 - DIFF_SECONDS))
           if [ "$LATE_SECONDS" -gt "$MAX_LATE_RUN_SECONDS" ]; then
-            echo "Triggered $LATE_SECONDS seconds after target; likely inactive seasonal cron or too delayed. Skipping."
+            echo "Triggered $LATE_SECONDS seconds after target (> $MAX_LATE_RUN_SECONDS); too stale for this slot. Skipping."
             echo "should_run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          echo "Already at/past target by $LATE_SECONDS seconds; running immediately."
+          echo "Running $LATE_SECONDS seconds after target (late-but-valid; rel volume normalizes by session time)."
           echo "should_run=true" >> "$GITHUB_OUTPUT"
 
       - name: Check out repository
