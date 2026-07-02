@@ -9,6 +9,6 @@ trade_id,date_opened,ticker,direction,sector,catalyst,catalyst_date,setup_type,t
 2026-0010,2026-06-29,ENR.DE,long,,,,,,155.44,145.54,,132,,routine,,,,closed,2026-06-30,165.22,8.31,0.99,,
 2026-0011,2026-06-29,RHM,long,,Q2 and H1 2026 financial results,2026-08-06,,,956.6,922.6,,131.62,,own,,,,open,,,,,,
 2026-0012,2026-06-30,ELF,long,,Q2 FY earnings; ~$0.69/share EPS beat speculated (unverified),2026-08-05,,,74,69,,85,,routine,,,,open,,,,,,
-2026-0013,2026-06-29,MSM,long,,Fiscal Q3 earnings,2026-07-01,breakout,"Breakout to new 52-wk highs into earnings, industrial demand improving",118.95,113,,150,,routine,,Med,,open,,,,,,
+2026-0013,2026-06-29,MSM,long,,Fiscal Q3 earnings,2026-07-01,breakout,"Breakout to new 52-wk highs into earnings, industrial demand improving",118.95,113,,150,,routine,,Med,,closed,2026-07-01,117.08,-2.36,-0.31,,
 2026-0014,2026-06-30,OPFI,long,,,,,Found via Finviz screener; reviewed with Opus (Claude) before entry.,9.93,9.00,,85,,own,,,,open,,,,,,
 2026-0015,2026-06-30,NBIS,long,,,,,,240,228,,145,,own,,,,closed,2026-07-02,228,-7.25,-1,,
