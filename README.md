@@ -25,6 +25,7 @@ This repository is intended to be the system of record for trades, research note
 ├── MONTHLY_SELF_GRADE.md      # Monthly review template for the research process
 ├── RISK_RULES.md              # Personal risk rules (position sizing, loss limits)
 ├── SETUPS.md                  # Setup definitions + the proposal card standard
+├── MASTERPLAN.md              # Phased long-term roadmap with numeric gates
 ├── ETORO_TRADEABILITY.md      # Broker overlay for eToro Germany/EU
 ├── SECOND_OPINION.md          # Red-team prompt for a second model
 ├── trades.csv                 # Structured trade log; source of truth for real trades
