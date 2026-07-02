@@ -70,11 +70,24 @@ USD-denominated US stocks, so there is baseline EUR/USD exposure on every trade.
 
 ## Loss limits (circuit breakers)
 
-- **Daily loss limit:** stop trading for the day after losing €150 (one full position).
-- **Weekly loss limit:** no new entries for the rest of the week after losing €300
-  (two full positions).
+Limits are defined in **R** (multiples of risk-to-stop), not in position size. With
+€150 fixed positions, a full stop-out typically loses €5-€25 depending on stop
+distance — €-denominated limits sized like "one full position" could never trigger
+(that would require the stock going to zero). R-based limits fire when the process
+is actually going wrong.
+
+Note the distinction: **position size** (€150, capital deployed) is not **risk**
+(entry − stop × shares, what a stop-out actually costs). 1R = this trade's
+risk-to-stop.
+
+- **Daily loss limit:** stop trading for the day after **−2R realized** across
+  closed trades that day.
+- **Weekly loss limit:** no new entries for the rest of the week after **−4R
+  realized** that week.
 - **Consecutive-loss rule:** after 3 consecutive losses, pause for 3 days and run a
   journal review before the next trade.
+- Trades with no recorded stop can't be counted in R — that is itself a rule break
+  (see the pre-trade gate in `AGENTS.md`).
 
 ---
 
@@ -97,3 +110,4 @@ helped.
 | Date | Rule changed | Old value | New value | Why |
 |------|-------------|-----------|-----------|-----|
 | 2026-06-27 | All rules | blank | Initial values | First fill based on learning-phase sizing (€150/trade) |
+| 2026-07-02 | Daily/weekly loss limits | €150 / €300 | −2R / −4R realized | Old € limits equaled a full position loss (stock to zero) and could mathematically never trigger with €150 fixed sizing; R-based limits actually fire |

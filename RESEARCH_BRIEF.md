@@ -66,6 +66,9 @@ RISK_PER_TRADE_PCT:       <blank>          # not used during learning phase
 If `RISK_RULES.md` exists, read it before interpreting risk, sizing, or portfolio context.
 If a relevant rule in `RISK_RULES.md` is blank, do not infer it. Write "risk rule not set."
 
+`ETORO_TRADEABILITY.md` is the broker/universe authority: where it conflicts with the
+CONFIG above (tradeability, market-cap exceptions, liquidity tiers), the overlay wins.
+
 ---
 
 ## Source quality and bias controls
@@ -177,6 +180,12 @@ FOR EACH CANDIDATE, produce:
     Use ONLY the CONFIG values — never invent or adjust the size, risk %, or account
     size. This is arithmetic, not judgment.
 13. Confidence (low/med/high) + one line on what would raise it. Cite a recent source.
+14. **REPEAT flag** — if the name appeared in last week's `research/candidates-*.md`
+    and still qualifies, mark it `REPEAT` and say what changed (price moved, catalyst
+    closer, new info).
+15. **ACT-NOW flag** — if the catalyst is within 7 calendar days, mark it `ACT-NOW`.
+    (The monthly self-grade tracks REPEAT quality and ACT-NOW accuracy separately —
+    these flags must be present for that grading to work.)
 
 Also include a short **Rejected Candidates** section with 3-5 names that looked promising
 but were rejected, plus the exact reason: no dated catalyst, too illiquid, catalyst already
@@ -239,6 +248,7 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 - Risk: <Low/Med/High> — <factor reasons>
 - Risk/share: <entry - stop>   | Suggested size: <shares> (€150 ÷ entry = floor)
 - Confidence: <low/med/high> — <what would raise it>
+- Flags: <REPEAT and/or ACT-NOW, or none>
 - Source: <recent citation>
 ### 2. ...
 

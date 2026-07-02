@@ -93,6 +93,11 @@ Interpretation:
 | 60-69 | interesting / log for measurement |
 | <60 | ignored |
 
+Note: `min_score_to_record` was temporarily lowered to 40 (2026-06-30 to 2026-07-01)
+while relative-volume normalization was being fixed, so `data/scanner_signals.csv`
+contains rows scoring 40-59 from that window. Treat them as their own bucket in any
+score-vs-return analysis; don't mix them into the 60+ buckets or drop them.
+
 ## Running manually
 
 From the repo root:
@@ -130,14 +135,9 @@ Finviz free-tier data is manual. For best results, update `data/finviz_watchlist
 
 ## Human review prompt
 
-Use this after each scanner report:
-
-```text
-Review this scanner report as a trading research analyst. Do not tell me what to buy.
-For each top candidate, check: current news, catalyst within 1-14 days, dilution/offering risk,
-short interest if available, options activity if available, sector sympathy, chart invalidation,
-and whether the move is probably already too late. Mark each: Deep dive / Watch / Reject.
-```
+Use the canonical prompt in `SCANNER_RESEARCH_PROMPT.md` after each scanner report —
+it is the single source of truth for the review layer (an earlier, slightly different
+copy embedded here caused drift).
 
 Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement is a reason to dig harder, not automatically reject.
 
