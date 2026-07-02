@@ -1,0 +1,67 @@
+# EU scanner universe — XETRA (Frankfurt) focus, FMP symbol format (.DE suffix).
+# Chosen XETRA-first deliberately: EUR-denominated (no FX on a EUR account) and
+# no UK stamp duty. LSE (.L) symbols are supported by the tooling but add 0.5%
+# stamp duty per buy plus GBP exposure — add them only with that cost in mind.
+#
+# Verify eToro availability before proposing any of these (ETORO_TRADEABILITY.md).
+# One ticker per line. Lines starting with # are ignored.
+
+# --- Defense / aerospace / industrial ---
+AIR.DE
+ENR.DE
+HAG.DE
+KGX.DE
+MTX.DE
+RHM.DE
+RNK.DE
+SIE.DE
+TKA.DE
+
+# --- Tech / software / semis ---
+AIXA.DE
+BC8.DE
+IFX.DE
+JEN.DE
+NEM.DE
+S92.DE
+SAP.DE
+WAF.DE
+
+# --- Auto ---
+BMW.DE
+CON.DE
+MBG.DE
+P911.DE
+VOW3.DE
+
+# --- Health / pharma / medtech ---
+AFX.DE
+BAYN.DE
+EVT.DE
+FRE.DE
+MRK.DE
+QIA.DE
+SHL.DE
+SRT3.DE
+
+# --- Energy / utilities / materials ---
+EOAN.DE
+NDX1.DE
+RWE.DE
+SZG.DE
+
+# --- Financials ---
+ALV.DE
+CBK.DE
+DBK.DE
+HNR1.DE
+MUV2.DE
+
+# --- Consumer / internet / travel ---
+ADS.DE
+DHER.DE
+HFG.DE
+LHA.DE
+PUM.DE
+TUI1.DE
+ZAL.DE

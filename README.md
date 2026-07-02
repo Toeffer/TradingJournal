@@ -30,8 +30,9 @@ This repository is intended to be the system of record for trades, research note
 ├── SECOND_OPINION.md          # Red-team prompt for a second model
 ├── trades.csv                 # Structured trade log; source of truth for real trades
 ├── data/
-│   ├── scanner_signals.csv    # Append-only scanner signal dataset
+│   ├── scanner_signals.csv    # Append-only scanner signal dataset (US + EU markets)
 │   ├── proposals.csv          # Proposal ledger (every surviving idea, traded or not)
+│   ├── eu_quote_history.csv   # Self-accumulated XETRA/LSE daily bars (FMP quotes)
 │   ├── market_regime.csv      # Per-scan market backdrop (SPY vs 50d, breadth)
 │   ├── finviz_watchlist.csv   # Manual Finviz free-tier/Elite seed list
 │   └── TradingJournalCandidatesTry_updated.xlsx  # Legacy Excel journal (used to backfill trades.csv; CSV is source of truth)
@@ -63,11 +64,12 @@ The optional scanner workflow is documented in `docs/SCANNER_WORKFLOW.md`.
 
 It can run through GitHub Actions using Alpaca market-data secrets and a manual Finviz seed list. The scanner never writes to `trades.csv`; it writes candidate observations to `data/scanner_signals.csv` and Markdown reports to `research/scans/`.
 
-Required repository secrets for Alpaca data:
+Required repository secrets:
 
 ```text
-APCA_API_KEY_ID
+APCA_API_KEY_ID       # Alpaca market data (US scanner)
 APCA_API_SECRET_KEY
+FMP_API_KEY           # FMP quotes (EU scanner, scanner-eu.yml)
 ```
 
 The scheduled workflow lives at `.github/workflows/scanner.yml`. Scheduled runs only become active when that workflow exists on the default branch. While testing on a feature branch, run it manually or open a PR first.
@@ -81,6 +83,10 @@ Two workflows keep derived reports fresh without manual steps:
   signals, regenerates `research/scanner-summary.md` (outcomes by score bucket/source
   plus a runner board), and simulates open proposals from `data/proposals.csv` into
   `research/proposal-stats.md`.
+- **EU scanner** (`.github/workflows/scanner-eu.yml`, scheduled around the XETRA
+  session at 09:20/11:20/15:10/17:40 Berlin): scans `scanner/universe_eu.txt` on FMP
+  quotes, self-accumulates daily history in `data/eu_quote_history.csv`, and feeds
+  the same signals/backfill/summary/proposal loops with `market = EU-XETRA`/`EU-LSE`.
 - **Journal stats** (`.github/workflows/journal.yml`, on every `trades.csv` change on
   `main`): regenerates `research/journal-stats.md` — expectancy, win rate, breakdowns
   by source/setup/risk rating, weekly realized R vs the loss limit, open positions,

@@ -187,6 +187,37 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
   highest-scoring run of the day, so a name that stays elevated all session doesn't
   overweight later score-bucket stats.
 
+## EU scanner (XETRA/LSE)
+
+`scanner/run_scan_eu.py` (workflow: `.github/workflows/scanner-eu.yml`) scans the
+`scanner/universe_eu.txt` universe on FMP real-time quotes — XETRA-first, because
+XETRA trades in EUR (no FX on a EUR account) and has no UK stamp duty; LSE `.L`
+symbols are supported but each buy costs 0.5% stamp duty plus GBP exposure.
+
+Required repository secret: `FMP_API_KEY`.
+
+Data reality: the current FMP plan provides EU quotes but **no EU historical
+bars**, so the scanner self-accumulates history into `data/eu_quote_history.csv`
+— every run upserts today's bar, and the 17:40 post-close run finalizes it.
+Consequences:
+
+- Day-move, price-vs-open, and (when FMP reports avgVolume) relative volume work
+  from day one.
+- Breakout components (20d/50d highs) activate after
+  `min_history_days_for_breakout` sessions (default 15); until then candidates
+  carry a "history N/15 days" warning and score lower. This is expected — do not
+  raise thresholds to compensate.
+- EU return backfill and proposal simulation read the same accumulated history
+  instead of Alpaca, so all downstream loops work identically. EU signals land in
+  `data/scanner_signals.csv` with `market = EU-XETRA` / `EU-LSE`, and
+  `research/scanner-summary.md` breaks outcomes down by market.
+
+Schedule (Berlin): 09:20 early momentum after the XETRA open, 11:20 mid-morning,
+15:10 afternoon (before US-open noise), 17:40 post-close bar finalization. The
+timing step uses the same late-run policy as the US scanner. Both scanner
+workflows share one concurrency group so they never write the signals CSV
+simultaneously.
+
 ## Return backfill
 
 `scanner/backfill_returns.py` runs after each scan (wired into `scanner.yml`). For
