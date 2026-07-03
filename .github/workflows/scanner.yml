@@ -158,7 +158,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/scanner_signals.csv data/market_regime.csv data/proposals.csv research/scans/ research/scanner-summary.md research/proposal-stats.md
+          # Some outputs only exist after a successful data fetch; adding a
+          # missing pathspec is a fatal git error, so add only what exists.
+          for path in data/scanner_signals.csv data/market_regime.csv data/proposals.csv research/scans research/scanner-summary.md research/proposal-stats.md; do
+            [ -e "$path" ] && git add "$path"
+          done
           if git diff --cached --quiet; then
             echo "No scanner output changes to commit."
           else
