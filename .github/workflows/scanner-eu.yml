@@ -2,6 +2,11 @@ name: EU Scanner
 
 on:
   workflow_dispatch:
+    inputs:
+      seed_history:
+        description: "One-time: backfill EU daily history from Stooq before scanning"
+        type: boolean
+        default: false
   schedule:
     # XETRA session is 09:00-17:30 Europe/Berlin. Crons fire ~5 min before the
     # intended Berlin times (09:20 / 11:20 / 15:10 / 17:40); the timing step
@@ -116,9 +121,15 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Seed EU history from Stooq (manual, one-time)
+        if: github.event_name == 'workflow_dispatch' && inputs.seed_history
+        run: python scanner/seed_eu_history.py
+
       - name: Run EU scanner
         if: steps.timing.outputs.should_run != 'false'
         env:
+          # Optional: with the key set, quotes come from FMP (richer fields);
+          # without it, the scanner uses Stooq's keyless CSV endpoints.
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
         run: python scanner/run_scan_eu.py
 

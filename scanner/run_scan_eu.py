@@ -4,10 +4,12 @@
 Same philosophy as run_scan.py: candidate discovery and measurement, never a
 trade signal, never writes to trades.csv. Differences forced by data reality:
 
-- Data source is Financial Modeling Prep batch quotes (secret: FMP_API_KEY).
-  The current FMP plan has EU quotes but NO EU historical bars, so this script
-  self-accumulates history into data/eu_quote_history.csv (see eu_history.py).
-  The final run of each day (after the local close) finalizes that day's bar.
+- Data source: Stooq's keyless CSV endpoints by default (free, delayed ~15min;
+  see stooq_eu.py); FMP batch quotes are used instead when the optional
+  FMP_API_KEY secret is set (richer fields: previousClose, avgVolume). Either
+  way the script self-accumulates history into data/eu_quote_history.csv (see
+  eu_history.py); the final run of each day finalizes that day's bar, and
+  scanner/seed_eu_history.py can pre-fill the history from Stooq daily data.
 - Derived metrics degrade gracefully while history builds: day-move and
   price-vs-open work from day one; the quote's own avgVolume is used for
   relative volume when FMP provides it, otherwise the accumulated 20d average;
@@ -35,6 +37,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import stooq_eu  # noqa: E402
 from eu_history import HISTORY_CSV, bars_for, upsert_today  # noqa: E402
 from run_scan import (  # noqa: E402
     REPO_ROOT,
@@ -75,6 +78,20 @@ def session_elapsed_fraction_eu(now: datetime, market: str) -> float | None:
     elapsed = (local - open_dt).total_seconds()
     total = (close_dt - open_dt).total_seconds()
     return max(elapsed / total, 0.05)
+
+
+def fetch_quotes(tickers: list[str], config: dict[str, Any]) -> tuple[dict[str, dict[str, Any]], str]:
+    """Return (quotes keyed by canonical upper ticker, source name).
+
+    FMP is used when FMP_API_KEY is configured (richer fields: previousClose,
+    avgVolume); otherwise Stooq's keyless CSV endpoints are the default —
+    missing fields are derived from the accumulated local history.
+    """
+    if os.getenv("FMP_API_KEY"):
+        raw = fmp_batch_quotes(tickers, config)
+        return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp"
+    quotes = stooq_eu.fetch_batch_quotes(tickers)
+    return {t.upper(): q for t, q in quotes.items()}, "stooq"
 
 
 def fmp_batch_quotes(tickers: list[str], config: dict[str, Any]) -> list[dict[str, Any]]:
@@ -122,6 +139,7 @@ def score_eu_candidate(
     quote: dict[str, Any],
     hist_bars: list[dict[str, Any]],
     config: dict[str, Any],
+    data_source: str = "fmp",
 ) -> Candidate | None:
     filters = config["eu"]["filters"]
     weights = config["score"]
@@ -134,10 +152,6 @@ def score_eu_candidate(
     if price < float(filters.get("min_price", 2.0)) or price > float(filters.get("max_price", 2000.0)):
         return None
 
-    prev_close = qfloat(quote, "previousClose")
-    change_pct = qfloat(quote, "changePercentage", "changesPercentage")
-    if change_pct is None and prev_close:
-        change_pct = ((price / prev_close) - 1) * 100
     volume = qfloat(quote, "volume") or 0.0
     open_price = qfloat(quote, "open")
     day_high = qfloat(quote, "dayHigh")
@@ -146,6 +160,14 @@ def score_eu_candidate(
     # History excludes today (today's row is being written by this same run).
     today = timestamp[:10]
     hist = [b for b in hist_bars if b["t"] < today]
+
+    prev_close = qfloat(quote, "previousClose")
+    if prev_close is None and hist and hist[-1]["c"]:
+        # Stooq quotes carry no previousClose; yesterday's accumulated close works.
+        prev_close = float(hist[-1]["c"])
+    change_pct = qfloat(quote, "changePercentage", "changesPercentage")
+    if change_pct is None and prev_close:
+        change_pct = ((price / prev_close) - 1) * 100
     reported_avg = qfloat(quote, "avgVolume")
     accumulated_avg = statistics.mean([b["v"] for b in hist[-20:]]) if hist else None
     avg_volume_20d = reported_avg or accumulated_avg
@@ -176,7 +198,7 @@ def score_eu_candidate(
         above_20d_high=bool(breakout_ready and high20 and price > high20),
         above_50d_high=bool(len(hist) >= 50 and high50 and price > high50),
         extension_5d_pct=((price / high5) - 1) * 100 if high5 else None,
-        source="fmp",
+        source=data_source,
     )
 
     min_rel_volume = float(filters.get("min_rel_volume", 2.0))
@@ -324,13 +346,12 @@ def main() -> int:
         return 0
 
     try:
-        quotes = fmp_batch_quotes(tickers, config)
+        quotes_by_ticker, data_source = fetch_quotes(tickers, config)
     except Exception as exc:  # noqa: BLE001 - non-destructive: report and exit clean
         report = write_eu_report(now, [], config, [f"Data fetch failed: {exc}"], len(tickers), 0, 0)
         print(f"Wrote report after data error: {report}")
         return 0
-
-    quotes_by_ticker = { (q.get("symbol") or "").upper(): q for q in quotes }
+    print(f"Quote source: {data_source} ({len(quotes_by_ticker)} quotes)")
 
     # Update the accumulated history first (this run's snapshot becomes/updates
     # today's bar; the last run of the day finalizes it).
@@ -365,6 +386,7 @@ def main() -> int:
             quote=q,
             hist_bars=bars_for(ticker),
             config=config,
+            data_source=data_source,
         )
         if candidate is not None:
             candidates.append(candidate)

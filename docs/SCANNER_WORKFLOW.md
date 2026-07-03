@@ -194,15 +194,23 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 XETRA trades in EUR (no FX on a EUR account) and has no UK stamp duty; LSE `.L`
 symbols are supported but each buy costs 0.5% stamp duty plus GBP exposure.
 
-Required repository secret: `FMP_API_KEY`.
+Data sources (no key required): **Stooq's free CSV endpoints are the default** —
+batch delayed quotes per run plus, one-time, full daily history for seeding.
+The `FMP_API_KEY` secret is **optional**: when set, quotes come from FMP instead
+(richer fields); FMP's EU history stays plan-gated either way. Note Stooq uses
+`.UK` where eToro/FMP use `.L` — the tooling maps this automatically.
 
-Data reality: the current FMP plan provides EU quotes but **no EU historical
-bars**, so the scanner self-accumulates history into `data/eu_quote_history.csv`
-— every run upserts today's bar, and the 17:40 post-close run finalizes it.
-Consequences:
+The scanner self-accumulates history into `data/eu_quote_history.csv` — every
+run upserts today's bar, and the 17:40 post-close run finalizes it.
 
-- Day-move, price-vs-open, and (when FMP reports avgVolume) relative volume work
-  from day one.
+**Seed the history once** to skip the warm-up entirely: run the EU Scanner
+workflow manually with the `seed_history` input checked. That backfills ~90 days
+of daily bars per ticker from Stooq (one polite request per ticker), and the
+20d/50d breakout components are fully active from the first scan. Without
+seeding:
+
+- Day-move and price-vs-open work from day one; relative volume and change-%
+  derive from the accumulated history as it grows.
 - Breakout components (20d/50d highs) activate after
   `min_history_days_for_breakout` sessions (default 15); until then candidates
   carry a "history N/15 days" warning and score lower. This is expected — do not
