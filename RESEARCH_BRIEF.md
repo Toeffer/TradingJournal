@@ -19,11 +19,18 @@ recommendation**, and the routine must never invent or change that rule.
   risk rating) that runs only once a week — use the strongest model at full effort.
 - Schedule: weekly (e.g. Sunday evening). Web search on. Include your finance connector
   if you've connected one.
+- **Connectors and their limits (as of 2026-07):** the FMP connector provides real-time
+  XETRA/LSE quotes (useful for price/liquidity/market-cap evidence on EU names) but its
+  EU earnings calendar and EU historical bars are plan-gated; Quartr is not subscribed.
+  **European catalyst verification therefore runs on web search against primary
+  sources** (see the EU/Asia source list below) — that works well for Germany, where
+  companies publish binding financial calendars. Do not report "no EU data available"
+  without having searched those primary sources.
 - Repository branch/ref: use the `main` branch unless you intentionally test a different
   branch. Do not silently use another branch.
-- If the scanner workflow is active, read the latest `research/scans/scan-*.md` and
-  `data/scanner_signals.csv` before Stage 1. Treat scanner names as candidates to verify,
-  not as pre-approved ideas.
+- If the scanner workflow is active, read the latest `research/scans/scan-*.md` —
+  including the EU reports (`scan-eu-*.md`) — and `data/scanner_signals.csv` before
+  Stage 1. Treat scanner names as candidates to verify, not as pre-approved ideas.
 
 ## How to set this up (once)
 
@@ -47,6 +54,13 @@ MIN_AVG_DOLLAR_VOLUME:    25000000         # $25M average daily $ volume (liquid
 PRELIMINARY_SCAN_COUNT:   12               # first pass breadth before filtering down
 NUM_CANDIDATES:           5                # max shortlist size; fewer is fine
 NUM_DEEP_DIVES:           3                # how many front-runners to deep-dive
+MIN_EU_PRELIMINARY:       4                # of PRELIMINARY_SCAN_COUNT, source at least this many
+                                           # from Europe (XETRA-first) BEFORE quality filtering;
+                                           # US-only preliminary lists are a process failure unless
+                                           # the report states what EU search came up empty
+ASIA_POLICY:              exceptional-only # allowed by the eToro overlay, but only when clearly
+                                           # stronger than available EU/US candidates; expect thin
+                                           # verification sources and say so in the risk factors
 CATALYST_WINDOW_DAYS:     42               # catalyst must fall within the next N days
 EXCLUDE:                  mega-caps, the "Magnificent 7", obvious headline AI names
 SECTOR_FOCUS:             none
@@ -87,11 +101,32 @@ Source priority:
    discovery input only, never as proof.
 4. Analyst notes, blogs, newsletters, forums, and social sources only as secondary context.
 
+**EU/Asia primary sources** (use these — the US-shaped instincts above have European
+equivalents that are often *stronger* for date verification):
+
+- **Germany / XETRA:** the company's IR **Finanzkalender** page (German issuers publish
+  binding event dates), **EQS News / DGAP ad-hoc disclosures** (legally mandated,
+  the German 8-K equivalent), and the Deutsche Börse / boerse-frankfurt.de calendar.
+- **UK / LSE:** **RNS announcements** on londonstockexchange.com and the company's IR
+  financial calendar.
+- **Rest of Europe:** the national equivalents (e.g. Euronext notices, SIX news) plus
+  company IR calendars.
+- **Asia (exceptional-only):** company IR first; TDnet (Japan) and HKEX news for
+  disclosures. Coverage is thin in English — if a date can't be verified, reject rather
+  than stretch, and note the region's data gap in the report.
+- For every non-US candidate, the eToro overlay's output fields apply: exchange,
+  currency, local-vs-ADR, FX exposure, market hours — plus **0.5% UK stamp duty on LSE
+  buys** named explicitly in the risk factors.
+
 Every catalyst must have at least one primary or high-quality source. If the catalyst is
 not verifiable from a primary or high-quality source, reject the candidate.
 
 Bias-control pass:
-- First build a broad preliminary list of up to `PRELIMINARY_SCAN_COUNT` candidates.
+- First build a broad preliminary list of up to `PRELIMINARY_SCAN_COUNT` candidates,
+  honoring `MIN_EU_PRELIMINARY` — the US market is where discovery is *easiest*, not
+  where the account's edge is best (EUR account, XETRA has no FX drag). Defaulting to
+  US-only because verification is more convenient is exactly the bias this pass exists
+  to catch.
 - If `USE_SCANNER_OUTPUT` is yes and scanner files exist, include the strongest recent
   scanner candidates in the preliminary list, but still verify them from scratch.
 - Then run a skeptical pass that tries to disqualify each candidate.
@@ -236,7 +271,9 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 
 ## Summary
 - <N> candidates, <M> deep-dived. <one line on overall quality / data gaps this week>
-- Scanner input: <used/not used>. If used, state newest scanner file and how many names were considered.
+- Region mix: <X> US / <Y> Europe / <Z> Asia in the preliminary list; <mix> in the final
+  shortlist. If Europe is under `MIN_EU_PRELIMINARY`, state what EU search came up empty.
+- Scanner input: <used/not used>. If used, state newest scanner file(s) — US and EU — and how many names were considered.
 
 ## Shortlist
 ### 1. <TICKER> — <company>
