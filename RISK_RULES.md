@@ -111,3 +111,4 @@ helped.
 |------|-------------|-----------|-----------|-----|
 | 2026-06-27 | All rules | blank | Initial values | First fill based on learning-phase sizing (€150/trade) |
 | 2026-07-02 | Daily/weekly loss limits | €150 / €300 | −2R / −4R realized | Old € limits equaled a full position loss (stock to zero) and could mathematically never trigger with €150 fixed sizing; R-based limits actually fire |
+| 2026-07-03 | Position size (reviewed, unchanged) | €150 fixed | €150 fixed | Account was topped up (~2x; 5 full positions now ≈ half the depot). Deliberate decision to KEEP the fixed size: sizing graduates at the MASTERPLAN Phase 2 gate (data: 50+ closed trades, positive trailing expectancy, clean weeks) — not on deposits. Worst-case risk-to-stop across 5 positions is ~4-5% of the new depot, a sane learning-phase footprint; the extra capital is cushion, not license. |
