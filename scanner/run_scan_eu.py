@@ -437,7 +437,7 @@ def main() -> int:
 
     missing = len(tickers) - scored
     if missing:
-        warnings.append(f"{missing} universe ticker(s) had no quote in the FMP response.")
+        warnings.append(f"{missing} universe ticker(s) had no quote in the {data_source} response.")
 
     record_score = int(config["scanner"].get("min_score_to_record", 60))
     recorded = sorted([c for c in candidates if c.score >= record_score], key=lambda c: c.score, reverse=True)
