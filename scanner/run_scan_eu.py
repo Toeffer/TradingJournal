@@ -85,13 +85,25 @@ def fetch_quotes(tickers: list[str], config: dict[str, Any]) -> tuple[dict[str, 
     """Return (quotes keyed by canonical upper ticker, source name).
 
     FMP is used when FMP_API_KEY is configured (richer fields: previousClose,
-    avgVolume); otherwise Stooq's keyless CSV endpoints are the default —
-    missing fields are derived from the accumulated local history.
+    avgVolume), falling back to Stooq if the FMP request fails. Without a key,
+    Stooq's keyless CSV endpoints are the only source — note they are
+    effectively unusable from GitHub-hosted runners (shared egress IPs are
+    rate-limited/blocked by Stooq; observed 2026-07-03), so scheduled runs
+    need the FMP_API_KEY secret.
     """
+    fmp_error: Exception | None = None
     if os.getenv("FMP_API_KEY"):
-        raw = fmp_batch_quotes(tickers, config)
-        return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp"
-    quotes = stooq_eu.fetch_batch_quotes(tickers)
+        try:
+            raw = fmp_batch_quotes(tickers, config)
+            return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp"
+        except Exception as exc:  # noqa: BLE001 - fall back to Stooq below
+            fmp_error = exc
+    try:
+        quotes = stooq_eu.fetch_batch_quotes(tickers)
+    except Exception as stooq_exc:
+        if fmp_error is not None:
+            raise RuntimeError(f"FMP failed ({fmp_error}); Stooq fallback failed ({stooq_exc})") from stooq_exc
+        raise
     return {t.upper(): q for t, q in quotes.items()}, "stooq"
 
 
@@ -277,6 +289,7 @@ def write_eu_report(
     universe_count: int,
     scored_count: int,
     history_days: int,
+    data_source: str = "none (fetch failed)",
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     local_ts = timestamp.strftime("%Y-%m-%d %H:%M %Z")
@@ -293,7 +306,7 @@ def write_eu_report(
     lines.append("DRAFT for human review. Candidate discovery only — not financial advice, not a trade signal.")
     lines.append("")
     lines.append(
-        "Data: FMP real-time quotes with self-accumulated daily history "
+        f"Data: quotes from **{data_source}** with self-accumulated daily history "
         f"(data/eu_quote_history.csv, {history_days} distinct day(s) so far). Breakout and "
         "accumulated rel-volume components reach full quality after ~20 sessions. "
         "Relative volume is normalized against the elapsed fraction of the local session "
@@ -358,6 +371,7 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001 - non-destructive: report and exit clean
         report = write_eu_report(now, [], config, [f"Data fetch failed: {exc}"], len(tickers), 0, 0)
         print(f"Wrote report after data error: {report}")
+        print(f"Data fetch failed: {exc}", file=sys.stderr)
         return 0
     print(f"Quote source: {data_source} ({len(quotes_by_ticker)} quotes)")
 
@@ -408,7 +422,7 @@ def main() -> int:
     append_signal_rows(SIGNALS_CSV, recorded)
 
     history_days = len({r["date"] for r in csv.DictReader(HISTORY_CSV.open())}) if HISTORY_CSV.exists() else 0
-    report = write_eu_report(now, recorded, config, warnings, len(tickers), scored, history_days)
+    report = write_eu_report(now, recorded, config, warnings, len(tickers), scored, history_days, data_source)
     print(f"Wrote report: {report}")
     print(f"Recorded candidates: {len(recorded)}")
     return 0

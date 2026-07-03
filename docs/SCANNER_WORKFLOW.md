@@ -230,20 +230,27 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 XETRA trades in EUR (no FX on a EUR account) and has no UK stamp duty; LSE `.L`
 symbols are supported but each buy costs 0.5% stamp duty plus GBP exposure.
 
-Data sources (no key required): **Stooq's free CSV endpoints are the default** —
-batch delayed quotes per run plus, one-time, full daily history for seeding.
-The `FMP_API_KEY` secret is **optional**: when set, quotes come from FMP instead
-(richer fields); FMP's EU history stays plan-gated either way. Note Stooq uses
-`.UK` where eToro/FMP use `.L` — the tooling maps this automatically.
+Data sources: **the `FMP_API_KEY` repository secret is effectively required
+for scheduled runs.** Stooq's keyless CSV endpoints exist as a fallback, but
+they are unusable from GitHub-hosted runners: Stooq rate-limits/blocks the
+shared runner egress IPs (observed 2026-07-03 — every scan got HTTP 404 on
+batch quotes and the seeder got empty responses for all 46 tickers, while the
+same URLs work from residential IPs). With the key set, quotes come from FMP
+(richer fields: previousClose, avgVolume) and Stooq is only tried if FMP
+fails. Note Stooq uses `.UK` where eToro/FMP use `.L` — the tooling maps this
+automatically.
 
 The scanner self-accumulates history into `data/eu_quote_history.csv` — every
 run upserts today's bar, and the 17:40 post-close run finalizes it.
 
-**Seed the history once** to skip the warm-up entirely: run the EU Scanner
-workflow manually with the `seed_history` input checked. That backfills ~90 days
-of daily bars per ticker from Stooq (one polite request per ticker), and the
-20d/50d breakout components are fully active from the first scan. Without
-seeding:
+**Seed the history once** to skip the warm-up entirely — but do it **locally,
+not via the workflow**: `python scanner/seed_eu_history.py` from a residential
+IP, then commit `data/eu_quote_history.csv`. The workflow's `seed_history`
+input hits the same Stooq block as the scans (the 2026-07-03 attempt seeded 0
+bars; the seeder now exits nonzero in that case instead of looking green).
+Seeding backfills ~90 days of daily bars per ticker from Stooq (one polite
+request per ticker), and the 20d/50d breakout components are fully active from
+the first scan. Without seeding:
 
 - Day-move and price-vs-open work from day one; relative volume and change-%
   derive from the accumulated history as it grows.

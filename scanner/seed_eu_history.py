@@ -86,6 +86,19 @@ def main() -> int:
         print("Failed tickers:")
         for f_ in failed:
             print(f"  - {f_}")
+    if added == 0 and tickers:
+        # Zero bars across a whole universe of liquid names is never "success" —
+        # it means the data source returned nothing usable (Stooq serves its
+        # rate-limit/block page with HTTP 200, which parses to zero bars).
+        # Exit nonzero so the Actions run shows red instead of green.
+        print(
+            "ERROR: no bars were seeded for any ticker. "
+            f"{stooq_eu.BLOCKED_HINT} "
+            "Seeding from GitHub-hosted runners does not work; run this script "
+            "locally and commit data/eu_quote_history.csv instead.",
+            file=sys.stderr,
+        )
+        return 1
     return 0
 
 
