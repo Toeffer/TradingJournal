@@ -64,12 +64,12 @@ The optional scanner workflow is documented in `docs/SCANNER_WORKFLOW.md`.
 
 It can run through GitHub Actions using Alpaca market-data secrets and a manual Finviz seed list. The scanner never writes to `trades.csv`; it writes candidate observations to `data/scanner_signals.csv` and Markdown reports to `research/scans/`.
 
-Required repository secrets:
+Repository secrets:
 
 ```text
-APCA_API_KEY_ID       # Alpaca market data (US scanner)
+APCA_API_KEY_ID       # required: Alpaca market data (US scanner)
 APCA_API_SECRET_KEY
-FMP_API_KEY           # FMP quotes (EU scanner, scanner-eu.yml)
+FMP_API_KEY           # optional: EU scanner upgrades from keyless Stooq to FMP quotes
 ```
 
 The scheduled workflow lives at `.github/workflows/scanner.yml`. Scheduled runs only become active when that workflow exists on the default branch. While testing on a feature branch, run it manually or open a PR first.
