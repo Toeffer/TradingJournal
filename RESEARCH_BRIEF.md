@@ -142,6 +142,32 @@ qualify, say so. A "no strong candidates this week" output is a successful outpu
 
 ---
 
+## Multi-agent runs and improvised methods
+
+Adapting the method when a data source is capped (e.g. pivoting screener-first to
+catalyst-first, fanning out parallel research agents by catalyst type) is allowed and
+encouraged — but the verification discipline must survive the restructuring:
+
+1. **Subagent findings are leads, not evidence.** Before any candidate enters the final
+   shortlist, the synthesizing (main) agent must itself re-verify the catalyst date
+   against one primary source. A summary containing a citation the synthesizer never
+   opened does not count as verification.
+2. **Lockup expiries are derived dates — treat them as unverified by default.** The
+   date must come from the prospectus/underwriting terms (S-1/424B4) or a high-quality
+   source explicitly stating it. Anything computed as "IPO + N days" is labeled
+   `DERIVED — verify against prospectus` and cannot enter the final shortlist in that
+   state. Also check: early-release provisions (price-triggered), underwriter waivers,
+   and intervening secondary offerings that already released supply.
+3. **For IPO-lockup candidates, run the eToro tradeability check FIRST**, before any
+   deep research. Recent IPOs are the names least likely to be on eToro; a cheap early
+   kill beats three agents researching something unbuyable.
+4. **State the method in the report.** The Summary must say which approach ran this
+   week (screener-first / catalyst-first / hybrid) and whether parallel agents were
+   used, so `MONTHLY_SELF_GRADE.md` can grade whether improvised methods actually
+   perform.
+
+---
+
 ## Optional scanner input pass
 
 Before Stage 1, do this if scanner output exists:
@@ -271,6 +297,7 @@ Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
 
 ## Summary
 - <N> candidates, <M> deep-dived. <one line on overall quality / data gaps this week>
+- Method: <screener-first / catalyst-first / hybrid>; parallel agents: <yes: which / no>.
 - Region mix: <X> US / <Y> Europe / <Z> Asia in the preliminary list; <mix> in the final
   shortlist. If Europe is under `MIN_EU_PRELIMINARY`, state what EU search came up empty.
 - Scanner input: <used/not used>. If used, state newest scanner file(s) — US and EU — and how many names were considered.
