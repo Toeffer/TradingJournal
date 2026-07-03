@@ -26,7 +26,10 @@ finviz_manual_file = "data/finviz_watchlist.csv"
 base_url = "https://data.alpaca.markets"
 feed = "iex"
 batch_size = 50
-lookback_days = 90
+# 150 calendar days ≈ 103 trading bars: enough warm-up for the measurement-only
+# EMA50/MACD indicator columns (90 gave only ~62 bars, a barely-seeded EMA50).
+# Stays under Alpaca's 10k-bars-per-request page limit at batch_size 50.
+lookback_days = 150
 
 [eu]
 # EU scanner (run_scan_eu.py): FMP real-time quotes + self-accumulating local
@@ -55,6 +58,11 @@ max_extension_5d_pct = 25.0
 min_avg_volume_20d = 300000
 
 [score]
+# NOTE: the indicator columns (rsi14, ema20/50 distance, macd_hist_pct,
+# bb_percent_b) and the cross-asset regime columns are measurement-only —
+# they carry no weight here by design. Promoting one into the score requires
+# the bucket evaluation to show it separates forward returns (MASTERPLAN
+# Phase 1) and is a phase-transition decision with a changelog entry.
 rel_volume = 20
 break_20d_high = 15
 daily_change = 10

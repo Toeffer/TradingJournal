@@ -84,6 +84,42 @@ The scanner scores each ticker using:
 
 Default thresholds live in `scanner/config.toml`.
 
+### Indicator columns (measurement-only)
+
+Since 2026-07, every recorded signal also carries five classic technical
+indicators, computed deterministically by `scanner/indicators.py` (stdlib-only,
+TradingView conventions; idea adapted from oft3r/agentic-trading-desk):
+
+| Column | Meaning |
+|---|---|
+| `rsi14` | Wilder's RSI, 14 periods |
+| `ema20_dist_pct` | price vs EMA20, in % |
+| `ema50_dist_pct` | price vs EMA50, in % |
+| `macd_hist_pct` | MACD(12,26,9) histogram as % of price |
+| `bb_percent_b` | Bollinger(20,2) %B — 0 = lower band, 1 = upper band |
+
+These columns **do not contribute to the score**. They exist so the return
+backfill can later answer questions like "did signals above their EMA50
+follow through better?" — if a column separates forward returns once enough
+rows are filled, promoting it into the score is a phase-transition decision
+(MASTERPLAN), never a quiet tweak. US signals compute them from Alpaca bars
+(`lookback_days = 150` for warm-up); EU signals from the accumulated history,
+so they stay blank until enough sessions exist.
+
+### Market regime columns (cross-asset context)
+
+`data/market_regime.csv` additionally records three cross-asset ratios as
+20-trading-day % changes plus a `cross_asset_score` (-3..+3, one vote per
+ratio beyond ±1%):
+
+- `credit_hyg_lqd_20d_pct` — HYG vs LQD (credit risk appetite)
+- `size_iwm_spy_20d_pct` — IWM vs SPY (small-cap risk appetite)
+- `risk_xly_xlp_20d_pct` — XLY vs XLP (consumer discretionary vs staples)
+
+The `regime` label formula (SPY vs 50d MA + universe breadth) is **unchanged**
+so existing regime history stays comparable; the new columns are context for
+the Phase 2 regime-scaled-exposure decision.
+
 Interpretation:
 
 | Score | Meaning |

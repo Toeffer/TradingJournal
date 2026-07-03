@@ -198,6 +198,37 @@ Never overwrite its resolved statuses by hand.
 
 ---
 
+## Open-position exit review (human checklist)
+
+A structured way to look at an open position without moving stops on gut feel
+(adapted from the momentum-cycle states in oft3r/agentic-trading-desk). This is
+a **review aid for me, not a signal**: nothing here automates an exit, changes
+sizing, or overrides `RISK_RULES.md`.
+
+When I ask "review my open positions" (or during the weekly digest review),
+walk each open trade through these states using the indicator columns in
+`data/scanner_signals.csv` (if the ticker was scanned) or plain price action:
+
+1. **HOLD (ride the cycle)** — thesis intact, price above the entry structure,
+   no exhaustion signs. Do nothing; note the next catalyst date.
+2. **TRIM / EXIT on exhaustion** — momentum climax rather than breakdown:
+   RSI14 overbought (>70) **and** shrinking momentum (MACD histogram rolling
+   over) **and** price pressed at the upper Bollinger band (%B near/above 1).
+   One of the three alone is not exhaustion.
+3. **EXIT on breakdown** — invalidation hit or clearly failing structure
+   (close below stop level / below the level the thesis needed to hold).
+   This is the stop doing its job; log it, don't renegotiate it.
+4. **Catalyst override** — if the position is held *for* a dated binary event
+   (PDUFA, earnings), indicator states 1-2 are context only; the earnings/event
+   policy in `RISK_RULES.md` decides, not the oscillators. (Lesson from
+   2026-0005 VERA: a tight trailing stop shook the position out before the
+   catalyst it was bought for.)
+
+Record the state in the trade's `notes/<trade_id>.md` if I keep one. Never
+translate a state into an order automatically.
+
+---
+
 ## Stats
 
 Compute everything **from `trades.csv`** over the range I ask for. Never estimate or

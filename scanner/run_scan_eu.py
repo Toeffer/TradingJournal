@@ -39,6 +39,7 @@ from zoneinfo import ZoneInfo
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stooq_eu  # noqa: E402
 from eu_history import HISTORY_CSV, bars_for, upsert_today  # noqa: E402
+from indicators import compute_indicator_columns  # noqa: E402
 from run_scan import (  # noqa: E402
     REPO_ROOT,
     REPORT_DIR,
@@ -186,6 +187,12 @@ def score_eu_candidate(
     if avg_volume_20d and session_fraction:
         rel_volume = volume / (avg_volume_20d * session_fraction)
 
+    # Measurement-only indicator columns (see indicators.py). The accumulated
+    # EU history is short at first, so these stay blank until enough sessions
+    # exist — same graceful degradation as the breakout components.
+    closes = [b["c"] for b in hist if b.get("c") is not None]
+    ind = compute_indicator_columns(closes + [price])
+
     candidate = Candidate(
         timestamp=timestamp,
         ticker=ticker,
@@ -199,6 +206,7 @@ def score_eu_candidate(
         above_50d_high=bool(len(hist) >= 50 and high50 and price > high50),
         extension_5d_pct=((price / high5) - 1) * 100 if high5 else None,
         source=data_source,
+        **ind,
     )
 
     min_rel_volume = float(filters.get("min_rel_volume", 2.0))

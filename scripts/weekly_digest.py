@@ -225,6 +225,9 @@ def main() -> int:
     lines.append("## Reminders")
     lines.append("")
     lines.append("- Verify every catalyst date against a primary source before acting on it.")
+    if open_trades:
+        lines.append("- Walk each open position through the exit-review checklist in "
+                     "`AGENTS.md` (HOLD / exhaustion / breakdown / catalyst override).")
     lines.append("- Scanner scores and shortlists surface names for research, never trades.")
     lines.append("- Log `followed_plan` and a one-line `lesson` at every close — that is the")
     lines.append("  raw material the monthly review runs on.")
