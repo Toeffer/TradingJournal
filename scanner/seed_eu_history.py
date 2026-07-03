@@ -94,8 +94,10 @@ def main() -> int:
         print(
             "ERROR: no bars were seeded for any ticker. "
             f"{stooq_eu.BLOCKED_HINT} "
-            "Seeding from GitHub-hosted runners does not work; run this script "
-            "locally and commit data/eu_quote_history.csv instead.",
+            "Seeding from GitHub-hosted runners does not work; either run this "
+            "script locally and commit data/eu_quote_history.csv, or skip "
+            "seeding entirely — the scanner's Yahoo fallback backfills history "
+            "automatically during scheduled runs.",
             file=sys.stderr,
         )
         return 1

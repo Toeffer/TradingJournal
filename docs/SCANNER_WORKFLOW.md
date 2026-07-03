@@ -230,27 +230,36 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 XETRA trades in EUR (no FX on a EUR account) and has no UK stamp duty; LSE `.L`
 symbols are supported but each buy costs 0.5% stamp duty plus GBP exposure.
 
-Data sources: **the `FMP_API_KEY` repository secret is effectively required
-for scheduled runs.** Stooq's keyless CSV endpoints exist as a fallback, but
-they are unusable from GitHub-hosted runners: Stooq rate-limits/blocks the
-shared runner egress IPs (observed 2026-07-03 — every scan got HTTP 404 on
-batch quotes and the seeder got empty responses for all 46 tickers, while the
-same URLs work from residential IPs). With the key set, quotes come from FMP
-(richer fields: previousClose, avgVolume) and Stooq is only tried if FMP
-fails. Note Stooq uses `.UK` where eToro/FMP use `.L` — the tooling maps this
-automatically.
+Data sources — a free-by-default chain, because the Phase 1 rule says no paid
+data before the pipeline proves itself:
+
+1. **FMP** — only if the optional `FMP_API_KEY` secret is set (richest
+   fields). Not required; don't buy a plan for this.
+2. **Stooq** keyless CSV — works from residential IPs, but is unusable from
+   GitHub-hosted runners: Stooq rate-limits/blocks the shared runner egress
+   IPs (observed 2026-07-03 — every scan got HTTP 404 on batch quotes and the
+   seeder got empty 200 responses for all 46 tickers). Note Stooq uses `.UK`
+   where eToro/FMP use `.L` — the tooling maps this automatically.
+3. **Yahoo Finance** chart API (`scanner/yahoo_eu.py`) — keyless, one request
+   per ticker, same symbol format as the repo. This is the source scheduled
+   runs actually land on. Each response also carries ~6 months of daily bars,
+   which the scanner merges into `data/eu_quote_history.csv` (fill-missing
+   only), so the history warm-up disappears without any seeding step.
+
+Each scan report names the source actually used in its `Data:` line.
 
 The scanner self-accumulates history into `data/eu_quote_history.csv` — every
 run upserts today's bar, and the 17:40 post-close run finalizes it.
 
-**Seed the history once** to skip the warm-up entirely — but do it **locally,
-not via the workflow**: `python scanner/seed_eu_history.py` from a residential
-IP, then commit `data/eu_quote_history.csv`. The workflow's `seed_history`
-input hits the same Stooq block as the scans (the 2026-07-03 attempt seeded 0
-bars; the seeder now exits nonzero in that case instead of looking green).
-Seeding backfills ~90 days of daily bars per ticker from Stooq (one polite
-request per ticker), and the 20d/50d breakout components are fully active from
-the first scan. Without seeding:
+**Seeding is now optional**: the Yahoo fallback backfills ~6 months of daily
+bars automatically on every successful scheduled run, so the 20d/50d breakout
+components are fully active from the first scan that reaches Yahoo. The Stooq
+seeder (`python scanner/seed_eu_history.py`) still works **locally from a
+residential IP** (commit `data/eu_quote_history.csv` afterwards) — but do not
+run it via the workflow's `seed_history` input: GitHub runners hit the Stooq
+block (the 2026-07-03 attempt seeded 0 bars; the seeder now exits nonzero in
+that case instead of looking green). If neither Yahoo nor seeding has filled
+the history yet:
 
 - Day-move and price-vs-open work from day one; relative volume and change-%
   derive from the accumulated history as it grows.

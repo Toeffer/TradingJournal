@@ -38,7 +38,8 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stooq_eu  # noqa: E402
-from eu_history import HISTORY_CSV, bars_for, upsert_today  # noqa: E402
+import yahoo_eu  # noqa: E402
+from eu_history import HISTORY_CSV, bars_for, merge_bars, upsert_today  # noqa: E402
 from indicators import compute_indicator_columns  # noqa: E402
 from run_scan import (  # noqa: E402
     REPO_ROOT,
@@ -81,30 +82,42 @@ def session_elapsed_fraction_eu(now: datetime, market: str) -> float | None:
     return max(elapsed / total, 0.05)
 
 
-def fetch_quotes(tickers: list[str], config: dict[str, Any]) -> tuple[dict[str, dict[str, Any]], str]:
-    """Return (quotes keyed by canonical upper ticker, source name).
+def fetch_quotes(
+    tickers: list[str], config: dict[str, Any]
+) -> tuple[dict[str, dict[str, Any]], str, dict[str, list[dict[str, Any]]], list[str]]:
+    """Return (quotes keyed by canonical upper ticker, source name,
+    history bars by ticker, non-fatal warnings).
 
-    FMP is used when FMP_API_KEY is configured (richer fields: previousClose,
-    avgVolume), falling back to Stooq if the FMP request fails. Without a key,
-    Stooq's keyless CSV endpoints are the only source — note they are
-    effectively unusable from GitHub-hosted runners (shared egress IPs are
-    rate-limited/blocked by Stooq; observed 2026-07-03), so scheduled runs
-    need the FMP_API_KEY secret.
+    Source chain — all free by default, per the Phase 1 rule of not paying
+    for data before the pipeline proves itself:
+    1. FMP, only if the optional FMP_API_KEY is set (richest fields).
+    2. Stooq keyless CSV — works from residential IPs, but GitHub-hosted
+       runners are rate-limited/blocked by Stooq (observed 2026-07-03).
+    3. Yahoo chart API, keyless — one request per ticker; also returns daily
+       history bars, which the caller merges into the accumulated history
+       (removing the warm-up without any seeding step).
     """
-    fmp_error: Exception | None = None
+    errors: list[str] = []
     if os.getenv("FMP_API_KEY"):
         try:
             raw = fmp_batch_quotes(tickers, config)
-            return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp"
-        except Exception as exc:  # noqa: BLE001 - fall back to Stooq below
-            fmp_error = exc
+            return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp", {}, []
+        except Exception as exc:  # noqa: BLE001 - fall through the chain
+            errors.append(f"FMP failed: {exc}")
     try:
         quotes = stooq_eu.fetch_batch_quotes(tickers)
-    except Exception as stooq_exc:
-        if fmp_error is not None:
-            raise RuntimeError(f"FMP failed ({fmp_error}); Stooq fallback failed ({stooq_exc})") from stooq_exc
-        raise
-    return {t.upper(): q for t, q in quotes.items()}, "stooq"
+        return {t.upper(): q for t, q in quotes.items()}, "stooq", {}, []
+    except Exception as exc:  # noqa: BLE001 - fall through the chain
+        errors.append(f"Stooq failed: {exc}")
+    try:
+        yahoo_quotes, history, failures = yahoo_eu.fetch_batch_quotes(tickers)
+    except Exception as exc:  # noqa: BLE001 - end of the chain
+        errors.append(f"Yahoo failed: {exc}")
+        raise RuntimeError("; ".join(errors)) from exc
+    warnings = list(errors)
+    if failures:
+        warnings.append(f"Yahoo skipped {len(failures)} ticker(s): {'; '.join(failures[:3])}")
+    return yahoo_quotes, "yahoo", history, warnings
 
 
 def fmp_batch_quotes(tickers: list[str], config: dict[str, Any]) -> list[dict[str, Any]]:
@@ -367,13 +380,22 @@ def main() -> int:
         return 0
 
     try:
-        quotes_by_ticker, data_source = fetch_quotes(tickers, config)
+        quotes_by_ticker, data_source, yahoo_history, fetch_warnings = fetch_quotes(tickers, config)
     except Exception as exc:  # noqa: BLE001 - non-destructive: report and exit clean
         report = write_eu_report(now, [], config, [f"Data fetch failed: {exc}"], len(tickers), 0, 0)
         print(f"Wrote report after data error: {report}")
         print(f"Data fetch failed: {exc}", file=sys.stderr)
         return 0
+    warnings.extend(fetch_warnings)
     print(f"Quote source: {data_source} ({len(quotes_by_ticker)} quotes)")
+
+    # Yahoo responses carry months of daily bars for free — backfill any
+    # missing history rows so breakout/indicator components have real depth
+    # from the first successful run (idempotent; never overwrites).
+    if yahoo_history:
+        backfilled = merge_bars(yahoo_history, today)
+        if backfilled:
+            print(f"Backfilled {backfilled} historical bar(s) from Yahoo into {HISTORY_CSV.name}.")
 
     # Update the accumulated history first (this run's snapshot becomes/updates
     # today's bar; the last run of the day finalizes it).
