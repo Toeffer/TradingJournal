@@ -7,10 +7,6 @@ on:
         description: "One-time: backfill EU daily history from Stooq before scanning"
         type: boolean
         default: false
-      td_diagnostic:
-        description: "TEMPORARY: probe Twelve Data symbol addressing instead of scanning"
-        type: boolean
-        default: false
   schedule:
     # XETRA session is 09:00-17:30 Europe/Berlin. Crons fire ~5 min before the
     # intended Berlin times (09:20 / 11:20 / 15:10 / 17:40); the timing step
@@ -128,12 +124,6 @@ jobs:
       - name: Seed EU history from Stooq (manual, one-time)
         if: github.event_name == 'workflow_dispatch' && inputs.seed_history
         run: python scanner/seed_eu_history.py
-
-      - name: Twelve Data diagnostic (TEMPORARY, remove with scanner/td_diag.py)
-        if: github.event_name == 'workflow_dispatch' && inputs.td_diagnostic
-        env:
-          TWELVE_DATA_API_KEY: ${{ secrets.TWELVE_DATA_API_KEY }}
-        run: python scanner/td_diag.py
 
       - name: Run EU scanner
         if: steps.timing.outputs.should_run != 'false'

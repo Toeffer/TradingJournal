@@ -135,6 +135,19 @@ def fetch_batch_quotes(
                     continue
                 quotes[ticker] = quote
 
+            if not quotes and len(failures) >= len(batch):
+                # Every symbol in the first batch failed — this is plan gating
+                # (the Basic plan has no XETRA/LSE access; diagnosed
+                # 2026-07-04), a dead key, or a wholly wrong universe. Pacing
+                # through the remaining batches would waste ~5 minutes and the
+                # daily credit budget on every scheduled run for nothing.
+                raise RuntimeError(
+                    f"Twelve Data rejected the entire first batch "
+                    f"({failures[0]}); aborting instead of pacing through "
+                    f"{len(tickers)} ticker(s). EU exchanges likely require a "
+                    "paid Twelve Data plan."
+                )
+
     if tickers and not quotes:
         first = failures[0] if failures else "no data returned"
         raise RuntimeError(

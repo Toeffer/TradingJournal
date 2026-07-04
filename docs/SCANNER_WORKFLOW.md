@@ -236,14 +236,16 @@ data before the pipeline proves itself:
 1. **FMP** — only if the optional `FMP_API_KEY` secret is set (richest
    fields). Not required; don't buy a plan for this.
 2. **Twelve Data** (`scanner/twelvedata_eu.py`) — only if the
-   `TWELVE_DATA_API_KEY` secret is set. The free Basic plan works and the
-   quote payload includes `previous_close` and `average_volume`, so change%
-   and relative volume come straight from the source. Paced to the free
-   plan's 8-credits/minute limit: batches of 8 symbols with ~60s pauses, so
-   a 46-ticker scan takes ~6 minutes and the 4 daily runs use ~184 of the
-   800 daily credits. If EU symbols turn out to be plan-gated on the free
-   tier, the per-symbol errors appear as report warnings and the scan falls
-   through to Yahoo.
+   `TWELVE_DATA_API_KEY` secret is set. **The free Basic plan does NOT
+   include XETRA/LSE market data** (diagnosed 2026-07-04: `/quote` returns
+   404/symbol-not-found for XETRA and LSE symbols that the free `/stocks`
+   directory itself lists; `plan_category: basic`). The integration stays
+   wired for a possible future plan upgrade — with a paid plan it is the
+   best source here because the quote payload includes `previous_close` and
+   `average_volume`. It is paced to the plan's per-minute credit limit
+   (config `[eu.twelvedata] credits_per_minute`), and fails fast when the
+   entire first batch is rejected so a gated plan costs seconds, not
+   minutes, before falling through to Yahoo.
 3. **Stooq** keyless CSV — works from residential IPs, but is unusable from
    GitHub-hosted runners: Stooq rate-limits/blocks the shared runner egress
    IPs (observed 2026-07-03 — every scan got HTTP 404 on batch quotes and the
