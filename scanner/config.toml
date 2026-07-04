@@ -39,6 +39,13 @@ universe_file = "scanner/universe_eu.txt"
 base_url = "https://financialmodelingprep.com"
 min_history_days_for_breakout = 15
 
+[eu.twelvedata]
+# Twelve Data free (Basic) plan: 8 API credits/minute, 800/day; one symbol in
+# a quote batch = one credit. The scanner sends batches of this size with a
+# ~60s pause between them (46 tickers ≈ 6 min/scan, ~184 credits across the 4
+# daily runs). Raise this only after upgrading the Twelve Data plan.
+credits_per_minute = 8
+
 [eu.filters]
 min_price = 2.0
 max_price = 2000.0        # EUR; XETRA has four-digit names (e.g. RHM)

@@ -38,6 +38,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stooq_eu  # noqa: E402
+import twelvedata_eu  # noqa: E402
 import yahoo_eu  # noqa: E402
 from eu_history import HISTORY_CSV, bars_for, merge_bars, upsert_today  # noqa: E402
 from indicators import compute_indicator_columns  # noqa: E402
@@ -88,12 +89,15 @@ def fetch_quotes(
     """Return (quotes keyed by canonical upper ticker, source name,
     history bars by ticker, non-fatal warnings).
 
-    Source chain — all free by default, per the Phase 1 rule of not paying
+    Source chain — free by default, per the Phase 1 rule of not paying
     for data before the pipeline proves itself:
     1. FMP, only if the optional FMP_API_KEY is set (richest fields).
-    2. Stooq keyless CSV — works from residential IPs, but GitHub-hosted
+    2. Twelve Data, only if TWELVE_DATA_API_KEY is set (free Basic plan
+       works: has previous_close and average_volume; paced to the plan's
+       8-credits/minute limit, so a 46-ticker scan takes ~6 minutes).
+    3. Stooq keyless CSV — works from residential IPs, but GitHub-hosted
        runners are rate-limited/blocked by Stooq (observed 2026-07-03).
-    3. Yahoo chart API, keyless — one request per ticker; also returns daily
+    4. Yahoo chart API, keyless — one request per ticker; also returns daily
        history bars, which the caller merges into the accumulated history
        (removing the warm-up without any seeding step).
     """
@@ -104,6 +108,19 @@ def fetch_quotes(
             return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp", {}, []
         except Exception as exc:  # noqa: BLE001 - fall through the chain
             errors.append(f"FMP failed: {exc}")
+    td_key = os.getenv("TWELVE_DATA_API_KEY")
+    if td_key:
+        try:
+            credits = int((config["eu"].get("twelvedata") or {}).get("credits_per_minute", 8))
+            td_quotes, td_failures = twelvedata_eu.fetch_batch_quotes(tickers, td_key, credits)
+            warnings = list(errors)
+            if td_failures:
+                warnings.append(
+                    f"Twelve Data skipped {len(td_failures)} ticker(s): {'; '.join(td_failures[:3])}"
+                )
+            return td_quotes, "twelvedata", {}, warnings
+        except Exception as exc:  # noqa: BLE001 - fall through the chain
+            errors.append(f"Twelve Data failed: {exc}")
     try:
         quotes = stooq_eu.fetch_batch_quotes(tickers)
         return {t.upper(): q for t, q in quotes.items()}, "stooq", {}, []

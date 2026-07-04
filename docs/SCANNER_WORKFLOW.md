@@ -235,16 +235,25 @@ data before the pipeline proves itself:
 
 1. **FMP** — only if the optional `FMP_API_KEY` secret is set (richest
    fields). Not required; don't buy a plan for this.
-2. **Stooq** keyless CSV — works from residential IPs, but is unusable from
+2. **Twelve Data** (`scanner/twelvedata_eu.py`) — only if the
+   `TWELVE_DATA_API_KEY` secret is set. The free Basic plan works and the
+   quote payload includes `previous_close` and `average_volume`, so change%
+   and relative volume come straight from the source. Paced to the free
+   plan's 8-credits/minute limit: batches of 8 symbols with ~60s pauses, so
+   a 46-ticker scan takes ~6 minutes and the 4 daily runs use ~184 of the
+   800 daily credits. If EU symbols turn out to be plan-gated on the free
+   tier, the per-symbol errors appear as report warnings and the scan falls
+   through to Yahoo.
+3. **Stooq** keyless CSV — works from residential IPs, but is unusable from
    GitHub-hosted runners: Stooq rate-limits/blocks the shared runner egress
    IPs (observed 2026-07-03 — every scan got HTTP 404 on batch quotes and the
    seeder got empty 200 responses for all 46 tickers). Note Stooq uses `.UK`
    where eToro/FMP use `.L` — the tooling maps this automatically.
-3. **Yahoo Finance** chart API (`scanner/yahoo_eu.py`) — keyless, one request
-   per ticker, same symbol format as the repo. This is the source scheduled
-   runs actually land on. Each response also carries ~6 months of daily bars,
-   which the scanner merges into `data/eu_quote_history.csv` (fill-missing
-   only), so the history warm-up disappears without any seeding step.
+4. **Yahoo Finance** chart API (`scanner/yahoo_eu.py`) — keyless, one request
+   per ticker, same symbol format as the repo. Each response also carries ~6
+   months of daily bars, which the scanner merges into
+   `data/eu_quote_history.csv` (fill-missing only), so the history warm-up
+   disappears without any seeding step.
 
 Each scan report names the source actually used in its `Data:` line.
 
