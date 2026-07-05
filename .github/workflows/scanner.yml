@@ -153,6 +153,10 @@ jobs:
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: python scanner/simulate_proposals.py
 
+      - name: Draft proposal cards from alerts
+        if: steps.timing.outputs.should_run != 'false'
+        run: python scanner/draft_proposals.py
+
       - name: Commit scanner output
         if: steps.timing.outputs.should_run != 'false'
         run: |
@@ -160,7 +164,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Some outputs only exist after a successful data fetch; adding a
           # missing pathspec is a fatal git error, so add only what exists.
-          for path in data/scanner_signals.csv data/market_regime.csv data/proposals.csv research/scans research/scanner-summary.md research/proposal-stats.md; do
+          for path in data/scanner_signals.csv data/market_regime.csv data/proposals.csv research/scans research/scanner-summary.md research/proposal-stats.md research/proposal-drafts.md; do
             [ -e "$path" ] && git add "$path"
           done
           if git diff --cached --quiet; then

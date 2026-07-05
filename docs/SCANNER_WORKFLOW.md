@@ -307,6 +307,20 @@ median, hit rate, best/worst per horizon) plus a runner board listing every
 recorded signal with its 1d/5d/10d/21d outcomes. It is a derived artifact —
 regenerated on every run, never edited by hand, and never a trade signal.
 
+## Proposal draft cards
+
+`scanner/draft_proposals.py` (wired into both scanner workflows, after the
+signal summary) regenerates `research/proposal-drafts.md`: for each of the
+latest scan day's alerts (score ≥ `min_score_to_alert`, excluding tickers that
+are already an open trade or a live proposal) it emits a **pre-filled draft
+proposal card** — mechanical fields filled, judgment fields (`entry_price`,
+`stop_price`, `target_price`, `thesis`, `planned_r`) left as blank TODOs. It is
+a research aid to make logging a real proposal fast; it **never** writes to
+`data/proposals.csv` or `trades.csv`, and it is not a trade signal. The file
+also carries a "Proposal hygiene" check that flags any open proposal breaking
+the `SETUPS.md` card standard (bad `setup_type`, `planned_r` < 1.5, blank
+required fields). Derived artifact — regenerated every run, never hand-edited.
+
 ## 30-day evaluation
 
 After 30 days, check:
