@@ -183,6 +183,18 @@ When I log a proposal:
 resolves proposals on daily bars and regenerates `research/proposal-stats.md`.
 Never overwrite its resolved statuses by hand.
 
+**Draft cards (`research/proposal-drafts.md`).** After each scan,
+`scanner/draft_proposals.py` turns the top alerts (score ≥ the alert threshold,
+minus tickers already an open trade or a live proposal) into **pre-filled draft
+cards** — the mechanical fields (ticker, date, source, regime, reference price,
+indicator context, a suggested `setup_type`) filled in, the judgment fields
+(`entry_price`, `stop_price`, `target_price`, `thesis`, `planned_r`) left as
+blank TODOs. It is a research aid, not a proposal: it **never** writes to
+`proposals.csv` or `trades.csv`, and a high score is "a reason to research", not
+a setup (`SETUPS.md`). To log one, fill the judgment fields and append the row
+per the steps above — whether or not you trade it. The same file's "Proposal
+hygiene" section flags any open proposal that breaks the card standard.
+
 ---
 
 ## Closing a trade
