@@ -84,6 +84,42 @@ The scanner scores each ticker using:
 
 Default thresholds live in `scanner/config.toml`.
 
+### Indicator columns (measurement-only)
+
+Since 2026-07, every recorded signal also carries five classic technical
+indicators, computed deterministically by `scanner/indicators.py` (stdlib-only,
+TradingView conventions; idea adapted from oft3r/agentic-trading-desk):
+
+| Column | Meaning |
+|---|---|
+| `rsi14` | Wilder's RSI, 14 periods |
+| `ema20_dist_pct` | price vs EMA20, in % |
+| `ema50_dist_pct` | price vs EMA50, in % |
+| `macd_hist_pct` | MACD(12,26,9) histogram as % of price |
+| `bb_percent_b` | Bollinger(20,2) %B — 0 = lower band, 1 = upper band |
+
+These columns **do not contribute to the score**. They exist so the return
+backfill can later answer questions like "did signals above their EMA50
+follow through better?" — if a column separates forward returns once enough
+rows are filled, promoting it into the score is a phase-transition decision
+(MASTERPLAN), never a quiet tweak. US signals compute them from Alpaca bars
+(`lookback_days = 150` for warm-up); EU signals from the accumulated history,
+so they stay blank until enough sessions exist.
+
+### Market regime columns (cross-asset context)
+
+`data/market_regime.csv` additionally records three cross-asset ratios as
+20-trading-day % changes plus a `cross_asset_score` (-3..+3, one vote per
+ratio beyond ±1%):
+
+- `credit_hyg_lqd_20d_pct` — HYG vs LQD (credit risk appetite)
+- `size_iwm_spy_20d_pct` — IWM vs SPY (small-cap risk appetite)
+- `risk_xly_xlp_20d_pct` — XLY vs XLP (consumer discretionary vs staples)
+
+The `regime` label formula (SPY vs 50d MA + universe breadth) is **unchanged**
+so existing regime history stays comparable; the new columns are context for
+the Phase 2 regime-scaled-exposure decision.
+
 Interpretation:
 
 | Score | Meaning |
@@ -194,20 +230,47 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 XETRA trades in EUR (no FX on a EUR account) and has no UK stamp duty; LSE `.L`
 symbols are supported but each buy costs 0.5% stamp duty plus GBP exposure.
 
-Data sources (no key required): **Stooq's free CSV endpoints are the default** —
-batch delayed quotes per run plus, one-time, full daily history for seeding.
-The `FMP_API_KEY` secret is **optional**: when set, quotes come from FMP instead
-(richer fields); FMP's EU history stays plan-gated either way. Note Stooq uses
-`.UK` where eToro/FMP use `.L` — the tooling maps this automatically.
+Data sources — a free-by-default chain, because the Phase 1 rule says no paid
+data before the pipeline proves itself:
+
+1. **FMP** — only if the optional `FMP_API_KEY` secret is set (richest
+   fields). Not required; don't buy a plan for this.
+2. **Twelve Data** (`scanner/twelvedata_eu.py`) — only if the
+   `TWELVE_DATA_API_KEY` secret is set. **The free Basic plan does NOT
+   include XETRA/LSE market data** (diagnosed 2026-07-04: `/quote` returns
+   404/symbol-not-found for XETRA and LSE symbols that the free `/stocks`
+   directory itself lists; `plan_category: basic`). The integration stays
+   wired for a possible future plan upgrade — with a paid plan it is the
+   best source here because the quote payload includes `previous_close` and
+   `average_volume`. It is paced to the plan's per-minute credit limit
+   (config `[eu.twelvedata] credits_per_minute`), and fails fast when the
+   entire first batch is rejected so a gated plan costs seconds, not
+   minutes, before falling through to Yahoo.
+3. **Stooq** keyless CSV — works from residential IPs, but is unusable from
+   GitHub-hosted runners: Stooq rate-limits/blocks the shared runner egress
+   IPs (observed 2026-07-03 — every scan got HTTP 404 on batch quotes and the
+   seeder got empty 200 responses for all 46 tickers). Note Stooq uses `.UK`
+   where eToro/FMP use `.L` — the tooling maps this automatically.
+4. **Yahoo Finance** chart API (`scanner/yahoo_eu.py`) — keyless, one request
+   per ticker, same symbol format as the repo. Each response also carries ~6
+   months of daily bars, which the scanner merges into
+   `data/eu_quote_history.csv` (fill-missing only), so the history warm-up
+   disappears without any seeding step.
+
+Each scan report names the source actually used in its `Data:` line.
 
 The scanner self-accumulates history into `data/eu_quote_history.csv` — every
 run upserts today's bar, and the 17:40 post-close run finalizes it.
 
-**Seed the history once** to skip the warm-up entirely: run the EU Scanner
-workflow manually with the `seed_history` input checked. That backfills ~90 days
-of daily bars per ticker from Stooq (one polite request per ticker), and the
-20d/50d breakout components are fully active from the first scan. Without
-seeding:
+**Seeding is now optional**: the Yahoo fallback backfills ~6 months of daily
+bars automatically on every successful scheduled run, so the 20d/50d breakout
+components are fully active from the first scan that reaches Yahoo. The Stooq
+seeder (`python scanner/seed_eu_history.py`) still works **locally from a
+residential IP** (commit `data/eu_quote_history.csv` afterwards) — but do not
+run it via the workflow's `seed_history` input: GitHub runners hit the Stooq
+block (the 2026-07-03 attempt seeded 0 bars; the seeder now exits nonzero in
+that case instead of looking green). If neither Yahoo nor seeding has filled
+the history yet:
 
 - Day-move and price-vs-open work from day one; relative volume and change-%
   derive from the accumulated history as it grows.

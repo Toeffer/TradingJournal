@@ -128,9 +128,11 @@ jobs:
       - name: Run EU scanner
         if: steps.timing.outputs.should_run != 'false'
         env:
-          # Optional: with the key set, quotes come from FMP (richer fields);
-          # without it, the scanner uses Stooq's keyless CSV endpoints.
+          # Source chain (first configured/working source wins):
+          # FMP -> Twelve Data -> Stooq (blocked on GitHub runners) -> Yahoo.
+          # Both keys are optional; without any, scans run on Yahoo.
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          TWELVE_DATA_API_KEY: ${{ secrets.TWELVE_DATA_API_KEY }}
         run: python scanner/run_scan_eu.py
 
       - name: Backfill scanner returns

@@ -38,7 +38,10 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stooq_eu  # noqa: E402
-from eu_history import HISTORY_CSV, bars_for, upsert_today  # noqa: E402
+import twelvedata_eu  # noqa: E402
+import yahoo_eu  # noqa: E402
+from eu_history import HISTORY_CSV, bars_for, merge_bars, upsert_today  # noqa: E402
+from indicators import compute_indicator_columns  # noqa: E402
 from run_scan import (  # noqa: E402
     REPO_ROOT,
     REPORT_DIR,
@@ -80,18 +83,58 @@ def session_elapsed_fraction_eu(now: datetime, market: str) -> float | None:
     return max(elapsed / total, 0.05)
 
 
-def fetch_quotes(tickers: list[str], config: dict[str, Any]) -> tuple[dict[str, dict[str, Any]], str]:
-    """Return (quotes keyed by canonical upper ticker, source name).
+def fetch_quotes(
+    tickers: list[str], config: dict[str, Any]
+) -> tuple[dict[str, dict[str, Any]], str, dict[str, list[dict[str, Any]]], list[str]]:
+    """Return (quotes keyed by canonical upper ticker, source name,
+    history bars by ticker, non-fatal warnings).
 
-    FMP is used when FMP_API_KEY is configured (richer fields: previousClose,
-    avgVolume); otherwise Stooq's keyless CSV endpoints are the default —
-    missing fields are derived from the accumulated local history.
+    Source chain — free by default, per the Phase 1 rule of not paying
+    for data before the pipeline proves itself:
+    1. FMP, only if the optional FMP_API_KEY is set (richest fields).
+    2. Twelve Data, only if TWELVE_DATA_API_KEY is set (free Basic plan
+       works: has previous_close and average_volume; paced to the plan's
+       8-credits/minute limit, so a 46-ticker scan takes ~6 minutes).
+    3. Stooq keyless CSV — works from residential IPs, but GitHub-hosted
+       runners are rate-limited/blocked by Stooq (observed 2026-07-03).
+    4. Yahoo chart API, keyless — one request per ticker; also returns daily
+       history bars, which the caller merges into the accumulated history
+       (removing the warm-up without any seeding step).
     """
+    errors: list[str] = []
     if os.getenv("FMP_API_KEY"):
-        raw = fmp_batch_quotes(tickers, config)
-        return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp"
-    quotes = stooq_eu.fetch_batch_quotes(tickers)
-    return {t.upper(): q for t, q in quotes.items()}, "stooq"
+        try:
+            raw = fmp_batch_quotes(tickers, config)
+            return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp", {}, []
+        except Exception as exc:  # noqa: BLE001 - fall through the chain
+            errors.append(f"FMP failed: {exc}")
+    td_key = os.getenv("TWELVE_DATA_API_KEY")
+    if td_key:
+        try:
+            credits = int((config["eu"].get("twelvedata") or {}).get("credits_per_minute", 8))
+            td_quotes, td_failures = twelvedata_eu.fetch_batch_quotes(tickers, td_key, credits)
+            warnings = list(errors)
+            if td_failures:
+                warnings.append(
+                    f"Twelve Data skipped {len(td_failures)} ticker(s): {'; '.join(td_failures[:3])}"
+                )
+            return td_quotes, "twelvedata", {}, warnings
+        except Exception as exc:  # noqa: BLE001 - fall through the chain
+            errors.append(f"Twelve Data failed: {exc}")
+    try:
+        quotes = stooq_eu.fetch_batch_quotes(tickers)
+        return {t.upper(): q for t, q in quotes.items()}, "stooq", {}, []
+    except Exception as exc:  # noqa: BLE001 - fall through the chain
+        errors.append(f"Stooq failed: {exc}")
+    try:
+        yahoo_quotes, history, failures = yahoo_eu.fetch_batch_quotes(tickers)
+    except Exception as exc:  # noqa: BLE001 - end of the chain
+        errors.append(f"Yahoo failed: {exc}")
+        raise RuntimeError("; ".join(errors)) from exc
+    warnings = list(errors)
+    if failures:
+        warnings.append(f"Yahoo skipped {len(failures)} ticker(s): {'; '.join(failures[:3])}")
+    return yahoo_quotes, "yahoo", history, warnings
 
 
 def fmp_batch_quotes(tickers: list[str], config: dict[str, Any]) -> list[dict[str, Any]]:
@@ -186,6 +229,12 @@ def score_eu_candidate(
     if avg_volume_20d and session_fraction:
         rel_volume = volume / (avg_volume_20d * session_fraction)
 
+    # Measurement-only indicator columns (see indicators.py). The accumulated
+    # EU history is short at first, so these stay blank until enough sessions
+    # exist — same graceful degradation as the breakout components.
+    closes = [b["c"] for b in hist if b.get("c") is not None]
+    ind = compute_indicator_columns(closes + [price])
+
     candidate = Candidate(
         timestamp=timestamp,
         ticker=ticker,
@@ -199,6 +248,7 @@ def score_eu_candidate(
         above_50d_high=bool(len(hist) >= 50 and high50 and price > high50),
         extension_5d_pct=((price / high5) - 1) * 100 if high5 else None,
         source=data_source,
+        **ind,
     )
 
     min_rel_volume = float(filters.get("min_rel_volume", 2.0))
@@ -269,6 +319,7 @@ def write_eu_report(
     universe_count: int,
     scored_count: int,
     history_days: int,
+    data_source: str = "none (fetch failed)",
 ) -> Path:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     local_ts = timestamp.strftime("%Y-%m-%d %H:%M %Z")
@@ -285,7 +336,7 @@ def write_eu_report(
     lines.append("DRAFT for human review. Candidate discovery only — not financial advice, not a trade signal.")
     lines.append("")
     lines.append(
-        "Data: FMP real-time quotes with self-accumulated daily history "
+        f"Data: quotes from **{data_source}** with self-accumulated daily history "
         f"(data/eu_quote_history.csv, {history_days} distinct day(s) so far). Breakout and "
         "accumulated rel-volume components reach full quality after ~20 sessions. "
         "Relative volume is normalized against the elapsed fraction of the local session "
@@ -346,12 +397,22 @@ def main() -> int:
         return 0
 
     try:
-        quotes_by_ticker, data_source = fetch_quotes(tickers, config)
+        quotes_by_ticker, data_source, yahoo_history, fetch_warnings = fetch_quotes(tickers, config)
     except Exception as exc:  # noqa: BLE001 - non-destructive: report and exit clean
         report = write_eu_report(now, [], config, [f"Data fetch failed: {exc}"], len(tickers), 0, 0)
         print(f"Wrote report after data error: {report}")
+        print(f"Data fetch failed: {exc}", file=sys.stderr)
         return 0
+    warnings.extend(fetch_warnings)
     print(f"Quote source: {data_source} ({len(quotes_by_ticker)} quotes)")
+
+    # Yahoo responses carry months of daily bars for free — backfill any
+    # missing history rows so breakout/indicator components have real depth
+    # from the first successful run (idempotent; never overwrites).
+    if yahoo_history:
+        backfilled = merge_bars(yahoo_history, today)
+        if backfilled:
+            print(f"Backfilled {backfilled} historical bar(s) from Yahoo into {HISTORY_CSV.name}.")
 
     # Update the accumulated history first (this run's snapshot becomes/updates
     # today's bar; the last run of the day finalizes it).
@@ -393,14 +454,14 @@ def main() -> int:
 
     missing = len(tickers) - scored
     if missing:
-        warnings.append(f"{missing} universe ticker(s) had no quote in the FMP response.")
+        warnings.append(f"{missing} universe ticker(s) had no quote in the {data_source} response.")
 
     record_score = int(config["scanner"].get("min_score_to_record", 60))
     recorded = sorted([c for c in candidates if c.score >= record_score], key=lambda c: c.score, reverse=True)
     append_signal_rows(SIGNALS_CSV, recorded)
 
     history_days = len({r["date"] for r in csv.DictReader(HISTORY_CSV.open())}) if HISTORY_CSV.exists() else 0
-    report = write_eu_report(now, recorded, config, warnings, len(tickers), scored, history_days)
+    report = write_eu_report(now, recorded, config, warnings, len(tickers), scored, history_days, data_source)
     print(f"Wrote report: {report}")
     print(f"Recorded candidates: {len(recorded)}")
     return 0

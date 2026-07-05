@@ -21,6 +21,7 @@ from __future__ import annotations
 import csv
 import io
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -45,11 +46,30 @@ def from_stooq_symbol(symbol: str) -> str:
     return t
 
 
+# Stooq serves its rate-limit page with HTTP 200; the body carries this text
+# (English or Polish) instead of CSV. GitHub-hosted runners share egress IPs,
+# so the daily per-IP limit is effectively always exhausted there — observed
+# 2026-07-03: /q/l/ returned 404 and /q/d/l/ returned empty data for every
+# ticker from Actions, while both worked from residential IPs.
+_LIMIT_MARKERS = ("exceeded the daily hits limit", "przekroczony dzienny limit")
+
+BLOCKED_HINT = (
+    "Stooq appears blocked/rate-limited from this IP (GitHub-hosted runners "
+    "share exhausted egress IPs). Set the FMP_API_KEY repository secret so "
+    "the EU scanner uses FMP instead, or run/seed from a residential IP."
+)
+
+
 def _fetch_csv(path_and_query: str) -> list[list[str]]:
     url = f"{BASE_URL}{path_and_query}"
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        text = resp.read().decode("utf-8", errors="replace")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            text = resp.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Stooq HTTP {e.code} from {url.split('?')[0]}. {BLOCKED_HINT}") from e
+    if any(marker in text.lower() for marker in _LIMIT_MARKERS):
+        raise RuntimeError(f"Stooq daily hits limit reached at {url.split('?')[0]}. {BLOCKED_HINT}")
     return list(csv.reader(io.StringIO(text)))
 
 
@@ -100,6 +120,9 @@ def fetch_batch_quotes(tickers: list[str]) -> dict[str, dict[str, float | str | 
         # Stooq expects '+' between symbols; urlencode turns spaces into '+'.
         quotes.update(parse_quote_rows(_fetch_csv(f"/q/l/?{query}")))
         time.sleep(0.5)
+    if tickers and not quotes:
+        # HTTP 200 with nothing parseable is the other face of the block page.
+        raise RuntimeError(f"Stooq returned no parseable quotes for {len(tickers)} ticker(s). {BLOCKED_HINT}")
     return quotes
 
 

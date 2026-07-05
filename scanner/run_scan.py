@@ -31,6 +31,9 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from indicators import compute_indicator_columns  # noqa: E402
+
 NY_TZ = ZoneInfo("America/New_York")
 
 try:
@@ -57,6 +60,14 @@ CSV_FIELDS = [
     "above_20d_high",
     "above_50d_high",
     "extension_5d_pct",
+    # Measurement-only technical indicators (see scanner/indicators.py).
+    # Never part of the score until the bucket evaluation proves they
+    # separate forward returns (MASTERPLAN Phase 1).
+    "rsi14",
+    "ema20_dist_pct",
+    "ema50_dist_pct",
+    "macd_hist_pct",
+    "bb_percent_b",
     "score",
     "source",
     "reasons",
@@ -83,6 +94,11 @@ class Candidate:
     above_20d_high: bool = False
     above_50d_high: bool = False
     extension_5d_pct: float | None = None
+    rsi14: float | None = None
+    ema20_dist_pct: float | None = None
+    ema50_dist_pct: float | None = None
+    macd_hist_pct: float | None = None
+    bb_percent_b: float | None = None
     score: int = 0
     source: str = "alpaca"
     reasons: list[str] = field(default_factory=list)
@@ -101,6 +117,11 @@ class Candidate:
             "above_20d_high": str(self.above_20d_high).lower(),
             "above_50d_high": str(self.above_50d_high).lower(),
             "extension_5d_pct": fmt_float(self.extension_5d_pct),
+            "rsi14": fmt_float(self.rsi14, 2),
+            "ema20_dist_pct": fmt_float(self.ema20_dist_pct, 2),
+            "ema50_dist_pct": fmt_float(self.ema50_dist_pct, 2),
+            "macd_hist_pct": fmt_float(self.macd_hist_pct),
+            "bb_percent_b": fmt_float(self.bb_percent_b, 3),
             "score": self.score,
             "source": self.source,
             "reasons": "; ".join(self.reasons),
@@ -327,6 +348,12 @@ def score_candidate(
     above_50d_high = bool(high50 and price > high50)
     extension_5d_pct = ((price / high5) - 1) * 100 if high5 else None
 
+    # Measurement-only indicator columns: history closes plus the live price
+    # as today's close (same intraday convention as the score components).
+    # These are recorded for later bucket analysis and never enter the score.
+    closes = [float(b["c"]) for b in hist if b.get("c") is not None]
+    ind = compute_indicator_columns(closes + [price])
+
     candidate = Candidate(
         timestamp=timestamp,
         ticker=ticker,
@@ -338,6 +365,7 @@ def score_candidate(
         above_20d_high=above_20d_high,
         above_50d_high=above_50d_high,
         extension_5d_pct=extension_5d_pct,
+        **ind,
     )
 
     min_rel_volume = float(filters.get("min_rel_volume", 2.0))
@@ -461,13 +489,45 @@ REGIME_FIELDS = [
     "spy_50d_ma",
     "spy_above_50d",
     "breadth_pct_above_20d_ma",
+    # Cross-asset measurement columns (idea from oft3r/agentic-trading-desk's
+    # macro pillar): 20-trading-day % change of three risk-appetite ratios.
+    # Rising HYG/LQD = credit risk-on; rising IWM/SPY = small-cap risk-on;
+    # rising XLY/XLP = consumer risk-on. Logged only — the `regime` label
+    # formula is unchanged so the Phase 1/2 regime data stays comparable.
+    "credit_hyg_lqd_20d_pct",
+    "size_iwm_spy_20d_pct",
+    "risk_xly_xlp_20d_pct",
+    "cross_asset_score",
     "regime",
 ]
+
+# ETFs fetched for regime context only; never scored or recorded as signals.
+REGIME_ETFS = ["SPY", "HYG", "LQD", "IWM", "XLY", "XLP"]
+
+
+def ratio_20d_change(
+    num_bars: list[dict[str, Any]], den_bars: list[dict[str, Any]]
+) -> float | None:
+    """% change of the close ratio numerator/denominator over 20 trading days.
+
+    Bars are aligned by date first — the two ETFs can have slightly different
+    bar sets on the IEX feed, and a misaligned ratio series would be noise.
+    """
+    num = {str(b.get("t", ""))[:10]: float(b["c"]) for b in num_bars if b.get("c")}
+    den = {str(b.get("t", ""))[:10]: float(b["c"]) for b in den_bars if b.get("c")}
+    dates = sorted(set(num) & set(den))
+    if len(dates) < 21:
+        return None
+    ratio_now = num[dates[-1]] / den[dates[-1]]
+    ratio_then = num[dates[-21]] / den[dates[-21]]
+    if ratio_then == 0:
+        return None
+    return (ratio_now / ratio_then - 1) * 100
 
 
 def compute_regime(
     timestamp: str,
-    spy_bars: list[dict[str, Any]],
+    etf_bars: dict[str, list[dict[str, Any]]],
     universe_bars: dict[str, list[dict[str, Any]]],
 ) -> dict[str, Any] | None:
     """Classify the market backdrop so every proposal/signal carries its context.
@@ -475,7 +535,12 @@ def compute_regime(
     Deliberately crude: SPY vs its 50-day MA plus universe breadth (% of scanned
     tickers above their own 20-day MA). The point is not precision — it's that
     'did breakout proposals work in defensive tape?' becomes answerable later.
+
+    The cross-asset ratio columns are measurement-only context; they do not
+    move the `regime` label. Folding them into the label is a phase-transition
+    decision once there is enough history to see whether they add anything.
     """
+    spy_bars = etf_bars.get("SPY", [])
     spy_closes = [float(b.get("c", 0)) for b in spy_bars if b.get("c") is not None]
     if len(spy_closes) < 50:
         return None
@@ -493,6 +558,13 @@ def compute_regime(
             above += 1
     breadth = (100.0 * above / counted) if counted else None
 
+    credit = ratio_20d_change(etf_bars.get("HYG", []), etf_bars.get("LQD", []))
+    size = ratio_20d_change(etf_bars.get("IWM", []), etf_bars.get("SPY", []))
+    risk = ratio_20d_change(etf_bars.get("XLY", []), etf_bars.get("XLP", []))
+    # -3..+3: each ratio votes +1 above +1%, -1 below -1%, 0 in between.
+    votes = [v for v in (credit, size, risk) if v is not None]
+    cross_score = sum(1 if v >= 1.0 else -1 if v <= -1.0 else 0 for v in votes)
+
     spy_above = spy_close > spy_50
     if spy_above and breadth is not None and breadth >= 50:
         label = "supportive"
@@ -507,17 +579,40 @@ def compute_regime(
         "spy_50d_ma": fmt_float(spy_50, 2),
         "spy_above_50d": str(spy_above).lower(),
         "breadth_pct_above_20d_ma": fmt_float(breadth, 1) if breadth is not None else "",
+        "credit_hyg_lqd_20d_pct": fmt_float(credit, 2),
+        "size_iwm_spy_20d_pct": fmt_float(size, 2),
+        "risk_xly_xlp_20d_pct": fmt_float(risk, 2),
+        "cross_asset_score": str(cross_score) if votes else "",
         "regime": label,
     }
 
 
 def append_regime_row(path: Path, row: dict[str, Any]) -> None:
+    """Append a regime row, migrating the file in place if columns were added.
+
+    Older files carry fewer columns; blindly appending a wider row would
+    desync data from the header. On mismatch the file is rewritten with the
+    current header and old rows padded with blanks.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
-    is_new = not path.exists() or path.stat().st_size == 0
-    with path.open("a", newline="", encoding="utf-8") as f:
+    existing: list[dict[str, Any]] = []
+    header: list[str] | None = None
+    if path.exists() and path.stat().st_size > 0:
+        with path.open("r", newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            header = list(reader.fieldnames or [])
+            existing = list(reader)
+
+    if header == REGIME_FIELDS:
+        with path.open("a", newline="", encoding="utf-8") as f:
+            csv.DictWriter(f, fieldnames=REGIME_FIELDS).writerow(row)
+        return
+
+    with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=REGIME_FIELDS)
-        if is_new:
-            writer.writeheader()
+        writer.writeheader()
+        for old in existing:
+            writer.writerow({k: old.get(k, "") for k in REGIME_FIELDS})
         writer.writerow(row)
 
 
@@ -554,6 +649,14 @@ def write_report(
             f"{regime['spy_50d_ma']}; breadth {regime['breadth_pct_above_20d_ma'] or 'n/a'}% "
             "of universe above 20d MA)"
         )
+        if regime.get("cross_asset_score") != "":
+            lines.append(
+                f"- Cross-asset context (measurement-only, 20d ratio moves): score "
+                f"{regime['cross_asset_score']}/±3 — credit HYG/LQD "
+                f"{regime['credit_hyg_lqd_20d_pct'] or 'n/a'}%, size IWM/SPY "
+                f"{regime['size_iwm_spy_20d_pct'] or 'n/a'}%, risk XLY/XLP "
+                f"{regime['risk_xly_xlp_20d_pct'] or 'n/a'}%"
+            )
     lines.append(f"- Universe tickers scanned: {universe_count}")
     lines.append(f"- Finviz manual seeds loaded: {finviz_count}")
     lines.append(f"- Candidates scored: {len(candidates)}")
@@ -606,6 +709,12 @@ def candidate_markdown(idx: int, c: Candidate) -> list[str]:
     lines.append(f"- Price: {fmt_float(c.price, 2)} | Move: {fmt_float(c.change_pct, 2)}% | Rel volume: {fmt_float(c.rel_volume, 2)}x")
     lines.append(f"- Volume: {c.volume or ''} | Avg 20d volume: {fmt_float(c.avg_volume_20d, 0)}")
     lines.append(f"- Breakout: 20d={str(c.above_20d_high).lower()}, 50d={str(c.above_50d_high).lower()} | 5d extension: {fmt_float(c.extension_5d_pct, 2)}%")
+    if any(v is not None for v in (c.rsi14, c.ema20_dist_pct, c.macd_hist_pct, c.bb_percent_b)):
+        lines.append(
+            f"- Indicators (context only, not scored): RSI14 {fmt_float(c.rsi14, 1) or 'n/a'} | "
+            f"vs EMA20 {fmt_float(c.ema20_dist_pct, 1) or 'n/a'}% | vs EMA50 {fmt_float(c.ema50_dist_pct, 1) or 'n/a'}% | "
+            f"MACD hist {fmt_float(c.macd_hist_pct, 2) or 'n/a'}% | BB %B {fmt_float(c.bb_percent_b, 2) or 'n/a'}"
+        )
     lines.append(f"- Source: {c.source}")
     lines.append(f"- Reasons: {'; '.join(c.reasons) if c.reasons else 'n/a'}")
     if c.warnings:
@@ -643,16 +752,16 @@ def main() -> int:
 
     try:
         snapshots = fetch_snapshots(tickers, config)
-        # SPY is fetched for regime context only; it is never scored or recorded.
-        bars = fetch_daily_bars(tickers + ["SPY"], config)
+        # Regime ETFs are fetched for context only; never scored or recorded.
+        bars = fetch_daily_bars(tickers + REGIME_ETFS, config)
     except Exception as exc:  # noqa: BLE001 - report and keep workflow non-destructive
         warnings.append(f"Data fetch failed: {exc}")
         report = write_report(now, [], [], config, warnings, len(tickers), len(finviz_manual))
         print(f"Wrote report after data error: {report}")
         return 0
 
-    spy_bars = bars.pop("SPY", [])
-    regime = compute_regime(timestamp, spy_bars, bars)
+    etf_bars = {etf: bars.pop(etf, []) for etf in REGIME_ETFS}
+    regime = compute_regime(timestamp, etf_bars, bars)
     if regime:
         append_regime_row(REGIME_CSV, regime)
     else:
