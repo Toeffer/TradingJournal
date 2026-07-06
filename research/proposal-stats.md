@@ -1,6 +1,6 @@
 # Proposal Stats
 
-Auto-generated from `data/proposals.csv` on 2026-07-05 18:47 UTC. Do not edit by hand.
+Auto-generated from `data/proposals.csv` on 2026-07-06 16:27 UTC. Do not edit by hand.
 
 Simulated outcomes use conservative daily-bar rules (see
 `scanner/simulate_proposals.py`): same-bar ambiguity counts as a stop-out, and

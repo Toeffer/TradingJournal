@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-05 18:47 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-06 16:27 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Returns are close-to-signal-price
 moves on IEX data; the signal price is an intraday snapshot, so treat these as
@@ -10,7 +10,7 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 ## Coverage
 
 - Signals recorded: 16
-- With 1-day outcome: 8
+- With 1-day outcome: 12
 - With 21-day outcome: 0
 
 ## Outcomes by score bucket
@@ -18,16 +18,16 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 | Group | Signals | Horizon | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | 40-59 | 8 | 1d | 8 | +0.99% | -0.26% | 38% | +5.84% | -1.68% |
-| 60-69 | 4 | — | 0 | — | — | — | — | — |
-| 70-79 | 2 | — | 0 | — | — | — | — | — |
-| 80+ | 2 | — | 0 | — | — | — | — | — |
+| 60-69 | 4 | 1d | 2 | +2.20% | +2.20% | 100% | +3.38% | +1.03% |
+| 70-79 | 2 | 1d | 1 | -2.23% | -2.23% | 0% | -2.23% | -2.23% |
+| 80+ | 2 | 1d | 1 | +0.31% | +0.31% | 100% | +0.31% | +0.31% |
 
 ## Outcomes by source
 
 | Group | Signals | Horizon | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
-| alpaca | 11 | 1d | 7 | +1.34% | -0.02% | 43% | +5.84% | -1.68% |
-| alpaca+finviz_manual | 5 | 1d | 1 | -1.43% | -1.43% | 0% | -1.43% | -1.43% |
+| alpaca | 11 | 1d | 8 | +0.89% | -0.26% | 38% | +5.84% | -2.23% |
+| alpaca+finviz_manual | 5 | 1d | 4 | +0.82% | +0.67% | 75% | +3.38% | -1.43% |
 
 ## Runner board (every recorded signal)
 
@@ -37,10 +37,10 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 | 2026-07-03 | RIVN | 80 | 18.6200 | +8.51% | — | — | — | — |
 | 2026-07-03 | HOOD | 70 | 112.7100 | +3.71% | — | — | — | — |
 | 2026-07-03 | CELH | 60 | 33.1850 | +4.13% | — | — | — | — |
-| 2026-07-02 | RIVN | 80 | 19.6000 | +14.22% | — | — | — | — |
-| 2026-07-02 | PLTR | 64 | 131.9700 | +4.95% | — | — | — | — |
-| 2026-07-02 | OWL | 60 | 9.1750 | +6.32% | — | — | — | — |
-| 2026-07-02 | HOOD | 70 | 119.8400 | +10.27% | — | — | — | — |
+| 2026-07-02 | RIVN | 80 | 19.6000 | +14.22% | +0.31% | — | — | — |
+| 2026-07-02 | PLTR | 64 | 131.9700 | +4.95% | +1.03% | — | — | — |
+| 2026-07-02 | OWL | 60 | 9.1750 | +6.32% | +3.38% | — | — | — |
+| 2026-07-02 | HOOD | 70 | 119.8400 | +10.27% | -2.23% | — | — | — |
 | 2026-07-01 | PLTR | 49 | 125.7100 | +7.72% | +4.98% | — | — | — |
 | 2026-07-01 | HIMS | 56 | 37.5400 | +8.45% | -1.68% | — | — | — |
 | 2026-07-01 | GIS | 59 | 37.8050 | +8.56% | -1.43% | — | — | — |
