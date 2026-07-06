@@ -1,7 +1,8 @@
-timestamp,spy_close,spy_50d_ma,spy_above_50d,breadth_pct_above_20d_ma,regime
-2026-07-02T22:36:28+0200,744.86,737.38,true,51.6,supportive
-2026-07-03T17:35:43+0200,744.86,737.38,true,51.6,supportive
-2026-07-03T17:58:33+0200,744.86,737.38,true,51.6,supportive
-2026-07-03T18:12:23+0200,744.86,737.38,true,51.6,supportive
-2026-07-03T18:47:44+0200,744.86,737.38,true,51.6,supportive
-2026-07-03T22:21:24+0200,744.86,737.38,true,51.6,supportive
+timestamp,spy_close,spy_50d_ma,spy_above_50d,breadth_pct_above_20d_ma,credit_hyg_lqd_20d_pct,size_iwm_spy_20d_pct,risk_xly_xlp_20d_pct,cross_asset_score,regime
+2026-07-02T22:36:28+0200,744.86,737.38,true,51.6,,,,,supportive
+2026-07-03T17:35:43+0200,744.86,737.38,true,51.6,,,,,supportive
+2026-07-03T17:58:33+0200,744.86,737.38,true,51.6,,,,,supportive
+2026-07-03T18:12:23+0200,744.86,737.38,true,51.6,,,,,supportive
+2026-07-03T18:47:44+0200,744.86,737.38,true,51.6,,,,,supportive
+2026-07-03T22:21:24+0200,744.86,737.38,true,51.6,,,,,supportive
+2026-07-06T18:43:34+0200,750.63,738.17,true,59.4,0.29,3.69,-1.25,0,supportive
