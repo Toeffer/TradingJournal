@@ -43,8 +43,25 @@ def load_csv(path: Path) -> list[dict[str, str]]:
 
 
 def newest_candidates_file() -> Path | None:
-    files = sorted(RESEARCH_DIR.glob("candidates-*.md"))
-    return files[-1] if files else None
+    """Newest by (date, time-of-day), not filename string sort.
+
+    A same-day second research pass writes candidates-YYYY-MM-DD-HHMM.md (see
+    RESEARCH_BRIEF.md's collision check). Plain string sort would rank that
+    file BEFORE the no-suffix candidates-YYYY-MM-DD.md ('-' < '.' in ASCII),
+    silently hiding the later pass. Sort by parsed (date, time) instead.
+    """
+    files = list(RESEARCH_DIR.glob("candidates-*.md"))
+    if not files:
+        return None
+
+    def sort_key(p: Path) -> tuple[str, str]:
+        m = re.match(r"candidates-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.md$", p.name)
+        if not m:
+            return ("", "")
+        return (m.group(1), m.group(2) or "0000")
+
+    files.sort(key=sort_key)
+    return files[-1]
 
 
 def candidates_summary(path: Path) -> list[str]:
