@@ -1,6 +1,6 @@
 # Journal Stats
 
-Auto-generated from `trades.csv` on 2026-07-07 12:28 UTC. Do not edit by hand.
+Auto-generated from `trades.csv` on 2026-07-07 12:29 UTC. Do not edit by hand.
 Arithmetic only — the behavioral review in AGENTS.md is still the real review.
 
 ## Closed trades
