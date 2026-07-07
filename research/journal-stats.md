@@ -1,6 +1,6 @@
 # Journal Stats
 
-Auto-generated from `trades.csv` on 2026-07-07 12:29 UTC. Do not edit by hand.
+Auto-generated from `trades.csv` on 2026-07-07 13:09 UTC. Do not edit by hand.
 Arithmetic only — the behavioral review in AGENTS.md is still the real review.
 
 ## Closed trades
@@ -49,7 +49,7 @@ Arithmetic only — the behavioral review in AGENTS.md is still the real review.
 | 2026-0004 | CELC | — | 89.86 | 85.37 | — | 2026-07-17 |
 | 2026-0011 | RHM | — | 956.6 | 922.6 | 131.62 | 2026-08-06 |
 | 2026-0014 | OPFI | — | 9.93 | 9.00 | 85 | — |
-| 2026-0016 | CELH | — | 33.16 | 31.06 | 150 | — |
+| 2026-0016 | CELH | — | 33.16 | 31.06 | 150 | 2026-08-06 |
 | 2026-0017 | KGX.DE | — | 45.43 | 41.22 | 127 | — |
 
 ## Rule checks (RISK_RULES.md)
@@ -70,6 +70,6 @@ Arithmetic only — the behavioral review in AGENTS.md is still the real review.
 - 2026-0004 (CELC): missing sector, setup_type
 - 2026-0011 (RHM): missing sector, setup_type
 - 2026-0014 (OPFI): missing sector, setup_type, catalyst
-- 2026-0016 (CELH): missing sector, catalyst
+- 2026-0016 (CELH): missing sector
 - 2026-0017 (KGX.DE): missing sector, setup_type, catalyst
 
