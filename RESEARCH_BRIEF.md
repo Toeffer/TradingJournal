@@ -288,7 +288,21 @@ For EACH selected front-runner, write a fuller workup:
 
 ## OUTPUT — write exactly this file
 
-Create `research/candidates-<YYYY-MM-DD>.md` (today's date), structured as:
+**Collision check first (never silently overwrite research):** before writing,
+check whether `research/candidates-<YYYY-MM-DD>.md` (today's date) already
+exists.
+- If it does NOT exist, create it at that path.
+- If it DOES exist, this is a second research pass on the same day (a manual
+  run alongside the scheduled routine, a re-run, etc.). Do **not** overwrite
+  it — write to `research/candidates-<YYYY-MM-DD>-<HHMM>.md` instead (local
+  time, same pattern as the scanner's `scan-YYYY-MM-DD-HHMM.md` files), and
+  add one line at the top of the new file: "Second research pass today —
+  earlier file: `candidates-<YYYY-MM-DD>.md`." This happened once already
+  (2026-07-05: a same-day overwrite destroyed the supporting detail for a
+  candidate before it could be logged) — the fix is to never let two research
+  passes share a filename, not to avoid running twice.
+
+Create the file (per the check above), structured as:
 
 ```
 # Candidate Shortlist — <YYYY-MM-DD>
