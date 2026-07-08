@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-08 11:15 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-08 15:30 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Returns are close-to-signal-price
 moves on IEX data; the signal price is an intraday snapshot, so treat these as
@@ -20,17 +20,20 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 | 40-59 | 8 | 1d | 8 | +0.99% | -0.26% | 38% | +5.84% | -1.68% |
 |  |  | 3d | 8 | +1.17% | +1.45% | 62% | +7.98% | -4.19% |
 | 60-69 | 5 | 1d | 5 | -1.52% | +1.03% | 60% | +3.38% | -13.15% |
+|  |  | 3d | 2 | -1.19% | -1.19% | 50% | +0.33% | -2.71% |
 | 70-79 | 2 | 1d | 2 | -0.28% | -0.28% | 50% | +1.66% | -2.23% |
+|  |  | 3d | 1 | -8.59% | -8.59% | 0% | -8.59% | -8.59% |
 | 80+ | 2 | 1d | 2 | -3.65% | -3.65% | 50% | +0.31% | -7.60% |
+|  |  | 3d | 1 | -17.37% | -17.37% | 0% | -17.37% | -17.37% |
 
 ## Outcomes by source
 
 | Group | Signals | Horizon | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | alpaca | 11 | 1d | 11 | +0.90% | -0.02% | 45% | +5.84% | -2.23% |
-|  |  | 3d | 7 | +1.59% | +2.25% | 71% | +7.98% | -4.19% |
+|  |  | 3d | 8 | +0.31% | +1.45% | 62% | +7.98% | -8.59% |
 | alpaca+finviz_manual | 6 | 1d | 6 | -2.91% | -0.56% | 50% | +3.38% | -13.15% |
-|  |  | 3d | 1 | -1.76% | -1.76% | 0% | -1.76% | -1.76% |
+|  |  | 3d | 4 | -5.38% | -2.23% | 25% | +0.33% | -17.37% |
 
 ## Runner board (every recorded signal)
 
