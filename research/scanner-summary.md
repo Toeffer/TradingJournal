@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-09 16:08 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-09 16:14 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Returns are close-to-signal-price
 moves on IEX data; the signal price is an intraday snapshot, so treat these as
@@ -9,7 +9,7 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 
 ## Coverage
 
-- Signals recorded: 18
+- Signals recorded: 19
 - With 1-day outcome: 17
 - With 21-day outcome: 0
 
@@ -20,7 +20,7 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 | 40-59 | 8 | 1d | 8 | +0.99% | -0.26% | 38% | +5.84% | -1.68% |
 |  |  | 3d | 8 | +1.17% | +1.45% | 62% | +7.98% | -4.19% |
 |  |  | 5d | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
-| 60-69 | 6 | 1d | 5 | -1.52% | +1.03% | 60% | +3.38% | -13.15% |
+| 60-69 | 7 | 1d | 5 | -1.52% | +1.03% | 60% | +3.38% | -13.15% |
 |  |  | 3d | 5 | -3.66% | -2.71% | 40% | +1.62% | -9.72% |
 | 70-79 | 2 | 1d | 2 | -0.28% | -0.28% | 50% | +1.66% | -2.23% |
 |  |  | 3d | 2 | -2.30% | -2.30% | 50% | +3.99% | -8.59% |
@@ -34,7 +34,7 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 | alpaca | 11 | 1d | 11 | +0.90% | -0.02% | 45% | +5.84% | -2.23% |
 |  |  | 3d | 11 | +0.03% | +1.62% | 64% | +7.98% | -8.59% |
 |  |  | 5d | 7 | -1.40% | -2.18% | 29% | +3.81% | -3.97% |
-| alpaca+finviz_manual | 6 | 1d | 6 | -2.91% | -0.56% | 50% | +3.38% | -13.15% |
+| alpaca+finviz_manual | 7 | 1d | 6 | -2.91% | -0.56% | 50% | +3.38% | -13.15% |
 |  |  | 3d | 6 | -5.86% | -3.33% | 17% | +0.33% | -17.37% |
 |  |  | 5d | 1 | -4.50% | -4.50% | 0% | -4.50% | -4.50% |
 | yahoo | 1 | — | 0 | — | — | — | — | — |
@@ -44,7 +44,7 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 | Group | Signals | Horizon | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---:|---:|---:|---:|---:|---:|
 | EU-XETRA | 1 | — | 0 | — | — | — | — | — |
-| US | 17 | 1d | 17 | -0.44% | -0.02% | 47% | +5.84% | -13.15% |
+| US | 18 | 1d | 17 | -0.44% | -0.02% | 47% | +5.84% | -13.15% |
 |  |  | 3d | 17 | -2.05% | -0.51% | 47% | +7.98% | -17.37% |
 |  |  | 5d | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 
@@ -52,6 +52,7 @@ prove nothing — look for patterns only once dozens of rows have filled in.
 
 | Date | Ticker | Score | Signal price | Day move | 1d | 5d | 10d | 21d |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
+| 2026-07-09 | RIVN | 63 | 17.9150 | +7.60% | — | — | — | — |
 | 2026-07-09 | QIA.DE | 68 | 36.6700 | +10.62% | — | — | — | — |
 | 2026-07-06 | RIVN | 60 | 19.8100 | +6.39% | -13.15% | — | — | — |
 | 2026-07-03 | SMMT | 60 | 15.4400 | +7.37% | +2.72% | — | — | — |
