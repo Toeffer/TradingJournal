@@ -6,7 +6,7 @@ into `data/proposals.csv` is fast. Nothing here enters proposals.csv or
 trades.csv automatically; the entry, stop, target and thesis are yours.
 Regenerated every scan run — never edit this file by hand.
 
-Latest scan day: **2026-07-06** · alert threshold: score ≥ 70 · regime: **mixed**
+Latest scan day: **2026-07-09** · alert threshold: score ≥ 70 · regime: **mixed**
 
 ## Draft cards
 
