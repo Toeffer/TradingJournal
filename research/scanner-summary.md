@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-08 20:35 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-09 10:33 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Returns are close-to-signal-price
 moves on IEX data; the signal price is an intraday snapshot, so treat these as
