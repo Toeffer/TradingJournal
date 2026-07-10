@@ -3,9 +3,6 @@ name: Weekly Digest
 on:
   workflow_dispatch:
   schedule:
-    # Monday ~07:00 Europe/Berlin. GitHub cron is UTC and ignores DST, so both
-    # seasonal offsets are listed; the digest file is dated (not timestamped),
-    # so the second firing regenerates identical content and commits nothing.
     - cron: "0 5 * * 1"  # 07:00 Berlin during CEST
     - cron: "0 6 * * 1"  # 07:00 Berlin during CET
 
@@ -28,6 +25,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Validate source data
+        run: python scripts/validate_data.py
 
       - name: Generate weekly digest
         run: python scripts/weekly_digest.py
