@@ -11,6 +11,9 @@ timezone = "Europe/Berlin"
 min_score_to_record = 60
 min_score_to_alert = 70
 max_candidates_per_report = 10
+# Manual screenshot/watchlist seeds are discovery context, not permanent alpha.
+# Rows without an explicit expires_at are active for at most this many calendar days.
+finviz_seed_max_age_days = 2
 
 [universe]
 # Starter list used for the API scan. Keep this intentionally modest while learning.
@@ -37,7 +40,8 @@ lookback_days = 150
 # historical bars. Breakout/rel-volume components come online as history grows.
 universe_file = "scanner/universe_eu.txt"
 base_url = "https://financialmodelingprep.com"
-min_history_days_for_breakout = 15
+# A field called 20-day high must have 20 completed sessions behind it.
+min_history_days_for_breakout = 20
 
 [eu.twelvedata]
 # Twelve Data free (Basic) plan: 8 API credits/minute, 800/day; one symbol in
