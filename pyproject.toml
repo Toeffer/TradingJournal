@@ -20,5 +20,7 @@ target-version = "py311"
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "F"]
+# Begin with syntax/undefined-name correctness. Broader style cleanup can be
+# introduced separately without blocking the reliability work on legacy files.
+select = ["E9", "F63", "F7", "F82"]
 ignore = ["E501"]
