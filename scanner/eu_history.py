@@ -1,23 +1,13 @@
 #!/usr/bin/env python3
-"""Shared access to the self-accumulating EU quote history.
-
-The FMP plan in use provides real-time XETRA/LSE quotes but not historical
-bars, so the EU scanner builds its own history: every scan day it upserts one
-row per ticker into data/eu_quote_history.csv (the last run of the day — the
-post-close run — finalizes that day's open/high/low/close/volume). After ~20
-sessions the derived metrics (20d average volume, 20d highs) reach full
-quality; until then consumers must degrade gracefully.
-
-Bars are exposed Alpaca-shaped ({"t","o","h","l","c","v"}) so
-backfill_returns.py and simulate_proposals.py can treat EU tickers exactly
-like US ones, just with a local data source.
-"""
+"""Shared access to the self-accumulating EU quote history."""
 
 from __future__ import annotations
 
 import csv
 from pathlib import Path
 from typing import Any
+
+from io_utils import atomic_write_csv
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 HISTORY_CSV = REPO_ROOT / "data/eu_quote_history.csv"
@@ -33,7 +23,6 @@ FIELDS = [
     "volume",
     "avg_volume_reported",
 ]
-
 EU_SUFFIXES = (".DE", ".L")
 
 
@@ -44,12 +33,12 @@ def is_eu_symbol(ticker: str) -> bool:
 def load_rows(path: Path = HISTORY_CSV) -> list[dict[str, str]]:
     if not path.exists() or path.stat().st_size == 0:
         return []
-    with path.open("r", newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+    with path.open("r", newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
 
 
 def bars_for(ticker: str, path: Path = HISTORY_CSV) -> list[dict[str, Any]]:
-    """Alpaca-shaped daily bars for one ticker, oldest first."""
+    """Return Alpaca-shaped daily bars for one ticker, oldest first."""
     bars: list[dict[str, Any]] = []
     for row in load_rows(path):
         if row.get("ticker", "").upper() != ticker.upper():
@@ -67,7 +56,7 @@ def bars_for(ticker: str, path: Path = HISTORY_CSV) -> list[dict[str, Any]]:
             )
         except ValueError:
             continue
-    return sorted(bars, key=lambda b: b["t"])
+    return sorted(bars, key=lambda bar: bar["t"])
 
 
 def merge_bars(
@@ -75,15 +64,9 @@ def merge_bars(
     today: str,
     path: Path = HISTORY_CSV,
 ) -> int:
-    """Backfill history bars, filling only (date, ticker) rows that don't exist
-    yet — never overwriting scanner-accumulated or seeded data. Bars dated
-    `today` or later are skipped: the live scanner owns today via upsert_today.
-
-    Bar dicts use the seeder's shape: date/open/high/low/close/volume.
-    Returns the number of rows added.
-    """
+    """Add missing historical bars without overwriting existing or today's rows."""
     existing = load_rows(path)
-    have = {(r["date"], r["ticker"].upper()) for r in existing}
+    have = {(row["date"], row["ticker"].upper()) for row in existing}
     added = 0
     for ticker, bars in bars_by_ticker.items():
         exchange = "LSE" if ticker.upper().endswith(".L") else "XETRA"
@@ -108,27 +91,27 @@ def merge_bars(
             have.add(key)
             added += 1
     if added:
-        existing.sort(key=lambda r: (r.get("date", ""), r.get("ticker", "")))
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open("w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=FIELDS)
-            writer.writeheader()
-            for r in existing:
-                writer.writerow({k: r.get(k, "") for k in FIELDS})
+        existing.sort(key=lambda row: (row.get("date", ""), row.get("ticker", "")))
+        atomic_write_csv(path, FIELDS, existing)
     return added
 
 
-def upsert_today(date_str: str, rows_by_ticker: dict[str, dict[str, Any]], path: Path = HISTORY_CSV) -> None:
-    """One row per (date, ticker); a later run the same day replaces the earlier
-    row, so the final (post-close) scan of the day finalizes that day's bar."""
+def upsert_today(
+    date_str: str,
+    rows_by_ticker: dict[str, dict[str, Any]],
+    path: Path = HISTORY_CSV,
+) -> None:
+    """Replace the current day's row per ticker; later scans finalize the day."""
     existing = load_rows(path)
-    keep = [r for r in existing if not (r.get("date") == date_str and r.get("ticker", "").upper() in rows_by_ticker)]
+    keep = [
+        row
+        for row in existing
+        if not (
+            row.get("date") == date_str
+            and row.get("ticker", "").upper() in rows_by_ticker
+        )
+    ]
     for ticker, row in rows_by_ticker.items():
         keep.append({**row, "date": date_str, "ticker": ticker})
-    keep.sort(key=lambda r: (r.get("date", ""), r.get("ticker", "")))
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
-        writer.writeheader()
-        for r in keep:
-            writer.writerow({k: r.get(k, "") for k in FIELDS})
+    keep.sort(key=lambda row: (row.get("date", ""), row.get("ticker", "")))
+    atomic_write_csv(path, FIELDS, keep)
