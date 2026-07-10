@@ -1,114 +1,91 @@
 # Risk Rules
 
-These are your personal risk rules. The journal's `followed_plan` check is only
-meaningful if there's a written plan to check against — this is that plan.
+These are the human-readable personal rules. Executable values live in
+`config/risk.toml`; change both together and record the reason below.
 
-**Review these monthly.** Tighten or loosen based on what the journal data says, not
-on how you feel after a win or loss.
+Review monthly. Change rules from accumulated evidence, never immediately after a
+large win or loss.
 
----
+## Position sizing — learning phase
 
-## Per-trade risk
+- `position_size` means EUR capital deployed.
+- Maximum position value: **€150**.
+- Maximum binary-event hold: **€75**.
+- Maximum open positions: **5**.
+- Maximum same-sector/theme positions: **2**.
+- Maximum total open position value: **€750**.
 
-- **Max risk per trade:** €150 fixed position size per trade (learning phase — every
-  euro at risk is tuition). This is the total position, not just the risk-to-stop.
-- **Default position size formula:** €150 per trade, regardless of stop distance.
-  When graduating to percentage-based sizing, switch to: account × max-risk% ÷
-  (entry − stop).
-- **Future rule (not active yet):** max 30% of account per trade, and only for
-  low-risk setups with high reward-to-risk (planned R ≥ 2.0).
-- **Reduced size triggers:** use half size (€75 or less) when:
-  - [x] Holding through a binary event (earnings, FDA, etc.)
-  - [x] Conviction is `low`
-  - [x] The stock has a history of gaps larger than your stop distance
-  - [ ] _(add your own)_
+The fixed position value is deliberately not equal-risk sizing. Graduation to
+risk-based sizing remains a later phase gate.
 
----
+## Stops and reward/risk
 
-## Portfolio-level limits
+- No stop, no defined risk, no computable R.
+- Never move a stop farther away to avoid taking a loss.
+- Never average down as a strategy.
+- Proposal planned R must be at least **1.5R**.
 
-- **Max open positions at once:** 5
-- **Max correlated exposure:** no more than 2 positions in the same sector / theme
-  at the same time.
-- **Max total portfolio risk:** €750 across all open positions combined (5 × €150).
+## Catalyst and holding-period policy
 
----
+A future event date is not itself a current setup.
 
-## Hold-through-earnings policy
+- **Actionable research horizon:** catalyst inside **21 calendar days**.
+- **Early Watch:** catalyst **22–42 days** away; review weekly, do not treat as a
+  current proposal unless a separate verified trigger exists inside 21 days.
+- **Default proposal holding period:** **10 trading sessions**.
+- Every proposal records `max_holding_days` explicitly.
+- Every catalyst-driven proposal defaults to `exit_before_catalyst = yes`.
+- Holding through earnings, FDA/PDUFA, a court ruling, or another binary decision
+  requires an explicit `exit_before_catalyst = no` and position value of €75 or less.
 
-This is the rule that matters most for event-driven trades and the one most often
-broken.
+The 21-trading-day scanner return remains a research measurement only. It is not a
+recommended holding period.
 
-- [ ] **Never hold through earnings** — always flat before the report.
-- [x] **Hold through earnings only at half size or less.**
-- [ ] **Hold through earnings only when planned at entry** (noted in thesis).
-- [ ] _(your own rule)_
+## Portfolio circuit breakers
 
-If you choose to hold, the journal will flag it against this rule at close.
+Limits are expressed in R, where 1R is the entry-to-initial-stop risk.
 
----
+- Daily realized loss limit: **−2R**. Stop opening trades for the day.
+- Weekly realized loss limit: **−4R**. No new entries for the rest of the week.
+- After **3 consecutive losses**, pause new entries for **3 calendar days** and
+  review the journal.
+
+A trade without a recorded initial stop cannot participate in R calculations; that
+missing data is itself a rule breach.
+
+## Earnings and other binary events
+
+Preferred approach: trade after the information is public or exit before the event.
+
+- Hold through only when planned at entry.
+- Hold through only at €75 or less.
+- Record the verified event date.
+- Do not convert a pre-event trade into an event gamble because price moved against it.
 
 ## Currency and international exposure
 
-Account is EUR-denominated (eToro, Germany/EU). Most positions will be in
-USD-denominated US stocks, so there is baseline EUR/USD exposure on every trade.
+The account is EUR-denominated.
 
-- **Max non-USD exposure:** not applicable during learning phase — all positions are
-  small (€150). Revisit when scaling up.
-- **FX hedging policy:**
-  - [x] **No hedging** — accept FX as part of the trade. Simpler, works for short holds
-    and small positions.
-  - [ ] **Hedge positions held longer than ___ days** (via FX forward, inverse ETF, etc.)
-- **Reduced size for non-USD trades:** not applied during learning phase (positions are
-  already small). Revisit when scaling up.
-- **Overlap hours only:** only enter non-US positions during hours when both your local
-  market and the foreign market are open.
-  - [x] Yes, overlap-hours-only
-  - [ ] No, I'll use limit orders and accept gap risk
+- Accept small learning-phase FX exposure; no hedging at current size.
+- Record and use broker-confirmed P&L for cross-currency trades.
+- Price-level R remains valid when entry, stop, and exit share the same instrument currency.
+- Enter foreign-market positions only during the allowed overlap-hours policy.
+- Revisit explicit quantity, instrument-currency, and FX-rate fields before scaling.
 
----
+## Known rule breaks
 
-## Loss limits (circuit breakers)
+Record recurring behavior honestly:
 
-Limits are defined in **R** (multiples of risk-to-stop), not in position size. With
-€150 fixed positions, a full stop-out typically loses €5-€25 depending on stop
-distance — €-denominated limits sized like "one full position" could never trigger
-(that would require the stock going to zero). R-based limits fire when the process
-is actually going wrong.
-
-Note the distinction: **position size** (€150, capital deployed) is not **risk**
-(entry − stop × shares, what a stop-out actually costs). 1R = this trade's
-risk-to-stop.
-
-- **Daily loss limit:** stop trading for the day after **−2R realized** across
-  closed trades that day.
-- **Weekly loss limit:** no new entries for the rest of the week after **−4R
-  realized** that week.
-- **Consecutive-loss rule:** after 3 consecutive losses, pause for 3 days and run a
-  journal review before the next trade.
-- Trades with no recorded stop can't be counted in R — that is itself a rule break
-  (see the pre-trade gate in `AGENTS.md`).
-
----
-
-## Rules I know I break
-
-Be honest. List the rules above (or unwritten habits) that you've historically
-violated. The journal review will watch these specifically.
-
-1. _(fill in as you start trading — the journal will help you spot these)_
-2.
-3.
-
----
+1. _Fill as evidence accumulates._
+2. _
+3. _
 
 ## Changelog
 
-Record when you change a rule and why, so you can see whether tightening or loosening
-helped.
-
-| Date | Rule changed | Old value | New value | Why |
-|------|-------------|-----------|-----------|-----|
-| 2026-06-27 | All rules | blank | Initial values | First fill based on learning-phase sizing (€150/trade) |
-| 2026-07-02 | Daily/weekly loss limits | €150 / €300 | −2R / −4R realized | Old € limits equaled a full position loss (stock to zero) and could mathematically never trigger with €150 fixed sizing; R-based limits actually fire |
-| 2026-07-03 | Position size (reviewed, unchanged) | €150 fixed | €150 fixed | Account was topped up (~2x; 5 full positions now ≈ half the depot). Deliberate decision to KEEP the fixed size: sizing graduates at the MASTERPLAN Phase 2 gate (data: 50+ closed trades, positive trailing expectancy, clean weeks) — not on deposits. Worst-case risk-to-stop across 5 positions is ~4-5% of the new depot, a sane learning-phase footprint; the extra capital is cushion, not license. |
+| Date | Rule changed | Old | New | Why |
+|---|---|---|---|---|
+| 2026-06-27 | Initial learning rules | blank | €150 fixed position value and basic limits | Establish a measurable baseline |
+| 2026-07-02 | Daily/weekly breakers | €150 / €300 | −2R / −4R | EUR limits could not trigger sensibly under fixed small positions |
+| 2026-07-03 | Position size review | €150 | unchanged | Account deposit is not evidence to size up |
+| 2026-07-10 | Research and proposal horizons | single 42-day catalyst window; 21-session proposal timeout | 21-day actionable / 22–42 Early Watch; 10-session default; pre-catalyst exit explicit | Distant catalysts allow too much thesis and price drift before the event |
+| 2026-07-10 | Executable rule source | Python constants and prose | `config/risk.toml` plus this explanation | Prevent code/document drift |
