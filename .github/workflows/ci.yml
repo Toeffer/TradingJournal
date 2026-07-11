@@ -36,3 +36,6 @@ jobs:
 
       - name: Validate repository data
         run: python scripts/validate_data.py
+
+      - name: Validate candidate evidence manifests
+        run: python scripts/validate_candidate_manifest.py --all
