@@ -1,0 +1,14 @@
+as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
+2026-07-09T18:07:52+0200,QIA.DE,,EU-XETRA,XETRA,EUR,36.67,,719921.15,26399508.57,10.6184,2.7443,68,true,4.5325,69.32,8.58,10.63,0.1863,1.09,mixed,yahoo,2026-07-09T18:07:52+0200,yahoo,
+2026-07-03T17:35:43+0200,CELH,,US,US,USD,33.185,,422720.65,14027984.77,4.1261,3.8768,60,true,2.9631,,,,,,mixed,alpaca,2026-07-03T17:35:43+0200,alpaca,
+2026-07-01T22:52:59+0200,GIS,,US,US,USD,37.805,,733073.75,27713853.12,8.5571,2.1354,59,true,3.462,,,,,,mixed,alpaca+finviz_manual,2026-07-01T22:52:59+0200,alpaca+finviz_manual,manual seed context
+2026-07-01T18:12:08+0200,GRAB,,US,US,USD,3.905,,2620011.6,10231145.3,3.8564,0.3414,50,true,1.1658,,,,,,mixed,alpaca,2026-07-01T18:12:08+0200,alpaca,relative volume below trigger
+2026-07-01T22:52:59+0200,HIMS,,US,US,USD,37.54,,586844.3,22030135.02,8.4501,2.3319,56,true,5.8956,,,,,,mixed,alpaca,2026-07-01T22:52:59+0200,alpaca,
+2026-07-03T17:35:43+0200,HOOD,,US,US,USD,112.71,,975471.55,109945398.4,3.7081,4.2306,70,true,2.9127,,,,,,mixed,alpaca,2026-07-03T17:35:43+0200,alpaca,
+2026-07-02T16:14:02+0200,OWL,,US,US,USD,9.175,,1475100.95,13534051.22,6.3152,4.6201,60,false,3.0899,,,,,,mixed,alpaca+finviz_manual,2026-07-02T16:14:02+0200,alpaca+finviz_manual,outside normal market-cap target
+2026-07-02T16:14:02+0200,PLTR,,US,US,USD,131.97,,1130841.05,149237093.37,4.9463,2.8767,64,false,2.9166,,,,,,mixed,alpaca+finviz_manual,2026-07-02T16:14:02+0200,alpaca+finviz_manual,outside normal market-cap target
+2026-07-09T18:14:23+0200,RIVN,,US,US,USD,17.915,,1768257.7,31678336.7,7.5976,2.6968,63,false,-11.2899,56.01,7.02,11.15,0.7465,0.774,mixed,alpaca+finviz_manual,2026-07-09T18:14:23+0200,alpaca+finviz_manual,manual seed context
+2026-07-01T18:34:33+0200,S,,US,US,USD,17.74,,472966.75,8390430.14,4.5066,0.4384,40,true,3.0497,,,,,,mixed,alpaca,2026-07-01T18:34:33+0200,alpaca,relative volume below trigger
+2026-07-03T17:35:43+0200,SMMT,,US,US,USD,15.44,,380286.1,5871617.38,7.3713,3.8842,60,true,3.7634,,,,,,mixed,alpaca,2026-07-03T17:35:43+0200,alpaca,
+2026-07-01T19:28:26+0200,SOFI,,US,US,USD,18.715,,1860226.05,34814130.53,4.2909,0.8226,50,true,1.5464,,,,,,mixed,alpaca,2026-07-01T19:28:26+0200,alpaca,relative volume below trigger
+2026-07-01T18:12:08+0200,TOST,,US,US,USD,29.015,,930354.5,26994235.82,4.2393,0.5126,50,true,1.451,,,,,,mixed,alpaca,2026-07-01T18:12:08+0200,alpaca,relative volume below trigger
