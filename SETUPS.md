@@ -1,126 +1,91 @@
-# SETUPS.md — Setup Definitions and the Proposal Standard
+# SETUPS.md — Setup Definitions and Proposal Standard
 
-A trade idea only becomes a **proposal** when it matches one of the setups defined
-here and every field of the proposal card is filled. This is what turns "HIMS looks
-strong" into something that can be measured, simulated, and graded.
+A trade idea becomes a **proposal** only when it matches a defined setup and every
+required field is filled. The machine may prepare a draft; the human decides.
 
-`setup_type` in `trades.csv` and `data/proposals.csv` must use the names defined
-below. If an idea doesn't fit any definition, either it's not a trade — or the
-definition needs a deliberate edit (log the change in the changelog at the bottom,
-never bend a definition mid-trade).
+**Not financial advice.**
 
-**Not financial advice.** These are personal, mechanical descriptions of when I am
-allowed to propose a trade to myself. The machine proposes; I decide.
-
----
-
-## The proposal card (required for every proposal)
-
-Every proposal — whatever the setup — must specify **all** of:
+## Required proposal card
 
 | Field | Rule |
 |---|---|
-| `ticker` + `direction` | eToro-tradeable (see `ETORO_TRADEABILITY.md`) |
-| `setup_type` | one of the setups below |
-| `entry_price` | a level, not "current price" — where the setup triggers |
-| `stop_price` | the invalidation level; no stop, no proposal, ever |
-| `target_price` | realistic first target, not the dream case |
-| `planned_r` | (target − entry) / (entry − stop); **must be ≥ 1.5** |
-| `catalyst` + `catalyst_date` | required for catalyst-driven setups; DATE_VERIFIED flag applies |
-| `regime` | copied from the newest `data/market_regime.csv` row at proposal time |
-| `thesis` | one line: why this, why now |
+| `ticker` + `direction` | Broker-tradeable; see `ETORO_TRADEABILITY.md` |
+| `setup_type` | One of the definitions below |
+| `entry_price` | A level where the setup triggers, not “current price” |
+| `stop_price` | Invalidation; no stop, no proposal |
+| `target_price` | Realistic first target |
+| `planned_r` | Reward/risk; must be at least 1.5 |
+| `catalyst` + `catalyst_date` | Required when catalyst-driven and primary-source verified |
+| `regime` | Newest available market-regime label |
+| `thesis` | One line: why this, why now |
+| `max_holding_days` | Default 10 trading sessions; shorten when the setup needs it |
+| `exit_before_catalyst` | `yes` by default; `no` is an explicit binary-risk decision |
 
-A proposal missing any field is rejected — by me, before it ever gets simulated.
-Higher risk never means bigger size (see `RISK_RULES.md`).
+Proposals are logged whether traded or passed. Untraded proposals are the control
+group for the picker test.
 
-Proposals are logged to `data/proposals.csv` whether or not I trade them. The
-untraded ones are the control group — they're how I learn whether my picking among
-proposals adds value or subtracts it.
-
-**Optional confirmation tags** (in `notes`): when a proposal has a verified insider
-open-market **cluster buy** (SEC Form 4, multiple insiders, last 90 days), tag it
-`insider-cluster`. Tags are recorded so their value can be *measured* across
-proposals later — a tag is never by itself a reason to propose, size up, or skip
-the card standard.
-
----
+A catalyst 22–42 days away belongs in the research **Early Watch** section, not in
+`data/proposals.csv`, unless a separate verified trigger inside 21 days creates the
+actual setup.
 
 ## Setup 1: `breakout`
 
 A stock clearing a meaningful high with volume confirmation.
 
-- **Conditions (all):** close above the 20-day high; relative volume ≥ 2x pace;
-  daily move between +3% and +15% (beyond that it's chase territory, see
-  `pullback`); not more than ~25% above the 5-day high.
-- **Entry:** the breakout level itself on a same/next-day retest, or the breakout
-  day's close if the close is within ~2% of the breakout level.
-- **Stop:** below the breakout day's low, or below the breakout level if the
-  day's range is unusually wide.
-- **Target:** prior swing high / measured move of the base; must give R ≥ 1.5.
-- **Regime rule:** in a `defensive` regime, breakout proposals are logged but
-  flagged `regime-against` — the stats will show whether they deserve to exist.
-- **Half size:** if the stock has a history of gaps larger than the stop distance.
+- Conditions: close above the 20-day high; relative volume at least 2x pace;
+  daily move approximately +3% to +15%; not excessively extended.
+- Entry: breakout-level retest or a close within roughly 2% of that level.
+- Stop: below the breakout-day low or failed breakout level.
+- Target: prior swing high or conservative measured move; planned R at least 1.5.
+- Holding horizon: normally 5–10 trading sessions.
+- Defensive regime: log `regime-against` in notes.
 
 ## Setup 2: `pullback`
 
-The anti-chase setup — a **confirmed** runner bought on retracement, not on the day
-it runs. This is the default answer to "the scanner found a big mover."
+A confirmed runner bought on a defined retracement, not chased on the momentum day.
 
-- **Conditions (all):** the name had a scanner alert or obvious momentum day with a
-  *verified* reason (real catalyst or sector move — "it went up" is not a reason);
-  clean invalidation exists; the pullback holds above the breakout level or rising
-  10/20-day MA.
-- **Entry:** the retest zone — prior breakout level or the rising MA, defined as a
-  price, set in advance. The proposal *activates on the retest*; if price never
-  pulls back, the proposal expires untriggered. **Missing a runner is a zero-cost
-  outcome; chasing one is not.**
-- **Stop:** below the pullback low once formed, or below the breakout level.
-- **Target:** the momentum high first; must give R ≥ 1.5 from the *pullback* entry
-  (this is the whole advantage — the same target gives better R from lower).
-- **Expiry:** if not triggered within ~5 trading days, the proposal expires.
+- Conditions: verified reason for the original move; clean invalidation; pullback
+  holds the breakout level or a rising 10/20-day moving average.
+- Entry: pre-defined retest zone.
+- Stop: below the pullback low or failed breakout level.
+- Target: momentum high first; planned R at least 1.5.
+- Trigger expiry: about five trading sessions.
+- Holding horizon after trigger: normally 5–10 sessions.
+
+Missing a runner is a zero-cost outcome; chasing one is not.
 
 ## Setup 3: `post-earnings-drift`
 
-Riding the tendency of big earnings surprises to keep drifting — a non-binary
-catalyst trade (the event is already public; nothing explodes overnight).
+A non-binary trade after the earnings information is public.
 
-- **Conditions (all):** earnings gap of roughly +5% or more on a genuine beat /
-  raised guidance (verified from the actual report, not headlines); gap holds —
-  price stays above the gap-day midpoint on the first 1–2 sessions after.
-- **Entry:** after the first consolidation/inside day, above that day's high.
-- **Stop:** below the gap day's low (the drift thesis is dead if the gap fills).
-- **Target:** measured from historical drift, conservatively; R ≥ 1.5 required.
-- **Note:** this is the *preferred* earnings setup — entering after the binary
-  event instead of holding through it.
+- Conditions: genuine surprise or raised guidance, gap roughly +5% or more, and
+  the gap holds above its midpoint during the first one or two sessions.
+- Entry: after consolidation, above the consolidation high.
+- Stop: below the gap-day low.
+- Target: conservative drift target with planned R at least 1.5.
+- Holding horizon: normally 5–10 sessions; the earnings event has already occurred.
 
 ## Setup 4: `special-situation`
 
-Dated, structural, non-binary catalysts: index inclusion, lockup expiry with
-verified date, spin-off mechanics, regulatory decision *positioning* (exit before
-the binary event, per `RISK_RULES.md` half-size rule if held through).
+A dated structural catalyst such as index inclusion, verified lockup mechanics,
+spin-off mechanics, or positioning before a regulatory decision.
 
-- **Conditions (all):** the catalyst date is verified against a primary source;
-  the mechanism is written in one sentence in the thesis ("index funds must buy X
-  on date Y"); the exit plan relative to the event date is set at proposal time.
-- **Entry / stop / target:** case-by-case, but all three set in advance; R ≥ 1.5.
-- **Rule:** if the plan is to hold *through* a binary event, the half-size trigger
-  from `RISK_RULES.md` applies automatically.
+- The mechanism and date must be verified from a primary source.
+- Entry, stop, target, event-exit policy, and holding horizon are set in advance.
+- Default is `exit_before_catalyst = yes`.
+- Holding through earnings, FDA/PDUFA, rulings, or similar binary events requires
+  `exit_before_catalyst = no` and the half-size rule in `RISK_RULES.md`.
 
----
+## Deliberately not a setup
 
-## What is deliberately NOT a setup
-
-- "Scanner score is high" — that's a *reason to research*, which may end in a
-  `pullback` or `breakout` proposal, or in nothing.
-- "It's down a lot" / "it's cheap now" — falling-knife catching has no
-  invalidation logic and no catalyst.
-- "Conviction" without a matching definition — conviction is a field on the card,
-  not a setup.
-
----
+- “Scanner score is high.” That is a reason to research.
+- “The catalyst is in six weeks.” That is Early Watch unless a nearer trigger exists.
+- “It is down a lot.”
+- “Conviction is high” without a defined entry and invalidation.
 
 ## Changelog
 
 | Date | Change | Why |
-|------|--------|-----|
-| 2026-07-02 | Initial definitions (breakout, pullback, post-earnings-drift, special-situation) + proposal card standard | Make setup_type meaningful and proposals measurable |
+|---|---|---|
+| 2026-07-02 | Initial setup definitions and proposal standard | Make proposals measurable |
+| 2026-07-10 | Add 10-session default horizon, pre-catalyst exit field, and 21-day actionable catalyst gate | Prevent distant catalysts from being treated as current setups |

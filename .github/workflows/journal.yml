@@ -6,7 +6,11 @@ on:
     branches: [main]
     paths:
       - trades.csv
+      - data/proposals.csv
+      - data/finviz_watchlist.csv
+      - config/risk.toml
       - scripts/journal_stats.py
+      - scripts/validate_data.py
 
 concurrency:
   group: journal-stats
@@ -27,6 +31,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Validate source data
+        run: python scripts/validate_data.py
 
       - name: Recompute journal stats
         run: python scripts/journal_stats.py

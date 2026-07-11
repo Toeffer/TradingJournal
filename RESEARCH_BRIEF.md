@@ -1,374 +1,218 @@
 # RESEARCH_BRIEF.md — Autonomous Weekly Candidate Research
 
-This file is the instruction set for an unattended, scheduled research run (a Claude
-Code on the web *Routine*). It runs in the cloud on a weekly cadence and writes a
-candidate shortlist — now with a per-candidate **risk rating**, **risk-per-share** (and
-optional position sizing from your own fixed rule), plus a **deep-dive workup on the top
-few front-runners** — into this repo. So the recurring research happens without you.
+This is the instruction set for the weekly research routine. It creates a draft
+shortlist for human review; it never creates a trade and never changes risk rules.
 
-**Not financial advice.** This produces a *draft for a human to verify and judge*. It
-does not decide trades. Every date and number must be checked before any decision. Any
-position size it shows is **your own fixed rule applied as arithmetic — not a
-recommendation**, and the routine must never invent or change that rule.
+**Not financial advice. Verify every date, price, and claim before acting.**
 
----
+## Operating principle
+
+A distant catalyst is useful for discovery but is not automatically actionable.
+Too much can change between today and the event: price, expectations, financing,
+market regime, and the company itself. The routine therefore uses two horizons:
+
+- **Actionable horizon: 21 calendar days.** A candidate may enter the final
+  shortlist only when its verified catalyst is inside this window.
+- **Early-watch horizon: days 22–42.** These names are recorded separately for
+  follow-up, not presented as current swing-trade candidates.
+
+Exception: a catalyst 22–42 days away may enter the actionable shortlist only if
+there is a separate, dated, verified intermediate trigger inside 21 days and the
+setup/invalidation are based on that nearer trigger. State the exception plainly.
+
+For logged proposals, `data/proposals.csv` separately controls the trade horizon:
+10 trading sessions by default, with an explicit `max_holding_days`, and
+`exit_before_catalyst = yes` unless the human deliberately chooses otherwise.
 
 ## Recommended routine settings
 
-- **Model: Opus, high effort.** This is judgment work (filtering, bull/bear reasoning,
-  risk rating) that runs only once a week — use the strongest model at full effort.
-- Schedule: weekly (e.g. Sunday evening). Web search on. Include your finance connector
-  if you've connected one.
-- **Connectors and their limits (as of 2026-07):** the FMP connector provides real-time
-  XETRA/LSE quotes (useful for price/liquidity/market-cap evidence on EU names) but its
-  EU earnings calendar and EU historical bars are plan-gated; Quartr is not subscribed.
-  **European catalyst verification therefore runs on web search against primary
-  sources** (see the EU/Asia source list below) — that works well for Germany, where
-  companies publish binding financial calendars. Do not report "no EU data available"
-  without having searched those primary sources.
-- Repository branch/ref: use the `main` branch unless you intentionally test a different
-  branch. Do not silently use another branch.
-- If the scanner workflow is active, read the latest `research/scans/scan-*.md` —
-  including the EU reports (`scan-eu-*.md`) — and `data/scanner_signals.csv` before
-  Stage 1. Treat scanner names as candidates to verify, not as pre-approved ideas.
+- Run weekly, preferably Sunday evening, using the strongest available model.
+- Web search on; use connected financial data only as a supplement.
+- Work from `main` unless intentionally testing another branch.
+- Read `RISK_RULES.md`, `SETUPS.md`, `ETORO_TRADEABILITY.md`, the latest US/EU
+  scanner reports, and `data/scanner_signals.csv` before research.
+- Scanner names are leads, never evidence or pre-approved ideas.
 
-## How to set this up (once)
+## CONFIG
 
-1. Keep this file in your repo.
-2. claude.ai/code/routines -> New routine -> point it at this repo -> web search on.
-3. Routine prompt (one line): "Follow the instructions in RESEARCH_BRIEF.md from the main branch of Toeffer/TradingJournal and produce this week's shortlist and deep dives, writing the output file exactly as specified. If scanner output exists, use the newest research/scans/scan-*.md as one input source, but still verify every candidate independently."
-4. Run Now once to verify the output, fix the CONFIG below if needed, then activate.
-
----
-
-## CONFIG — edit these to tune
-
-```
-REGION:                   US-listed common shares + XETRA (Frankfurt) listed shares.
-                          # XETRA names trade in EUR (no FX for the EUR account).
-                          # LSE only case-by-case: +0.5% UK stamp duty per buy and GBP
-                          # exposure must be named in the candidate's risk factors.
-MARKET_CAP_MIN:           500000000        # $500M
-MARKET_CAP_MAX:           10000000000      # $10B
-MIN_AVG_DOLLAR_VOLUME:    25000000         # $25M average daily $ volume (liquidity floor)
-PRELIMINARY_SCAN_COUNT:   12               # first pass breadth before filtering down
-NUM_CANDIDATES:           5                # max shortlist size; fewer is fine
-NUM_DEEP_DIVES:           3                # how many front-runners to deep-dive
-MIN_EU_PRELIMINARY:       4                # of PRELIMINARY_SCAN_COUNT, source at least this many
-                                           # from Europe (XETRA-first) BEFORE quality filtering;
-                                           # US-only preliminary lists are a process failure unless
-                                           # the report states what EU search came up empty
-ASIA_POLICY:              exceptional-only # allowed by the eToro overlay, but only when clearly
-                                           # stronger than available EU/US candidates; expect thin
-                                           # verification sources and say so in the risk factors
-CATALYST_WINDOW_DAYS:     42               # catalyst must fall within the next N days
-EXCLUDE:                  mega-caps, the "Magnificent 7", obvious headline AI names
-SECTOR_FOCUS:             none
-MAX_EARNINGS_CANDIDATES:  2                # max candidates with earnings as primary catalyst
-
-# Optional scanner input — data-driven anomaly detector, not a signal engine.
-USE_SCANNER_OUTPUT:        yes              # read latest research/scans/scan-*.md if present
-SCANNER_MIN_SCORE:         70               # prioritize scanner candidates at/above this score
-SCANNER_LOOKBACK_DAYS:     7                # only consider recent scanner reports
-MAX_SCANNER_CANDIDATES:    5                # max names from scanner to carry into verification
-
-# Position sizing — FIXED €150 per trade (learning phase).
-# The routine should note this as context but cannot change the rule.
-# When graduating to %-based sizing, replace with ACCOUNT_SIZE and RISK_PER_TRADE_PCT.
-FIXED_POSITION_SIZE:      150              # €150 per trade
-ACCOUNT_SIZE:             <blank>          # not used during learning phase
-RISK_PER_TRADE_PCT:       <blank>          # not used during learning phase
+```text
+REGION:                         US common shares + XETRA shares
+MARKET_CAP_MIN:                 500000000
+MARKET_CAP_MAX:                 10000000000
+MIN_AVG_DOLLAR_VOLUME:          25000000
+PRELIMINARY_SCAN_COUNT:         12
+NUM_ACTIONABLE_CANDIDATES:       5
+NUM_EARLY_WATCH:                 5
+NUM_DEEP_DIVES:                  3
+MIN_EU_PRELIMINARY:              4
+ASIA_POLICY:                     exceptional-only
+ACTIONABLE_CATALYST_DAYS:       21
+DISCOVERY_CATALYST_DAYS:        42
+ACT_NOW_DAYS:                    7
+MAX_EARNINGS_CANDIDATES:         2
+SCANNER_LOOKBACK_DAYS:           7
+SCANNER_MIN_SCORE:              70
+MAX_SCANNER_CANDIDATES:          5
+FIXED_POSITION_SIZE_EUR:       150
 ```
 
-If `RISK_RULES.md` exists, read it before interpreting risk, sizing, or portfolio context.
-If a relevant rule in `RISK_RULES.md` is blank, do not infer it. Write "risk rule not set."
+The values in `config/risk.toml` and `RISK_RULES.md` are authoritative for risk
+and holding periods. Do not invent missing values.
 
-`ETORO_TRADEABILITY.md` is the broker/universe authority: where it conflicts with the
-CONFIG above (tradeability, market-cap exceptions, liquidity tiers), the overlay wins.
+## Source quality
 
----
+Use sources in this order:
 
-## Source quality and bias controls
+1. Company investor relations, filings, exchange notices, official calendars.
+2. Reputable financial news and market-data providers.
+3. Scanner output as discovery context only.
+4. Analyst notes, blogs, forums, and social media as secondary context only.
 
-Use web search (and the finance connector if available). Determine today's date at run
-time. Prefer recent sources and flag anything older than 2 weeks.
+For European candidates, prefer company Finanzkalender pages, EQS/DGAP, Deutsche
+Börse, RNS, Euronext/SIX notices, and issuer IR pages. Reject an event date that
+cannot be verified from a primary or high-quality source.
 
-Source priority:
-1. Company investor relations, SEC filings, exchange notices, official index/event
-   calendars, and other primary sources.
-2. Reputable financial news and data providers.
-3. Data-driven scanner output (`research/scans/` and `data/scanner_signals.csv`) as a
-   discovery input only, never as proof.
-4. Analyst notes, blogs, newsletters, forums, and social sources only as secondary context.
+For lockup expiries, do not rely on “IPO date + N days.” Verify the prospectus,
+underwriting terms, early-release provisions, waivers, and later offerings.
 
-**EU/Asia primary sources** (use these — the US-shaped instincts above have European
-equivalents that are often *stronger* for date verification):
+For every non-US candidate state exchange, currency, local share versus ADR, FX
+exposure, and market hours. Name UK stamp duty for LSE shares.
 
-- **Germany / XETRA:** the company's IR **Finanzkalender** page (German issuers publish
-  binding event dates), **EQS News / DGAP ad-hoc disclosures** (legally mandated,
-  the German 8-K equivalent), and the Deutsche Börse / boerse-frankfurt.de calendar.
-- **UK / LSE:** **RNS announcements** on londonstockexchange.com and the company's IR
-  financial calendar.
-- **Rest of Europe:** the national equivalents (e.g. Euronext notices, SIX news) plus
-  company IR calendars.
-- **Asia (exceptional-only):** company IR first; TDnet (Japan) and HKEX news for
-  disclosures. Coverage is thin in English — if a date can't be verified, reject rather
-  than stretch, and note the region's data gap in the report.
-- For every non-US candidate, the eToro overlay's output fields apply: exchange,
-  currency, local-vs-ADR, FX exposure, market hours — plus **0.5% UK stamp duty on LSE
-  buys** named explicitly in the risk factors.
+## Stage 1 — Broad discovery
 
-Every catalyst must have at least one primary or high-quality source. If the catalyst is
-not verifiable from a primary or high-quality source, reject the candidate.
+Build up to `PRELIMINARY_SCAN_COUNT` names with a specific dated catalyst inside
+`DISCOVERY_CATALYST_DAYS`.
 
-Bias-control pass:
-- First build a broad preliminary list of up to `PRELIMINARY_SCAN_COUNT` candidates,
-  honoring `MIN_EU_PRELIMINARY` — the US market is where discovery is *easiest*, not
-  where the account's edge is best (EUR account, XETRA has no FX drag). Defaulting to
-  US-only because verification is more convenient is exactly the bias this pass exists
-  to catch.
-- If `USE_SCANNER_OUTPUT` is yes and scanner files exist, include the strongest recent
-  scanner candidates in the preliminary list, but still verify them from scratch.
-- Then run a skeptical pass that tries to disqualify each candidate.
-- For every surviving candidate, explicitly ask: "What would make this already priced in?"
-- Reject candidates mainly driven by social/news hype rather than a dated catalyst.
-- Reject scanner names where the only reason is "it moved" and no current catalyst,
-  sector sympathy, or clean invalidation can be found.
-- Remove any candidate where the bear case is stronger than the bull case.
-- Do not select exciting/high-upside names over cleaner reward-to-risk names.
+- Source at least `MIN_EU_PRELIMINARY` European names before quality filtering,
+  or explain exactly what EU search came up empty.
+- Include up to `MAX_SCANNER_CANDIDATES` recent scanner names meeting the score
+  threshold, then verify them independently.
+- No more than `MAX_EARNINGS_CANDIDATES` final actionable names may use earnings
+  as the primary catalyst.
+- Prefer structural or already-public catalysts over binary event gambling.
+- Reject names with no clean invalidation, weak liquidity, unverifiable events,
+  overwhelming dilution/gap risk, or a move whose only explanation is “it rose.”
+- Ask for every survivor: “What would make this already priced in?”
 
-A sparse report is better than a stretched report. If fewer than 3 high-quality candidates
-qualify, say so. A "no strong candidates this week" output is a successful output.
+Classify each surviving name immediately:
 
----
+- `ACTIONABLE`: catalyst in 0–21 days, or a verified intermediate trigger in
+  that range.
+- `EARLY_WATCH`: catalyst in 22–42 days with no nearer verified trigger.
+- `REJECT`: fails evidence, liquidity, tradeability, setup, or risk requirements.
 
-## Multi-agent runs and improvised methods
+A sparse output is success. Do not pad.
 
-Adapting the method when a data source is capped (e.g. pivoting screener-first to
-catalyst-first, fanning out parallel research agents by catalyst type) is allowed and
-encouraged — but the verification discipline must survive the restructuring:
+## Stage 2 — Actionable shortlist
 
-1. **Subagent findings are leads, not evidence.** Before any candidate enters the final
-   shortlist, the synthesizing (main) agent must itself re-verify the catalyst date
-   against one primary source. A summary containing a citation the synthesizer never
-   opened does not count as verification.
-2. **Lockup expiries are derived dates — treat them as unverified by default.** The
-   date must come from the prospectus/underwriting terms (S-1/424B4) or a high-quality
-   source explicitly stating it. Anything computed as "IPO + N days" is labeled
-   `DERIVED — verify against prospectus` and cannot enter the final shortlist in that
-   state. Also check: early-release provisions (price-triggered), underwriter waivers,
-   and intervening secondary offerings that already released supply.
-3. **For IPO-lockup candidates, run the eToro tradeability check FIRST**, before any
-   deep research. Recent IPOs are the names least likely to be on eToro; a cheap early
-   kill beats three agents researching something unbuyable.
-4. **State the method in the report.** The Summary must say which approach ran this
-   week (screener-first / catalyst-first / hybrid) and whether parallel agents were
-   used, so `MONTHLY_SELF_GRADE.md` can grade whether improvised methods actually
-   perform.
+For each `ACTIONABLE` candidate provide:
 
----
-
-## Optional scanner input pass
-
-Before Stage 1, do this if scanner output exists:
-
-1. Open the newest `research/scans/scan-*.md` files from the last `SCANNER_LOOKBACK_DAYS`.
-2. Read `data/scanner_signals.csv` for context if available.
-3. Extract up to `MAX_SCANNER_CANDIDATES` names with score >= `SCANNER_MIN_SCORE`.
-4. Mark each extracted name as `SCANNER_SEED`, carrying over:
-   - score
-   - relative volume
-   - breakout reason
-   - source (`alpaca`, `alpaca+finviz_manual`, future Finviz Elite source)
-   - warnings from the scanner report
-5. Do not assume scanner candidates have a catalyst. The whole point of Stage 1 is to find
-   out whether the price/volume anomaly has a real reason or should be rejected.
-
-If no scanner output exists, proceed with ordinary web/catalyst discovery.
-
----
-
-## STAGE 1 — Weekly scan + risk rating
-
-You are an experienced swing-trading research analyst running an automated weekly scan.
-
-**Methodology skills:** Apply the screening methodology from the `idea-generation` skill
-(`.claude/skills/idea-generation/SKILL.md`) to structure the quantitative and thematic
-sweep. Use the `catalyst-calendar` skill (`.claude/skills/catalyst-calendar/SKILL.md`)
-to find, categorize, and validate catalyst dates across the coverage universe. These
-skills define the workflow — adapt their frameworks to the CONFIG constraints below.
-
-GOAL: up to `NUM_CANDIDATES` swing-trade **candidates** with a specific, dated catalyst
-within the next `CATALYST_WINDOW_DAYS` days, for a human to research further.
-
-HARD CONSTRAINTS (from CONFIG): `REGION` only; market cap within range; average daily
-dollar volume above `MIN_AVG_DOLLAR_VOLUME`; `EXCLUDE` the named groups; the catalyst
-must be SPECIFIC and DATED. "General momentum" is not a catalyst. Do NOT pad — fewer
-good names beats a padded list; if you find only 2, return 2 and say so.
-
-CATALYST DIVERSITY: no more than `MAX_EARNINGS_CANDIDATES` candidates may have earnings
-as their primary catalyst. Prioritize structural and non-binary catalysts — index
-inclusion, lockup expiry, regulatory decisions, product launches, investor days,
-conference presentations, insider-buying clusters — over binary earnings events. The
-wider `CATALYST_WINDOW_DAYS` window exists to make non-earnings catalysts easier to find.
-
-FOR EACH CANDIDATE, produce:
-1. Ticker + one-line company description.
+1. Ticker, company, exchange, currency, and one-line description.
 2. Source tag: `routine`, `scanner_seed`, or `routine+scanner_seed`.
-3. If scanner-seeded: carry over scanner score and the price/volume reason, then state
-   whether independent research confirmed a real catalyst or reason for the move.
-4. Catalyst + exact date/window.   | DATE_VERIFIED: NO
-5. Why now — the current setup in plain language (basing, breakout, pullback).
-6. Bull case (brief) and bear case (brief, including downside-gap risk).
-7. Priced-in check — why the catalyst may already be reflected in the price.
-8. Invalidation — the level or event that means the idea is wrong.
-9. Liquidity note (approx. average daily dollar volume).
-10. **Risk rating — Low / Medium / High**, with one short reason per factor. Push toward
-    HIGHER risk when these apply, LOWER when they don't:
-    - Liquidity: dollar volume near/below the floor; wide spread.
-    - Event type: a binary event held *through* (earnings, FDA, ruling) vs a drift or
-      structural catalyst (index inclusion, already-reported drift). Binary = higher.
-    - Volatility: large historical moves on past catalysts (e.g. frequent +/-15% gaps).
-    - Float / short: very low float or high short interest (violent moves either way).
-    - Setup: weak reward-to-risk, or no clear invalidation level.
-    - Data: thin coverage or unverified / low-confidence catalyst info.
-    State plainly that this is a caution gauge from imperfect data, not a precise score.
-    Higher risk means size smaller or skip — NEVER size up.
-11. **Risk per share** = entry - stop (absolute, per share). Always show this.
-12. **Suggested size** — If `FIXED_POSITION_SIZE` is set, compute:
-    suggested_shares = floor( FIXED_POSITION_SIZE / entry_price )
-    Show the arithmetic. This is the learning-phase rule: €150 per trade, regardless of
-    stop distance. If `FIXED_POSITION_SIZE` is blank but `ACCOUNT_SIZE` and
-    `RISK_PER_TRADE_PCT` are both set, use the risk-based formula instead:
-    suggested_shares = floor( (ACCOUNT_SIZE * RISK_PER_TRADE_PCT / 100) / risk_per_share )
-    Use ONLY the CONFIG values — never invent or adjust the size, risk %, or account
-    size. This is arithmetic, not judgment.
-13. Confidence (low/med/high) + one line on what would raise it. Cite a recent source.
-14. **REPEAT flag** — if the name appeared in last week's `research/candidates-*.md`
-    and still qualifies, mark it `REPEAT` and say what changed (price moved, catalyst
-    closer, new info).
-15. **ACT-NOW flag** — if the catalyst is within 7 calendar days, mark it `ACT-NOW`.
-    (The monthly self-grade tracks REPEAT quality and ACT-NOW accuracy separately —
-    these flags must be present for that grading to work.)
+3. Catalyst and exact verified date; days until catalyst.
+4. Why now: the current setup, not merely the future event.
+5. Entry zone, stop/invalidation, realistic first target, and planned R.
+6. Bull case and bear case, including gap/dilution risk.
+7. Priced-in check.
+8. Liquidity and spread note.
+9. Risk rating: Low / Medium / High, with reasons.
+10. Risk per share and fixed-size arithmetic using €150 only.
+11. Confidence and what would raise it.
+12. Flags: `ACT-NOW` when inside 7 days; `REPEAT` when carried from last week.
+13. Recent primary/high-quality citations.
 
-Also include a short **Rejected Candidates** section with 3-5 names that looked promising
-but were rejected, plus the exact reason: no dated catalyst, too illiquid, catalyst already
-priced in, binary gap risk too high, unclear invalidation, weak source quality, scanner move
-had no confirmable reason, or another specific failure.
+A candidate without entry, stop, target, and planned R is research context, not a
+proposal. Do not silently promote it to `data/proposals.csv`.
 
----
+## Stage 3 — Early-watch list
 
-## STAGE 2 — Deep-dive the front-runners
+For each `EARLY_WATCH` name provide only:
 
-SELECT the top `NUM_DEEP_DIVES` candidates by **setup quality, confidence, and
-reward-to-risk — NOT by raw upside or excitement**. When two are close, prefer the
-LOWER risk rating. (Deepen the most tradeable names, not the most dangerous.)
+- Catalyst and verified date.
+- Days until catalyst.
+- Why it may matter.
+- What must happen before promotion to `ACTIONABLE`.
+- Next review date, normally the following weekly run.
+- Main invalidation or reason to remove it.
 
-**Methodology skills:** Run each front-runner through the `earnings-preview` skill
-(`.claude/skills/earnings-preview/SKILL.md`) to build consensus estimates, key-metrics
-frameworks, and bull/base/bear scenarios. If the candidate's catalyst is a *past* earnings
-report and the trade is a post-earnings drift, also apply the `earnings-analysis` skill
-(`.claude/skills/earnings-analysis/SKILL.md`) to assess the reported results. These skills
-provide the analytical structure — feed their output into the workup format below.
+Do not calculate a trade size or call an early-watch name a current setup.
 
-For EACH selected front-runner, write a fuller workup:
-- **Catalyst mechanics:** what happens, when, and crucially **what the market already
-  expects** (consensus / what is priced in) — so we don't chase something already in the
-  price.
-- **Bull case** — 3-4 specific points.
-- **Bear case** — 3-4 specific points, including downside-gap risk.
-- **Key levels:** support, resistance, and the invalidation level.
-- **Main risk** specific to this name.
-- **Pre-mortem:** assume this trade lost money a month from now — the single most likely
-  reason, and what I would have ignored.
-- Carry over the **source tag, risk rating, risk-per-share, and suggested size** from Stage 1.
-- Cite recent sources. DATE_VERIFIED: NO.
+## Stage 4 — Deep dives
 
----
+Deep-dive up to `NUM_DEEP_DIVES` actionable front-runners by setup quality,
+confidence, and reward-to-risk—not by excitement or theoretical upside.
 
-## OUTPUT — write exactly this file
+For each, cover:
 
-**Collision check first (never silently overwrite research):** before writing,
-check whether `research/candidates-<YYYY-MM-DD>.md` (today's date) already
-exists.
-- If it does NOT exist, create it at that path.
-- If it DOES exist, this is a second research pass on the same day (a manual
-  run alongside the scheduled routine, a re-run, etc.). Do **not** overwrite
-  it — write to `research/candidates-<YYYY-MM-DD>-<HHMM>.md` instead (local
-  time, same pattern as the scanner's `scan-YYYY-MM-DD-HHMM.md` files), and
-  add one line at the top of the new file: "Second research pass today —
-  earlier file: `candidates-<YYYY-MM-DD>.md`." This happened once already
-  (2026-07-05: a same-day overwrite destroyed the supporting detail for a
-  candidate before it could be logged) — the fix is to never let two research
-  passes share a filename, not to avoid running twice.
+- Catalyst mechanics and what the market expects.
+- Bull/base/bear scenarios.
+- Support, resistance, entry, target, and invalidation.
+- Financing, dilution, insider, short-interest, and event-gap risks where relevant.
+- Pre-mortem: assume the idea lost; identify the most likely ignored fact.
+- Explicit plan: exit before catalyst or deliberately hold through it.
+- Suggested `max_holding_days` (normally 5–10 trading sessions).
 
-Create the file (per the check above), structured as:
+## Multi-agent discipline
 
-```
-# Candidate Shortlist — <YYYY-MM-DD>
-DRAFT for human review. Verify all dates/numbers before trading.
-Any size shown is YOUR fixed rule as arithmetic, not a recommendation.
+Subagent findings are leads, not evidence. The synthesizing agent must open and
+verify the primary source used for every final catalyst date. State whether the
+run was screener-first, catalyst-first, or hybrid and whether parallel agents
+were used.
+
+## Output and collision rule
+
+Before writing, check whether `research/candidates-YYYY-MM-DD.md` exists.
+Never overwrite it. A second same-day run writes
+`research/candidates-YYYY-MM-DD-HHMM.md` and references the earlier file.
+
+Use this structure:
+
+```markdown
+# Candidate Research — YYYY-MM-DD
+DRAFT for human review. Verify all dates and numbers.
 
 ## Summary
-- <N> candidates, <M> deep-dived. <one line on overall quality / data gaps this week>
-- Method: <screener-first / catalyst-first / hybrid>; parallel agents: <yes: which / no>.
-- Region mix: <X> US / <Y> Europe / <Z> Asia in the preliminary list; <mix> in the final
-  shortlist. If Europe is under `MIN_EU_PRELIMINARY`, state what EU search came up empty.
-- Scanner input: <used/not used>. If used, state newest scanner file(s) — US and EU — and how many names were considered.
+- Method and region mix
+- Scanner inputs used
+- Actionable count / early-watch count / rejected count
 
-## Shortlist
-### 1. <TICKER> — <company>
-- Source tag: <routine/scanner_seed/routine+scanner_seed>
-- Scanner context, if any: score <X>; <price/volume reason>; <warning if any>
-- Catalyst: <what> on <date>   | DATE_VERIFIED: NO
-- Why now: <setup>
-- Bull / Bear: <brief> / <brief, incl. gap risk>
-- Priced-in check: <why this may already be reflected in price>
-- Invalidation: <level/event>
-- Liquidity: ~$<X>M ADV
-- Risk: <Low/Med/High> — <factor reasons>
-- Risk/share: <entry - stop>   | Suggested size: <shares> (€150 ÷ entry = floor)
-- Confidence: <low/med/high> — <what would raise it>
-- Flags: <REPEAT and/or ACT-NOW, or none>
-- Source: <recent citation>
-### 2. ...
+## Actionable Shortlist — catalyst inside 21 days
+### 1. TICKER — Company
+- Catalyst / date / days remaining:
+- Source tag / scanner context:
+- Why now:
+- Entry / stop / target / planned R:
+- Bull / bear / priced-in:
+- Liquidity / risk rating:
+- Risk per share / €150 arithmetic:
+- Exit before catalyst?: yes/no
+- Max holding days:
+- Flags:
+- Sources:
+
+## Early Watch — catalyst 22–42 days away
+### TICKER — Company
+- Catalyst / date / days remaining:
+- Promotion condition:
+- Next review date:
+- Removal condition:
+- Sources:
 
 ## Rejected Candidates
-- <TICKER> — rejected because <specific reason>
+- TICKER — exact rejection reason
 
-## Deep Dives (top <M> front-runners)
-### <TICKER> — <company>
-- Source tag / scanner context: ...
-- Catalyst mechanics & what's priced in: ...
-- Bull: ...
-- Bear (incl. gap risk): ...
-- Key levels (support / resistance / invalidation): ...
-- Main risk: ...
-- Pre-mortem: ...
-- Risk: <...>  | Risk/share: <...>  | Suggested size: <...>
-- Sources: <...>   | DATE_VERIFIED: NO
+## Deep Dives
+...
 ```
 
-SUCCESS = the file exists at `research/candidates-<YYYY-MM-DD>.md`; every candidate meets
-CONFIG; every catalyst has a cited recent source and DATE_VERIFIED: NO; risk rating and
-risk-per-share are present for all; suggested size appears only if the CONFIG rule is set;
-the top `NUM_DEEP_DIVES` names are deep-dived; rejected candidates are included; counts are
-honest (no padding). If nothing qualifies this week, still create the file and say so.
+## Success criteria
 
----
-
-## Reminders to my future self (the human)
-
-- This is a **draft**. Before acting: verify the catalyst date against a real calendar,
-  verify numbers against a primary source, and re-read the deep-dive bear case and
-  pre-mortem.
-- The **scanner** is a data-collection and anomaly-detection layer, not a trading system.
-  A high scanner score can only promote a name into research; it cannot create a trade.
-- The **risk rating** is a caution gauge from imperfect data — use it to size down or
-  skip, not as a precise measurement.
-- Any **suggested size** is your own fixed rule (€150/trade, learning phase) done as
-  arithmetic. The size decision belongs to you and your rule — never the model.
-- The **deep dive teaches the bear case** you might not think of — that's its main value
-  while you're still building expertise. Read it before you look at the upside.
-- Log what you trade in the journal, so you can check whether the risk rating, scanner
-  score, and routine picks actually predict anything.
+- Every actionable catalyst is within 21 days unless a nearer intermediate
+  trigger is explicitly verified.
+- Every 22–42-day name is in Early Watch, not the actionable shortlist.
+- Every final date has a primary or high-quality source.
+- Entry, stop, target, planned R, exit-before-event policy, and holding horizon
+  are explicit for actionable names.
+- A no-candidate week is allowed and recorded honestly.
+- Nothing writes to `trades.csv`; only an explicit human statement that a trade
+  occurred can do that.

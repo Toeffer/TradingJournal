@@ -1,130 +1,144 @@
 # TradingJournal
 
-A private trading journal for recording trades, reviewing decisions, and measuring whether process quality is improving over time.
+A private trading journal for recording trades, reviewing decisions, and measuring
+whether process quality improves over time.
 
-This repository is intended to be the system of record for trades, research notes, risk rules, scanner observations, and periodic self-reviews. It is not financial advice and should not be used as a signal-generation system by itself.
+This repository measures and prepares; it never places orders and is not financial
+advice.
 
-## Goals
+## Core boundaries
 
-- Log trades quickly and consistently.
-- Track plan versus execution.
-- Measure performance by setup, source, conviction, risk rating, and time period.
-- Keep personal risk rules explicit and reviewable.
-- Preserve lessons learned without mixing them into raw trade data.
-- Collect scanner/research observations separately from actual trades, so the process can be measured before scaling.
+- `trades.csv` is the source of truth for real trades.
+- `data/proposals.csv` contains fully specified ideas, traded or not.
+- `data/scanner_signals.csv` contains scanner observations, never trades.
+- `config/risk.toml` contains executable risk and horizon values.
+- `RISK_RULES.md` explains those values for the human.
+- `research/*.md` contains research or generated reports and is not edited by hand.
 
 ## Repository structure
 
 ```text
 .
-├── CLAUDE.md                  # Claude Code session startup guide
-├── AGENTS.md                  # Operating instructions for AI-assisted journaling
-├── LLM_RESEARCH_PLAYBOOK.md   # Research routine / discovery workflow
-├── RESEARCH_BRIEF.md          # Automated weekly research routine spec
-├── SCANNER_RESEARCH_PROMPT.md # Claude/GPT review prompt for scanner reports
-├── MONTHLY_SELF_GRADE.md      # Monthly review template for the research process
-├── RISK_RULES.md              # Personal risk rules (position sizing, loss limits)
-├── SETUPS.md                  # Setup definitions + the proposal card standard
-├── MASTERPLAN.md              # Phased long-term roadmap with numeric gates
-├── ETORO_TRADEABILITY.md      # Broker overlay for eToro Germany/EU
-├── SECOND_OPINION.md          # Red-team prompt for a second model
-├── trades.csv                 # Structured trade log; source of truth for real trades
+├── AGENTS.md
+├── RESEARCH_BRIEF.md
+├── RISK_RULES.md
+├── SETUPS.md
+├── MASTERPLAN.md
+├── trades.csv
+├── config/
+│   └── risk.toml
 ├── data/
-│   ├── scanner_signals.csv    # Append-only scanner signal dataset (US + EU markets)
-│   ├── proposals.csv          # Proposal ledger (every surviving idea, traded or not)
-│   ├── eu_quote_history.csv   # Self-accumulated XETRA/LSE daily bars (FMP quotes)
-│   ├── market_regime.csv      # Per-scan market backdrop (SPY vs 50d, breadth)
-│   ├── finviz_watchlist.csv   # Manual Finviz free-tier/Elite seed list
-│   └── TradingJournalCandidatesTry_updated.xlsx  # Legacy Excel journal (used to backfill trades.csv; CSV is source of truth)
-├── scanner/                   # Optional Python scanner for unusual volume/breakouts
+│   ├── proposals.csv
+│   ├── scanner_signals.csv
+│   ├── market_regime.csv
+│   ├── eu_quote_history.csv
+│   ├── finviz_watchlist.csv
+│   └── finviz_watchlist_archive.csv   # created when seeds expire
+├── scanner/
+│   ├── run_scan.py
+│   ├── run_scan_eu.py
+│   ├── backfill_returns.py
+│   ├── summarize_signals.py
+│   ├── simulate_proposals.py
+│   ├── expire_finviz_seeds.py
+│   └── io_utils.py
 ├── scripts/
-│   └── journal_stats.py       # Regenerates research/journal-stats.md from trades.csv
-├── notes/                     # Optional longer notes per trade
-├── research/
-│   ├── scans/                 # Scanner reports used as input for Claude/GPT review
-│   ├── scanner-summary.md     # Auto-generated signal outcomes (derived, do not edit)
-│   └── journal-stats.md       # Auto-generated trade stats (derived, do not edit)
-└── docs/                      # Architecture, setup, and project notes
+│   ├── journal_stats.py
+│   ├── weekly_digest.py
+│   └── validate_data.py
+├── tests/
+└── .github/workflows/
+    ├── ci.yml
+    ├── scanner.yml
+    ├── scanner-eu.yml
+    ├── journal.yml
+    └── digest.yml
 ```
 
 ## Quick start
 
-1. `RISK_RULES.md` is filled in with learning-phase rules (€150/trade fixed sizing).
-2. Use `trades.csv` as the structured source of truth — log every real trade.
-3. Put longer narratives in `notes/<trade_id>.md` instead of overloading the CSV.
-4. Store weekly research outputs in `research/` so reviews can compare ideas against actual trades.
-5. Store scanner outputs in `research/scans/` and raw scanner rows in `data/scanner_signals.csv` — these are observations, not trades.
-6. Save second-opinion output to `research/second-opinion-YYYY-MM-DD.md` alongside candidates.
-7. For scanner reports, use `SCANNER_RESEARCH_PROMPT.md` in both Claude and GPT, then compare overlap/disagreement.
-8. Review the journal regularly using `MONTHLY_SELF_GRADE.md` and the review guidance in `AGENTS.md`.
+1. Log every real trade in `trades.csv`.
+2. Log every fully specified surviving idea in `data/proposals.csv`, including
+   ideas you pass on.
+3. Put longer narratives in `notes/<trade_id>.md`.
+4. Run validation after editing source data:
+
+   ```bash
+   python scripts/validate_data.py
+   ```
+
+5. Regenerate stats locally when needed:
+
+   ```bash
+   python scripts/journal_stats.py
+   python scanner/summarize_signals.py
+   python scanner/simulate_proposals.py
+   ```
+
+6. Run the test suite before merging code changes:
+
+   ```bash
+   python -m pip install -e '.[dev]'
+   ruff check scanner scripts tests
+   pytest
+   ```
+
+CI runs compilation, linting, tests, and source-data validation on pull requests.
+
+## Catalyst and holding horizons
+
+The weekly research process separates discovery from action:
+
+- **0–21 calendar days:** eligible for the actionable shortlist.
+- **22–42 calendar days:** Early Watch only, unless a separately verified trigger
+  inside 21 days creates the current setup.
+
+Proposals use a separate trading horizon:
+
+- Default `max_holding_days`: **10 trading sessions**.
+- Catalyst-driven proposals default to `exit_before_catalyst = yes`.
+- The 21-trading-day scanner return is retained only as slow research context; the
+  primary scanner evaluation windows are 1, 3, 5, and 10 sessions.
 
 ## Scanner workflow
 
-The optional scanner workflow is documented in `docs/SCANNER_WORKFLOW.md`.
+The US scanner uses Alpaca IEX data and optional manual Finviz discovery seeds.
+The EU scanner uses the configured FMP / Twelve Data / Stooq / Yahoo fallback chain
+and stores local daily history.
 
-It can run through GitHub Actions using Alpaca market-data secrets and a manual Finviz seed list. The scanner never writes to `trades.csv`; it writes candidate observations to `data/scanner_signals.csv` and Markdown reports to `research/scans/`.
+Manual Finviz rows now require `added_at` and may specify `expires_at`. The scheduled
+US workflow archives expired rows before scanning so an old screenshot cannot add
+score indefinitely.
 
 Repository secrets:
 
 ```text
-APCA_API_KEY_ID       # required: Alpaca market data (US scanner)
+APCA_API_KEY_ID
 APCA_API_SECRET_KEY
-FMP_API_KEY           # optional: EU scanner upgrades from keyless Stooq to FMP quotes
+FMP_API_KEY             # optional
+TWELVE_DATA_API_KEY     # optional
 ```
 
-The scheduled workflow lives at `.github/workflows/scanner.yml`. Scheduled runs only become active when that workflow exists on the default branch. While testing on a feature branch, run it manually or open a PR first.
+Scanner workflows preserve diagnostic reports when a provider fails, but the
+workflow run is marked failed instead of silently appearing healthy.
 
-## Automation
-
-Two workflows keep derived reports fresh without manual steps:
-
-- **Scanner** (`.github/workflows/scanner.yml`, scheduled): runs the scan (recording
-  the market regime per run), backfills 1/3/5/10/21-trading-day returns for past
-  signals, regenerates `research/scanner-summary.md` (outcomes by score bucket/source
-  plus a runner board), and simulates open proposals from `data/proposals.csv` into
-  `research/proposal-stats.md`.
-- **EU scanner** (`.github/workflows/scanner-eu.yml`, scheduled around the XETRA
-  session at 09:20/11:20/15:10/17:40 Berlin): scans `scanner/universe_eu.txt` on FMP
-  quotes, self-accumulates daily history in `data/eu_quote_history.csv`, and feeds
-  the same signals/backfill/summary/proposal loops with `market = EU-XETRA`/`EU-LSE`.
-- **Journal stats** (`.github/workflows/journal.yml`, on every `trades.csv` change on
-  `main`): regenerates `research/journal-stats.md` — expectancy, win rate, breakdowns
-  by source/setup/risk rating, weekly realized R vs the loss limit, open positions,
-  rule-check flags, and a list of data gaps to fill.
-- **Weekly digest** (`.github/workflows/digest.yml`, Mondays ~07:00 Berlin): writes
-  `research/digest-YYYY-MM-DD.md` — last week's closed trades and realized R, open
-  positions with catalysts inside 14 days flagged for verification, how recent
-  scanner runners ended up, the newest candidate shortlist summary, and data-gap
-  hygiene reminders.
-
-Both output files are derived artifacts: never edit them by hand, and never treat
-them as signals. `trades.csv` and `data/scanner_signals.csv` remain the sources of
-truth.
-
-## Trade log schema
-
-`trades.csv` uses this header:
+## Proposal schema
 
 ```csv
-trade_id,date_opened,ticker,direction,sector,catalyst,catalyst_date,setup_type,thesis,entry_price,stop_price,target_price,position_size,conviction,source,candidate_ref,risk_rating,planned_r,status,date_closed,exit_price,pnl,r_multiple,followed_plan,lesson
+proposal_id,date,ticker,direction,source,setup_type,regime,entry_price,stop_price,target_price,planned_r,catalyst,catalyst_date,thesis,risk_rating,max_holding_days,exit_before_catalyst,status,triggered_date,resolved_date,exit_price,sim_r,traded,trade_id,notes
 ```
 
-See `AGENTS.md` for field definitions and logging rules.
+The simulator uses adjusted US daily bars, conservative same-bar handling, explicit
+holding periods, and pre-catalyst exits.
 
 ## Security and privacy
 
-Do not commit:
+Never commit broker/API credentials, account numbers, full brokerage exports,
+balance screenshots, `.env` files, or proprietary material that should stay local.
+Use `.env.example` only for placeholders and GitHub Actions secrets for credentials.
 
-- Broker API keys or tokens
-- Alpaca, Finviz, or other data-provider credentials
-- Account numbers
-- Full brokerage exports with personal identifiers
-- Screenshots showing balances or account details
-- `.env` files
-- Proprietary strategy data that should stay local
+## Current phase
 
-Use `.env.example` for placeholders only. Use GitHub Actions secrets for API keys.
-
-## Status
-
-Learning phase. Risk rules are set (€150/trade fixed sizing, R-based loss limits), the trade log is live in `trades.csv` (backfilled from the legacy Excel journal), the weekly research routine is active, and the scanner workflow runs on a schedule from `main` via GitHub Actions.
+Foundation/learning phase. The system is intentionally small-sized and process-first.
+The immediate goal is complete records, an actively used proposal ledger, and enough
+clean observations to prove or kill each pipeline before adding complexity.

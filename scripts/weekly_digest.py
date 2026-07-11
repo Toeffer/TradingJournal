@@ -1,257 +1,247 @@
 #!/usr/bin/env python3
-"""Generate the Monday-morning weekly digest into research/digest-YYYY-MM-DD.md.
-
-One page combining what already exists — journal results, scanner runner
-outcomes, and the newest candidate shortlist — so the week starts from data
-instead of memory. Runs from .github/workflows/digest.yml every Monday.
-
-Derived artifact: computed only from trades.csv, data/scanner_signals.csv and
-files in research/. Nothing here is estimated, invented, or advice. The digest
-surfaces; the human decides.
-"""
+"""Generate a compact Monday digest from journal, proposal, and scanner data."""
 
 from __future__ import annotations
 
 import csv
 import re
+import sys
+import tomllib
 from datetime import date, timedelta
 from pathlib import Path
-
-import sys
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from journal_stats import parse_float, r_stats, fmt  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TRADES_CSV = REPO_ROOT / "trades.csv"
 SIGNALS_CSV = REPO_ROOT / "data/scanner_signals.csv"
+PROPOSALS_CSV = REPO_ROOT / "data/proposals.csv"
 RESEARCH_DIR = REPO_ROOT / "research"
+RISK_CONFIG = REPO_ROOT / "config/risk.toml"
 
-CATALYST_LOOKAHEAD_DAYS = 14
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from journal_stats import fmt, parse_float, r_stats  # noqa: E402
+sys.path.insert(0, str(REPO_ROOT / "scanner"))
+from io_utils import atomic_write_text  # noqa: E402
+
 STALE_CANDIDATES_DAYS = 10
+RESOLVED_PROPOSALS = {"stopped", "target", "timeout", "catalyst_exit"}
+
+
+def load_csv(path: Path) -> list[dict[str, str]]:
+    if not path.exists() or path.stat().st_size == 0:
+        return []
+    with path.open("r", newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def load_horizons() -> tuple[int, int]:
+    with RISK_CONFIG.open("rb") as handle:
+        horizons = tomllib.load(handle)["horizons"]
+    return int(horizons["actionable_catalyst_days"]), int(horizons["discovery_catalyst_days"])
 
 
 def fmt_pct(value: float | None) -> str:
     return "—" if value is None else f"{value:+.2f}%"
 
 
-def load_csv(path: Path) -> list[dict[str, str]]:
-    if not path.exists() or path.stat().st_size == 0:
-        return []
-    with path.open("r", newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
-
-
 def newest_candidates_file() -> Path | None:
-    """Newest by (date, time-of-day), not filename string sort.
-
-    A same-day second research pass writes candidates-YYYY-MM-DD-HHMM.md (see
-    RESEARCH_BRIEF.md's collision check). Plain string sort would rank that
-    file BEFORE the no-suffix candidates-YYYY-MM-DD.md ('-' < '.' in ASCII),
-    silently hiding the later pass. Sort by parsed (date, time) instead.
-    """
     files = list(RESEARCH_DIR.glob("candidates-*.md"))
     if not files:
         return None
 
-    def sort_key(p: Path) -> tuple[str, str]:
-        m = re.match(r"candidates-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.md$", p.name)
-        if not m:
-            return ("", "")
-        return (m.group(1), m.group(2) or "0000")
+    def sort_key(path: Path) -> tuple[str, str]:
+        match = re.match(r"candidates-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.md$", path.name)
+        return (match.group(1), match.group(2) or "0000") if match else ("", "")
 
-    files.sort(key=sort_key)
-    return files[-1]
+    return max(files, key=sort_key)
 
 
-def candidates_summary(path: Path) -> list[str]:
-    """Extract the '## Summary' block from a candidates file, if present."""
-    lines = path.read_text(encoding="utf-8").splitlines()
-    out: list[str] = []
+def summary_block(path: Path) -> list[str]:
+    output: list[str] = []
     in_summary = False
-    for line in lines:
+    for line in path.read_text(encoding="utf-8").splitlines():
         if line.startswith("## "):
             if in_summary:
                 break
             in_summary = line.strip().lower() == "## summary"
             continue
         if in_summary and line.strip():
-            out.append(line)
-    return out
+            output.append(line)
+    return output
+
+
+def catalyst_bucket(value: str, today: date, actionable_days: int, discovery_days: int) -> str:
+    if not value:
+        return "no date"
+    try:
+        event = date.fromisoformat(value)
+    except ValueError:
+        return "invalid date"
+    days = (event - today).days
+    if days < 0:
+        return f"past ({-days}d)"
+    if days <= 7:
+        return f"ACT-NOW ({days}d)"
+    if days <= actionable_days:
+        return f"actionable ({days}d)"
+    if days <= discovery_days:
+        return f"Early Watch only ({days}d)"
+    return f"distant ({days}d)"
 
 
 def main() -> int:
     today = date.today()
     week_start = today - timedelta(days=7)
+    actionable_days, discovery_days = load_horizons()
     trades = load_csv(TRADES_CSV)
     signals = load_csv(SIGNALS_CSV)
+    proposals = load_csv(PROPOSALS_CSV)
 
     closed_week = [
-        t for t in trades
-        if t.get("status") == "closed" and t.get("date_closed")
-        and week_start.isoformat() <= t["date_closed"] < today.isoformat()
+        trade for trade in trades
+        if trade.get("status") == "closed"
+        and trade.get("date_closed")
+        and week_start.isoformat() <= trade["date_closed"] < today.isoformat()
     ]
-    open_trades = [t for t in trades if t.get("status") == "open"]
-    all_closed = [t for t in trades if t.get("status") == "closed"]
+    open_trades = [trade for trade in trades if trade.get("status") == "open"]
+    all_closed = [trade for trade in trades if trade.get("status") == "closed"]
 
-    lines: list[str] = []
-    lines.append(f"# Weekly Digest — {today.isoformat()}")
-    lines.append("")
-    lines.append(f"Auto-generated for the week {week_start.isoformat()} to {today.isoformat()}.")
-    lines.append("Computed from trades.csv, scanner signals, and research files. Not advice —")
-    lines.append("this page surfaces what happened; decisions and catalyst verification are yours.")
-    lines.append("")
+    lines = [
+        f"# Weekly Digest — {today.isoformat()}",
+        "",
+        f"Auto-generated for {week_start.isoformat()} through {today.isoformat()}.",
+        "This surfaces recorded facts; it is not advice.",
+        "",
+        "## Journal: last seven days",
+        "",
+    ]
 
-    # --- Journal ---
-    lines.append("## Journal: last 7 days")
-    lines.append("")
     if closed_week:
-        week_rs = [v for t in closed_week if (v := parse_float(t.get("r_multiple"))) is not None]
-        lines.append("| Trade | Ticker | Closed | R | P&L (€) | Followed plan |")
-        lines.append("|---|---|---|---:|---:|---|")
-        for t in sorted(closed_week, key=lambda t: t.get("date_closed", "")):
+        lines.extend([
+            "| Trade | Ticker | Closed | R | P&L (€) | Followed plan |",
+            "|---|---|---|---:|---:|---|",
+        ])
+        for trade in sorted(closed_week, key=lambda row: (row.get("date_closed", ""), row.get("trade_id", ""))):
             lines.append(
-                f"| {t.get('trade_id','')} | {t.get('ticker','')} | {t.get('date_closed','')} "
-                f"| {fmt(parse_float(t.get('r_multiple')))} | {fmt(parse_float(t.get('pnl')))} "
-                f"| {t.get('followed_plan','') or '—'} |"
+                f"| {trade.get('trade_id', '')} | {trade.get('ticker', '')} | {trade.get('date_closed', '')} "
+                f"| {fmt(parse_float(trade.get('r_multiple')))} | {fmt(parse_float(trade.get('pnl')))} "
+                f"| {trade.get('followed_plan', '') or '—'} |"
             )
-        lines.append("")
-        lines.append(f"- Realized this week: **{fmt(sum(week_rs) if week_rs else None)}R** "
-                     f"across {len(closed_week)} closed trade(s).")
+        week_values = [value for trade in closed_week if (value := parse_float(trade.get("r_multiple"))) is not None]
+        lines.extend(["", f"- Realized: **{fmt(sum(week_values) if week_values else None)}R**."])
     else:
         lines.append("No trades closed this week.")
-    s = r_stats(all_closed)
-    lines.append(f"- All-time: {s['n']} closed, expectancy {fmt(s['expectancy_r'])}R, "
-                 f"total P&L {fmt(s['total_pnl'])} €. Details: `research/journal-stats.md`.")
-    lines.append("")
 
-    lines.append("### Open positions and upcoming catalysts")
-    lines.append("")
+    all_stats = r_stats(all_closed)
+    lines.extend([
+        f"- All-time: {all_stats['n']} closed; expectancy {fmt(all_stats['expectancy_r'])}R; P&L {fmt(all_stats['total_pnl'])} €.",
+        "",
+        "## Open positions and catalyst horizon",
+        "",
+    ])
     if open_trades:
-        horizon = today + timedelta(days=CATALYST_LOOKAHEAD_DAYS)
-        lines.append("| Trade | Ticker | Entry | Stop | Catalyst | Date | Within 14d? |")
-        lines.append("|---|---|---:|---:|---|---|---|")
-        for t in open_trades:
-            cat_date = t.get("catalyst_date", "").strip()
-            soon = ""
-            if cat_date:
-                try:
-                    d = date.fromisoformat(cat_date)
-                    if d <= horizon:
-                        soon = "**YES — verify date & earnings-hold rule**"
-                except ValueError:
-                    soon = "unparseable date"
+        lines.extend([
+            "| Trade | Ticker | Entry | Stop | Catalyst | Date | Horizon |",
+            "|---|---|---:|---:|---|---|---|",
+        ])
+        for trade in open_trades:
+            catalyst_date = trade.get("catalyst_date", "").strip()
             lines.append(
-                f"| {t.get('trade_id','')} | {t.get('ticker','')} | {t.get('entry_price','') or '—'} "
-                f"| {t.get('stop_price','') or '—'} | {t.get('catalyst','') or '—'} "
-                f"| {cat_date or '—'} | {soon or '—'} |"
+                f"| {trade.get('trade_id', '')} | {trade.get('ticker', '')} "
+                f"| {trade.get('entry_price', '') or '—'} | {trade.get('stop_price', '') or '—'} "
+                f"| {trade.get('catalyst', '') or '—'} | {catalyst_date or '—'} "
+                f"| {catalyst_bucket(catalyst_date, today, actionable_days, discovery_days)} |"
             )
+        lines.extend([
+            "",
+            f"- Actionable research window: 0–{actionable_days} calendar days.",
+            f"- Days {actionable_days + 1}–{discovery_days} are Early Watch, not a reason to enter early.",
+        ])
     else:
         lines.append("No open positions.")
     lines.append("")
 
-    # --- Scanner ---
-    lines.append("## Scanner: how the runners ended up")
-    lines.append("")
-    week_signals = [s_ for s_ in signals if s_.get("timestamp", "")[:10] >= week_start.isoformat()]
-    lines.append(f"- Signals recorded this week: {len(week_signals)} "
-                 f"(all-time: {len(signals)}). Full stats: `research/scanner-summary.md`.")
-    resolved = [
-        s_ for s_ in signals
-        if parse_float(s_.get("five_day_return")) is not None
-        and s_.get("timestamp", "")[:10] >= (week_start - timedelta(days=14)).isoformat()
-    ]
-    if resolved:
-        lines.append("")
-        lines.append("Recent signals with a 5-day outcome now known:")
-        lines.append("")
-        lines.append("| Date | Ticker | Score | 1d | 5d | 10d | 21d |")
-        lines.append("|---|---|---:|---:|---:|---:|---:|")
-        for s_ in sorted(resolved, key=lambda r: (r.get("timestamp", ""), r.get("ticker", "")), reverse=True):
+    lines.extend(["## Proposal pipeline", ""])
+    if proposals:
+        by_status: dict[str, int] = {}
+        for proposal in proposals:
+            status = proposal.get("status", "?")
+            by_status[status] = by_status.get(status, 0) + 1
+        lines.append("- " + " | ".join(f"{key}: {value}" for key, value in sorted(by_status.items())))
+        resolved = [proposal for proposal in proposals if proposal.get("status") in RESOLVED_PROPOSALS]
+        values = [value for proposal in resolved if (value := parse_float(proposal.get("sim_r"))) is not None]
+        if values:
+            lines.append(f"- Simulated expectancy: **{fmt(sum(values) / len(values))}R** across {len(values)} resolved proposals.")
+        pending = [proposal for proposal in proposals if proposal.get("status") in {"pending", "triggered"}]
+        for proposal in pending:
             lines.append(
-                f"| {s_.get('timestamp','')[:10]} | {s_.get('ticker','')} | {s_.get('score','')} "
-                f"| {fmt_pct(parse_float(s_.get('one_day_return')))} "
-                f"| {fmt_pct(parse_float(s_.get('five_day_return')))} "
-                f"| {fmt_pct(parse_float(s_.get('ten_day_return')))} "
-                f"| {fmt_pct(parse_float(s_.get('twenty_one_day_return')))} |"
+                f"- {proposal.get('ticker', '')}: {proposal.get('status', '')}; max hold "
+                f"{proposal.get('max_holding_days', '') or 'default'} sessions; exit before catalyst "
+                f"{proposal.get('exit_before_catalyst', '') or 'unspecified'}."
             )
     else:
-        lines.append("- No recent signals have a 5-day outcome yet.")
+        lines.append("- No proposals logged. The control group and picker test cannot work yet.")
     lines.append("")
 
-    # --- Proposals ---
-    proposals = load_csv(REPO_ROOT / "data/proposals.csv")
-    if proposals:
-        lines.append("## Proposals (SETUPS.md pipeline)")
-        lines.append("")
-        by_status: dict[str, int] = {}
-        for p in proposals:
-            by_status[p.get("status", "?")] = by_status.get(p.get("status", "?"), 0) + 1
-        lines.append("- " + " | ".join(f"{k}: {v}" for k, v in sorted(by_status.items())))
-        resolved = [p for p in proposals if p.get("status") in ("stopped", "target", "timeout")]
-        rs = [v for p in resolved if (v := parse_float(p.get("sim_r"))) is not None]
-        if rs:
-            lines.append(f"- Simulated expectancy across {len(rs)} resolved proposal(s): "
-                         f"**{fmt(sum(rs) / len(rs))}R**. Details: `research/proposal-stats.md`.")
-        pending = [p for p in proposals if p.get("status") in ("pending", "triggered")]
-        if pending:
-            lines.append("- Waiting: " + ", ".join(
-                f"{p.get('ticker','')} ({p.get('status','')}, entry {p.get('entry_price','')})"
-                for p in pending))
-        lines.append("")
-
-    # --- Research ---
-    lines.append("## Research: newest candidate shortlist")
+    recent_signals = [signal for signal in signals if signal.get("timestamp", "")[:10] >= week_start.isoformat()]
+    resolved_signals = [
+        signal for signal in signals
+        if parse_float(signal.get("five_day_return")) is not None
+        and signal.get("timestamp", "")[:10] >= (week_start - timedelta(days=14)).isoformat()
+    ]
+    lines.extend([
+        "## Scanner short-horizon outcomes",
+        "",
+        f"- Signals recorded this week: {len(recent_signals)}; all-time: {len(signals)}.",
+    ])
+    if resolved_signals:
+        lines.extend([
+            "",
+            "| Date | Ticker | Score | 1d | 5d | 10d | 21d context |",
+            "|---|---|---:|---:|---:|---:|---:|",
+        ])
+        for signal in sorted(resolved_signals, key=lambda row: (row.get("timestamp", ""), row.get("ticker", "")), reverse=True):
+            lines.append(
+                f"| {signal.get('timestamp', '')[:10]} | {signal.get('ticker', '')} | {signal.get('score', '')} "
+                f"| {fmt_pct(parse_float(signal.get('one_day_return')))} "
+                f"| {fmt_pct(parse_float(signal.get('five_day_return')))} "
+                f"| {fmt_pct(parse_float(signal.get('ten_day_return')))} "
+                f"| {fmt_pct(parse_float(signal.get('twenty_one_day_return')))} |"
+            )
+    else:
+        lines.append("- No recent signals have a five-session outcome yet.")
     lines.append("")
+
+    lines.extend(["## Research", ""])
     newest = newest_candidates_file()
     if newest:
         match = re.search(r"candidates-(\d{4}-\d{2}-\d{2})", newest.name)
         file_date = date.fromisoformat(match.group(1)) if match else None
         lines.append(f"- Newest file: `research/{newest.name}`")
         if file_date and (today - file_date).days > STALE_CANDIDATES_DAYS:
-            lines.append(f"- ⚠️ Shortlist is {(today - file_date).days} days old — "
-                         "check whether the weekly routine is still running.")
-        summary = candidates_summary(newest)
-        if summary:
-            lines.append("")
-            lines.extend(summary)
+            lines.append(f"- ⚠️ Research is {(today - file_date).days} days old.")
+        extracted = summary_block(newest)
+        if extracted:
+            lines.extend(["", *extracted])
     else:
-        lines.append("- No candidates file found in research/.")
+        lines.append("- No candidate file found.")
     lines.append("")
 
-    # --- Hygiene ---
-    lines.append("## Hygiene")
-    lines.append("")
     gap_count = 0
-    for t in all_closed:
-        gap_count += sum(1 for f in ("followed_plan", "lesson", "stop_price", "setup_type")
-                         if not t.get(f, "").strip())
-    for t in open_trades:
-        gap_count += sum(1 for f in ("sector", "setup_type", "catalyst")
-                         if not t.get(f, "").strip())
-    if gap_count:
-        lines.append(f"- {gap_count} missing field(s) across trades — see the data-gaps list "
-                     "in `research/journal-stats.md`. Blank fields make the reviews blind.")
-    else:
-        lines.append("- No data gaps. Journal is fully recorded.")
-    no_stop = [t.get("ticker") for t in open_trades if parse_float(t.get("stop_price")) is None]
-    if no_stop:
-        lines.append(f"- ⚠️ Open with no stop: {', '.join(no_stop)} — undefined risk.")
-    lines.append("")
+    for trade in all_closed:
+        gap_count += sum(not trade.get(field, "").strip() for field in ("followed_plan", "lesson", "stop_price", "setup_type"))
+    for trade in open_trades:
+        gap_count += sum(not trade.get(field, "").strip() for field in ("sector", "setup_type", "catalyst"))
+    lines.extend([
+        "## Hygiene",
+        "",
+        f"- Missing trade fields: {gap_count}." if gap_count else "- No tracked trade-data gaps.",
+        "- Run `python scripts/validate_data.py` after every source-data edit.",
+        "- Verify catalyst dates against primary sources; distant events remain Early Watch.",
+    ])
 
-    lines.append("## Reminders")
-    lines.append("")
-    lines.append("- Verify every catalyst date against a primary source before acting on it.")
-    if open_trades:
-        lines.append("- Walk each open position through the exit-review checklist in "
-                     "`AGENTS.md` (HOLD / exhaustion / breakdown / catalyst override).")
-    lines.append("- Scanner scores and shortlists surface names for research, never trades.")
-    lines.append("- Log `followed_plan` and a one-line `lesson` at every close — that is the")
-    lines.append("  raw material the monthly review runs on.")
-
-    out_path = RESEARCH_DIR / f"digest-{today.isoformat()}.md"
-    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"Wrote {out_path.relative_to(REPO_ROOT)}")
+    output = RESEARCH_DIR / f"digest-{today.isoformat()}.md"
+    atomic_write_text(output, "\n".join(lines) + "\n")
+    print(f"Wrote {output.relative_to(REPO_ROOT)}")
     return 0
 
 

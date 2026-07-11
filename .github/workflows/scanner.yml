@@ -3,23 +3,19 @@ name: Pump Scanner
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron is UTC and can be delayed. Each cron below fires about 5 minutes
-    # before the intended Berlin wall-clock scan time; the workflow then waits until
-    # the target time before running. Both CEST and CET offsets are listed so the
-    # local Berlin targets stay stable across daylight saving changes.
-    #
-    # CEST (UTC+2, roughly late Mar - late Oct) — targets 15:50 / 16:10 / 16:45 / 17:30 / 21:15 Berlin:
-    - cron: "45 13 * * 1-5"  # target 15:50 Europe/Berlin during CEST
-    - cron: "05 14 * * 1-5"  # target 16:10 Europe/Berlin during CEST
-    - cron: "40 14 * * 1-5"  # target 16:45 Europe/Berlin during CEST
-    - cron: "25 15 * * 1-5"  # target 17:30 Europe/Berlin during CEST
-    - cron: "10 19 * * 1-5"  # target 21:15 Europe/Berlin during CEST
-    # CET (UTC+1, roughly late Oct - late Mar) — targets 15:50 / 16:10 / 16:45 / 17:30 / 21:15 Berlin:
-    - cron: "45 14 * * 1-5"  # target 15:50 Europe/Berlin during CET
-    - cron: "05 15 * * 1-5"  # target 16:10 Europe/Berlin during CET
-    - cron: "40 15 * * 1-5"  # target 16:45 Europe/Berlin during CET
-    - cron: "25 16 * * 1-5"  # target 17:30 Europe/Berlin during CET
-    - cron: "10 20 * * 1-5"  # target 21:15 Europe/Berlin during CET
+    # GitHub cron is UTC and can be delayed. Each cron fires about 5 minutes before
+    # the intended Berlin wall-clock scan time; the job waits until the target.
+    # Both CEST and CET offsets are listed and the wrong-season duplicate is skipped.
+    - cron: "45 13 * * 1-5"  # 15:50 Berlin CEST
+    - cron: "05 14 * * 1-5"  # 16:10 Berlin CEST
+    - cron: "40 14 * * 1-5"  # 16:45 Berlin CEST
+    - cron: "25 15 * * 1-5"  # 17:30 Berlin CEST
+    - cron: "10 19 * * 1-5"  # 21:15 Berlin CEST
+    - cron: "45 14 * * 1-5"  # 15:50 Berlin CET
+    - cron: "05 15 * * 1-5"  # 16:10 Berlin CET
+    - cron: "40 15 * * 1-5"  # 16:45 Berlin CET
+    - cron: "25 16 * * 1-5"  # 17:30 Berlin CET
+    - cron: "10 20 * * 1-5"  # 21:15 Berlin CET
 
 concurrency:
   group: pump-scanner
@@ -40,14 +36,6 @@ jobs:
           TRIGGER_CRON: ${{ github.event.schedule }}
         run: |
           set -euo pipefail
-
-          # GitHub cron starts are best-effort and have been observed 1.5-2.5h
-          # late on this repo. Policy: a LATE run still scans (relative volume is
-          # normalized by elapsed session time, so a late scan is a valid
-          # observation taken later in the session; same-day dedup keeps stats
-          # clean). Only two things skip a run: the wrong-season duplicate cron,
-          # and delays beyond MAX_LATE_RUN_SECONDS where the data would describe
-          # a different market phase than any intended scan slot.
           case "$TRIGGER_CRON" in
             "45 13 * * 1-5") TARGET_HHMM="15:50"; CRON_SEASON="CEST" ;;
             "05 14 * * 1-5") TARGET_HHMM="16:10"; CRON_SEASON="CEST" ;;
@@ -59,61 +47,41 @@ jobs:
             "40 15 * * 1-5") TARGET_HHMM="16:45"; CRON_SEASON="CET" ;;
             "25 16 * * 1-5") TARGET_HHMM="17:30"; CRON_SEASON="CET" ;;
             "10 20 * * 1-5") TARGET_HHMM="21:15"; CRON_SEASON="CET" ;;
-            *)
-              echo "Unknown schedule '$TRIGGER_CRON'; running without wait."
-              echo "should_run=true" >> "$GITHUB_OUTPUT"
-              exit 0
-              ;;
+            *) echo "Unknown schedule '$TRIGGER_CRON'; running without wait."; echo "should_run=true" >> "$GITHUB_OUTPUT"; exit 0 ;;
           esac
-
-          # Which season is Berlin actually in right now?
           case "$(TZ=Europe/Berlin date +%z)" in
             "+0200") CURRENT_SEASON="CEST" ;;
             "+0100") CURRENT_SEASON="CET" ;;
-            *) CURRENT_SEASON="$CRON_SEASON" ;;  # unexpected offset: don't skip
+            *) CURRENT_SEASON="$CRON_SEASON" ;;
           esac
-
-          echo "Schedule: $TRIGGER_CRON (intended for $CRON_SEASON)"
-          echo "Berlin now: $(TZ=Europe/Berlin date '+%Y-%m-%d %H:%M:%S %Z') (season $CURRENT_SEASON)"
-          echo "Target Berlin scan time: $TARGET_HHMM"
-
           if [ "$CRON_SEASON" != "$CURRENT_SEASON" ]; then
-            echo "Wrong-season duplicate cron; the $CURRENT_SEASON cron covers this slot. Skipping."
+            echo "Wrong-season duplicate cron; skipping."
             echo "should_run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
           BERLIN_DATE=$(TZ=Europe/Berlin date +%Y-%m-%d)
           NOW_EPOCH=$(TZ=Europe/Berlin date +%s)
           TARGET_EPOCH=$(TZ=Europe/Berlin date -d "$BERLIN_DATE $TARGET_HHMM:00" +%s)
           DIFF_SECONDS=$((TARGET_EPOCH - NOW_EPOCH))
           MAX_EARLY_WAIT_SECONDS=900
-          MAX_LATE_RUN_SECONDS=12600  # 3.5h: covers observed GitHub delays
-
+          MAX_LATE_RUN_SECONDS=12600
           if [ "$DIFF_SECONDS" -gt 0 ] && [ "$DIFF_SECONDS" -le "$MAX_EARLY_WAIT_SECONDS" ]; then
-            echo "Waiting $DIFF_SECONDS seconds until target scan time."
             sleep "$DIFF_SECONDS"
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
           if [ "$DIFF_SECONDS" -gt "$MAX_EARLY_WAIT_SECONDS" ]; then
-            # More than the wait cap BEFORE today's target: with the season check
-            # above this should not happen from GitHub delays; run without waiting
-            # rather than lose the slot entirely.
-            echo "Unexpectedly early ($DIFF_SECONDS s before target); running immediately without wait."
+            echo "Unexpectedly early; running immediately."
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
           LATE_SECONDS=$((0 - DIFF_SECONDS))
           if [ "$LATE_SECONDS" -gt "$MAX_LATE_RUN_SECONDS" ]; then
-            echo "Triggered $LATE_SECONDS seconds after target (> $MAX_LATE_RUN_SECONDS); too stale for this slot. Skipping."
+            echo "Run is too stale for this slot; skipping."
             echo "should_run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          echo "Running $LATE_SECONDS seconds after target (late-but-valid; rel volume normalizes by session time)."
+          echo "Running $LATE_SECONDS seconds after target."
           echo "should_run=true" >> "$GITHUB_OUTPUT"
 
       - name: Check out repository
@@ -128,43 +96,60 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Run scanner
+      - name: Archive expired manual seeds
         if: steps.timing.outputs.should_run != 'false'
+        run: python scanner/expire_finviz_seeds.py
+
+      - name: Run scanner
+        id: scanner
+        if: steps.timing.outputs.should_run != 'false'
+        continue-on-error: true
         env:
           APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
-        run: python scanner/run_scan.py
+        run: |
+          set +e
+          OUTPUT=$(python scanner/run_scan.py 2>&1)
+          STATUS=$?
+          set -e
+          printf '%s\n' "$OUTPUT"
+          if [ "$STATUS" -ne 0 ] || printf '%s' "$OUTPUT" | grep -Eq 'without market data|after data error|Data fetch failed'; then
+            echo "Scanner produced a diagnostic report but no valid market-data run."
+            exit 1
+          fi
 
       - name: Backfill scanner returns
-        if: steps.timing.outputs.should_run != 'false'
+        if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
         env:
           APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: python scanner/backfill_returns.py
 
       - name: Summarize signal outcomes
-        if: steps.timing.outputs.should_run != 'false'
+        if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
         run: python scanner/summarize_signals.py
 
       - name: Simulate proposal outcomes
-        if: steps.timing.outputs.should_run != 'false'
+        if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
         env:
           APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: python scanner/simulate_proposals.py
 
       - name: Draft proposal cards from alerts
-        if: steps.timing.outputs.should_run != 'false'
+        if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
         run: python scanner/draft_proposals.py
 
+      - name: Validate source data
+        if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
+        run: python scripts/validate_data.py
+
       - name: Commit scanner output
-        if: steps.timing.outputs.should_run != 'false'
+        if: always() && steps.timing.outputs.should_run != 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Some outputs only exist after a successful data fetch; adding a
-          # missing pathspec is a fatal git error, so add only what exists.
-          for path in data/scanner_signals.csv data/market_regime.csv data/proposals.csv research/scans research/scanner-summary.md research/proposal-stats.md research/proposal-drafts.md; do
+          for path in data/scanner_signals.csv data/market_regime.csv data/proposals.csv data/finviz_watchlist.csv data/finviz_watchlist_archive.csv research/scans research/scanner-summary.md research/proposal-stats.md research/proposal-drafts.md; do
             [ -e "$path" ] && git add "$path"
           done
           if git diff --cached --quiet; then
@@ -174,3 +159,7 @@ jobs:
             git pull --rebase origin "${{ github.ref_name }}"
             git push -u origin "${{ github.ref_name }}"
           fi
+
+      - name: Mark failed market-data run
+        if: steps.scanner.outcome == 'failure'
+        run: exit 1
