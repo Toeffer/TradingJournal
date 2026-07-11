@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/tradingjournal/candidate-manifest.schema.json",
+  "title": "TradingJournal candidate evidence manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_date",
+    "generated_at",
+    "model",
+    "research_mode",
+    "repository_commit",
+    "method",
+    "enabled_sources",
+    "input_snapshot",
+    "input_snapshot_sha256",
+    "source_counts",
+    "candidates"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "report_date": {"type": "string", "format": "date"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "model": {"type": "string", "minLength": 1},
+    "research_mode": {"type": "string", "minLength": 1},
+    "repository_commit": {"type": "string", "minLength": 7},
+    "method": {"enum": ["screener-first", "catalyst-first", "hybrid"]},
+    "enabled_sources": {"type": "array", "items": {"type": "string"}},
+    "input_snapshot": {"type": "string", "minLength": 1},
+    "input_snapshot_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_counts": {
+      "type": "object",
+      "required": ["opened", "primary"],
+      "properties": {
+        "opened": {"type": "integer", "minimum": 0},
+        "primary": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "candidates": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/candidate"}
+    }
+  },
+  "$defs": {
+    "sourceType": {
+      "enum": ["primary", "market_data", "reputable_secondary", "repository", "other"]
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["claim", "source_type", "location", "accessed_at"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 1},
+        "source_type": {"$ref": "#/$defs/sourceType"},
+        "location": {"type": "string", "minLength": 1},
+        "published_at": {"type": ["string", "null"]},
+        "accessed_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "catalyst": {
+      "type": "object",
+      "required": ["event", "date", "date_status", "source_type", "source_url", "verified_at"],
+      "properties": {
+        "event": {"type": "string", "minLength": 1},
+        "date": {"type": "string", "format": "date"},
+        "date_status": {"enum": ["verified", "secondary_only", "derived", "unverified"]},
+        "source_type": {"$ref": "#/$defs/sourceType"},
+        "source_url": {"type": "string", "minLength": 1},
+        "verified_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "marketData": {
+      "type": "object",
+      "required": ["as_of", "data_source", "price", "avg_dollar_volume"],
+      "properties": {
+        "as_of": {"type": "string", "format": "date-time"},
+        "data_source": {"type": "string", "minLength": 1},
+        "price": {"type": "number", "exclusiveMinimum": 0},
+        "market_cap": {"type": ["number", "null"], "minimum": 0},
+        "avg_dollar_volume": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "setup": {
+      "type": "object",
+      "required": [
+        "direction",
+        "why_now",
+        "entry",
+        "stop",
+        "target",
+        "planned_r",
+        "level_basis",
+        "max_holding_days",
+        "exit_before_catalyst"
+      ],
+      "properties": {
+        "direction": {"enum": ["long", "short"]},
+        "why_now": {"type": "string", "minLength": 1},
+        "entry": {"type": "number", "exclusiveMinimum": 0},
+        "stop": {"type": "number", "exclusiveMinimum": 0},
+        "target": {"type": "number", "exclusiveMinimum": 0},
+        "planned_r": {"type": "number"},
+        "level_basis": {"type": "string", "minLength": 1},
+        "max_holding_days": {"type": "integer", "minimum": 1},
+        "exit_before_catalyst": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "ticker",
+        "company",
+        "classification",
+        "source_tag",
+        "exchange",
+        "currency",
+        "red_team_verdict",
+        "evidence"
+      ],
+      "properties": {
+        "ticker": {"type": "string", "minLength": 1},
+        "company": {"type": "string", "minLength": 1},
+        "classification": {"enum": ["ACTIONABLE", "EARLY_WATCH", "REJECT"]},
+        "source_tag": {"enum": ["routine", "scanner_seed", "routine+scanner_seed", "prior_report"]},
+        "exchange": {"type": "string", "minLength": 1},
+        "currency": {"type": "string", "minLength": 3},
+        "catalyst": {"$ref": "#/$defs/catalyst"},
+        "market_data": {"$ref": "#/$defs/marketData"},
+        "expectations": {"type": "string"},
+        "priced_in": {"type": "string"},
+        "bull_case": {"type": "string"},
+        "bear_case": {"type": "string"},
+        "pre_mortem": {"type": "string"},
+        "risk_rating": {"enum": ["Low", "Medium", "High"]},
+        "confidence": {"enum": ["Low", "Medium", "High"]},
+        "setup": {"$ref": "#/$defs/setup"},
+        "red_team_verdict": {"enum": ["SURVIVE", "DOWNGRADE_EARLY_WATCH", "REJECT"]},
+        "red_team_argument": {"type": "string"},
+        "rejection_reason": {"type": "string"},
+        "next_review_date": {"type": "string", "format": "date"},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
