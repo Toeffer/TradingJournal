@@ -1,39 +1,59 @@
-# RESEARCH_BRIEF.md — Autonomous Weekly Candidate Research
+# RESEARCH_BRIEF.md — Weekly Candidate Research
 
-This is the instruction set for the weekly research routine. It creates a draft
-shortlist for human review; it never creates a trade and never changes risk rules.
+This is the canonical instruction set for Claude, ChatGPT, or any other research-capable
+model. It creates a draft shortlist for human review; it never creates a trade and never
+changes risk rules.
 
 **Not financial advice. Verify every date, price, and claim before acting.**
 
-## Operating principle
+## Canonical method
 
-A distant catalyst is useful for discovery but is not automatically actionable.
-Too much can change between today and the event: price, expectations, financing,
-market regime, and the company itself. The routine therefore uses two horizons:
+Read and follow these files in order:
 
-- **Actionable horizon: 21 calendar days.** A candidate may enter the final
-  shortlist only when its verified catalyst is inside this window.
-- **Early-watch horizon: days 22–42.** These names are recorded separately for
-  follow-up, not presented as current swing-trade candidates.
+1. `research_method/README.md`
+2. `research_method/discovery.md`
+3. `research_method/verification.md`
+4. `research_method/analysis.md`
+5. `research_method/red_team.md`
+6. `research_method/output_schema.md`
 
-Exception: a catalyst 22–42 days away may enter the actionable shortlist only if
-there is a separate, dated, verified intermediate trigger inside 21 days and the
-setup/invalidation are based on that nearer trigger. State the exception plainly.
+Claude-native skills are optional methodology references only. They must not grant Claude
+a different workflow, evidence standard, or output contract from ChatGPT.
 
-For logged proposals, `data/proposals.csv` separately controls the trade horizon:
-10 trading sessions by default, with an explicit `max_holding_days`, and
-`exit_before_catalyst = yes` unless the human deliberately chooses otherwise.
+## Required data pack
 
-## Recommended routine settings
+Immediately before research, generate:
 
-- Run weekly, preferably Sunday evening, using the strongest available model.
-- Web search on; use connected financial data only as a supplement.
-- Work from `main` unless intentionally testing another branch.
-- Read `RISK_RULES.md`, `SETUPS.md`, `ETORO_TRADEABILITY.md`, the latest US/EU
-  scanner reports, and `data/scanner_signals.csv` before research.
-- Scanner names are leads, never evidence or pre-approved ideas.
+```bash
+python scripts/build_research_snapshot.py
+```
 
-## CONFIG
+Use `data/research_snapshot.csv` as the canonical structured market-data input and
+record the SHA-256 from `data/research_snapshot.meta.json`. Connected financial data may
+supplement the snapshot, but it may not silently replace the common comparison input.
+
+Also read:
+
+- `RISK_RULES.md`, `SETUPS.md`, and `ETORO_TRADEABILITY.md`;
+- newest relevant US/EU scanner reports and `data/scanner_signals.csv`;
+- newest prior candidate report and manifest for continuity.
+
+Scanner names are leads, never evidence or pre-approved ideas.
+
+## Operating horizons
+
+A distant catalyst is useful for discovery but is not automatically actionable. Price,
+expectations, financing, regime, and the company can change before the event.
+
+- **Actionable:** verified catalyst or intermediate trigger inside 21 calendar days.
+- **Early Watch:** verified catalyst 22–42 days away with no nearer verified trigger.
+- **Proposal holding period:** 10 trading sessions by default, set explicitly in the
+  proposal with `exit_before_catalyst = yes` unless the human chooses otherwise.
+
+A 22–42-day event may become Actionable only when a separate, dated, primary-source-
+verified trigger inside 21 days creates the current setup. State the exception plainly.
+
+## Configuration
 
 ```text
 REGION:                         US common shares + XETRA shares
@@ -56,163 +76,158 @@ MAX_SCANNER_CANDIDATES:          5
 FIXED_POSITION_SIZE_EUR:       150
 ```
 
-The values in `config/risk.toml` and `RISK_RULES.md` are authoritative for risk
-and holding periods. Do not invent missing values.
+`config/risk.toml` and `RISK_RULES.md` are authoritative for risk and holding periods.
+`ETORO_TRADEABILITY.md` is authoritative for broker availability. Never invent a blank
+value.
 
-## Source quality
+## Source policy
 
 Use sources in this order:
 
-1. Company investor relations, filings, exchange notices, official calendars.
-2. Reputable financial news and market-data providers.
-3. Scanner output as discovery context only.
-4. Analyst notes, blogs, forums, and social media as secondary context only.
+1. Company investor relations, regulatory filings, exchange notices, prospectuses,
+   regulator announcements, and official index/event calendars.
+2. Dated structured market-data providers and the normalized repository snapshot.
+3. Reputable financial news for expectations and context.
+4. Scanner output as discovery context only.
+5. Analyst notes, blogs, forums, newsletters, and social media as leads only.
 
-For European candidates, prefer company Finanzkalender pages, EQS/DGAP, Deutsche
-Börse, RNS, Euronext/SIX notices, and issuer IR pages. Reject an event date that
-cannot be verified from a primary or high-quality source.
+For European candidates prefer issuer Finanzkalender pages, EQS/DGAP, Deutsche Börse,
+RNS, Euronext/SIX notices, and issuer IR pages. For lockup expiries, verify prospectus
+terms, early-release provisions, waivers, and later offerings; never rely on “IPO date +
+N days.”
 
-For lockup expiries, do not rely on “IPO date + N days.” Verify the prospectus,
-underwriting terms, early-release provisions, waivers, and later offerings.
+For every non-US candidate state exchange, currency, local share versus ADR, FX exposure,
+and market hours. Name UK stamp duty for LSE shares.
 
-For every non-US candidate state exchange, currency, local share versus ADR, FX
-exposure, and market hours. Name UK stamp duty for LSE shares.
+### Primary-source gate
 
-## Stage 1 — Broad discovery
+A search snippet, third-party calendar, scanner row, subagent summary, or model memory can
+create a lead but cannot verify a final date. The synthesizing pass must open the primary
+source itself and record it in the JSON manifest.
 
-Build up to `PRELIMINARY_SCAN_COUNT` names with a specific dated catalyst inside
-`DISCOVERY_CATALYST_DAYS`.
+Use these date statuses:
 
-- Source at least `MIN_EU_PRELIMINARY` European names before quality filtering,
-  or explain exactly what EU search came up empty.
-- Include up to `MAX_SCANNER_CANDIDATES` recent scanner names meeting the score
-  threshold, then verify them independently.
-- No more than `MAX_EARNINGS_CANDIDATES` final actionable names may use earnings
-  as the primary catalyst.
-- Prefer structural or already-public catalysts over binary event gambling.
-- Reject names with no clean invalidation, weak liquidity, unverifiable events,
-  overwhelming dilution/gap risk, or a move whose only explanation is “it rose.”
-- Ask for every survivor: “What would make this already priced in?”
+- `verified`: opened primary source states the date or binding window;
+- `secondary_only`: reputable secondary source only;
+- `derived`: calculated rather than explicitly stated;
+- `unverified`: insufficient evidence.
 
-Classify each surviving name immediately:
+Only `verified` may appear as Actionable or Early Watch. All other statuses are Reject.
 
-- `ACTIONABLE`: catalyst in 0–21 days, or a verified intermediate trigger in
-  that range.
-- `EARLY_WATCH`: catalyst in 22–42 days with no nearer verified trigger.
-- `REJECT`: fails evidence, liquidity, tradeability, setup, or risk requirements.
+## Stage 1 — Discovery
 
-A sparse output is success. Do not pad.
+Build up to `PRELIMINARY_SCAN_COUNT` traceable leads inside the 42-day discovery horizon.
 
-## Stage 2 — Actionable shortlist
+- Source at least `MIN_EU_PRELIMINARY` European names before quality filtering, or state
+  precisely what the EU search found and why none qualified.
+- Include up to `MAX_SCANNER_CANDIDATES` recent scanner names meeting the threshold.
+- Record each lead's origin and current snapshot row.
+- Check eToro tradeability before expensive deep research, especially for IPOs.
+- Do not rank names, set stops, or calculate sizes during discovery.
+- Do not pad. A sparse pool is acceptable when evidence is weak.
 
-For each `ACTIONABLE` candidate provide:
+## Stage 2 — Verification
 
-1. Ticker, company, exchange, currency, and one-line description.
-2. Source tag: `routine`, `scanner_seed`, or `routine+scanner_seed`.
-3. Catalyst and exact verified date; days until catalyst.
-4. Why now: the current setup, not merely the future event.
-5. Entry zone, stop/invalidation, realistic first target, and planned R.
-6. Bull case and bear case, including gap/dilution risk.
-7. Priced-in check.
-8. Liquidity and spread note.
-9. Risk rating: Low / Medium / High, with reasons.
-10. Risk per share and fixed-size arithmetic using €150 only.
-11. Confidence and what would raise it.
-12. Flags: `ACT-NOW` when inside 7 days; `REPEAT` when carried from last week.
-13. Recent primary/high-quality citations.
+For every plausible survivor:
 
-A candidate without entry, stop, target, and planned R is research context, not a
-proposal. Do not silently promote it to `data/proposals.csv`.
+- open and record the primary catalyst source;
+- verify event date and mechanics, and confirm it has not moved or already occurred;
+- verify market data with the snapshot or another dated structured source;
+- check intervening earnings, financing, dilution, offerings, waivers, and lockups;
+- record claim-level evidence with access timestamps in the manifest.
 
-## Stage 3 — Early-watch list
+A non-rejected candidate needs at least:
 
-For each `EARLY_WATCH` name provide only:
+- one primary catalyst source;
+- one structured market-data source;
+- expectations/priced-in evidence or an explicit statement that it is unknown.
 
-- Catalyst and verified date.
-- Days until catalyst.
-- Why it may matter.
-- What must happen before promotion to `ACTIONABLE`.
-- Next review date, normally the following weekly run.
-- Main invalidation or reason to remove it.
+## Stage 3 — Classification and analysis
 
-Do not calculate a trade size or call an early-watch name a current setup.
+Classify every discussed lead:
 
-## Stage 4 — Deep dives
+- `ACTIONABLE`: verified trigger inside 0–21 days and a current setup;
+- `EARLY_WATCH`: verified catalyst 22–42 days away, or a real event without a current
+  defensible setup;
+- `REJECT`: fails evidence, tradeability, liquidity, expectations, setup, or risk.
 
-Deep-dive up to `NUM_DEEP_DIVES` actionable front-runners by setup quality,
-confidence, and reward-to-risk—not by excitement or theoretical upside.
+No more than `MAX_EARNINGS_CANDIDATES` final Actionable names may use earnings as the
+primary catalyst. Prefer structural or already-public catalysts over binary event gambling.
 
-For each, cover:
+### Actionable requirements
 
-- Catalyst mechanics and what the market expects.
-- Bull/base/bear scenarios.
-- Support, resistance, entry, target, and invalidation.
-- Financing, dilution, insider, short-interest, and event-gap risks where relevant.
-- Pre-mortem: assume the idea lost; identify the most likely ignored fact.
-- Explicit plan: exit before catalyst or deliberately hold through it.
-- Suggested `max_holding_days` (normally 5–10 trading sessions).
+For each Actionable candidate provide:
 
-## Multi-agent discipline
+1. Ticker, company, exchange, currency, and source tag.
+2. Verified catalyst mechanics, exact date, days remaining, and primary-source URL.
+3. Why now: the present setup, not the future event alone.
+4. Market expectations and priced-in assessment.
+5. Entry, initial stop/invalidation, first target, planned R, and the basis of each level.
+6. Bull, base, and bear scenarios.
+7. Liquidity, spread, financing, dilution, event-gap, insider, short, and FX risks.
+8. Risk rating and confidence, including evidence that would change either.
+9. Exit-before-catalyst policy and maximum holding days.
+10. Pre-mortem and red-team verdict.
 
-Subagent findings are leads, not evidence. The synthesizing agent must open and
-verify the primary source used for every final catalyst date. State whether the
-run was screener-first, catalyst-first, or hybrid and whether parallel agents
-were used.
+A stop may not be a broker-page day-low proxy merely because it is convenient. Tie levels
+to actual structure or thesis invalidation. A candidate without a defensible entry, stop,
+target, and planned R of at least 1.5 is Early Watch or Reject—not a proposal.
 
-## Output and collision rule
+### Early Watch requirements
 
-Before writing, check whether `research/candidates-YYYY-MM-DD.md` exists.
-Never overwrite it. A second same-day run writes
-`research/candidates-YYYY-MM-DD-HHMM.md` and references the earlier file.
+For each Early Watch name provide:
 
-Use this structure:
+- verified catalyst mechanics, date, and days remaining;
+- why it may matter;
+- promotion condition and next review date;
+- removal condition;
+- primary-source evidence.
 
-```markdown
-# Candidate Research — YYYY-MM-DD
-DRAFT for human review. Verify all dates and numbers.
+Do not calculate size or present Early Watch as a current trade setup.
 
-## Summary
-- Method and region mix
-- Scanner inputs used
-- Actionable count / early-watch count / rejected count
+## Stage 4 — Red team
 
-## Actionable Shortlist — catalyst inside 21 days
-### 1. TICKER — Company
-- Catalyst / date / days remaining:
-- Source tag / scanner context:
-- Why now:
-- Entry / stop / target / planned R:
-- Bull / bear / priced-in:
-- Liquidity / risk rating:
-- Risk per share / €150 arithmetic:
-- Exit before catalyst?: yes/no
-- Max holding days:
-- Flags:
-- Sources:
+Run a separate skeptical pass over every survivor. Attack date accuracy, event materiality,
+expectations, crowding, financing/dilution, arbitrary levels, gap risk, liquidity, and
+intervening events.
 
-## Early Watch — catalyst 22–42 days away
-### TICKER — Company
-- Catalyst / date / days remaining:
-- Promotion condition:
-- Next review date:
-- Removal condition:
-- Sources:
+Use one verdict:
 
-## Rejected Candidates
-- TICKER — exact rejection reason
+- `SURVIVE`
+- `DOWNGRADE_EARLY_WATCH`
+- `REJECT`
 
-## Deep Dives
-...
+Only `SURVIVE` may remain Actionable. Do not weaken bear cases to preserve shortlist size.
+
+## Required outputs
+
+Before writing, check for a same-day file and never overwrite it. A repeated run adds
+`-HHMM` to both filenames.
+
+```text
+research/candidates-YYYY-MM-DD.md
+research/manifests/candidates-YYYY-MM-DD.json
 ```
+
+The Markdown report is the concise human analysis. The JSON manifest is the evidence and
+compliance contract and must follow `research_method/candidate_manifest.schema.json`.
+Do not add a repetitive compliance table to the Markdown report.
+
+Run:
+
+```bash
+python scripts/validate_candidate_manifest.py research/manifests/candidates-YYYY-MM-DD.json
+```
+
+Fix validation errors before committing. Nothing in this workflow writes to `trades.csv`
+or `data/proposals.csv`.
 
 ## Success criteria
 
-- Every actionable catalyst is within 21 days unless a nearer intermediate
-  trigger is explicitly verified.
-- Every 22–42-day name is in Early Watch, not the actionable shortlist.
-- Every final date has a primary or high-quality source.
-- Entry, stop, target, planned R, exit-before-event policy, and holding horizon
-  are explicit for actionable names.
+- All models use the same method, snapshot, horizon, and output schema.
+- Every Actionable and Early Watch date has an opened primary source in the manifest.
+- Every market number has a date and source.
+- Every Actionable level has an evidence-based technical or thesis rationale.
+- Every Actionable candidate survived the red-team pass.
 - A no-candidate week is allowed and recorded honestly.
-- Nothing writes to `trades.csv`; only an explicit human statement that a trade
-  occurred can do that.
+- Model comparisons use `research_method/evaluation_rubric.md` and multiple matched runs.
