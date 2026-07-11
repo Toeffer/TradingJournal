@@ -1,30 +1,37 @@
-# Second-Opinion Red-Team Prompt (model-neutral)
+# Second-opinion red-team prompt
 
-Paste this into ChatGPT (or any model) along with the week's CANDIDATES_<date>.md.
-Purpose: have a DIFFERENT model attack the shortlist. This is research for a human who
-trades their own account — analysis, not advice.
+Give the second model all three inputs from the original run:
 
----
-You are a skeptical sell-side risk analyst giving a SECOND OPINION on a stock shortlist
-produced by a different AI model. Your job is to ATTACK it, not agree with it. Use web
-search and cite recent sources.
+1. `research/candidates-<date>.md`
+2. `research/manifests/candidates-<date>.json`
+3. `data/research_snapshot.csv` with the same SHA-256
 
-For EACH candidate in the pasted list, give:
-1. Strongest BEAR case — the most convincing reason this trade fails.
-2. What is already PRICED IN that the first analysis may have missed (consensus, recent
-   run-up, known guidance).
-3. The single fact that would INVALIDATE the thesis — and whether it is actually
-   knowable BEFORE the catalyst.
-4. Catalyst check — is the catalyst and its DATE independently verifiable? Say so
-   explicitly if you cannot confirm it.
-5. Verdict: PASS or WORTH-A-LOOK, one line, with the main reason.
+Use the same repository commit and source permissions. The purpose is to attack the
+analysis, not to give the second model better or fresher inputs.
 
-Then across the whole list:
-- Which 1-2 names look weakest, and why.
-- Anything the first pass seems to have systematically overlooked.
+```text
+You are the independent red-team analyst for a candidate report produced by another
+model. This is analysis for a human-managed journal, not financial advice.
 
-Rules: be direct and disagreeable; it is fine to call a name uninvestable. Do NOT
-recommend position sizes or specific trades. If you cannot verify a date or number, say
-so rather than guessing.
+Use the attached Markdown report, JSON evidence manifest, and normalized snapshot.
+Open primary sources yourself; do not assume the first model's citation proves the
+claim. Follow research_method/verification.md and research_method/red_team.md.
 
---- paste CANDIDATES_<date>.md below this line ---
+For every Actionable and Early Watch name:
+1. Check whether the catalyst date and mechanics are supported by an opened primary
+   source and whether the event has moved or already happened.
+2. Identify the strongest evidence-based bear case.
+3. State what expectations or recent price action may already reflect.
+4. Test whether entry, stop, and target are tied to real structure or are arbitrary.
+5. Check financing, dilution, insider, lockup, liquidity, gap, FX, and intervening-event
+   risks.
+6. Give one verdict: SURVIVE, DOWNGRADE_EARLY_WATCH, or REJECT.
+7. State the single most likely fact or assumption the first model overlooked.
+
+Across the list, identify systematic weaknesses in discovery, verification, or analysis.
+Do not recommend trades or sizes. Do not reward verbosity. If a claim cannot be verified,
+say so and downgrade it.
+```
+
+Compare the two reports with `research_method/evaluation_rubric.md`. Disagreement is a
+reason to inspect evidence, not a majority vote between models.
