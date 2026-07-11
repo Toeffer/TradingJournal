@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-07-11T11:54:26+00:00",
+  "generated_at": "2026-07-11T11:59:24.523063+00:00",
   "row_count": 13,
   "schema_version": 1,
-  "sha256": "ee3c1067fd7cd044473586c97e95a02501a7c905e797f390979dcbb1bcbf51a0",
+  "sha256": "e7599d5b012415f1497439cfc954d7b8fcf2790e0ced677fabd07b1588159adc",
   "source_files": [
     "data/scanner_signals.csv",
     "data/market_regime.csv"
