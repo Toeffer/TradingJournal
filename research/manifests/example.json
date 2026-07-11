@@ -1,11 +1,20 @@
 {
   "schema_version": 1,
-  "report_date": "YYYY-MM-DD",
-  "generated_at": "YYYY-MM-DDTHH:MM:SSZ",
-  "model": "model name",
-  "research_mode": "deep_research|standard|other",
+  "report_date": "2026-07-11",
+  "generated_at": "2026-07-11T11:54:26+00:00",
+  "model": "example-model",
+  "research_mode": "deep_research",
+  "repository_commit": "replace-with-run-commit",
+  "method": "hybrid",
+  "enabled_sources": [
+    "github",
+    "public_web"
+  ],
   "input_snapshot": "data/research_snapshot.csv",
-  "input_snapshot_sha256": "",
-  "method": "screener-first|catalyst-first|hybrid",
+  "input_snapshot_sha256": "ee3c1067fd7cd044473586c97e95a02501a7c905e797f390979dcbb1bcbf51a0",
+  "source_counts": {
+    "opened": 0,
+    "primary": 0
+  },
   "candidates": []
 }
