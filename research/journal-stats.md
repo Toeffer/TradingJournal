@@ -1,7 +1,7 @@
 # Journal Stats
 
-Auto-generated from `trades.csv` on 2026-07-08 13:36 UTC. Do not edit by hand.
-Arithmetic only — the behavioral review in AGENTS.md is still the real review.
+Auto-generated from `trades.csv` on 2026-07-11 11:45 UTC. Do not edit by hand.
+Arithmetic and executable rule checks only; the behavioral review remains human work.
 
 ## Closed trades
 
@@ -43,6 +43,18 @@ Arithmetic only — the behavioral review in AGENTS.md is still the real review.
 | 2026-W27 | 9 | +2.93 | ok |
 | 2026-W28 | 2 | -2.00 | ok |
 
+### Realized R by day
+
+| Date | Trades closed | Realized R | Daily limit (-2.0R) |
+|---|---:|---:|---|
+| 2026-06-25 | 1 | — | ok |
+| 2026-06-29 | 2 | -1.00 | ok |
+| 2026-06-30 | 3 | +5.81 | ok |
+| 2026-07-01 | 1 | -0.31 | ok |
+| 2026-07-02 | 3 | -1.57 | ok |
+| 2026-07-07 | 1 | -1.00 | ok |
+| 2026-07-08 | 1 | -1.00 | ok |
+
 ## Open positions
 
 | Trade | Ticker | Sector | Entry | Stop | Size (€) | Catalyst date |
@@ -52,9 +64,13 @@ Arithmetic only — the behavioral review in AGENTS.md is still the real review.
 | 2026-0014 | OPFI | — | 9.93 | 9.00 | 85 | — |
 | 2026-0016 | CELH | — | 33.16 | 31.06 | 150 | 2026-08-06 |
 
-## Rule checks (RISK_RULES.md)
+## Rule checks (config/risk.toml)
 
+- ⚠️ 2026-0003 (AYI): held through binary event at €138.00 > €75 half-size cap.
 - ⚠️ 2026-0007 (ALI1.DE): size €174.19 > €150 cap.
+- ⚠️ 2026-0013 (MSM): held through binary event at €150.00 > €75 half-size cap.
+- ⚠️ 2026-0018 (VERA): held through binary event at €150.00 > €75 half-size cap.
+- ⚠️ Consecutive-loss pause active: 3 losses; no new trade before 2026-07-11.
 
 ## Data gaps (fill these for the review to work)
 
