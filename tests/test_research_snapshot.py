@@ -1,4 +1,12 @@
-from scripts.build_research_snapshot import build_rows, latest_signals, listing_for
+from datetime import date, datetime, timezone
+
+from scripts.build_research_snapshot import (
+    active_discovery_seeds,
+    build_rows,
+    latest_signals,
+    listing_for,
+    recent_signals,
+)
 
 
 def test_latest_signal_per_market_and_ticker() -> None:
@@ -33,7 +41,84 @@ def test_snapshot_calculates_dollar_volume_and_listing() -> None:
     assert output[0]["currency"] == "EUR"
     assert output[0]["avg_dollar_volume"] == "2000000"
     assert output[0]["market_regime"] == "neutral"
+    assert output[0]["score"] == "70"
+    assert output[0]["discovery_seed"] == "false"
 
 
 def test_listing_defaults_to_usd() -> None:
     assert listing_for("ABC", "US") == ("US", "USD")
+
+
+def test_recent_signals_drops_rows_outside_lookback() -> None:
+    rows = [
+        {"ticker": "OLD", "market": "US", "timestamp": "2026-07-01T12:00:00Z"},
+        {"ticker": "NEW", "market": "US", "timestamp": "2026-07-09T12:00:00Z"},
+    ]
+
+    result = recent_signals(
+        rows,
+        as_of=datetime(2026, 7, 12, 12, tzinfo=timezone.utc),
+        lookback_days=7,
+    )
+
+    assert [row["ticker"] for row in result] == ["NEW"]
+
+
+def test_expired_manual_seed_is_not_active() -> None:
+    seeds = [
+        {
+            "ticker": "OLD",
+            "added_at": "2026-07-01",
+            "expires_at": "2026-07-06",
+        },
+        {
+            "ticker": "NEW",
+            "added_at": "2026-07-11",
+            "expires_at": "2026-07-13",
+        },
+    ]
+
+    active = active_discovery_seeds(seeds, as_of=date(2026, 7, 12), max_age_days=2)
+
+    assert set(active) == {"NEW"}
+
+
+def test_legacy_finviz_bonus_is_removed_from_quantitative_score() -> None:
+    rows = [
+        {
+            "ticker": "ABC",
+            "market": "US",
+            "timestamp": "2026-07-09T12:00:00Z",
+            "price": "10",
+            "avg_volume_20d": "1000000",
+            "source": "alpaca+finviz_manual",
+            "score": "70",
+        }
+    ]
+
+    output = build_rows(rows, "mixed", active_seeds={})
+
+    assert output[0]["score"] == "60"
+    assert output[0]["signal_source"] == "alpaca"
+    assert output[0]["legacy_seed_tag"] == "true"
+    assert output[0]["discovery_seed"] == "false"
+
+
+def test_active_manual_seed_is_separate_from_score() -> None:
+    rows = [
+        {
+            "ticker": "ABC",
+            "market": "US",
+            "timestamp": "2026-07-13T12:00:00Z",
+            "price": "10",
+            "avg_volume_20d": "1000000",
+            "source": "alpaca+finviz_manual",
+            "score": "60",
+        }
+    ]
+
+    output = build_rows(rows, "mixed", active_seeds={"ABC": {"ticker": "ABC"}})
+
+    assert output[0]["score"] == "60"
+    assert output[0]["discovery_seed"] == "true"
+    assert output[0]["discovery_seed_source"] == "finviz_manual"
