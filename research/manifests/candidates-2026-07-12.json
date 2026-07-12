@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-07-12",
+  "generated_at": "2026-07-12T17:00:46Z",
+  "model": "GPT-5.6 Thinking",
+  "research_mode": "hybrid evidence-gated",
+  "repository_commit": "9035c40be27fe0d45887596cbdddb9f58c45fc62",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "data/scanner_signals.csv",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "e7599d5b012415f1497439cfc954d7b8fcf2790e0ced677fabd07b1588159adc",
+  "source_counts": {
+    "opened": 12,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "QIA.DE",
+      "company": "QIAGEN",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-07-09T18:07:52+02:00",
+        "data_source": "repository snapshot / yahoo",
+        "price": 36.67,
+        "market_cap": null,
+        "avg_dollar_volume": 26399508.57
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "No opened issuer primary source verified a catalyst inside 42 days; snapshot market cap is missing and eToro Germany/EU stock tradeability was not independently verified.",
+      "rejection_reason": "Failed primary-source catalyst, broker-verification and market-cap evidence gates; scanner score 68 is below threshold 70.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows price 36.67, score 68 and average dollar volume 26399508.57 as of 2026-07-09.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#QIA.DE",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RIVN",
+      "company": "Rivian Automotive",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-09T18:14:23+02:00",
+        "data_source": "repository snapshot / alpaca+finviz_manual",
+        "price": 17.915,
+        "market_cap": null,
+        "avg_dollar_volume": 31678336.7
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The move is a scanner anomaly, not evidence of a forward catalyst; no primary-source event or evidence-based setup was verified.",
+      "rejection_reason": "No verified catalyst, missing market-cap evidence and no defensible setup levels.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows price 17.915, score 63 and average dollar volume 31678336.7 as of 2026-07-09.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#RIVN",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HOOD",
+      "company": "Robinhood Markets",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-03T17:35:43+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 112.71,
+        "market_cap": null,
+        "avg_dollar_volume": 109945398.4
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "High scanner score and liquidity do not replace a current primary catalyst, current market-cap classification or structure-based levels.",
+      "rejection_reason": "No verified forward catalyst or current setup; snapshot observation is stale relative to the report date.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows price 112.71, score 70 and average dollar volume 109945398.4 as of 2026-07-03.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#HOOD",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CELH",
+      "company": "Celsius Holdings",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-03T17:35:43+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 33.185,
+        "market_cap": null,
+        "avg_dollar_volume": 14027984.77
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Liquidity is only conditional and no primary catalyst was verified.",
+      "rejection_reason": "Conditional liquidity, score below threshold and no verified catalyst.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows average dollar volume 14027984.77 and score 60.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#CELH",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SMMT",
+      "company": "Summit Therapeutics",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-03T17:35:43+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 15.44,
+        "market_cap": null,
+        "avg_dollar_volume": 5871617.38
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Average dollar volume is below the conditional US floor, making catalyst work unnecessary.",
+      "rejection_reason": "Fails liquidity gate.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows average dollar volume 5871617.38.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#SMMT",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HIMS",
+      "company": "Hims & Hers Health",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-01T22:52:59+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 37.54,
+        "market_cap": null,
+        "avg_dollar_volume": 22030135.02
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Conditional liquidity and an old scanner signal cannot support a present setup without a verified catalyst.",
+      "rejection_reason": "Conditional liquidity, score below threshold and no verified catalyst.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows average dollar volume 22030135.02 and score 56.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#HIMS",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "company": "General Mills",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-01T22:52:59+02:00",
+        "data_source": "repository snapshot / alpaca+finviz_manual",
+        "price": 37.805,
+        "market_cap": null,
+        "avg_dollar_volume": 27713853.12
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The stale scanner move and preferred liquidity do not overcome missing market cap and catalyst evidence.",
+      "rejection_reason": "No verified catalyst; likely outside preferred universe; stale signal.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows average dollar volume 27713853.12 and score 59.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#GIS",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SOFI",
+      "company": "SoFi Technologies",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-01T19:28:26+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 18.715,
+        "market_cap": null,
+        "avg_dollar_volume": 34814130.53
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Relative volume was below trigger and no catalyst or current setup was verified.",
+      "rejection_reason": "No verified catalyst; score 50 and below-trigger relative volume.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows score 50, relative volume 0.8226 and average dollar volume 34814130.53.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#SOFI",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TOST",
+      "company": "Toast",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-01T18:12:08+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 29.015,
+        "market_cap": null,
+        "avg_dollar_volume": 26994235.82
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The signal lacked relative-volume confirmation and no catalyst was verified.",
+      "rejection_reason": "No verified catalyst; score 50 and below-trigger relative volume.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows score 50, relative volume 0.5126 and average dollar volume 26994235.82.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#TOST",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PLTR",
+      "company": "Palantir Technologies",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-01T22:52:59+02:00",
+        "data_source": "repository snapshot / alpaca+finviz_manual",
+        "price": 131.97,
+        "market_cap": null,
+        "avg_dollar_volume": 149237093.37
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "It falls into the default-excluded crowded headline AI/mega-cap category and no exception was justified.",
+      "rejection_reason": "Default universe exclusion; no exception-quality setup.",
+      "evidence": [
+        {
+          "claim": "Snapshot row shows price 131.97 and average dollar volume 149237093.37.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#PLTR",
+          "published_at": "2026-07-11T11:59:24Z",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RHM.DE",
+      "company": "Rheinmetall",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Prior work placed the company above the default exclusion threshold and no current exception-quality setup was verified.",
+      "rejection_reason": "Market-cap exclusion and no current verified setup.",
+      "evidence": [
+        {
+          "claim": "Prior report rejected Rheinmetall because market cap was around EUR 52B, above the default threshold.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-07-05.md#Rejected-Candidates",
+          "published_at": "2026-07-05",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HAG.DE",
+      "company": "Hensoldt",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "No opened issuer primary source verified a catalyst inside 42 days, and no current snapshot row exists.",
+      "rejection_reason": "Failed primary-source catalyst and current market-data gates.",
+      "evidence": [
+        {
+          "claim": "Prior report also rejected Hensoldt for lacking a clean primary-source dated catalyst.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-07-05.md#Rejected-Candidates",
+          "published_at": "2026-07-05",
+          "accessed_at": "2026-07-12T17:00:46Z"
+        }
+      ]
+    }
+  ]
+}
