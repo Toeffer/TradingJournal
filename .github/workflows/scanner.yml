@@ -96,10 +96,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Archive expired manual seeds
-        if: steps.timing.outputs.should_run != 'false'
-        run: python scanner/expire_finviz_seeds.py
-
       - name: Run scanner
         id: scanner
         if: steps.timing.outputs.should_run != 'false'
@@ -109,7 +105,7 @@ jobs:
           APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
         run: |
           set +e
-          OUTPUT=$(python scanner/run_scan.py 2>&1)
+          OUTPUT=$(python scanner/run_scan_safe.py 2>&1)
           STATUS=$?
           set -e
           printf '%s\n' "$OUTPUT"
@@ -140,6 +136,10 @@ jobs:
         if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
         run: python scanner/draft_proposals.py
 
+      - name: Refresh research snapshot
+        if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
+        run: python scripts/build_research_snapshot.py
+
       - name: Validate source data
         if: steps.timing.outputs.should_run != 'false' && steps.scanner.outcome == 'success'
         run: python scripts/validate_data.py
@@ -149,7 +149,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for path in data/scanner_signals.csv data/market_regime.csv data/proposals.csv data/finviz_watchlist.csv data/finviz_watchlist_archive.csv research/scans research/scanner-summary.md research/proposal-stats.md research/proposal-drafts.md; do
+          for path in data/scanner_signals.csv data/market_regime.csv data/research_snapshot.csv data/research_snapshot.meta.json data/proposals.csv data/finviz_watchlist.csv data/finviz_watchlist_archive.csv research/scans research/scanner-summary.md research/proposal-stats.md research/proposal-drafts.md; do
             [ -e "$path" ] && git add "$path"
           done
           if git diff --cached --quiet; then
