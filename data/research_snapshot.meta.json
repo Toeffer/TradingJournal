@@ -1,10 +1,12 @@
 {
-  "generated_at": "2026-07-11T11:59:24.523063+00:00",
-  "row_count": 13,
-  "schema_version": 1,
-  "sha256": "e7599d5b012415f1497439cfc954d7b8fcf2790e0ced677fabd07b1588159adc",
+  "generated_at": "2026-07-12T17:37:38.636536+00:00",
+  "research_snapshot_lookback_days": 7,
+  "row_count": 2,
+  "schema_version": 2,
+  "sha256": "107ae7682d1342fbfe303e4ffa9830b2a5a3481ccca9a93125cfa6c1bff2a805",
   "source_files": [
     "data/scanner_signals.csv",
-    "data/market_regime.csv"
+    "data/market_regime.csv",
+    "data/finviz_watchlist.csv"
   ]
 }
