@@ -16,7 +16,7 @@ rules, stages, and output schema.
 Build the normalized data pack with:
 
 ```bash
-python scripts/build_research_snapshot.py
+python scripts/build_research_snapshot.py --archive
 ```
 
 ## Required sequence

@@ -106,3 +106,25 @@ def test_actionable_horizon_is_enforced(tmp_path: Path) -> None:
     errors = validate_manifest(manifest, root=tmp_path)
 
     assert any("expected 0..21" in error for error in errors)
+
+
+def test_refreshed_snapshot_passes_when_archive_matches(tmp_path: Path) -> None:
+    manifest = valid_manifest(tmp_path)
+    live = tmp_path / "data/research_snapshot.csv"
+    archive = tmp_path / "research/snapshots/research_snapshot-2026-01-01.csv"
+    archive.parent.mkdir(parents=True)
+    archive.write_bytes(live.read_bytes())
+    # Automation refreshes the live snapshot after the research run.
+    live.write_text("ticker,price\nXYZ,99\n", encoding="utf-8")
+
+    assert validate_manifest(manifest, root=tmp_path) == []
+
+
+def test_refreshed_snapshot_fails_without_matching_archive(tmp_path: Path) -> None:
+    manifest = valid_manifest(tmp_path)
+    live = tmp_path / "data/research_snapshot.csv"
+    live.write_text("ticker,price\nXYZ,99\n", encoding="utf-8")
+
+    errors = validate_manifest(manifest, root=tmp_path)
+
+    assert any("input_snapshot_sha256" in error for error in errors)

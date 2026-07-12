@@ -226,43 +226,48 @@ Run the same prompt in Claude and GPT. Overlap is higher priority; disagreement 
 ## EU scanner (XETRA/LSE)
 
 `scanner/run_scan_eu.py` (workflow: `.github/workflows/scanner-eu.yml`) scans the
-`scanner/universe_eu.txt` universe on FMP real-time quotes — XETRA-first, because
-XETRA trades in EUR (no FX on a EUR account) and has no UK stamp duty; LSE `.L`
-symbols are supported but each buy costs 0.5% stamp duty plus GBP exposure.
+`scanner/universe_eu.txt` universe — XETRA-first, because XETRA trades in EUR
+(no FX on a EUR account) and has no UK stamp duty; LSE `.L` symbols are
+supported but each buy costs 0.5% stamp duty plus GBP exposure.
 
 Data sources — a free-by-default chain, because the Phase 1 rule says no paid
-data before the pipeline proves itself:
+data before the pipeline proves itself. **Yahoo is primary** (since
+2026-07-12): it is the only source that has actually delivered data from
+GitHub-hosted runners, and trying the dead sources first stamped 2-3 failure
+warnings into every report.
 
-1. **FMP** — only if the optional `FMP_API_KEY` secret is set (richest
-   fields). Not required; don't buy a plan for this.
-2. **Twelve Data** (`scanner/twelvedata_eu.py`) — only if the
-   `TWELVE_DATA_API_KEY` secret is set. **The free Basic plan does NOT
-   include XETRA/LSE market data** (diagnosed 2026-07-04: `/quote` returns
-   404/symbol-not-found for XETRA and LSE symbols that the free `/stocks`
-   directory itself lists; `plan_category: basic`). The integration stays
-   wired for a possible future plan upgrade — with a paid plan it is the
-   best source here because the quote payload includes `previous_close` and
-   `average_volume`. It is paced to the plan's per-minute credit limit
-   (config `[eu.twelvedata] credits_per_minute`), and fails fast when the
-   entire first batch is rejected so a gated plan costs seconds, not
-   minutes, before falling through to Yahoo.
-3. **Stooq** keyless CSV — works from residential IPs, but is unusable from
-   GitHub-hosted runners: Stooq rate-limits/blocks the shared runner egress
-   IPs (observed 2026-07-03 — every scan got HTTP 404 on batch quotes and the
-   seeder got empty 200 responses for all 46 tickers). Note Stooq uses `.UK`
-   where eToro/FMP use `.L` — the tooling maps this automatically.
-4. **Yahoo Finance** chart API (`scanner/yahoo_eu.py`) — keyless, one request
+1. **Yahoo Finance** chart API (`scanner/yahoo_eu.py`) — keyless, one request
    per ticker, same symbol format as the repo. Each response also carries ~6
    months of daily bars, which the scanner merges into
    `data/eu_quote_history.csv` (fill-missing only), so the history warm-up
    disappears without any seeding step.
+2. **FMP** — only if the optional `FMP_API_KEY` secret is set (richest
+   fields). Not required; don't buy a plan for this.
+3. **Twelve Data** (`scanner/twelvedata_eu.py`) — only if the
+   `TWELVE_DATA_API_KEY` secret is set. **The free Basic plan does NOT
+   include XETRA/LSE market data** (diagnosed 2026-07-04, reconfirmed
+   2026-07-09: `/quote` returns 404/symbol-not-found for XETRA and LSE
+   symbols that the free `/stocks` directory itself lists; `plan_category:
+   basic`). The integration stays wired for a possible future plan upgrade —
+   with a paid plan it is the best source here because the quote payload
+   includes `previous_close` and `average_volume`. It is paced to the plan's
+   per-minute credit limit (config `[eu.twelvedata] credits_per_minute`),
+   and fails fast when the entire first batch is rejected so a gated plan
+   costs seconds, not minutes.
+4. **Stooq** keyless CSV — works from residential IPs, but is unusable from
+   GitHub-hosted runners: Stooq rate-limits/blocks the shared runner egress
+   IPs (observed 2026-07-03 — every scan got HTTP 404 on batch quotes and the
+   seeder got empty 200 responses for all 46 tickers). Note Stooq uses `.UK`
+   where eToro/FMP use `.L` — the tooling maps this automatically.
 
-Each scan report names the source actually used in its `Data:` line.
+Each scan report names the source actually used in its `Data:` line. As long
+as Yahoo keeps answering, the fallbacks are never attempted and reports carry
+no source warnings.
 
 The scanner self-accumulates history into `data/eu_quote_history.csv` — every
 run upserts today's bar, and the 17:40 post-close run finalizes it.
 
-**Seeding is now optional**: the Yahoo fallback backfills ~6 months of daily
+**Seeding is now optional**: Yahoo (the primary source) backfills ~6 months of daily
 bars automatically on every successful scheduled run, so the 20d/50d breakout
 components are fully active from the first scan that reaches Yahoo. The Stooq
 seeder (`python scanner/seed_eu_history.py`) still works **locally from a

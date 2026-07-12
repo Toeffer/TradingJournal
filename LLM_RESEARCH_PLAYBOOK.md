@@ -28,7 +28,7 @@ references only and cannot alter the evidence standard or output contract.
 2. Generate the common data pack:
 
    ```bash
-   python scripts/build_research_snapshot.py
+   python scripts/build_research_snapshot.py --archive
    ```
 
 3. Record the snapshot SHA-256 from `data/research_snapshot.meta.json`.

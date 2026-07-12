@@ -8,7 +8,7 @@ separate from Claude-native skills and follows `research_method/` exactly.
 1. Generate and commit the normalized data pack first:
 
    ```bash
-   python scripts/build_research_snapshot.py
+   python scripts/build_research_snapshot.py --archive
    ```
 
 2. Start **Deep research** in ChatGPT rather than standard chat for the research pass.

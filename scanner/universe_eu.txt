@@ -13,7 +13,8 @@ HAG.DE
 KGX.DE
 MTX.DE
 RHM.DE
-RNK.DE
+# Renk Group: XETRA symbol is R3NK (RNK.DE returns no data on Yahoo/FMP)
+R3NK.DE
 SIE.DE
 TKA.DE
 

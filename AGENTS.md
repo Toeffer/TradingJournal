@@ -30,7 +30,7 @@ python scripts/validate_data.py
 Before a weekly research run, generate:
 
 ```bash
-python scripts/build_research_snapshot.py
+python scripts/build_research_snapshot.py --archive
 ```
 
 Before committing a candidate report, validate its paired manifest:

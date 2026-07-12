@@ -78,7 +78,7 @@ advice.
 5. Generate the normalized research data pack before a model run:
 
    ```bash
-   python scripts/build_research_snapshot.py
+   python scripts/build_research_snapshot.py --archive
    ```
 
 6. Validate every new candidate manifest:
@@ -151,7 +151,7 @@ Proposals use a separate trading horizon:
 ## Scanner workflow
 
 The US scanner uses Alpaca IEX data and optional manual Finviz discovery seeds. The EU
-scanner uses the configured FMP / Twelve Data / Stooq / Yahoo fallback chain and stores
+scanner uses the configured Yahoo / FMP / Twelve Data / Stooq fallback chain and stores
 local daily history.
 
 Manual Finviz rows require `added_at` and may specify `expires_at`. The scheduled US

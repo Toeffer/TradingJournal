@@ -25,7 +25,7 @@ a different workflow, evidence standard, or output contract from ChatGPT.
 Immediately before research, generate:
 
 ```bash
-python scripts/build_research_snapshot.py
+python scripts/build_research_snapshot.py --archive
 ```
 
 Use `data/research_snapshot.csv` as the canonical structured market-data input and

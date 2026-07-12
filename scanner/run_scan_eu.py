@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""EU (XETRA/LSE) unusual-volume scanner on FMP real-time quotes.
+"""EU (XETRA/LSE) unusual-volume scanner.
 
 Same philosophy as run_scan.py: candidate discovery and measurement, never a
 trade signal, never writes to trades.csv. Differences forced by data reality:
 
-- Data source: Stooq's keyless CSV endpoints by default (free, delayed ~15min;
-  see stooq_eu.py); FMP batch quotes are used instead when the optional
-  FMP_API_KEY secret is set (richer fields: previousClose, avgVolume). Either
-  way the script self-accumulates history into data/eu_quote_history.csv (see
-  eu_history.py); the final run of each day finalizes that day's bar, and
-  scanner/seed_eu_history.py can pre-fill the history from Stooq daily data.
+- Data source: Yahoo's keyless chart API by default — the one free source that
+  works from GitHub-hosted runners (see fetch_quotes for the full chain:
+  Yahoo > FMP if keyed > Twelve Data if keyed > Stooq). Yahoo also returns
+  daily history bars, which are merged into the self-accumulated
+  data/eu_quote_history.csv (see eu_history.py); the final run of each day
+  finalizes that day's bar.
 - Derived metrics degrade gracefully while history builds: day-move and
   price-vs-open work from day one; the quote's own avgVolume is used for
-  relative volume when FMP provides it, otherwise the accumulated 20d average;
-  breakout components activate once min_history_days_for_breakout is reached.
+  relative volume when the source provides it, otherwise the accumulated 20d
+  average; breakout components activate once min_history_days_for_breakout is
+  reached.
 - Session model per exchange: XETRA 09:00-17:30 Europe/Berlin, LSE 08:00-16:30
   Europe/London.
 
@@ -90,22 +91,34 @@ def fetch_quotes(
     history bars by ticker, non-fatal warnings).
 
     Source chain — free by default, per the Phase 1 rule of not paying
-    for data before the pipeline proves itself:
-    1. FMP, only if the optional FMP_API_KEY is set (richest fields).
-    2. Twelve Data, only if TWELVE_DATA_API_KEY is set (free Basic plan
-       works: has previous_close and average_volume; paced to the plan's
-       8-credits/minute limit, so a 46-ticker scan takes ~6 minutes).
-    3. Stooq keyless CSV — works from residential IPs, but GitHub-hosted
-       runners are rate-limited/blocked by Stooq (observed 2026-07-03).
-    4. Yahoo chart API, keyless — one request per ticker; also returns daily
+    for data before the pipeline proves itself. Yahoo goes first because it
+    is the only source that has actually delivered data from GitHub-hosted
+    runners (proven since 2026-07-08); trying the dead sources first stamped
+    2-3 failure warnings into every report:
+    1. Yahoo chart API, keyless — one request per ticker; also returns daily
        history bars, which the caller merges into the accumulated history
        (removing the warm-up without any seeding step).
+    2. FMP, only if the optional FMP_API_KEY is set (richest fields).
+    3. Twelve Data, only if TWELVE_DATA_API_KEY is set — kept for a possible
+       future plan upgrade; the free Basic plan cannot serve XETRA/LSE
+       (every batch rejected; diagnosed 2026-07-04, reconfirmed 2026-07-09),
+       and it fails fast on a fully rejected first batch.
+    4. Stooq keyless CSV — works from residential IPs only; GitHub-hosted
+       runners are rate-limited/blocked by Stooq (observed 2026-07-03).
     """
     errors: list[str] = []
+    try:
+        yahoo_quotes, history, failures = yahoo_eu.fetch_batch_quotes(tickers)
+        warnings = []
+        if failures:
+            warnings.append(f"Yahoo skipped {len(failures)} ticker(s): {'; '.join(failures[:3])}")
+        return yahoo_quotes, "yahoo", history, warnings
+    except Exception as exc:  # noqa: BLE001 - fall through the chain
+        errors.append(f"Yahoo failed: {exc}")
     if os.getenv("FMP_API_KEY"):
         try:
             raw = fmp_batch_quotes(tickers, config)
-            return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp", {}, []
+            return {(q.get("symbol") or "").upper(): q for q in raw}, "fmp", {}, list(errors)
         except Exception as exc:  # noqa: BLE001 - fall through the chain
             errors.append(f"FMP failed: {exc}")
     td_key = os.getenv("TWELVE_DATA_API_KEY")
@@ -123,18 +136,10 @@ def fetch_quotes(
             errors.append(f"Twelve Data failed: {exc}")
     try:
         quotes = stooq_eu.fetch_batch_quotes(tickers)
-        return {t.upper(): q for t, q in quotes.items()}, "stooq", {}, []
-    except Exception as exc:  # noqa: BLE001 - fall through the chain
-        errors.append(f"Stooq failed: {exc}")
-    try:
-        yahoo_quotes, history, failures = yahoo_eu.fetch_batch_quotes(tickers)
+        return {t.upper(): q for t, q in quotes.items()}, "stooq", {}, list(errors)
     except Exception as exc:  # noqa: BLE001 - end of the chain
-        errors.append(f"Yahoo failed: {exc}")
+        errors.append(f"Stooq failed: {exc}")
         raise RuntimeError("; ".join(errors)) from exc
-    warnings = list(errors)
-    if failures:
-        warnings.append(f"Yahoo skipped {len(failures)} ticker(s): {'; '.join(failures[:3])}")
-    return yahoo_quotes, "yahoo", history, warnings
 
 
 def fmp_batch_quotes(tickers: list[str], config: dict[str, Any]) -> list[dict[str, Any]]:

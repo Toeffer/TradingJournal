@@ -1,5 +1,6 @@
 from datetime import date, datetime, timezone
 
+from scripts import build_research_snapshot as builder
 from scripts.build_research_snapshot import (
     active_discovery_seeds,
     build_rows,
@@ -122,3 +123,19 @@ def test_active_manual_seed_is_separate_from_score() -> None:
     assert output[0]["score"] == "60"
     assert output[0]["discovery_seed"] == "true"
     assert output[0]["discovery_seed_source"] == "finviz_manual"
+
+
+def test_archive_snapshot_never_overwrites(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(builder, "ARCHIVE_DIR", tmp_path / "research/snapshots")
+    when = datetime(2026, 1, 1, 9, 30, tzinfo=timezone.utc)
+
+    first = builder.archive_snapshot(b"a,b\n1,2\n", now=when)
+    assert first.name == "research_snapshot-2026-01-01.csv"
+
+    # Same content, same day: reuse the existing archive.
+    assert builder.archive_snapshot(b"a,b\n1,2\n", now=when) == first
+
+    # Different content, same day: a suffixed sibling, original untouched.
+    second = builder.archive_snapshot(b"a,b\n3,4\n", now=when.replace(hour=15))
+    assert second.name == "research_snapshot-2026-01-01-1530.csv"
+    assert first.read_bytes() == b"a,b\n1,2\n"
