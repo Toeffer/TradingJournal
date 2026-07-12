@@ -1,6 +1,6 @@
 # Journal Stats
 
-Auto-generated from `trades.csv` on 2026-07-11 11:45 UTC. Do not edit by hand.
+Auto-generated from `trades.csv` on 2026-07-12 17:37 UTC. Do not edit by hand.
 Arithmetic and executable rule checks only; the behavioral review remains human work.
 
 ## Closed trades
@@ -70,7 +70,6 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 - ⚠️ 2026-0007 (ALI1.DE): size €174.19 > €150 cap.
 - ⚠️ 2026-0013 (MSM): held through binary event at €150.00 > €75 half-size cap.
 - ⚠️ 2026-0018 (VERA): held through binary event at €150.00 > €75 half-size cap.
-- ⚠️ Consecutive-loss pause active: 3 losses; no new trade before 2026-07-11.
 
 ## Data gaps (fill these for the review to work)
 
