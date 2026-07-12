@@ -11,7 +11,10 @@ timezone = "Europe/Berlin"
 min_score_to_record = 60
 min_score_to_alert = 70
 max_candidates_per_report = 10
-# Manual screenshot/watchlist seeds are discovery context, not permanent alpha.
+# Research snapshots retain only recent scanner observations. Old observations stay
+# in scanner_signals.csv for measurement but are not fed into current weekly research.
+research_snapshot_lookback_days = 7
+# Manual screenshot/watchlist seeds are optional discovery context, never alpha.
 # Rows without an explicit expires_at are active for at most this many calendar days.
 finviz_seed_max_age_days = 2
 
@@ -78,6 +81,8 @@ rel_volume = 20
 break_20d_high = 15
 daily_change = 10
 close_above_open = 5
-finviz_seed = 10
+# Manual Finviz membership must never alter the quantitative score. The field is
+# retained at zero for backward-compatible config loading and old reports.
+finviz_seed = 0
 liquidity = 10
 not_overextended = 10
