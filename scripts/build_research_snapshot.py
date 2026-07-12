@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Build a normalized market-data snapshot for model-neutral research runs.
 
-The snapshot is intentionally provider-agnostic. It converts the latest scanner
-observation per ticker into one stable CSV so different models receive identical
-market context. Fundamental fields that the current providers do not supply remain
-blank rather than being invented.
+The snapshot is intentionally provider-agnostic. It converts the latest recent
+scanner observation per ticker into one stable CSV so different models receive
+identical market context. Fundamental fields that the current providers do not
+supply remain blank rather than being invented.
+
+Manual Finviz rows are optional discovery context only. They never increase the
+quantitative score in this snapshot, and expired rows are not presented as active
+seeds. Historical rows written before the score boost was removed are normalized.
 """
 
 from __future__ import annotations
@@ -14,15 +18,24 @@ import csv
 import hashlib
 import io
 import json
-from datetime import datetime, timezone
+import tomllib
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SIGNALS_CSV = REPO_ROOT / "data/scanner_signals.csv"
 REGIME_CSV = REPO_ROOT / "data/market_regime.csv"
+FINVIZ_CSV = REPO_ROOT / "data/finviz_watchlist.csv"
+CONFIG_TOML = REPO_ROOT / "scanner/config.toml"
 OUTPUT_CSV = REPO_ROOT / "data/research_snapshot.csv"
 OUTPUT_META = REPO_ROOT / "data/research_snapshot.meta.json"
+
+# All scanner rows carrying finviz_manual before this instant were produced while
+# the manual seed added 10 points. From this change onward the configured weight is
+# zero, so newer rows must not be adjusted.
+LEGACY_FINVIZ_BONUS = 10
+LEGACY_FINVIZ_BONUS_REMOVED_AT = datetime(2026, 7, 12, tzinfo=timezone.utc)
 
 FIELDS = [
     "as_of",
@@ -38,6 +51,9 @@ FIELDS = [
     "change_pct",
     "rel_volume",
     "score",
+    "discovery_seed",
+    "discovery_seed_source",
+    "legacy_seed_tag",
     "break_20d_high",
     "extension_5d_pct",
     "rsi14",
@@ -60,6 +76,11 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def load_scanner_config(path: Path = CONFIG_TOML) -> dict[str, Any]:
+    with path.open("rb") as handle:
+        return tomllib.load(handle)
+
+
 def parse_float(value: str | None) -> float | None:
     if value is None or value.strip() == "":
         return None
@@ -67,6 +88,19 @@ def parse_float(value: str | None) -> float | None:
         return float(value)
     except ValueError:
         return None
+
+
+def parse_timestamp(value: str | None) -> datetime | None:
+    text = (value or "").strip()
+    if not text:
+        return None
+    try:
+        parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
 
 
 def format_number(value: float | None, digits: int = 4) -> str:
@@ -92,6 +126,21 @@ def latest_regime(rows: list[dict[str, str]]) -> str:
     return ordered[-1].get("regime", "")
 
 
+def recent_signals(
+    rows: list[dict[str, str]],
+    *,
+    as_of: datetime,
+    lookback_days: int,
+) -> list[dict[str, str]]:
+    cutoff = as_of.astimezone(timezone.utc) - timedelta(days=lookback_days)
+    recent: list[dict[str, str]] = []
+    for row in rows:
+        observed_at = parse_timestamp(row.get("timestamp"))
+        if observed_at is not None and cutoff <= observed_at <= as_of.astimezone(timezone.utc):
+            recent.append(row)
+    return recent
+
+
 def latest_signals(rows: list[dict[str, str]]) -> list[dict[str, str]]:
     latest: dict[tuple[str, str], dict[str, str]] = {}
     for row in rows:
@@ -105,10 +154,70 @@ def latest_signals(rows: list[dict[str, str]]) -> list[dict[str, str]]:
     return [latest[key] for key in sorted(latest)]
 
 
+def seed_expiry(row: dict[str, str], max_age_days: int) -> date | None:
+    explicit = (row.get("expires_at") or "").strip()
+    if explicit:
+        try:
+            return date.fromisoformat(explicit)
+        except ValueError:
+            return None
+    added = (row.get("added_at") or "").strip()
+    if not added:
+        return None
+    try:
+        return date.fromisoformat(added) + timedelta(days=max_age_days)
+    except ValueError:
+        return None
+
+
+def active_discovery_seeds(
+    rows: list[dict[str, str]],
+    *,
+    as_of: date,
+    max_age_days: int,
+) -> dict[str, dict[str, str]]:
+    active: dict[str, dict[str, str]] = {}
+    for row in rows:
+        ticker = (row.get("ticker") or "").strip().upper()
+        if not ticker:
+            continue
+        expiry = seed_expiry(row, max_age_days)
+        if expiry is not None and expiry < as_of:
+            continue
+        active[ticker] = row
+    return active
+
+
+def quantitative_source(source: str, market: str) -> str:
+    cleaned = source.replace("+finviz_manual", "").replace("finviz_manual+", "")
+    if cleaned == "finviz_manual":
+        cleaned = ""
+    return cleaned or market
+
+
+def normalized_score(row: dict[str, str]) -> int | None:
+    value = parse_float(row.get("score"))
+    if value is None:
+        return None
+    score = int(round(value))
+    source = row.get("source", "")
+    observed_at = parse_timestamp(row.get("timestamp"))
+    if (
+        "finviz_manual" in source
+        and observed_at is not None
+        and observed_at < LEGACY_FINVIZ_BONUS_REMOVED_AT
+    ):
+        score = max(0, score - LEGACY_FINVIZ_BONUS)
+    return score
+
+
 def build_rows(
     signal_rows: list[dict[str, str]],
     regime: str,
+    *,
+    active_seeds: dict[str, dict[str, str]] | None = None,
 ) -> list[dict[str, str]]:
+    seeds = active_seeds or {}
     output: list[dict[str, str]] = []
     for row in latest_signals(signal_rows):
         ticker = row.get("ticker", "").strip().upper()
@@ -119,8 +228,15 @@ def build_rows(
         avg_dollar_volume = (
             price * avg_volume if price is not None and avg_volume is not None else None
         )
-        signal_source = row.get("source", "")
+        original_source = row.get("source", "")
+        provider = quantitative_source(original_source, market)
+        legacy_seed_tag = "finviz_manual" in original_source
+        is_active_seed = ticker in seeds
         notes = row.get("notes", "") or row.get("warnings", "")
+        if legacy_seed_tag and not is_active_seed:
+            legacy_note = "legacy manual-seed tag removed from quantitative score"
+            notes = f"{notes}; {legacy_note}" if notes else legacy_note
+        raw_score = normalized_score(row)
         output.append(
             {
                 "as_of": row.get("timestamp", ""),
@@ -135,8 +251,11 @@ def build_rows(
                 "avg_dollar_volume": format_number(avg_dollar_volume, 2),
                 "change_pct": row.get("change_pct", ""),
                 "rel_volume": row.get("rel_volume", ""),
-                "score": row.get("score", ""),
-                "break_20d_high": row.get("break_20d_high", ""),
+                "score": "" if raw_score is None else str(raw_score),
+                "discovery_seed": str(is_active_seed).lower(),
+                "discovery_seed_source": "finviz_manual" if is_active_seed else "",
+                "legacy_seed_tag": str(legacy_seed_tag).lower(),
+                "break_20d_high": row.get("above_20d_high", ""),
                 "extension_5d_pct": row.get("extension_5d_pct", ""),
                 "rsi14": row.get("rsi14", ""),
                 "ema20_dist_pct": row.get("ema20_dist_pct", ""),
@@ -144,9 +263,9 @@ def build_rows(
                 "macd_hist_pct": row.get("macd_hist_pct", ""),
                 "bb_percent_b": row.get("bb_percent_b", ""),
                 "market_regime": regime,
-                "signal_source": signal_source,
+                "signal_source": provider,
                 "signal_timestamp": row.get("timestamp", ""),
-                "data_source": signal_source or market,
+                "data_source": provider,
                 "notes": notes,
             }
         )
@@ -171,8 +290,27 @@ def atomic_write(path: Path, content: bytes) -> None:
 def build_snapshot(
     signals_path: Path = SIGNALS_CSV,
     regime_path: Path = REGIME_CSV,
+    finviz_path: Path = FINVIZ_CSV,
+    config_path: Path = CONFIG_TOML,
+    *,
+    as_of: datetime | None = None,
 ) -> tuple[bytes, list[dict[str, str]]]:
-    rows = build_rows(read_csv(signals_path), latest_regime(read_csv(regime_path)))
+    config = load_scanner_config(config_path)
+    scanner_config = config.get("scanner", {})
+    lookback_days = int(scanner_config.get("research_snapshot_lookback_days", 7))
+    max_seed_age = int(scanner_config.get("finviz_seed_max_age_days", 2))
+    effective_as_of = (as_of or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    signal_rows = recent_signals(
+        read_csv(signals_path),
+        as_of=effective_as_of,
+        lookback_days=lookback_days,
+    )
+    seeds = active_discovery_seeds(
+        read_csv(finviz_path),
+        as_of=effective_as_of.date(),
+        max_age_days=max_seed_age,
+    )
+    rows = build_rows(signal_rows, latest_regime(read_csv(regime_path)), active_seeds=seeds)
     return csv_bytes(rows), rows
 
 
@@ -192,13 +330,18 @@ def main() -> int:
         return 0
 
     atomic_write(OUTPUT_CSV, content)
+    config = load_scanner_config()
     meta = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_files": [
             str(SIGNALS_CSV.relative_to(REPO_ROOT)),
             str(REGIME_CSV.relative_to(REPO_ROOT)),
+            str(FINVIZ_CSV.relative_to(REPO_ROOT)),
         ],
+        "research_snapshot_lookback_days": int(
+            config.get("scanner", {}).get("research_snapshot_lookback_days", 7)
+        ),
         "row_count": len(rows),
         "sha256": digest,
     }
