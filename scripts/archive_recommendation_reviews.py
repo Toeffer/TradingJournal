@@ -11,7 +11,22 @@ import json
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from validate_recommendations import REPO_ROOT, REVIEW_FIELDS, REVIEWS_PATH, read_csv, run_validation
+try:
+    from scripts.validate_recommendations import (
+        REPO_ROOT,
+        REVIEW_FIELDS,
+        REVIEWS_PATH,
+        read_csv,
+        run_validation,
+    )
+except ModuleNotFoundError:  # Direct execution: python scripts/archive_recommendation_reviews.py
+    from validate_recommendations import (  # type: ignore[no-redef]
+        REPO_ROOT,
+        REVIEW_FIELDS,
+        REVIEWS_PATH,
+        read_csv,
+        run_validation,
+    )
 
 ARCHIVE_DIR = REPO_ROOT / "research/decisions"
 
