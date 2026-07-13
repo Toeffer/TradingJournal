@@ -1,10 +1,26 @@
-# RESEARCH_BRIEF.md — Weekly Candidate Research
+# RESEARCH_BRIEF.md — Weekly Research and Decision Review
 
 This is the canonical instruction set for Claude, ChatGPT, or any other research-capable
-model. It creates a draft shortlist for human review; it never creates a trade and never
-changes risk rules.
+model. It maintains a rolling research book and issues conditional decisions for the next
+five trading sessions. It never records a trade and never changes risk rules.
 
-**Not financial advice. Verify every date, price, and claim before acting.**
+**Not financial advice. Verify every date, price, level, and claim before acting.**
+
+## Core operating principle
+
+Research may identify a strong company or future event without identifying a current entry.
+Every run must issue a decision, but it must never force a buy recommendation.
+
+Valid weekly actions are:
+
+- `enter_if_triggered`: a complete setup may activate only at the stated trigger;
+- `wait_pullback`: the idea remains valid but current price must not be chased;
+- `monitor`: retain the research object without a current setup;
+- `manage`: review an existing open position; no implicit add-on entry;
+- `remove`: invalidate, expire, or archive the idea.
+
+A week with no `enter_if_triggered` rows must state **NO NEW TRADE** plainly. That is a
+successful output when no setup has earned an entry.
 
 ## Canonical method
 
@@ -16,9 +32,10 @@ Read and follow these files in order:
 4. `research_method/analysis.md`
 5. `research_method/red_team.md`
 6. `research_method/output_schema.md`
+7. `SETUPS.md`
 
-Claude-native skills are optional methodology references only. They must not grant Claude
-a different workflow, evidence standard, or output contract from ChatGPT.
+Model-native skills are optional methodology references only. They cannot alter the common
+evidence standard, lifecycle, or output contract.
 
 ## Required data pack
 
@@ -28,30 +45,77 @@ Immediately before research, generate:
 python scripts/build_research_snapshot.py --archive
 ```
 
-Use `data/research_snapshot.csv` as the canonical structured market-data input and
-record the SHA-256 from `data/research_snapshot.meta.json`. Connected financial data may
-supplement the snapshot, but it may not silently replace the common comparison input.
+Use `data/research_snapshot.csv` as the canonical structured market-data input and record
+the SHA-256 from `data/research_snapshot.meta.json`.
 
 Also read:
 
 - `RISK_RULES.md`, `SETUPS.md`, and `ETORO_TRADEABILITY.md`;
-- newest relevant US/EU scanner reports and `data/scanner_signals.csv`;
-- newest prior candidate report and manifest for continuity.
+- `trades.csv` and `data/proposals.csv`;
+- `data/recommendations.csv` and `data/recommendation_reviews.csv`;
+- `research/recommendation-book.md`;
+- all candidate reports and manifests from the previous six calendar weeks;
+- every older report referenced by an unresolved recommendation;
+- newest relevant US/EU scanner reports and recent scanner outcomes.
 
 Scanner names are leads, never evidence or pre-approved ideas.
 
+## Continuity first
+
+Before discovering new names, review every non-terminal recommendation and every open
+position. A name does not disappear because it was omitted from the newest report.
+
+For each existing recommendation:
+
+1. Compare current price and evidence with the original mention and latest review.
+2. State what changed since last week.
+3. Preserve the original `recommendation_id`.
+4. Choose one lifecycle status and one weekly action.
+5. Define the next review date or a removal condition.
+6. Append a new review row; never rewrite an old review to improve hindsight optics.
+
+Lifecycle statuses:
+
+- `new`
+- `carry`
+- `upgraded`
+- `trigger_ready`
+- `triggered`
+- `manage`
+- `downgraded`
+- `invalidated`
+- `expired`
+- `archived`
+
+Current convenience state lives in `data/recommendations.csv`. Immutable decision history
+lives in append-only `data/recommendation_reviews.csv` and dated files under
+`research/decisions/`.
+
+## Open-position review
+
+Every open trade receives a `manage` recommendation linked through `linked_trade_id`.
+Review:
+
+- original thesis versus current thesis;
+- original stop/invalidation; never move it farther away merely to avoid a loss;
+- event and gap risk;
+- time-stop or maximum holding date;
+- whether the position still matches an allowed setup;
+- the coming week's management action.
+
+Research must not infer that the user bought, sold, or changed a stop. Only an explicit
+human statement may change `trades.csv`.
+
 ## Operating horizons
 
-A distant catalyst is useful for discovery but is not automatically actionable. Price,
-expectations, financing, regime, and the company can change before the event.
-
-- **Actionable:** verified catalyst or intermediate trigger inside 21 calendar days.
+- **Weekly decision window:** next five trading sessions.
+- **Actionable research:** verified catalyst or intermediate trigger inside 21 calendar days.
 - **Early Watch:** verified catalyst 22–42 days away with no nearer verified trigger.
-- **Proposal holding period:** 10 trading sessions by default, set explicitly in the
-  proposal with `exit_before_catalyst = yes` unless the human chooses otherwise.
+- **Proposal holding period:** 10 trading sessions by default.
+- **Trigger expiry:** normally no more than five trading sessions.
+- **Exit before catalyst:** `yes` by default unless the human explicitly accepts binary risk.
 
-A 22–42-day event may become Actionable only when a separate, dated, primary-source-
-verified trigger inside 21 days creates the current setup. State the exception plainly.
+A distant catalyst may justify continued research but never an immediate entry by itself.
 
 ## Configuration
 
@@ -61,24 +125,25 @@ MARKET_CAP_MIN:                 500000000
 MARKET_CAP_MAX:                 10000000000
 MIN_AVG_DOLLAR_VOLUME:          25000000
 PRELIMINARY_SCAN_COUNT:         12
-NUM_ACTIONABLE_CANDIDATES:       5
-NUM_EARLY_WATCH:                 5
-NUM_DEEP_DIVES:                  3
-MIN_EU_PRELIMINARY:              4
+MAX_ACTIVE_RECOMMENDATIONS:      12
+MAX_WEEKLY_DECISION_SHEET:        5
+MAX_TRIGGER_READY:                2
+MAX_SPECIAL_SITUATIONS:           1
+MIN_EU_PRELIMINARY:               4
 ASIA_POLICY:                     exceptional-only
 ACTIONABLE_CATALYST_DAYS:       21
 DISCOVERY_CATALYST_DAYS:        42
 ACT_NOW_DAYS:                    7
 MAX_EARNINGS_CANDIDATES:         2
 SCANNER_LOOKBACK_DAYS:           7
-SCANNER_MIN_SCORE:              70
 MAX_SCANNER_CANDIDATES:          5
+RECOMMENDATION_HISTORY_WEEKS:    6
+TRIGGER_EXPIRY_SESSIONS:         5
 FIXED_POSITION_SIZE_EUR:       150
 ```
 
-`config/risk.toml` and `RISK_RULES.md` are authoritative for risk and holding periods.
-`ETORO_TRADEABILITY.md` is authoritative for broker availability. Never invent a blank
-value.
+`config/risk.toml` and `RISK_RULES.md` are authoritative for risk. `ETORO_TRADEABILITY.md`
+is authoritative for broker availability. Never invent a blank value.
 
 ## Source policy
 
@@ -91,143 +156,178 @@ Use sources in this order:
 4. Scanner output as discovery context only.
 5. Analyst notes, blogs, forums, newsletters, and social media as leads only.
 
-For European candidates prefer issuer Finanzkalender pages, EQS/DGAP, Deutsche Börse,
-RNS, Euronext/SIX notices, and issuer IR pages. For lockup expiries, verify prospectus
-terms, early-release provisions, waivers, and later offerings; never rely on “IPO date +
-N days.”
+A search snippet, third-party calendar, scanner row, subagent summary, prior report, or
+model memory can create a lead but cannot verify a final date. The synthesizing pass must
+open the primary source itself and record it in the JSON manifest.
 
-For every non-US candidate state exchange, currency, local share versus ADR, FX exposure,
-and market hours. Name UK stamp duty for LSE shares.
-
-### Primary-source gate
-
-A search snippet, third-party calendar, scanner row, subagent summary, or model memory can
-create a lead but cannot verify a final date. The synthesizing pass must open the primary
-source itself and record it in the JSON manifest.
-
-Use these date statuses:
+Date statuses:
 
 - `verified`: opened primary source states the date or binding window;
 - `secondary_only`: reputable secondary source only;
 - `derived`: calculated rather than explicitly stated;
 - `unverified`: insufficient evidence.
 
-Only `verified` may appear as Actionable or Early Watch. All other statuses are Reject.
+Only `verified` may support Actionable or Early Watch classification.
+
+## Stage 0 — Prior recommendation audit
+
+Review all active recommendations before adding new names. Capture:
+
+- first mention date and price;
+- latest reference price;
+- move and path since mention when data permits;
+- whether the previous trigger fired;
+- whether stop or target would have occurred first;
+- whether the thesis improved, weakened, or expired;
+- this week's status and action.
+
+New names must compete with carry-over names. Novelty is not a ranking advantage.
 
 ## Stage 1 — Discovery
 
-Build up to `PRELIMINARY_SCAN_COUNT` traceable leads inside the 42-day discovery horizon.
+Build up to the configured preliminary count inside the 42-day discovery horizon.
 
-- Source at least `MIN_EU_PRELIMINARY` European names before quality filtering, or state
-  precisely what the EU search found and why none qualified.
-- Include up to `MAX_SCANNER_CANDIDATES` recent scanner names meeting the threshold.
-- Record each lead's origin and current snapshot row.
-- Check eToro tradeability before expensive deep research, especially for IPOs.
-- Do not rank names, set stops, or calculate sizes during discovery.
-- Do not pad. A sparse pool is acceptable when evidence is weak.
+- Source at least the configured European preliminary count or state precisely why not.
+- Include up to the scanner limit from recent output.
+- Use catalyst-first or hybrid discovery when scanner breadth is thin.
+- Record each lead's origin and current market-data row.
+- Check eToro tradeability before expensive analysis.
+- Do not set levels during discovery.
+- Do not pad.
 
 ## Stage 2 — Verification
 
 For every plausible survivor:
 
-- open and record the primary catalyst source;
-- verify event date and mechanics, and confirm it has not moved or already occurred;
-- verify market data with the snapshot or another dated structured source;
-- check intervening earnings, financing, dilution, offerings, waivers, and lockups;
-- record claim-level evidence with access timestamps in the manifest.
+- open and record the primary event source;
+- verify date, mechanics, and whether the event already occurred;
+- verify current market data;
+- check financing, dilution, offerings, lockups, and intervening events;
+- record expectations or state that they are unknown;
+- record claim-level evidence with access timestamps.
 
-A non-rejected candidate needs at least:
+A non-rejected catalyst candidate needs at least one primary source and one structured
+market-data source.
 
-- one primary catalyst source;
-- one structured market-data source;
-- expectations/priced-in evidence or an explicit statement that it is unknown.
-
-## Stage 3 — Classification and analysis
+## Stage 3 — Research classification
 
 Classify every discussed lead:
 
-- `ACTIONABLE`: verified trigger inside 0–21 days and a current setup;
-- `EARLY_WATCH`: verified catalyst 22–42 days away, or a real event without a current
-  defensible setup;
+- `ACTIONABLE`: verified trigger inside 0–21 days and a current setup may form;
+- `EARLY_WATCH`: real future event or thesis, but no defensible current setup;
 - `REJECT`: fails evidence, tradeability, liquidity, expectations, setup, or risk.
 
-No more than `MAX_EARNINGS_CANDIDATES` final Actionable names may use earnings as the
-primary catalyst. Prefer structural or already-public catalysts over binary event gambling.
+This classification is not itself an entry recommendation. An Actionable name still needs
+a valid weekly action and setup trigger.
 
-### Actionable requirements
+## Stage 4 — Weekly action construction
 
-For each Actionable candidate provide:
+For each surviving recommendation choose exactly one action.
 
-1. Ticker, company, exchange, currency, and source tag.
-2. Verified catalyst mechanics, exact date, days remaining, and primary-source URL.
-3. Why now: the present setup, not the future event alone.
-4. Market expectations and priced-in assessment.
-5. Entry, initial stop/invalidation, first target, planned R, and the basis of each level.
-6. Bull, base, and bear scenarios.
-7. Liquidity, spread, financing, dilution, event-gap, insider, short, and FX risks.
-8. Risk rating and confidence, including evidence that would change either.
-9. Exit-before-catalyst policy and maximum holding days.
-10. Pre-mortem and red-team verdict.
+### `enter_if_triggered`
 
-A stop may not be a broker-page day-low proxy merely because it is convenient. Tie levels
-to actual structure or thesis invalidation. A candidate without a defensible entry, stop,
-target, and planned R of at least 1.5 is Early Watch or Reject—not a proposal.
+Requires:
 
-### Early Watch requirements
+- status `trigger_ready`;
+- an allowed `setup_type` from `SETUPS.md`;
+- long/short direction;
+- numeric entry trigger, stop, target, and planned R of at least the configured minimum;
+- a structure-based `trigger_rule`;
+- trigger expiry normally within five trading sessions;
+- current reference price and dated source;
+- no instruction to enter at an arbitrary current price;
+- red-team verdict `SURVIVE`.
 
-For each Early Watch name provide:
+A trigger-ready research recommendation may be copied into `data/proposals.csv` only after
+all proposal fields are complete. The recommendation ledger itself must not pretend a
+proposal triggered.
 
-- verified catalyst mechanics, date, and days remaining;
-- why it may matter;
-- promotion condition and next review date;
-- removal condition;
-- primary-source evidence.
+### `wait_pullback`
 
-Do not calculate size or present Early Watch as a current trade setup.
+Use when the thesis remains valid but price is extended or the first move should not be
+chased. State the desired zone/structure, removal condition, and next review date. Do not
+provide a pseudo-entry that lacks defensible stop/target math.
 
-## Stage 4 — Red team
+### `monitor`
 
-Run a separate skeptical pass over every survivor. Attack date accuracy, event materiality,
-expectations, crowding, financing/dilution, arbitrary levels, gap risk, liquidity, and
-intervening events.
+Use when research remains useful but no current price setup exists. State the promotion
+condition and next review date.
 
-Use one verdict:
+### `manage`
+
+Use only for an existing position and link the trade ID. State management facts without
+inventing an execution.
+
+### `remove`
+
+Use with status `invalidated`, `expired`, or `archived`. State exactly why the object leaves
+the active book.
+
+## Stage 5 — Red team
+
+Run a separate skeptical pass over every survivor and every proposed trigger. Attack:
+
+- date accuracy and event materiality;
+- expectations and crowding;
+- financing and dilution;
+- arbitrary levels;
+- event-gap and overnight risk;
+- liquidity, spread, and FX;
+- whether the recommendation is early, chased, or stale;
+- whether the same thesis previously failed.
+
+Verdicts:
 
 - `SURVIVE`
 - `DOWNGRADE_EARLY_WATCH`
 - `REJECT`
 
-Only `SURVIVE` may remain Actionable. Do not weaken bear cases to preserve shortlist size.
+Only `SURVIVE` may remain `trigger_ready`.
 
 ## Required outputs
 
-Before writing, check for a same-day file and never overwrite it. A repeated run adds
-`-HHMM` to both filenames.
+A research run produces:
 
 ```text
 research/candidates-YYYY-MM-DD.md
 research/manifests/candidates-YYYY-MM-DD.json
+data/recommendations.csv
+data/recommendation_reviews.csv
+research/decisions/decisions-YYYY-MM-DD.csv
+research/decisions/decisions-YYYY-MM-DD.meta.json
+research/recommendation-book.md
 ```
 
-The Markdown report is the concise human analysis. The JSON manifest is the evidence and
-compliance contract and must follow `research_method/candidate_manifest.schema.json`.
-Do not add a repetitive compliance table to the Markdown report.
+Repeated same-day runs use a time suffix for report, manifest, and decision archive. Never
+overwrite earlier run artifacts.
+
+The Markdown report is the concise human decision review. The JSON manifest remains the
+evidence contract. The recommendation registry is current state; review rows and decision
+archives preserve what was decided at the time.
 
 Run:
 
 ```bash
 python scripts/validate_candidate_manifest.py research/manifests/candidates-YYYY-MM-DD.json
+python scripts/validate_recommendations.py
+python scripts/archive_recommendation_reviews.py --date YYYY-MM-DD
+python scripts/summarize_recommendations.py
+python scripts/validate_data.py
 ```
 
-Fix validation errors before committing. Nothing in this workflow writes to `trades.csv`
-or `data/proposals.csv`.
+Nothing in this workflow writes to `trades.csv`. It may update `data/proposals.csv` only in
+a separate explicit proposal-writing step after the research artifacts validate.
 
 ## Success criteria
 
-- All models use the same method, snapshot, horizon, and output schema.
-- Every Actionable and Early Watch date has an opened primary source in the manifest.
-- Every market number has a date and source.
-- Every Actionable level has an evidence-based technical or thesis rationale.
-- Every Actionable candidate survived the red-team pass.
-- A no-candidate week is allowed and recorded honestly.
-- Model comparisons use `research_method/evaluation_rubric.md` and multiple matched runs.
+- Every active prior recommendation receives a current decision.
+- Every open position receives a linked management review.
+- New names compete with carry-over names.
+- Every weekly action is explicit and auditable.
+- Trigger-ready rows have complete setup math and expire promptly.
+- No name is bought merely because it appeared in research.
+- Every status change appends a review row.
+- Archived decisions match the append-only review ledger.
+- A no-new-trade week is allowed and stated plainly.
+- Research quality, mechanical recommendation outcome, and human execution are graded
+  separately.

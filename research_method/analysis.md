@@ -1,7 +1,19 @@
-# Stage 3 — Candidate analysis
+# Stage 3 — Research-object analysis
 
-Analyze only candidates that passed the verification gate. The goal is not to predict
-price; it is to determine whether a current, testable setup exists.
+Analyze only new or carry-over objects that passed verification. The goal is not to predict
+price or force an entry. It is to decide whether the thesis remains useful and whether a
+current, testable setup exists for the next five trading sessions.
+
+## Continuity first
+
+For a carry-over object, begin with:
+
+- original mention date, price, thesis, and recommendation ID;
+- previous status/action and whether its trigger occurred;
+- price path and material evidence changes since the last review;
+- whether the object should improve, retain, weaken, or leave the active book.
+
+Do not reset the analysis merely because a new weekly report is being written.
 
 ## Expectations first
 
@@ -10,45 +22,66 @@ Before writing the bull case, establish what the market appears to expect:
 - consensus or company guidance where available;
 - recent estimate revisions or guidance changes;
 - prior event reaction and current valuation/positioning context;
-- recent price move, distance from support/resistance, and whether the catalyst is
-  already crowded or priced in.
+- recent price move, distance from support/resistance, and whether the catalyst is crowded
+  or priced in.
 
-If expectations cannot be established, lower confidence and say exactly what is unknown.
+If expectations cannot be established, lower confidence and choose no stronger than
+`monitor` unless a purely price-structural setup has independent evidence.
 
-## Setup requirements
+## Research classification versus weekly action
 
-An Actionable candidate requires:
+Research classification and weekly action are separate decisions:
 
-- a verified event or intermediate trigger within 21 calendar days;
-- current market data from the normalized snapshot or another dated structured source;
-- an entry zone tied to observable structure;
-- an initial stop/invalidation tied to a swing level, breakout failure, or thesis event;
+- An `ACTIONABLE` object may still receive `wait_pullback` or `monitor`.
+- `EARLY_WATCH` normally receives `monitor`.
+- `REJECT` receives `remove` or never enters the registry.
+- Only a complete setup may receive `enter_if_triggered`.
+
+## Trigger-ready requirements
+
+An `enter_if_triggered` recommendation requires:
+
+- a verified event or intermediate reason within 21 calendar days when catalyst-driven;
+- current dated market data;
+- an allowed setup from `SETUPS.md`;
+- a numeric entry trigger tied to observable structure;
+- an explicit trigger rule and expiry, normally within five trading sessions;
+- a stop/invalidation tied to structure or thesis failure;
 - a realistic first target;
 - planned reward/risk of at least the configured minimum;
-- an explicit maximum holding period and event-exit policy.
+- a do-not-chase condition;
+- a removal condition if the setup fails before triggering;
+- maximum holding period and event-exit policy;
+- red-team verdict `SURVIVE`.
 
-Do not use a broker-page day low as a stop merely because it is available. Explain the
-technical or thesis basis of every level. When no defensible level exists, classify the
-name as Early Watch or Reject.
+Do not use a broker-page day low or arbitrary percentage merely because it is available.
+When no defensible complete setup exists, use `wait_pullback`, `monitor`, or `remove`.
 
-## Candidate card
+## Research card
 
 For each survivor record:
 
-1. Company, exchange, currency, and source tag.
-2. Verified catalyst mechanics, date, and days remaining.
-3. Why now—the present setup rather than the future event alone.
-4. Market expectations and priced-in assessment.
-5. Entry, stop, target, planned R, and the basis of each level.
-6. Bull, base, and bear scenarios.
-7. Financing, dilution, insider, short-interest, liquidity, spread, FX, and gap risks.
-8. Risk rating and confidence, with evidence that would change either.
-9. Exit-before-catalyst decision and maximum holding days.
-10. A pre-mortem stating the most likely overlooked reason the idea loses.
+1. Recommendation ID, continuity, company, exchange, currency, and source tag.
+2. Verified catalyst mechanics, date, and days remaining when relevant.
+3. What changed since the first mention and last review.
+4. Why now—or why not now.
+5. Market expectations and priced-in assessment.
+6. Appropriate weekly action.
+7. For trigger-ready objects: trigger, expiry, stop, target, planned R, and level basis.
+8. Bull, base, and bear scenarios.
+9. Financing, dilution, insider, short, liquidity, spread, FX, and gap risks.
+10. Risk rating and confidence, with evidence that would change either.
+11. Next review or removal condition.
+12. A pre-mortem stating the most likely overlooked reason the object or setup fails.
+
+## Open positions
+
+An open trade is reviewed with action `manage`, linked by trade ID. Preserve its original
+invalidation and distinguish a thesis review from an execution instruction. Do not infer
+that a stop, target, or position size changed.
 
 ## Evidence density
 
-Prefer candidate-specific facts over generic risk language. A useful card explains the
-product, regulatory mechanism, business driver, expectations, and current structure.
-Repeated compliance prose belongs in the manifest or validator output, not in every
-candidate narrative.
+Prefer company-specific and setup-specific facts over generic prose. Repeated compliance
+language belongs in the manifest or validator output. A concise `NO NEW TRADE` conclusion is
+better than a complete-looking but invalid setup.

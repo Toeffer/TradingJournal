@@ -39,3 +39,11 @@ jobs:
 
       - name: Validate candidate evidence manifests
         run: python scripts/validate_candidate_manifest.py --all
+
+      - name: Validate rolling recommendations
+        run: python scripts/validate_recommendations.py
+
+      - name: Verify recommendation book is current
+        run: |
+          python scripts/summarize_recommendations.py
+          git diff --exit-code -- research/recommendation-book.md

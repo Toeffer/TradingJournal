@@ -1,9 +1,9 @@
 # ChatGPT research runbook
 
-Use this for the ChatGPT version of the weekly candidate routine. It is deliberately
-separate from Claude-native skills and follows `research_method/` exactly.
+Use this for the ChatGPT version of the weekly research and decision review. It follows
+`RESEARCH_BRIEF.md` and `research_method/` exactly.
 
-## Recommended ChatGPT setup
+## Recommended setup
 
 1. Generate and commit the normalized data pack first:
 
@@ -11,17 +11,15 @@ separate from Claude-native skills and follows `research_method/` exactly.
    python scripts/build_research_snapshot.py --archive
    ```
 
-2. Start **Deep research** in ChatGPT rather than standard chat for the research pass.
-3. Enable the GitHub app/plugin for this repository and the public web. Enable a
-   financial-data app only as a supplement; the committed snapshot remains the common
-   comparison input.
-4. Prioritize company IR, SEC/EDGAR, regulator, exchange, EQS, RNS, Euronext/SIX, and
-   official index/calendar domains. Allow broader web search for context.
-5. Review the proposed research plan before it starts. It must contain separate
-   discovery, verification, analysis, red-team, and synthesis stages.
+2. Prefer **Deep research** for the multi-source research pass.
+3. Enable the GitHub connection for this repository and the public web.
+4. Prioritize company IR, filings, regulators, exchanges, EQS/RNS, official index/event
+   calendars, and dated structured market data.
+5. Review the proposed plan before research starts. It must begin with continuity and open-
+   position review, then discovery, verification, analysis, red team, and synthesis.
 
-Deep research uses connected apps for reading during research. Persisting files to
-GitHub is a separate explicit write step after reviewing the report.
+Deep research uses connected apps for reading. Persisting files to GitHub is a separate,
+explicit write step after reviewing the output.
 
 ## Deep research prompt
 
@@ -36,47 +34,78 @@ Follow, in order:
 - research_method/analysis.md
 - research_method/red_team.md
 - research_method/output_schema.md
+- SETUPS.md
 
-Use data/research_snapshot.csv as the canonical structured market-data input and
-record the SHA-256 from data/research_snapshot.meta.json. Read the newest prior
-candidate report and the newest relevant US/EU scanner reports for continuity.
+Use data/research_snapshot.csv as the canonical structured market-data input and record
+its SHA-256 from data/research_snapshot.meta.json.
 
-Do not use model memory for current dates or market figures. Third-party calendars,
-search snippets, scanner output, and subagent summaries are leads only. Open one
-primary source yourself for every catalyst date that survives. A candidate whose date
-is secondary-only, derived, or unverified must be rejected.
+Before finding new names, read:
+- trades.csv and data/proposals.csv;
+- data/recommendations.csv and data/recommendation_reviews.csv;
+- research/recommendation-book.md;
+- candidate reports and manifests from the previous six calendar weeks;
+- every older report referenced by an unresolved recommendation;
+- newest relevant US/EU scanner reports and measured outcomes.
 
-Do not rank during discovery. First build the broad pool, then verify facts, then
-analyze expectations and current setup, then run a skeptical red-team pass. A final
-Actionable candidate requires a verified catalyst inside 21 calendar days, dated market
-data, evidence-based entry/stop/target levels, planned R of at least 1.5, a maximum
-holding period, and an explicit exit-before-catalyst policy. Days 22–42 are Early Watch.
+Review every active recommendation and every open position first. Preserve stable
+recommendation IDs. State what changed, whether the previous trigger fired, and choose one
+weekly action: enter_if_triggered, wait_pullback, monitor, manage, or remove. Never silently
+drop a prior name and never infer that a trade occurred.
 
-Produce two complete artifacts with matching basenames:
+New names must compete with carry-over names. Do not prefer novelty. Scanner output and
+manual seeds are leads only.
+
+Do not use model memory for current dates or market figures. Open a primary source yourself
+for every catalyst date that survives. Secondary-only, derived, or unverified dates cannot
+support Actionable or Early Watch classification.
+
+A trigger-ready recommendation requires an allowed setup, numeric entry trigger, observable
+trigger rule, expiry normally within five trading sessions, stop, target, planned R of at
+least the configured minimum, current market data, removal condition, and red-team SURVIVE.
+Do not recommend entering at the current price. Do not chase. If no complete trigger exists,
+state NO NEW TRADE.
+
+Produce complete, mutually consistent artifacts:
 1. research/candidates-YYYY-MM-DD.md
 2. research/manifests/candidates-YYYY-MM-DD.json
+3. updated data/recommendations.csv
+4. append-only data/recommendation_reviews.csv rows for this run
+5. the rows that belong in research/decisions/decisions-YYYY-MM-DD.csv
 
-The JSON must follow research_method/candidate_manifest.schema.json. Keep the Markdown
-report focused on company-specific evidence, expectations, priced-in analysis, setup,
-risks, and the pre-mortem. Do not add a repetitive compliance table.
+The Markdown must include run metadata, prior recommendation audit, existing positions,
+coming-week decision sheet, new research, and removals. The JSON must follow
+research_method/candidate_manifest.schema.json.
 
-Return the complete Markdown and JSON, plus a short list of any evidence gaps. Do not
-write to trades.csv or data/proposals.csv.
+Return the complete Markdown, JSON, replacement current registry, append-only review rows,
+and a short evidence-gap list. Do not write to trades.csv. Do not claim a proposal or trade
+triggered without data confirming it.
 ```
 
 ## Persist after review
 
-In a normal ChatGPT turn with GitHub write access, attach or reference the completed
-Deep Research output and say:
+In a normal ChatGPT turn with GitHub write access, attach or reference the reviewed output
+and say:
 
 ```text
-Write these two reviewed artifacts to the paths specified in the report. Run or inspect
-scripts/validate_candidate_manifest.py against the JSON. If validation fails, correct
-the artifacts before committing. Open a PR; do not alter trades.csv or proposals.csv.
+Write the reviewed report, manifest, current recommendation registry, and appended review
+rows to their specified paths. Validate the candidate manifest and recommendations. Archive
+this run's recommendation reviews, regenerate the recommendation book, run repository-data
+validation and tests, and open a PR. Do not alter trades.csv. Do not update proposals.csv
+unless I explicitly request a separate proposal-writing step.
 ```
 
-## Fair Claude/GPT comparison
+Required checks:
 
-For a comparison run, both models must use the same repository commit, snapshot hash,
-source permissions, catalyst window, and output schema. Blind-score the reports with
-`research_method/evaluation_rubric.md`; do not infer model superiority from one run.
+```bash
+python scripts/validate_candidate_manifest.py research/manifests/candidates-YYYY-MM-DD.json
+python scripts/validate_recommendations.py
+python scripts/archive_recommendation_reviews.py --date YYYY-MM-DD
+python scripts/summarize_recommendations.py
+python scripts/validate_data.py
+```
+
+## Fair model comparison
+
+Both models must use the same commit, snapshot hash, recommendation history, source
+permissions, time window, and output schema. Grade research accuracy separately from
+mechanical recommendation outcomes and actual human execution.
