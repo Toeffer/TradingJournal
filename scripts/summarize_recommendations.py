@@ -7,7 +7,14 @@ import csv
 from collections import Counter
 from pathlib import Path
 
-from validate_recommendations import REGISTRY_PATH, REPO_ROOT, run_validation
+try:
+    from scripts.validate_recommendations import REGISTRY_PATH, REPO_ROOT, run_validation
+except ModuleNotFoundError:  # Direct execution: python scripts/summarize_recommendations.py
+    from validate_recommendations import (  # type: ignore[no-redef]
+        REGISTRY_PATH,
+        REPO_ROOT,
+        run_validation,
+    )
 
 OUTPUT = REPO_ROOT / "research/recommendation-book.md"
 TERMINAL = {"invalidated", "expired", "archived"}
