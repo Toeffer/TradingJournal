@@ -1,23 +1,23 @@
 # Journal Stats
 
-Auto-generated from `trades.csv` on 2026-07-12 17:37 UTC. Do not edit by hand.
+Auto-generated from `trades.csv` on 2026-07-13 13:38 UTC. Do not edit by hand.
 Arithmetic and executable rule checks only; the behavioral review remains human work.
 
 ## Closed trades
 
-- Trades closed: 12 (of 16 total; 4 open)
-- With computable R: 10 — **every closed trade without a stop is invisible to R stats**
-- Win rate (R-trades): 40%
-- Avg win: +1.56R | Avg loss: -0.89R | Worst: -1.00R
-- **Expectancy per trade: +0.09R**
-- Total P&L: +1.13 € | Profit factor: 1.02
+- Trades closed: 13 (of 17 total; 4 open)
+- With computable R: 11 — **every closed trade without a stop is invisible to R stats**
+- Win rate (R-trades): 45%
+- Avg win: +2.06R | Avg loss: -0.89R | Worst: -1.00R
+- **Expectancy per trade: +0.45R**
+- Total P&L: +31.67 € | Profit factor: 1.44
 
 ### By source
 
 | source | Trades | With R | Win rate | Expectancy (R) | Total P&L (€) |
 |---|---:|---:|---:|---:|---:|
 | own | 5 | 4 | 25% | +0.18 | -35.87 |
-| routine | 7 | 6 | 50% | +0.04 | +37.00 |
+| routine | 8 | 7 | 57% | +0.61 | +67.54 |
 
 ### By setup_type
 
@@ -26,6 +26,7 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 | (blank) | 8 | 7 | 43% | +0.16 | -28.86 |
 | base | 1 | 0 | — | — | +27.33 |
 | breakout | 1 | 1 | 0% | -0.31 | -2.36 |
+| post-earnings-drift | 1 | 1 | 100% | +4.07 | +30.54 |
 | special-situation | 2 | 2 | 50% | +0.05 | +5.02 |
 
 ### By risk_rating
@@ -33,6 +34,7 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 | risk_rating | Trades | With R | Win rate | Expectancy (R) | Total P&L (€) |
 |---|---:|---:|---:|---:|---:|
 | (blank) | 9 | 8 | 38% | +0.02 | -32.12 |
+| High | 1 | 1 | 100% | +4.07 | +30.54 |
 | Med | 3 | 2 | 50% | +0.40 | +33.25 |
 
 ### Realized R by week
@@ -41,7 +43,7 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 |---|---:|---:|---|
 | 2026-W26 | 1 | — | ok |
 | 2026-W27 | 9 | +2.93 | ok |
-| 2026-W28 | 2 | -2.00 | ok |
+| 2026-W28 | 3 | +2.07 | ok |
 
 ### Realized R by day
 
@@ -53,7 +55,7 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 | 2026-07-01 | 1 | -0.31 | ok |
 | 2026-07-02 | 3 | -1.57 | ok |
 | 2026-07-07 | 1 | -1.00 | ok |
-| 2026-07-08 | 1 | -1.00 | ok |
+| 2026-07-08 | 2 | +3.07 | ok |
 
 ## Open positions
 
@@ -70,6 +72,7 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 - ⚠️ 2026-0007 (ALI1.DE): size €174.19 > €150 cap.
 - ⚠️ 2026-0013 (MSM): held through binary event at €150.00 > €75 half-size cap.
 - ⚠️ 2026-0018 (VERA): held through binary event at €150.00 > €75 half-size cap.
+- ⚠️ 2026-0019 (PENG): held through binary event at €150.00 > €75 half-size cap.
 
 ## Data gaps (fill these for the review to work)
 
@@ -84,6 +87,7 @@ Arithmetic and executable rule checks only; the behavioral review remains human 
 - 2026-0015 (NBIS): missing followed_plan, lesson, setup_type
 - 2026-0017 (KGX.DE): missing followed_plan, lesson, setup_type
 - 2026-0018 (VERA): missing followed_plan, lesson
+- 2026-0019 (PENG): missing followed_plan, lesson
 - 2026-0004 (CELC): missing sector, setup_type
 - 2026-0011 (RHM): missing sector, setup_type
 - 2026-0014 (OPFI): missing sector, setup_type, catalyst
