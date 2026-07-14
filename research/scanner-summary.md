@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-13 20:23 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-14 09:18 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -22,7 +22,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 8 | +1.17% | +1.45% | 62% | +7.98% | -4.19% |
 |  |  | 5d | primary | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 | 60-69 | 7 | 1d | primary | 7 | -0.74% | +1.03% | 57% | +3.38% | -13.15% |
-|  |  | 3d | primary | 5 | -3.66% | -2.71% | 40% | +1.62% | -9.72% |
+|  |  | 3d | primary | 6 | -3.61% | -3.02% | 33% | +1.62% | -9.72% |
 |  |  | 5d | primary | 5 | -4.96% | -4.45% | 20% | +2.72% | -12.54% |
 | 70-79 | 2 | 1d | primary | 2 | -0.28% | -0.28% | 50% | +1.66% | -2.23% |
 |  |  | 3d | primary | 2 | -2.30% | -2.30% | 50% | +3.99% | -8.59% |
@@ -42,12 +42,14 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 6 | -5.86% | -3.33% | 17% | +0.33% | -17.37% |
 |  |  | 5d | primary | 6 | -5.34% | -5.41% | 17% | +2.72% | -12.54% |
 | yahoo | 1 | 1d | primary | 1 | -0.04% | -0.04% | 0% | -0.04% | -0.04% |
+|  |  | 3d | primary | 1 | -3.33% | -3.33% | 0% | -3.33% | -3.33% |
 
 ## Outcomes by market
 
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
 | EU-XETRA | 1 | 1d | primary | 1 | -0.04% | -0.04% | 0% | -0.04% | -0.04% |
+|  |  | 3d | primary | 1 | -3.33% | -3.33% | 0% | -3.33% | -3.33% |
 | US | 18 | 1d | primary | 18 | -0.28% | +0.14% | 50% | +5.84% | -13.15% |
 |  |  | 3d | primary | 17 | -2.05% | -0.51% | 47% | +7.98% | -17.37% |
 |  |  | 5d | primary | 17 | -3.53% | -3.80% | 18% | +3.81% | -12.54% |
