@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-07-19",
+  "generated_at": "2026-07-19T17:00:45Z",
+  "model": "GPT-5.6 Thinking",
+  "research_mode": "hybrid evidence-gated continuity review",
+  "repository_commit": "56ccec97e15cd10b4b417f8318ab155d49b65b4e",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "public issuer investor-relations pages",
+    "public eToro instrument pages",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "7346ed76fa81090f28c17b1b3ef440e13269f80b85798a797678473500a71f60",
+  "source_counts": {
+    "opened": 15,
+    "primary": 2
+  },
+  "candidates": [
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "catalyst": {
+        "event": "FDA PDUFA goal date for gedatolisib; approval was announced early on July 14, 2026",
+        "date": "2026-07-17",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-acceptance-new-drug-application",
+        "verified_at": "2026-07-19T17:00:45Z"
+      },
+      "expectations": "The original binary regulatory decision is no longer pending. The relevant forward questions are launch execution, adoption, cash use and financing effects, but no separate dated trigger was verified for this run.",
+      "priced_in": "Unknown from the canonical snapshot because CELC is absent. The FDA approval was public on July 14, so treating the approval itself as undisclosed upside would be stale.",
+      "bull_case": "FDA approval materially de-risks the asset and creates a commercialization pathway.",
+      "bear_case": "The approval event is completed; post-event volatility, commercialization execution and June convertible financing can dominate, while the snapshot provides no fresh technical structure.",
+      "pre_mortem": "A new trade fails because the market already repriced the approval and investors focus on launch costs, financing dilution or slower adoption.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The primary catalyst occurred on July 14, three days before the PDUFA goal date, and no fresh structured market data or independent post-event setup supports a new entry.",
+      "rejection_reason": "Catalyst already occurred; no current canonical market-data row and no complete post-event setup. Existing open trade requires management review, not a duplicate entry candidate.",
+      "next_review_date": "2026-07-20",
+      "evidence": [
+        {
+          "claim": "Celcuity's January 20 primary-source release states that FDA assigned a July 17, 2026 PDUFA goal date.",
+          "source_type": "primary",
+          "location": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-acceptance-new-drug-application",
+          "published_at": "2026-01-20",
+          "accessed_at": "2026-07-19T17:00:45Z"
+        },
+        {
+          "claim": "Celcuity announced FDA approval of REVTORPYK on July 14, 2026, meaning the recorded July 17 binary event occurred early.",
+          "source_type": "primary",
+          "location": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib",
+          "published_at": "2026-07-14",
+          "accessed_at": "2026-07-19T17:00:45Z"
+        },
+        {
+          "claim": "Repository trade 2026-0004 remains recorded as open with entry 89.86, stop 85.37 and catalyst date July 17, 2026.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0004",
+          "published_at": null,
+          "accessed_at": "2026-07-19T17:00:45Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-07-14T18:46:48+02:00",
+        "data_source": "repository snapshot / yahoo",
+        "price": 39.1,
+        "market_cap": null,
+        "avg_dollar_volume": 20702624.99
+      },
+      "expectations": "No company-specific expectations set was established because no primary-source future catalyst inside 42 days was verified.",
+      "priced_in": "The snapshot shows a 5.76% daily move, 2.38 relative volume and a 20-day breakout, so some near-term optimism may already be reflected; the cause was not independently verified.",
+      "bull_case": "The snapshot shows strong relative volume and a breakout with preferred non-US liquidity, and eToro has a public stock/share instrument page.",
+      "bear_case": "The move may be eventless momentum or sector sympathy; market cap is missing from the canonical snapshot and no verified dated catalyst or complete structure-based setup was established.",
+      "pre_mortem": "The breakout fails because the move lacks a durable company-specific catalyst and reverses after short-term momentum buyers exit.",
+      "risk_rating": "High",
+      "confidence": "Medium",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Removing the scanner signal leaves no opened primary source, verified event date or setup with defensible levels and 1.5R.",
+      "rejection_reason": "No primary-source-verified catalyst inside 42 days; missing snapshot market cap; no complete setup.",
+      "next_review_date": "2026-07-26",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records price 39.1, average daily value 20702624.99, 5.7614% change, 2.378 relative volume and a 20-day breakout on July 14.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#DHER.DE",
+          "published_at": "2026-07-17T20:13:14Z",
+          "accessed_at": "2026-07-19T17:00:45Z"
+        },
+        {
+          "claim": "Public eToro page presents Delivery Hero SE as a stock/share instrument under ticker DHER.DE.",
+          "source_type": "other",
+          "location": "https://www.etoro.com/markets/dher.de/",
+          "published_at": null,
+          "accessed_at": "2026-07-19T17:00:45Z"
+        }
+      ]
+    },
+    {
+      "ticker": "S",
+      "company": "SentinelOne Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-14T17:39:49+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 19.95,
+        "market_cap": null,
+        "avg_dollar_volume": 8697235.42
+      },
+      "expectations": "Not established because liquidity fails the broker overlay's conditional US floor and no primary-source future catalyst was verified.",
+      "priced_in": "The snapshot shows a 7.49% move, 3.00 relative volume and a 20-day breakout; that move is insufficient evidence of a durable catalyst and may already represent the near-term reaction.",
+      "bull_case": "Strong relative-volume breakout and public eToro stock/share availability under ticker S.US.",
+      "bear_case": "Canonical average daily dollar volume is below the $10M conditional US threshold, while no primary-source catalyst or complete technical setup was verified.",
+      "pre_mortem": "The breakout reverses in thin liquidity because the move was scanner-driven without a durable catalyst and exits suffer slippage.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The canonical snapshot fails the minimum conditional liquidity gate; expensive catalyst and level work cannot rescue a hard broker-overlay failure.",
+      "rejection_reason": "Average daily dollar volume 8697235.42 is below the $10M conditional US floor; no verified catalyst.",
+      "next_review_date": "2026-07-26",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records price 19.95, average daily dollar volume 8697235.42, 7.4892% change, 2.9973 relative volume and a 20-day breakout on July 14.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#S",
+          "published_at": "2026-07-17T20:13:14Z",
+          "accessed_at": "2026-07-19T17:00:45Z"
+        },
+        {
+          "claim": "Public eToro page presents SentinelOne as a stock/share instrument under broker ticker S.US.",
+          "source_type": "other",
+          "location": "https://www.etoro.com/markets/s.us/",
+          "published_at": null,
+          "accessed_at": "2026-07-19T17:00:45Z"
+        }
+      ]
+    }
+  ]
+}
