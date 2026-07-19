@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-07-19T21:41:04.440037+00:00",
+  "review_date": "2026-07-19",
+  "review_ids": [
+    "REV-2026-0001"
+  ],
+  "row_count": 1,
+  "schema_version": 1,
+  "sha256": "ed4d25d6dc88122f67f19c55d44ddb65ea798a7e739fad014ce8d27cc67073e4",
+  "source": "data/recommendation_reviews.csv"
+}

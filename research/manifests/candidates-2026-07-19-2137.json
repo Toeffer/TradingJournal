@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-07-19",
+  "generated_at": "2026-07-19T21:37:00Z",
+  "model": "Claude Opus 4.8",
+  "research_mode": "hybrid evidence-gated continuity review (independent same-day run)",
+  "repository_commit": "cb0ab68423483d973cf78c0ed0bd45ef95698c5c",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "public web search",
+    "public issuer/exchange/regulator pages (fetch attempted)",
+    "FMP MCP quote endpoint (access-denied on this plan)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "7346ed76fa81090f28c17b1b3ef440e13269f80b85798a797678473500a71f60",
+  "source_counts": {
+    "opened": 9,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "expectations": "The binary regulatory decision is no longer pending. Forward questions are launch execution (management now guides a late-Q3 2026 commercial launch), a planned Q3 2026 sNDA, cash use and June convertible dilution. No separate dated near-term trigger creating a fresh entry was verified.",
+      "priced_in": "FDA approval was public on 2026-07-14, so treating the approval as undisclosed upside would be stale. No canonical CELC market-data row exists in the snapshot to assess current structure.",
+      "bull_case": "Approval de-risks the lead asset and opens a commercialization path; an sNDA expansion could widen the label.",
+      "bear_case": "The catalyst is complete; post-event volatility, launch costs, convertible dilution and slower adoption can dominate, and no fresh structure-based setup exists.",
+      "pre_mortem": "A new entry fails because the market already repriced the approval and shifts focus to launch spend and financing dilution.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The primary catalyst occurred on 2026-07-14, three days before the recorded PDUFA goal date, and no fresh structured market data or independent post-event setup supports a new entry. The name belongs in the open-position management review (REC-2026-0001, trade 2026-0004), not the new-entry shortlist.",
+      "rejection_reason": "Binary catalyst already occurred; no current canonical market-data row and no complete post-event setup. Handled as a manage recommendation, not a duplicate new-entry candidate.",
+      "next_review_date": "2026-07-26",
+      "evidence": [
+        {
+          "claim": "FDA approved REVTORPYK (gedatolisib) on 2026-07-14 (early vs the 2026-07-17 goal date); management guides a late-Q3 2026 launch and a Q3 2026 sNDA; next quarterly update cited around 2026-08-06.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.investing.com/equities/celcuity-earnings",
+          "published_at": "2026-07-14",
+          "accessed_at": "2026-07-19T21:37:00Z"
+        },
+        {
+          "claim": "Repository trade 2026-0004 remains recorded as open with entry 89.86, stop 85.37 and catalyst date 2026-07-17.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0004",
+          "published_at": null,
+          "accessed_at": "2026-07-19T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-07-14T18:46:48+02:00",
+        "data_source": "repository snapshot / yahoo",
+        "price": 39.1,
+        "market_cap": null,
+        "avg_dollar_volume": 20702624.99
+      },
+      "expectations": "The 2026-07-14 scanner move is now explained: on 2026-07-16 Uber announced a board-recommended cash takeover offer at EUR 41.50/share. The stock is therefore a merger-arbitrage instrument, not a momentum breakout. Market expectations are anchored to deal completion odds, not fundamentals.",
+      "priced_in": "The offer and board recommendation are public. With completion expected only in H2 2027 and merger-control risk, the share trades at a discount to the EUR 41.50 cash offer rather than a swing-tradeable trend.",
+      "bull_case": "A firm, board-recommended, all-cash offer with a 50%+1 minimum acceptance and Prosus (~17%) committed to tender puts a floor near the deal value.",
+      "bear_case": "The deal-close catalyst is >1 year out (H2 2027) and outside the 42-day discovery horizon; the remaining spread compensates for regulatory/merger-control risk; if the deal breaks the price can fall back toward pre-bid levels. No near-term structure-based swing setup and no allowed SETUPS.md setup type fit a 10-session horizon.",
+      "pre_mortem": "A swing entry fails because the price is pinned to a long-dated arbitrage with binary regulatory downside, not a trend; there is no defensible stop/target math for a 5-10 session hold.",
+      "risk_rating": "High",
+      "confidence": "Medium",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Even with a verified corporate catalyst, the event is a >12-month merger-arb with the close far outside 42 days; there is no near-term trigger, no allowed swing setup, and no evidence-based entry/stop/target delivering >=1.5R over the journal's holding horizon.",
+      "rejection_reason": "Verified takeover but the deal-close catalyst is >42 days away (H2 2027); merger-arbitrage is outside the swing mandate and SETUPS.md types; no complete near-term setup.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records price 39.10, average daily value 20,702,624.99, +5.7614% change, 2.378 relative volume and a 20-day breakout on 2026-07-14.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#DHER.DE",
+          "published_at": "2026-07-17T20:13:14Z",
+          "accessed_at": "2026-07-19T21:37:00Z"
+        },
+        {
+          "claim": "On 2026-07-16 Uber announced a board-recommended all-cash takeover offer for Delivery Hero at EUR 41.50/share (~$14.8B equity value), 50%+1 minimum acceptance, Prosus (~17%) agreed to tender, closing expected in H2 2027 pending merger-control clearances. Primary issuer/acquirer pages returned HTTP 403 this run; corroborated by multiple reputable secondaries.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.gurufocus.com/news/8962580/uber-offers-4150-per-share-in-148b-bid-for-delivery-hero",
+          "published_at": "2026-07-16",
+          "accessed_at": "2026-07-19T21:37:00Z"
+        },
+        {
+          "claim": "Delivery Hero appears as a tradeable stock/share on eToro under ticker DHER.DE (EU/XETRA), consistent with the EU-XETRA snapshot row; eToro page not personally re-opened this run.",
+          "source_type": "other",
+          "location": "https://www.etoro.com/markets/dher.de/",
+          "published_at": null,
+          "accessed_at": "2026-07-19T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "S",
+      "company": "SentinelOne Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-14T17:39:49+02:00",
+        "data_source": "repository snapshot / alpaca",
+        "price": 19.95,
+        "market_cap": null,
+        "avg_dollar_volume": 8697235.42
+      },
+      "expectations": "No company-specific near-term expectations set was established. SentinelOne's most recent report was fiscal Q1 2027 (~late May 2026); the next quarterly (fiscal Q2 2027) is expected late Aug/early Sep 2026, outside the 21-day actionable window.",
+      "priced_in": "The 2026-07-14 snapshot shows a +7.49% move, 3.00 relative volume and a 20-day breakout; that is a price/volume anomaly, not evidence of a durable near-term catalyst.",
+      "bull_case": "Strong relative-volume breakout and public eToro stock/share availability under broker ticker S.US.",
+      "bear_case": "Canonical average daily dollar volume of ~$8.70M is below even the $10M conditional US floor; no verified catalyst inside 21 days; thin liquidity risks slippage on exit.",
+      "pre_mortem": "The breakout reverses in thin liquidity because the move was scanner-driven without a durable near-term catalyst.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The snapshot fails the minimum conditional liquidity gate; no near-term verified catalyst exists; catalyst and level work cannot rescue a hard broker-overlay liquidity failure.",
+      "rejection_reason": "Average daily dollar volume 8,697,235.42 is below the $10M conditional US floor; no verified catalyst inside 21 days.",
+      "next_review_date": "2026-07-26",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records price 19.95, average daily dollar volume 8,697,235.42, +7.4892% change, 2.9973 relative volume and a 20-day breakout on 2026-07-14.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#S",
+          "published_at": "2026-07-17T20:13:14Z",
+          "accessed_at": "2026-07-19T21:37:00Z"
+        },
+        {
+          "claim": "SentinelOne's most recent quarterly was fiscal Q1 2027 (~late May 2026); no earnings or other primary-source catalyst falls inside the 21-day actionable window from 2026-07-19.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketbeat.com/stocks/NYSE/S/earnings/",
+          "published_at": null,
+          "accessed_at": "2026-07-19T21:37:00Z"
+        }
+      ]
+    }
+  ]
+}
