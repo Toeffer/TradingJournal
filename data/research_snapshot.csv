@@ -1,3 +1,3 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
-2026-07-14T18:46:48+0200,DHER.DE,,EU-XETRA,XETRA,EUR,39.1,,529478.9,20702624.99,5.7614,2.3780,66,false,,false,true,4.7696,69.44,6.56,15.17,-0.0916,1.291,defensive,yahoo,2026-07-14T18:46:48+0200,yahoo,
-2026-07-14T17:39:49+0200,S,,US,US,USD,19.95,,435951.65,8697235.42,7.4892,2.9973,60,false,,false,true,5.0553,70.23,15.03,21.57,1.6305,1.008,defensive,alpaca,2026-07-14T17:39:49+0200,alpaca,
+2026-07-14T18:46:48+0200,DHER.DE,,EU-XETRA,XETRA,EUR,39.1,,529478.9,20702624.99,5.7614,2.3780,66,false,,false,true,4.7696,69.44,6.56,15.17,-0.0916,1.291,mixed,yahoo,2026-07-14T18:46:48+0200,yahoo,
+2026-07-14T17:39:49+0200,S,,US,US,USD,19.95,,435951.65,8697235.42,7.4892,2.9973,60,false,,false,true,5.0553,70.23,15.03,21.57,1.6305,1.008,mixed,alpaca,2026-07-14T17:39:49+0200,alpaca,
