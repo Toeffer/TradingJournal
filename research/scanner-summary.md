@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-20 20:38 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-21 09:41 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -24,7 +24,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
 | 60-69 | 9 | 1d | primary | 9 | -0.56% | +1.03% | 56% | +3.38% | -13.15% |
 |  |  | 3d | primary | 9 | -3.16% | -2.46% | 22% | +1.62% | -9.72% |
-|  |  | 5d | primary | 7 | -4.33% | -4.35% | 14% | +2.72% | -12.54% |
+|  |  | 5d | primary | 8 | -4.01% | -3.06% | 12% | +2.72% | -12.54% |
 |  |  | 10d | primary | 5 | -6.42% | -9.52% | 40% | +3.11% | -13.35% |
 | 70-79 | 2 | 1d | primary | 2 | -0.28% | -0.28% | 50% | +1.66% | -2.23% |
 |  |  | 3d | primary | 2 | -2.30% | -2.30% | 50% | +3.99% | -8.59% |
@@ -49,7 +49,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 10d | primary | 6 | -4.46% | -3.37% | 50% | +3.11% | -13.37% |
 | yahoo | 2 | 1d | primary | 2 | -0.75% | -0.75% | 0% | -0.04% | -1.46% |
 |  |  | 3d | primary | 2 | -2.87% | -2.87% | 0% | -2.40% | -3.33% |
-|  |  | 5d | primary | 1 | -1.15% | -1.15% | 0% | -1.15% | -1.15% |
+|  |  | 5d | primary | 2 | -1.46% | -1.46% | 0% | -1.15% | -1.76% |
 
 ## Outcomes by market
 
@@ -57,7 +57,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
 | EU-XETRA | 2 | 1d | primary | 2 | -0.75% | -0.75% | 0% | -0.04% | -1.46% |
 |  |  | 3d | primary | 2 | -2.87% | -2.87% | 0% | -2.40% | -3.33% |
-|  |  | 5d | primary | 1 | -1.15% | -1.15% | 0% | -1.15% | -1.15% |
+|  |  | 5d | primary | 2 | -1.46% | -1.46% | 0% | -1.15% | -1.76% |
 | US | 19 | 1d | primary | 19 | -0.18% | +0.31% | 53% | +5.84% | -13.15% |
 |  |  | 3d | primary | 19 | -2.07% | -1.76% | 42% | +7.98% | -17.37% |
 |  |  | 5d | primary | 18 | -3.58% | -3.88% | 17% | +3.81% | -12.54% |
@@ -67,7 +67,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Date | Ticker | Market | Score | Signal price | Day move | 1d | 5d | 10d | 21d context |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
-| 2026-07-14 | DHER.DE | EU-XETRA | 66 | 39.1000 | +5.76% | -1.46% | — | — | — |
+| 2026-07-14 | DHER.DE | EU-XETRA | 66 | 39.1000 | +5.76% | -1.46% | -1.76% | — | — |
 | 2026-07-14 | S | US | 60 | 19.9500 | +7.49% | +1.58% | — | — | — |
 | 2026-07-09 | RIVN | US | 63 | 17.9150 | +7.60% | +2.48% | -4.35% | — | — |
 | 2026-07-09 | QIA.DE | EU-XETRA | 68 | 36.6700 | +10.62% | -0.04% | -1.15% | — | — |
