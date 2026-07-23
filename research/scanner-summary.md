@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-22 20:19 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-23 09:37 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -11,7 +11,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 - Signals recorded: 21
 - With 1-day outcome: 21
-- With 10-day outcome: 17
+- With 10-day outcome: 18
 - With 21-day context outcome: 0
 
 ## Outcomes by score bucket
@@ -25,7 +25,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 60-69 | 9 | 1d | primary | 9 | -0.56% | +1.03% | 56% | +3.38% | -13.15% |
 |  |  | 3d | primary | 9 | -3.16% | -2.46% | 22% | +1.62% | -9.72% |
 |  |  | 5d | primary | 9 | -4.23% | -4.35% | 11% | +2.72% | -12.54% |
-|  |  | 10d | primary | 5 | -6.42% | -9.52% | 40% | +3.11% | -13.35% |
+|  |  | 10d | primary | 6 | -6.09% | -6.96% | 33% | +3.11% | -13.35% |
 | 70-79 | 2 | 1d | primary | 2 | -0.28% | -0.28% | 50% | +1.66% | -2.23% |
 |  |  | 3d | primary | 2 | -2.30% | -2.30% | 50% | +3.99% | -8.59% |
 |  |  | 5d | primary | 2 | -3.85% | -3.85% | 0% | -1.40% | -6.30% |
@@ -50,6 +50,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | yahoo | 2 | 1d | primary | 2 | -0.75% | -0.75% | 0% | -0.04% | -1.46% |
 |  |  | 3d | primary | 2 | -2.87% | -2.87% | 0% | -2.40% | -3.33% |
 |  |  | 5d | primary | 2 | -1.46% | -1.46% | 0% | -1.15% | -1.76% |
+|  |  | 10d | primary | 1 | -4.40% | -4.40% | 0% | -4.40% | -4.40% |
 
 ## Outcomes by market
 
@@ -58,6 +59,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | EU-XETRA | 2 | 1d | primary | 2 | -0.75% | -0.75% | 0% | -0.04% | -1.46% |
 |  |  | 3d | primary | 2 | -2.87% | -2.87% | 0% | -2.40% | -3.33% |
 |  |  | 5d | primary | 2 | -1.46% | -1.46% | 0% | -1.15% | -1.76% |
+|  |  | 10d | primary | 1 | -4.40% | -4.40% | 0% | -4.40% | -4.40% |
 | US | 19 | 1d | primary | 19 | -0.18% | +0.31% | 53% | +5.84% | -13.15% |
 |  |  | 3d | primary | 19 | -2.07% | -1.76% | 42% | +7.98% | -17.37% |
 |  |  | 5d | primary | 19 | -3.70% | -3.97% | 16% | +3.81% | -12.54% |
@@ -70,7 +72,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 2026-07-14 | DHER.DE | EU-XETRA | 66 | 39.1000 | +5.76% | -1.46% | -1.76% | — | — |
 | 2026-07-14 | S | US | 60 | 19.9500 | +7.49% | +1.58% | -6.01% | — | — |
 | 2026-07-09 | RIVN | US | 63 | 17.9150 | +7.60% | +2.48% | -4.35% | — | — |
-| 2026-07-09 | QIA.DE | EU-XETRA | 68 | 36.6700 | +10.62% | -0.04% | -1.15% | — | — |
+| 2026-07-09 | QIA.DE | EU-XETRA | 68 | 36.6700 | +10.62% | -0.04% | -1.15% | -4.40% | — |
 | 2026-07-06 | RIVN | US | 60 | 19.8100 | +6.39% | -13.15% | -12.54% | -12.42% | — |
 | 2026-07-03 | SMMT | US | 60 | 15.4400 | +7.37% | +2.72% | -0.62% | -9.52% | — |
 | 2026-07-03 | RIVN | US | 80 | 18.6200 | +8.51% | -7.60% | -6.95% | -6.82% | — |
