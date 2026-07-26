@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-07-26",
+  "generated_at": "2026-07-26T21:41:20Z",
+  "model": "Claude Code (Anthropic)",
+  "research_mode": "continuity-first, catalyst-first, evidence-gated (scheduled autonomous run)",
+  "repository_commit": "f477878c38eee0e1e53802f6ddbe93af6cbac65c",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv (regenerated this run, 0 rows)",
+    "data/eu_quote_history.csv (repository structured market data through 2026-07-24)",
+    "FMP earnings-calendar MCP endpoint (dated structured provider)",
+    "public web search (snippets only)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 16,
+    "primary": 0
+  },
+  "run_constraints": "Session egress policy returned HTTP 403 for every issuer IR page, EQS regulatory feed, newswire (GlobeNewswire), SEC EDGAR, and eToro market page attempted via WebFetch; Quartr and FMP quote/screener MCP endpoints returned subscription-required. No primary source could be opened this run, so no catalyst date reaches date_status=verified and no candidate can be classified ACTIONABLE or EARLY_WATCH. Every new lead is therefore REJECT under the evidence gate, independent of its market merit. Reachable structured data: FMP earnings-calendar and repository CSVs.",
+  "candidates": [
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Original binary FDA catalyst is complete (REVTORPYK/gedatolisib approved 2026-07-14, ahead of the recorded 2026-07-17 goal date). This is not a new-entry candidate; it is handled as open-position continuity via recommendation REC-2026-0001 (action=manage) linked to trade 2026-0004. No fresh structured market-data row exists (canonical snapshot has 0 rows) and no exact forward primary-source date was verifiable this run, so no post-approval setup can be constructed.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Approval has been public since 2026-07-14 and is repriced; commercialization/financing execution now dominates. Empty snapshot prevents any defensible current level. Retaining it as a new idea would be sunk-cost reasoning; it belongs in management review, not the new-idea funnel.",
+      "next_review_date": "2026-08-02",
+      "evidence": [
+        {
+          "claim": "Trade 2026-0004 is recorded open: CELC long, entry 89.86, stop 85.37, catalyst date 2026-07-17.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0004",
+          "published_at": null,
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "Celcuity announced FDA approval of REVTORPYK (gedatolisib) on 2026-07-14, three days before the 2026-07-17 PDUFA goal date (carried from the 2026-07-19 run, which cited the issuer release; the IR page could not be re-opened this run due to egress policy).",
+          "source_type": "reputable_secondary",
+          "location": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib",
+          "published_at": "2026-07-14",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "The canonical research snapshot regenerated this run contains 0 rows (sha256 564467de...a81334), so no current CELC price/structure is available.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": "2026-07-24T20:38:43Z",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CPRX",
+      "company": "Catalyst Pharmaceuticals, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "The FMP-calendar 2026-08-05 'earnings' lead is stale: Catalyst is in an announced all-cash acquisition by Angelini Pharma at $31.50/share, with a shareholder vote held 2026-07-08 and the Q1 2026 call cancelled 'in light of the pending acquisition'. This is a merger-arbitrage situation with fixed cash consideration and no swing-trade upside, not a catalyst setup. Excluded before level construction.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "A cash-merger name trades to a fixed price minus deal risk; there is no volatility thesis and no allowed setup. Treating the calendar row as a live earnings catalyst would be a data-provenance error.",
+      "next_review_date": "2026-09-06",
+      "evidence": [
+        {
+          "claim": "FMP earnings-calendar lists CPRX with an estimated report date of 2026-08-05 (EPS est 0.48).",
+          "source_type": "market_data",
+          "location": "FMP calendar/earnings-calendar MCP endpoint (financialmodelingprep.com)",
+          "published_at": "2026-07-18",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "Catalyst cancelled its Q1 2026 conference call (was 2026-05-12) 'in light of the pending acquisition by Angelini Pharma S.p.A.'; a special shareholder meeting to vote on the $31.50/share cash merger was scheduled for 2026-07-08 (web-search snippet; primary release not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.globenewswire.com/news-release/2026/05/07/3290519/13009/en/Catalyst-Pharmaceuticals-Cancels-First-Quarter-2026-Conference-Call-and-Webcast.html",
+          "published_at": "2026-05-07",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "EVT.DE",
+      "company": "Evotec SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "The material surprise is already public: Evotec issued an ad-hoc PRELIMINARY Q2/H1 2026 release on 2026-07-13 that cut full-year 2026 guidance (full results 2026-08-13 are now a low-information confirmation). The catalyst is spent and negative. Liquidity is also thin: XETRA turnover ~EUR2.3M/day (close 3.454 x ~672k shares on 2026-07-24), below even the conditional non-US floor. No allowed long setup.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "A guidance cut already disclosed removes the positive-surprise thesis; the 2026-08-13 full print rarely re-rates after a preliminary ad-hoc. Thin turnover adds spread/slippage risk. Nothing to trigger long into.",
+      "next_review_date": "2026-09-06",
+      "evidence": [
+        {
+          "claim": "Evotec closed 3.454 EUR on 2026-07-24 on ~672,138 XETRA shares (~EUR2.3M single-venue turnover), and ~733,883 shares the prior day.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#EVT.DE",
+          "published_at": "2026-07-24",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "Evotec announced preliminary Q2/H1 2026 results and updated (cut) its full-year 2026 outlook on 2026-07-13; full results are scheduled for 2026-08-13 (web-search snippets; issuer pages not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.evotec.com/news/ad-hoc-evotec-announces-preliminary-second-quarter-and-first-half-2026-results-and-updates-full-year-2026-outlook",
+          "published_at": "2026-07-13",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "WAF.DE",
+      "company": "Siltronic AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Secondary sources indicate an H1 2026 report on 2026-07-30 (inside the 21-day actionable horizon), but the issuer financial-calendar and EQS pages returned HTTP 403 this run, so the date is at best secondary_only and fails the verified gate. It is also a binary earnings event in a defensive market regime with no current (Sunday, no intraday) structure, and XETRA turnover is only ~EUR5-9M/day. No allowed setup.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Even if the 2026-07-30 date is correct, holding a semiconductor cyclical through a binary print in a defensive regime is a coin-flip, and no pre-earnings breakout or post-earnings-drift structure can be evidenced from a Sunday with a zero-row snapshot. Date is unverifiable at the primary level this run.",
+      "next_review_date": "2026-08-02",
+      "evidence": [
+        {
+          "claim": "Siltronic closed 82.95 EUR on 2026-07-24 on ~65,961 XETRA shares (~EUR5.5M single-venue turnover); ~111,316 shares (~EUR9.3M) the prior day.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#WAF.DE",
+          "published_at": "2026-07-24",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "Secondary calendar/aggregator sources indicate Siltronic's H1 2026 results publication on 2026-07-30; the primary siltronic.com financial-calendar page returned HTTP 403 and could not be opened this run.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.siltronic.com/en/investors/financial-calendar.html",
+          "published_at": null,
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AIXA.DE",
+      "company": "AIXTRON SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "AIXTRON has already raised its FY2026 guidance (positive surprise substantially repriced), and its exact H1 2026 report date could not be verified at the primary level this run (aixtron.com events page HTTP 403). Liquidity is fine (~EUR17M/day turnover) but there is no verified forward catalyst and no current setup. Carried previously as a rejected EU lead; nothing new to promote.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Buying after a guidance raise, before an unverified report date, in a defensive regime, with no structure, is chasing. The prior 2026-07-12 run also rejected the AIXTRON/AIXA lead; no genuinely new evidence exists.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {
+          "claim": "AIXTRON closed 40.23 EUR on 2026-07-24 on ~431,828 XETRA shares (~EUR17.4M single-venue turnover).",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#AIXA.DE",
+          "published_at": "2026-07-24",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "AIXTRON reported an increase to its FY2026 guidance (positive news already public); the exact H1 2026 publication date was not verifiable from an opened primary source this run.",
+          "source_type": "reputable_secondary",
+          "location": "https://compoundsemiconductor.net/article/123997/AIXTRON_SE_increases_FY_2026_guidance",
+          "published_at": null,
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Secondary German earnings calendars point to an H1/Q2 2026 report around 2026-08-07, but the date could not be verified at the primary level this run. Liquidity is borderline (XETRA turnover ~EUR4.5M/day), and there is no current setup. Secondary_only date fails the verified gate.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "IT-services reseller margins into a defensive macro backdrop are not an obvious long, the date is unverified, and turnover sits near the conditional floor. No allowed trigger.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {
+          "claim": "Bechtle closed 31.64 EUR on 2026-07-24 on ~140,860 XETRA shares (~EUR4.5M single-venue turnover).",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#BC8.DE",
+          "published_at": "2026-07-24",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "Secondary German earnings-calendar sources list Bechtle among companies reporting on 2026-08-07; not verified from an opened issuer primary source this run.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.tipranks.com/calendars/earnings/2026-8-7/germany",
+          "published_at": null,
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "JEN.DE",
+      "company": "Jenoptik AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "No H1 2026 report date could be verified from an opened primary source this run (Q1 was 2026-05-12; H1 typically mid-August but unconfirmed). Liquidity is conditional (~EUR3.8M/day turnover). Date unverified and no current setup.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Without a verified date, a photonics small/mid-cap in a defensive regime offers no testable trigger, and conditional liquidity adds execution risk.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {
+          "claim": "Jenoptik closed 39.36 EUR on 2026-07-24 on ~97,114 XETRA shares (~EUR3.8M single-venue turnover).",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#JEN.DE",
+          "published_at": "2026-07-24",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        },
+        {
+          "claim": "Jenoptik's Q1 2026 statement was released 2026-05-12 and its AGM was 2026-06-09; the H1 2026 publication date was not verifiable from an opened primary source this run.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.jenoptik.com/investors",
+          "published_at": null,
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ETSY",
+      "company": "Etsy, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "FMP-calendar lead only: estimated report 2026-08-05. No accessible structured price/liquidity source this run (FMP quote/screener are subscription-gated) and no opened primary date, so neither the setup nor the market-data gate can be met. Binary earnings in a defensive regime with no current structure.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "A discretionary-e-commerce name into a binary print, without verifiable current price structure or a primary date, is untradeable under the framework this week.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {
+          "claim": "FMP earnings-calendar lists ETSY with an estimated report date of 2026-08-05 (EPS est 1.17, revenue est ~$646M).",
+          "source_type": "market_data",
+          "location": "FMP calendar/earnings-calendar MCP endpoint (financialmodelingprep.com)",
+          "published_at": "2026-07-26",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RKT",
+      "company": "Rocket Companies, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "rejection_reason": "FMP-calendar lead only: estimated report 2026-08-06. Rate-sensitive mortgage originator; no accessible structured price/liquidity source this run and no opened primary date. Binary earnings, defensive regime, no current setup.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "A high-beta mortgage name into earnings with no verifiable structure or primary date is a gamble, not a setup; excluded before level construction.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {
+          "claim": "FMP earnings-calendar lists RKT with an estimated report date of 2026-08-06 (EPS est ~0.17).",
+          "source_type": "market_data",
+          "location": "FMP calendar/earnings-calendar MCP endpoint (financialmodelingprep.com)",
+          "published_at": "2026-07-26",
+          "accessed_at": "2026-07-26T21:41:20Z"
+        }
+      ]
+    }
+  ]
+}
