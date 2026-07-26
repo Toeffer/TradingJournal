@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-07-26",
+  "generated_at": "2026-07-26T16:58:49Z",
+  "model": "GPT-5.6 Thinking",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "81efb13f0fe48507d0ebf36749703f10281fa3f1",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "public issuer investor-relations pages",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 12,
+    "primary": 2
+  },
+  "candidates": [
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "catalyst": {
+        "event": "FDA PDUFA goal date for gedatolisib; FDA approval was announced early on July 14, 2026",
+        "date": "2026-07-17",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib",
+        "verified_at": "2026-07-26T16:58:49Z"
+      },
+      "expectations": "The original binary FDA decision is complete. Celcuity anticipates commercial launch in late Q3 2026 and plans a Q3 2026 sNDA submission, but the issuer does not provide an exact binding date for either item. The current IR page lists no upcoming event.",
+      "priced_in": "The approval has been public since July 14, 2026. The canonical snapshot contains zero rows, so current post-approval pricing and technical structure cannot be evidenced from the committed data pack.",
+      "bull_case": "FDA approval materially de-risks the product and creates a commercial pathway; launch and additional regulatory submissions may create future research objects once dated and supported by current market data.",
+      "bear_case": "The original catalyst is stale, commercialization execution and financing effects now dominate, and the empty snapshot prevents defensible current levels or risk/reward analysis.",
+      "pre_mortem": "A new or add-on trade fails because approval was already repriced, launch adoption disappoints, financing dilution or cash use weighs on the stock, and no structured setup existed at entry.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The catalyst already occurred, the issuer provides no exact new date inside the current horizons, and the canonical snapshot has no CELC row or any rows at all. The object cannot support a new entry or Early Watch classification.",
+      "rejection_reason": "Completed catalyst; no exact verified forward date and no current canonical market-data row or defensible setup. Existing open trade requires management reconciliation, not a duplicate research entry.",
+      "next_review_date": "2026-08-02",
+      "evidence": [
+        {
+          "claim": "Celcuity announced FDA approval of REVTORPYK on July 14, 2026 and stated that commercial launch is anticipated in late Q3 2026 and an sNDA submission is planned in Q3 2026.",
+          "source_type": "primary",
+          "location": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib",
+          "published_at": "2026-07-14",
+          "accessed_at": "2026-07-26T16:58:49Z"
+        },
+        {
+          "claim": "Celcuity's investor-relations page currently lists no upcoming event.",
+          "source_type": "primary",
+          "location": "https://ir.celcuity.com/",
+          "published_at": null,
+          "accessed_at": "2026-07-26T16:58:49Z"
+        },
+        {
+          "claim": "Repository trade 2026-0004 remains recorded as open with entry 89.86, original stop 85.37 and catalyst date July 17, 2026.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0004",
+          "published_at": null,
+          "accessed_at": "2026-07-26T16:58:49Z"
+        },
+        {
+          "claim": "The canonical snapshot metadata records zero rows and SHA-256 564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": "2026-07-24T20:38:43.911319+00:00",
+          "accessed_at": "2026-07-26T16:58:49Z"
+        }
+      ]
+    }
+  ]
+}
