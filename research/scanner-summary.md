@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-07-31 11:35 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-07-31 15:26 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -12,7 +12,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 - Signals recorded: 25
 - With 1-day outcome: 25
 - With 10-day outcome: 21
-- With 21-day context outcome: 0
+- With 21-day context outcome: 8
 
 ## Outcomes by score bucket
 
@@ -22,6 +22,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 8 | +1.17% | +1.45% | 62% | +7.98% | -4.19% |
 |  |  | 5d | primary | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
+|  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
 | 60-69 | 13 | 1d | primary | 13 | -0.79% | -0.04% | 46% | +4.69% | -13.15% |
 |  |  | 3d | primary | 11 | -2.39% | -2.40% | 27% | +2.55% | -9.72% |
 |  |  | 5d | primary | 9 | -4.23% | -4.35% | 11% | +2.72% | -12.54% |
@@ -43,10 +44,12 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 12 | -0.13% | +1.13% | 58% | +7.98% | -8.59% |
 |  |  | 5d | primary | 12 | -2.83% | -2.61% | 17% | +3.81% | -9.90% |
 |  |  | 10d | primary | 12 | -4.58% | -5.38% | 25% | +11.67% | -15.48% |
+|  |  | 21d | context | 7 | -7.75% | -8.89% | 29% | +9.44% | -28.21% |
 | alpaca+finviz_manual | 7 | 1d | primary | 7 | -2.14% | +0.31% | 57% | +3.38% | -13.15% |
 |  |  | 3d | primary | 7 | -5.38% | -2.71% | 14% | +0.33% | -17.37% |
 |  |  | 5d | primary | 7 | -5.20% | -4.50% | 14% | +2.72% | -12.54% |
 |  |  | 10d | primary | 7 | -4.95% | -6.82% | 43% | +3.11% | -13.37% |
+|  |  | 21d | context | 1 | -4.83% | -4.83% | 0% | -4.83% | -4.83% |
 | yahoo | 5 | 1d | primary | 5 | -0.06% | -0.93% | 20% | +4.69% | -2.56% |
 |  |  | 3d | primary | 4 | -0.90% | -1.41% | 25% | +2.55% | -3.33% |
 |  |  | 5d | primary | 2 | -1.46% | -1.46% | 0% | -1.15% | -1.76% |
@@ -64,6 +67,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 19 | -2.07% | -1.76% | 42% | +7.98% | -17.37% |
 |  |  | 5d | primary | 19 | -3.70% | -3.97% | 16% | +3.81% | -12.54% |
 |  |  | 10d | primary | 19 | -4.72% | -5.50% | 32% | +11.67% | -15.48% |
+|  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
 
 ## Runner board
 
@@ -86,14 +90,14 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 2026-07-02 | PLTR | US | 64 | 131.9700 | +4.95% | +1.03% | -4.45% | +0.08% | — |
 | 2026-07-02 | OWL | US | 60 | 9.1750 | +6.32% | +3.38% | +2.72% | +3.11% | — |
 | 2026-07-02 | HOOD | US | 70 | 119.8400 | +10.27% | -2.23% | -6.30% | -15.48% | — |
-| 2026-07-01 | PLTR | US | 49 | 125.7100 | +7.72% | +4.98% | +0.57% | +5.49% | — |
-| 2026-07-01 | HIMS | US | 56 | 37.5400 | +8.45% | -1.68% | -3.80% | -4.74% | — |
-| 2026-07-01 | GIS | US | 59 | 37.8050 | +8.56% | -1.43% | -4.50% | +2.68% | — |
-| 2026-07-01 | SOFI | US | 50 | 18.7150 | +4.29% | -0.61% | -3.05% | -5.50% | — |
-| 2026-07-01 | S | US | 40 | 17.7400 | +4.51% | +1.35% | +3.81% | +11.67% | — |
-| 2026-07-01 | TOST | US | 50 | 29.0150 | +4.24% | -0.02% | -1.15% | +4.79% | — |
-| 2026-07-01 | GRAB | US | 50 | 3.9050 | +3.86% | -0.51% | -2.18% | -5.25% | — |
-| 2026-07-01 | CELH | US | 40 | 31.8500 | +8.70% | +5.84% | -3.97% | -4.35% | — |
+| 2026-07-01 | PLTR | US | 49 | 125.7100 | +7.72% | +4.98% | +0.57% | +5.49% | -4.22% |
+| 2026-07-01 | HIMS | US | 56 | 37.5400 | +8.45% | -1.68% | -3.80% | -4.74% | -28.21% |
+| 2026-07-01 | GIS | US | 59 | 37.8050 | +8.56% | -1.43% | -4.50% | +2.68% | -4.83% |
+| 2026-07-01 | SOFI | US | 50 | 18.7150 | +4.29% | -0.61% | -3.05% | -5.50% | -13.84% |
+| 2026-07-01 | S | US | 40 | 17.7400 | +4.51% | +1.35% | +3.81% | +11.67% | +4.00% |
+| 2026-07-01 | TOST | US | 50 | 29.0150 | +4.24% | -0.02% | -1.15% | +4.79% | +9.44% |
+| 2026-07-01 | GRAB | US | 50 | 3.9050 | +3.86% | -0.51% | -2.18% | -5.25% | -12.55% |
+| 2026-07-01 | CELH | US | 40 | 31.8500 | +8.70% | +5.84% | -3.97% | -4.35% | -8.89% |
 
 ## Interpretation guardrails
 
