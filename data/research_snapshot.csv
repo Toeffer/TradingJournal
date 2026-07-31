@@ -1,5 +1,5 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
-2026-07-28T11:48:17+0200,BC8.DE,,EU-XETRA,XETRA,EUR,35.36,,163227.55,5771726.17,9.4737,6.3545,60,false,,false,true,8.2670,74.15,12.37,12.87,1.0583,1.375,defensive,yahoo,2026-07-28T11:48:17+0200,yahoo,
-2026-07-28T11:48:17+0200,MBG.DE,,EU-XETRA,XETRA,EUR,47.125,,1914312.85,90211993.06,3.9943,2.0674,64,false,,false,true,2.2789,59.71,3.94,1.00,0.6031,1.141,defensive,yahoo,2026-07-28T11:48:17+0200,yahoo,
-2026-07-29T18:51:01+0200,SHL.DE,,EU-XETRA,XETRA,EUR,37.54,,945576.65,35496947.44,4.5100,2.3184,65,false,,false,true,3.5586,68.33,6.76,6.87,0.5972,1.337,defensive,yahoo,2026-07-29T18:51:01+0200,yahoo,
-2026-07-29T22:16:02+0200,PATH,,US,US,USD,12.59,,1948081.2,24526342.31,3.3662,2.4294,66,false,,false,true,2.9015,61.88,9.02,11.52,0.2567,0.911,defensive,alpaca,2026-07-29T22:16:02+0200,alpaca,
+2026-07-28T11:48:17+0200,BC8.DE,,EU-XETRA,XETRA,EUR,35.36,,163227.55,5771726.17,9.4737,6.3545,60,false,,false,true,8.2670,74.15,12.37,12.87,1.0583,1.375,mixed,yahoo,2026-07-28T11:48:17+0200,yahoo,
+2026-07-28T11:48:17+0200,MBG.DE,,EU-XETRA,XETRA,EUR,47.125,,1914312.85,90211993.06,3.9943,2.0674,64,false,,false,true,2.2789,59.71,3.94,1.00,0.6031,1.141,mixed,yahoo,2026-07-28T11:48:17+0200,yahoo,
+2026-07-29T18:51:01+0200,SHL.DE,,EU-XETRA,XETRA,EUR,37.54,,945576.65,35496947.44,4.5100,2.3184,65,false,,false,true,3.5586,68.33,6.76,6.87,0.5972,1.337,mixed,yahoo,2026-07-29T18:51:01+0200,yahoo,
+2026-07-29T22:16:02+0200,PATH,,US,US,USD,12.59,,1948081.2,24526342.31,3.3662,2.4294,66,false,,false,true,2.9015,61.88,9.02,11.52,0.2567,0.911,mixed,alpaca,2026-07-29T22:16:02+0200,alpaca,
