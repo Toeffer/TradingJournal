@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-02",
+  "generated_at": "2026-08-02T17:00:03Z",
+  "model": "GPT-5.6 Thinking",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "81efb13f0fe48507d0ebf36749703f10281fa3f1",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "public issuer investor-relations pages",
+    "public eToro pages",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "e62c2720bf30c2d6b8d9d960ce6a8425ba14d6d2d4435deaa8ae5021e10a7651",
+  "source_counts": {
+    "opened": 14,
+    "primary": 5
+  },
+  "candidates": [
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "EARLY_WATCH",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "catalyst": {
+        "event": "Interim Report 2026 and conference call",
+        "date": "2026-08-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar",
+        "verified_at": "2026-08-02T17:00:03Z"
+      },
+      "market_data": {
+        "as_of": "2026-07-28T11:48:17+02:00",
+        "data_source": "data/research_snapshot.csv (Yahoo normalized snapshot); eToro market-cap supplement",
+        "price": 35.36,
+        "market_cap": 3840000000,
+        "avg_dollar_volume": 5771726.17
+      },
+      "expectations": "No sufficiently specific consensus or issuer guidance expectation was verified for the August 12 report. Expectations are therefore treated as unknown rather than inferred.",
+      "priced_in": "The canonical snapshot recorded a 9.47% daily move, 6.35x relative volume, a break above the 20-day high, RSI 74.15 and 8.27% five-day extension. Those conditions indicate that substantial near-term optimism may already have been reflected.",
+      "bull_case": "The catalyst is primary-source verified, the company is inside the core market-cap universe, liquidity clears the preferred non-US threshold, and the EUR XETRA listing avoids direct FX conversion for the EUR account.",
+      "bear_case": "The observed breakout is extended, expectations are not well evidenced, and an earnings-related gap or post-breakout reversal could overwhelm a short-term stop. A later public eToro price below the snapshot also highlights the danger of relying on stale structure.",
+      "pre_mortem": "A trade fails because the July breakout was the full repricing, the interim report does not exceed unobserved market expectations, and a chased entry reverses before or after the event without a defensible structure-based invalidation.",
+      "risk_rating": "High",
+      "confidence": "Medium",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "red_team_argument": "Catalyst, broker availability, market-cap bucket and preferred liquidity survive verification. The current evidence does not support a non-arbitrary entry, stop and target with sufficient planned R, so the name cannot be trigger-ready.",
+      "next_review_date": "2026-08-09",
+      "evidence": [
+        {
+          "claim": "Bechtle's financial calendar explicitly schedules the Interim Report 2026 and conference call for August 12, 2026.",
+          "source_type": "primary",
+          "location": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        },
+        {
+          "claim": "The canonical snapshot records BC8.DE at EUR 35.36 with approximately EUR 5.77M average daily value, 9.47% daily change, 6.35x relative volume, RSI 74.15 and 8.27% five-day extension.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#BC8.DE",
+          "published_at": "2026-07-28T11:48:17+02:00",
+          "accessed_at": "2026-08-02T17:00:03Z"
+        },
+        {
+          "claim": "The public Germany eToro page presents BC8.DE as a purchasable Bechtle stock and reports a core-universe market capitalization around EUR 3.84B.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/bc8.de",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        }
+      ]
+    },
+    {
+      "ticker": "MBG.DE",
+      "company": "Mercedes-Benz Group AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-07-28T11:48:17+02:00",
+        "data_source": "data/research_snapshot.csv",
+        "price": 47.125,
+        "market_cap": null,
+        "avg_dollar_volume": 90211993.06
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The Q2 event already occurred, and the next verified financial report is outside the 42-day discovery horizon. Nearby disclosure roadshows are not sufficiently material catalysts for this framework.",
+      "rejection_reason": "No future primary-source-verified material catalyst inside the discovery horizon.",
+      "next_review_date": "2026-09-27",
+      "evidence": [
+        {
+          "claim": "Mercedes-Benz's financial calendar shows Q2 reporting on July 28, 2026 and the next interim report on October 28, 2026.",
+          "source_type": "primary",
+          "location": "https://group.mercedes-benz.com/investors/events/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        },
+        {
+          "claim": "The canonical snapshot records MBG.DE at EUR 47.125 with approximately EUR 90.21M average daily value.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#MBG.DE",
+          "published_at": "2026-07-28T11:48:17+02:00",
+          "accessed_at": "2026-08-02T17:00:03Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SHL.DE",
+      "company": "Siemens Healthineers AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-07-29T18:51:01+02:00",
+        "data_source": "data/research_snapshot.csv; eToro market-cap supplement",
+        "price": 37.54,
+        "market_cap": 39560000000,
+        "avg_dollar_volume": 35496947.44
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "No future primary-source-verified material catalyst inside 42 days was established, and the name sits in the larger-cap exception bucket without a superior setup.",
+      "rejection_reason": "No verified forward catalyst inside the discovery horizon and no documented larger-cap exception case.",
+      "next_review_date": "2026-08-30",
+      "evidence": [
+        {
+          "claim": "The canonical snapshot records SHL.DE at EUR 37.54 with approximately EUR 35.50M average daily value.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#SHL.DE",
+          "published_at": "2026-07-29T18:51:01+02:00",
+          "accessed_at": "2026-08-02T17:00:03Z"
+        },
+        {
+          "claim": "The public eToro page presents SHL.DE as a purchasable XETRA stock and reports market capitalization in the larger-cap exception range.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/shl.de",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-07-29T22:16:02+02:00",
+        "data_source": "data/research_snapshot.csv",
+        "price": 12.59,
+        "market_cap": null,
+        "avg_dollar_volume": 24526342.31
+      },
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The canonical average daily dollar volume is below the preferred US floor and no opened primary source verified a material catalyst inside 42 days. Momentum alone cannot support the object.",
+      "rejection_reason": "No verified catalyst and liquidity below the preferred US main-list floor; no setup analysis warranted.",
+      "next_review_date": "2026-08-30",
+      "evidence": [
+        {
+          "claim": "The canonical snapshot records PATH at USD 12.59 with approximately USD 24.53M average daily dollar volume.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#PATH",
+          "published_at": "2026-07-29T22:16:02+02:00",
+          "accessed_at": "2026-08-02T17:00:03Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RHM.DE",
+      "company": "Rheinmetall AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Public market-cap observations place Rheinmetall at the upper edge of or above the default exclusion boundary, while the stock was already strongly news-reactive. It did not earn a documented exceptional treatment over core-universe alternatives.",
+      "rejection_reason": "Default market-cap exclusion / unstable boundary evidence plus crowding and priced-in risk.",
+      "next_review_date": "2026-09-06",
+      "evidence": [
+        {
+          "claim": "The public eToro page presents RHM.DE as a purchasable XETRA stock but reports market capitalization close to the EUR 50B boundary and a strong recent weekly move.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/rhm.de",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "catalyst": {
+        "event": "FDA PDUFA goal date for gedatolisib; FDA approval was announced early on July 14, 2026",
+        "date": "2026-07-17",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.celcuity.com/",
+        "verified_at": "2026-08-02T17:00:03Z"
+      },
+      "expectations": "The original binary event is complete. The issuer describes late-Q3 launch and Q3 sNDA plans but does not provide an exact binding date, and its events page lists no upcoming event.",
+      "priced_in": "FDA approval has been public since July 14. No current CELC row exists in the canonical snapshot, so a current post-approval setup cannot be evidenced from the committed data pack.",
+      "bull_case": "Approval materially de-risks the product and creates a commercial pathway.",
+      "bear_case": "The original thesis is stale, commercial execution and financing now dominate, and the repository still records an open position without current structured market data.",
+      "pre_mortem": "An add-on fails because approval was already repriced, launch adoption disappoints, financing weighs on the shares, and the existing position was not reconciled before new risk was added.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The catalyst occurred, no exact verified forward event exists, and the canonical snapshot has no CELC row. The object is management-only and cannot support a duplicate entry recommendation.",
+      "rejection_reason": "Completed catalyst; no exact verified forward date or current canonical setup. Existing trade requires management reconciliation, not new research entry.",
+      "next_review_date": "2026-08-09",
+      "evidence": [
+        {
+          "claim": "Celcuity's investor-relations page states that FDA approval was announced July 14, 2026 and currently lists no upcoming event.",
+          "source_type": "primary",
+          "location": "https://ir.celcuity.com/",
+          "published_at": "2026-07-14",
+          "accessed_at": "2026-08-02T17:00:03Z"
+        },
+        {
+          "claim": "Celcuity's events page lists the July 14 approval call as a past event and no upcoming events.",
+          "source_type": "primary",
+          "location": "https://ir.celcuity.com/events-presentations",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        },
+        {
+          "claim": "Repository trade 2026-0004 remains recorded as open with entry 89.86, original stop 85.37 and catalyst date July 17, 2026.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0004",
+          "published_at": null,
+          "accessed_at": "2026-08-02T17:00:03Z"
+        }
+      ]
+    }
+  ]
+}
