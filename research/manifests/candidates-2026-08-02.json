@@ -23,7 +23,7 @@
     {
       "ticker": "BC8.DE",
       "company": "Bechtle AG",
-      "classification": "EARLY_WATCH",
+      "classification": "REJECT",
       "source_tag": "routine+scanner_seed",
       "exchange": "XETRA",
       "currency": "EUR",
@@ -42,15 +42,16 @@
         "market_cap": 3840000000,
         "avg_dollar_volume": 5771726.17
       },
-      "expectations": "No sufficiently specific consensus or issuer guidance expectation was verified for the August 12 report. Expectations are therefore treated as unknown rather than inferred.",
-      "priced_in": "The canonical snapshot recorded a 9.47% daily move, 6.35x relative volume, a break above the 20-day high, RSI 74.15 and 8.27% five-day extension. Those conditions indicate that substantial near-term optimism may already have been reflected.",
-      "bull_case": "The catalyst is primary-source verified, the company is inside the core market-cap universe, liquidity clears the preferred non-US threshold, and the EUR XETRA listing avoids direct FX conversion for the EUR account.",
-      "bear_case": "The observed breakout is extended, expectations are not well evidenced, and an earnings-related gap or post-breakout reversal could overwhelm a short-term stop. A later public eToro price below the snapshot also highlights the danger of relying on stale structure.",
-      "pre_mortem": "A trade fails because the July breakout was the full repricing, the interim report does not exceed unobserved market expectations, and a chased entry reverses before or after the event without a defensible structure-based invalidation.",
+      "expectations": "No sufficiently specific consensus or issuer guidance expectation was verified for the August 12 report. Expectations are treated as unknown.",
+      "priced_in": "The canonical snapshot recorded a 9.47% daily move, 6.35x relative volume, a break above the 20-day high, RSI 74.15 and 8.27% five-day extension, indicating that substantial near-term optimism may already have been reflected.",
+      "bull_case": "The catalyst is verified, the company is inside the core market-cap universe, liquidity clears the preferred non-US threshold, and the EUR XETRA listing avoids direct FX conversion.",
+      "bear_case": "The observed breakout is extended, expectations are not well evidenced, and an earnings-related gap or post-breakout reversal could overwhelm a short-term stop.",
+      "pre_mortem": "A trade fails because the July breakout was the full repricing and a chased entry reverses without a defensible structure-based invalidation.",
       "risk_rating": "High",
       "confidence": "Medium",
-      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
-      "red_team_argument": "Catalyst, broker availability, market-cap bucket and preferred liquidity survive verification. The current evidence does not support a non-arbitrary entry, stop and target with sufficient planned R, so the name cannot be trigger-ready.",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The event is inside the Actionable horizon, but no non-arbitrary entry, stop and target with sufficient planned R can be established. The validator does not permit an inside-21-day catalyst to remain Early Watch.",
+      "rejection_reason": "Verified near-term catalyst but no defensible present setup, technical levels or sufficient planned R; extended breakout must not be chased.",
       "next_review_date": "2026-08-09",
       "evidence": [
         {
@@ -91,7 +92,7 @@
         "avg_dollar_volume": 90211993.06
       },
       "red_team_verdict": "REJECT",
-      "red_team_argument": "The Q2 event already occurred, and the next verified financial report is outside the 42-day discovery horizon. Nearby disclosure roadshows are not sufficiently material catalysts for this framework.",
+      "red_team_argument": "The Q2 event already occurred, and the next verified financial report is outside the 42-day discovery horizon.",
       "rejection_reason": "No future primary-source-verified material catalyst inside the discovery horizon.",
       "next_review_date": "2026-09-27",
       "evidence": [
@@ -127,7 +128,7 @@
       },
       "red_team_verdict": "REJECT",
       "red_team_argument": "No future primary-source-verified material catalyst inside 42 days was established, and the name sits in the larger-cap exception bucket without a superior setup.",
-      "rejection_reason": "No verified forward catalyst inside the discovery horizon and no documented larger-cap exception case.",
+      "rejection_reason": "No verified forward catalyst and no documented larger-cap exception case.",
       "next_review_date": "2026-08-30",
       "evidence": [
         {
@@ -161,8 +162,8 @@
         "avg_dollar_volume": 24526342.31
       },
       "red_team_verdict": "REJECT",
-      "red_team_argument": "The canonical average daily dollar volume is below the preferred US floor and no opened primary source verified a material catalyst inside 42 days. Momentum alone cannot support the object.",
-      "rejection_reason": "No verified catalyst and liquidity below the preferred US main-list floor; no setup analysis warranted.",
+      "red_team_argument": "Average daily dollar volume is below the preferred US floor and no primary source verified a material catalyst inside 42 days.",
+      "rejection_reason": "No verified catalyst and liquidity below the preferred US main-list floor.",
       "next_review_date": "2026-08-30",
       "evidence": [
         {
@@ -182,8 +183,8 @@
       "exchange": "XETRA",
       "currency": "EUR",
       "red_team_verdict": "REJECT",
-      "red_team_argument": "Public market-cap observations place Rheinmetall at the upper edge of or above the default exclusion boundary, while the stock was already strongly news-reactive. It did not earn a documented exceptional treatment over core-universe alternatives.",
-      "rejection_reason": "Default market-cap exclusion / unstable boundary evidence plus crowding and priced-in risk.",
+      "red_team_argument": "Public market-cap observations place Rheinmetall at the upper edge of or above the default exclusion boundary, while the stock was already strongly news-reactive.",
+      "rejection_reason": "Default market-cap exclusion or unstable boundary evidence plus crowding and priced-in risk.",
       "next_review_date": "2026-09-06",
       "evidence": [
         {
@@ -211,15 +212,15 @@
         "verified_at": "2026-08-02T17:00:03Z"
       },
       "expectations": "The original binary event is complete. The issuer describes late-Q3 launch and Q3 sNDA plans but does not provide an exact binding date, and its events page lists no upcoming event.",
-      "priced_in": "FDA approval has been public since July 14. No current CELC row exists in the canonical snapshot, so a current post-approval setup cannot be evidenced from the committed data pack.",
+      "priced_in": "FDA approval has been public since July 14. No current CELC row exists in the canonical snapshot.",
       "bull_case": "Approval materially de-risks the product and creates a commercial pathway.",
       "bear_case": "The original thesis is stale, commercial execution and financing now dominate, and the repository still records an open position without current structured market data.",
-      "pre_mortem": "An add-on fails because approval was already repriced, launch adoption disappoints, financing weighs on the shares, and the existing position was not reconciled before new risk was added.",
+      "pre_mortem": "An add-on fails because approval was already repriced and the existing position was not reconciled before new risk was added.",
       "risk_rating": "High",
       "confidence": "High",
       "red_team_verdict": "REJECT",
-      "red_team_argument": "The catalyst occurred, no exact verified forward event exists, and the canonical snapshot has no CELC row. The object is management-only and cannot support a duplicate entry recommendation.",
-      "rejection_reason": "Completed catalyst; no exact verified forward date or current canonical setup. Existing trade requires management reconciliation, not new research entry.",
+      "red_team_argument": "The catalyst occurred, no exact verified forward event exists, and the canonical snapshot has no CELC row.",
+      "rejection_reason": "Completed catalyst; no exact verified forward date or current canonical setup. Existing trade requires management reconciliation.",
       "next_review_date": "2026-08-09",
       "evidence": [
         {
