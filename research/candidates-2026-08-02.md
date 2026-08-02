@@ -7,7 +7,7 @@ DRAFT for human review. Not financial advice.
 - Prior reports reviewed: `research/candidates-2026-07-26.md` and matching manifest
 - Active recommendations reviewed: none in `data/recommendations.csv`
 - Open positions reviewed: CELC trade `2026-0004`
-- New leads / Actionable / Early Watch / Reject counts: 5 / 0 / 1 / 5
+- New leads / Actionable / Early Watch / Reject counts: 5 / 0 / 0 / 6
 - Weekly decision: **NO NEW TRADE**
 
 ## Prior recommendation audit
@@ -25,22 +25,16 @@ No active rows were present in `data/recommendations.csv`. The prior CELC resear
 
 ## Coming-week decision sheet
 
-### BC8.DE — WAIT PULLBACK
-- Recommendation ID / continuity: new research object; no prior active recommendation ID exists.
-- What changed: Bechtle's primary financial calendar verifies its interim report and conference call for **August 12, 2026**. The canonical July 28 snapshot shows €35.36, +9.47% on the day, 6.35x relative volume, RSI 74.15 and an 8.27% five-day extension.
-- Why this action: the catalyst is real and inside the 21-day Actionable horizon, but the current evidence describes an extended breakout rather than a defensible fresh entry. No structure-based trigger, stop and target with at least the required planned R can be established from the committed snapshot.
-- Promotion condition: a non-chased consolidation or pullback that creates a structure-based trigger, invalidation and target using updated structured market data; the setup must survive red team and expire within five trading sessions.
-- Removal condition: the August 12 report occurs before a valid setup forms, eToro availability changes, liquidity falls below the permitted tier, or new evidence invalidates the thesis.
-- Next review date: 2026-08-09.
+No candidate has a complete, validator-compatible trigger-ready setup. **NO NEW TRADE.**
 
 ## New research
 
 ### BC8.DE — Bechtle AG
 - Discovery origin: EU-XETRA canonical snapshot plus issuer financial calendar.
-- Evidence and classification: `EARLY_WATCH`. The August 12 interim report is primary-source verified; eToro publicly presents BC8.DE as a purchasable XETRA stock. Snapshot ADV is approximately €5.77M, above the preferred non-US floor, and eToro reports a core-universe market capitalization around €3.84B.
+- Evidence and classification: `REJECT`. The August 12 interim report is primary-source verified; eToro publicly presents BC8.DE as a purchasable XETRA stock. Snapshot ADV is approximately €5.77M, above the preferred non-US floor, and eToro reports a core-universe market capitalization around €3.84B.
 - Expectations / priced-in: expectations evidence is insufficiently specific. The snapshot's +9.47% move, 6.35x relative volume, RSI above 74 and breakout above the 20-day high imply substantial near-term enthusiasm may already be reflected.
 - Risk: event gap, post-breakout reversal, limited expectations evidence and stale-to-current price divergence. EUR listing avoids direct currency conversion for the EUR account, but XETRA hours, settlement and holiday-calendar risk still apply.
-- Red-team verdict: `DOWNGRADE_EARLY_WATCH`. Verified catalyst and broker/liquidity evidence survive; current setup quality does not.
+- Red-team verdict: `REJECT`. The catalyst is only 10 days away, which is inside the Actionable horizon, but the name lacks a defensible setup, structure-based levels and sufficient planned R. Repository validation does not permit an inside-21-day name to remain Early Watch.
 - Why it did not become an entry: arbitrary current-price entry or broker-page day-low stop would violate the method.
 
 ### MBG.DE — Mercedes-Benz Group AG
