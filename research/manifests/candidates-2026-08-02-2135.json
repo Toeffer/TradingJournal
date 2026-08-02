@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-02",
+  "generated_at": "2026-08-02T21:35:40Z",
+  "model": "Claude (Anthropic), Claude Code weekly research routine",
+  "research_mode": "continuity-first, evidence-gated hybrid (independent second-model pass)",
+  "repository_commit": "d1f332fbf0fda66a9f64238f86c55ecc6b7c76ab",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv (Yahoo/Alpaca normalized snapshot)",
+    "public web search (issuer, exchange, and reputable-secondary calendars)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "e62c2720bf30c2d6b8d9d960ce6a8425ba14d6d2d4435deaa8ae5021e10a7651",
+  "source_counts": {
+    "opened": 14,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "expectations": "Original binary FDA catalyst is complete; the market now prices commercial launch execution, not the approval decision.",
+      "priced_in": "FDA approval of gedatolisib (brand REVTORPYK) was announced July 14, 2026, ahead of the July 17 PDUFA goal date. No CELC row exists in the current canonical snapshot, so no current structured setup is measurable.",
+      "risk_rating": "High",
+      "confidence": "High",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The catalyst already occurred, no exact verified forward event date is published, and there is no current snapshot row to build a defensible setup. The open journal position is a management object, not a new-entry candidate.",
+      "rejection_reason": "Completed catalyst and no verified forward date or current canonical setup. The existing open trade 2026-0004 is handled as a linked manage recommendation, not a new entry.",
+      "next_review_date": "2026-08-09",
+      "evidence": [
+        {
+          "claim": "Repository trade 2026-0004 remains recorded as open with entry 89.86, original stop 85.37, and catalyst date July 17, 2026.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0004",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "Celcuity's FDA approval of gedatolisib (REVTORPYK) for HR+/HER2-, PIK3CA wild-type advanced breast cancer was announced July 14, 2026, completing the original binary thesis.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.kavout.com/market-lens/celcuity-s-gedatolisib-regulatory-win-meets-commercial-reality",
+          "published_at": "2026-07-14",
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "No exact verified forward catalyst date (e.g. a scheduled Q3 report) was found for Celcuity; the most recent corporate update accompanied the July 14 approval.",
+          "source_type": "reputable_secondary",
+          "location": "https://stockanalysis.com/stocks/celc/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "expectations": "Preliminary H1/Q2 2026 figures are already public and the full-year forecast was raised, so the largest positive surprise is already disclosed before the August 12 final report.",
+      "priced_in": "The snapshot recorded a +9.47% day, 6.35x relative volume, RSI 74.15, a break of the 20-day high, and 8.27% five-day extension. The July prelim release and guidance raise plausibly explain that breakout, indicating the good news is substantially reflected.",
+      "bull_case": "The August 12 interim report date is real and near-term, the company sits inside the core market-cap universe, liquidity clears the preferred non-US floor, and the EUR/XETRA listing avoids direct FX conversion for the account.",
+      "bear_case": "Preliminary figures and a raised forecast are already out; the final report is low-surprise. The breakout is extended (RSI >74) and any earnings-related reversal could overwhelm a short-term stop, with no clean structure to anchor a non-chased entry.",
+      "pre_mortem": "A trade fails because the July prelim/guidance-raise was the full repricing and a chased entry into an extended breakout reverses without defensible invalidation.",
+      "risk_rating": "High",
+      "confidence": "Medium",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The August 12 report is inside the 21-day actionable window, but the positive prelim news is already public, the tape is extended, and no non-arbitrary entry/stop/target with sufficient planned R can be defined. An inside-21-day catalyst cannot be parked as Early Watch.",
+      "rejection_reason": "Verified near-term catalyst but no defensible current setup; the positive prelim figures and raised forecast are already public and the breakout is extended. Do not chase.",
+      "next_review_date": "2026-08-09",
+      "evidence": [
+        {
+          "claim": "The canonical snapshot records BC8.DE at EUR 35.36 with approximately EUR 5.77M average daily value, +9.47% daily change, 6.35x relative volume, RSI 74.15, a 20-day-high break, and 8.27% five-day extension.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#BC8.DE",
+          "published_at": "2026-07-28T11:48:17+02:00",
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "Bechtle's financial calendar schedules the interim report for the first half of 2026 (final figures) on August 12, 2026, with the Q3 quarterly statement on November 13, 2026.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketscreener.com/BECHTLE-AG-54095346/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "Bechtle released strong preliminary Q2/H1 2026 figures (business volume ~EUR 2.27B, +18% y/y; revenue ~EUR 1.73B, +16% y/y) and raised its full-year forecast, so the positive news is already public ahead of August 12.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.tradingview.com/news/eqs:d2a4b945a094b:0-bechtle-ag-significant-q2-growth-in-business-volume-and-ebt-full-year-forecast-raised/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        }
+      ]
+    },
+    {
+      "ticker": "MBG.DE",
+      "company": "Mercedes-Benz Group AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The Q2 event already occurred on July 28, 2026, and the next scheduled interim report (October 28, 2026) is outside the 42-day discovery horizon. Early-August roadshows are not a material intermediate catalyst for this process.",
+      "rejection_reason": "No future primary-verified material catalyst inside the 42-day discovery horizon; the Q2 print already occurred before this run.",
+      "next_review_date": "2026-09-27",
+      "evidence": [
+        {
+          "claim": "The canonical snapshot records MBG.DE at EUR 47.125 with approximately EUR 90.21M average daily value.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#MBG.DE",
+          "published_at": "2026-07-28T11:48:17+02:00",
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "Mercedes-Benz reported Q2 2026 on July 28, 2026, and its next interim report is scheduled for October 28, 2026, outside the discovery horizon.",
+          "source_type": "reputable_secondary",
+          "location": "https://group.mercedes-benz.com/investors/events/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SHL.DE",
+      "company": "Siemens Healthineers AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Q3 FY2026 was already reported on July 31, 2026 (guidance cut on revenue, EPS forecast raised), so the snapshot move is a post-print reaction. The next report is early November, outside the horizon, and the name sits in the larger-cap exception bucket without a superior setup.",
+      "rejection_reason": "Catalyst already occurred (Q3 FY2026 on July 31); no verified forward catalyst inside the horizon; larger-cap exception bucket (~USD 47.6B) with no documented exception case.",
+      "next_review_date": "2026-08-30",
+      "evidence": [
+        {
+          "claim": "The canonical snapshot records SHL.DE at EUR 37.54 with approximately EUR 35.50M average daily value.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#SHL.DE",
+          "published_at": "2026-07-29T18:51:01+02:00",
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "Siemens Healthineers reported Q3 FY2026 on July 31, 2026 (revenue outlook lowered, earnings forecast raised) and carries a market capitalization of roughly USD 47.6B, placing it in the larger-cap exception bucket; the next results are expected in early November 2026.",
+          "source_type": "reputable_secondary",
+          "location": "https://companiesmarketcap.com/siemens-healthineers/marketcap/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The only forward catalyst is a next earnings date estimated at September 8, 2026 (~37 days, Early-Watch horizon), but it is aggregator-estimated rather than company-confirmed, so it is secondary_only and cannot support Early Watch. Average daily dollar volume also sits just below the preferred US main-list floor.",
+      "rejection_reason": "Forward earnings date is secondary-only/estimated (Sep 8, ~37 days) and liquidity (~USD 24.5M ADV) is below the preferred USD 25M US floor (conditional tier). Momentum alone is not a catalyst.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "The canonical snapshot records PATH at USD 12.59 with approximately USD 24.53M average daily dollar volume, just below the preferred USD 25M US main-list floor.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#PATH",
+          "published_at": "2026-07-29T22:16:02+02:00",
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "UiPath's next quarterly (Q2 FY2027) earnings date is estimated at September 8, 2026 by third-party earnings calendars; no company-confirmed date was verified.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.tipranks.com/stocks/path/earnings",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RHM.DE",
+      "company": "Rheinmetall AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Rheinmetall's market capitalization (~EUR 53.2B as of late July 2026) is clearly above the EUR/USD 50B default exclusion boundary, and the stock has run strongly into H1 results, adding crowding and priced-in risk. It does not earn the required exceptional treatment.",
+      "rejection_reason": "Default market-cap exclusion (~EUR 53.2B, above the 50B boundary) plus crowding/priced-in risk into the August 6 H1 report.",
+      "next_review_date": "2026-09-06",
+      "evidence": [
+        {
+          "claim": "Rheinmetall's market capitalization was approximately EUR 53.2B as of July 31, 2026, above the default 50B exclusion boundary.",
+          "source_type": "reputable_secondary",
+          "location": "https://companiesmarketcap.com/rheinmetall/marketcap/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        },
+        {
+          "claim": "Rheinmetall's H1 2026 results are scheduled for August 6, 2026, following a strong recent run, reinforcing crowding/priced-in concerns.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketscreener.com/quote/stock/RHEINMETALL-AG-436527/",
+          "published_at": null,
+          "accessed_at": "2026-08-02T21:35:40Z"
+        }
+      ]
+    }
+  ]
+}
