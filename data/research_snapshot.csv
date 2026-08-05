@@ -1,6 +1,5 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
 2026-08-03T19:25:48+0200,HAG.DE,,EU-XETRA,XETRA,EUR,86.34,,311067.25,26857546.37,8.2497,2.1547,64,false,,false,true,0.3020,64.55,8.81,11.22,0.9626,0.972,supportive,yahoo,2026-08-03T19:25:48+0200,yahoo,
-2026-07-29T18:51:01+0200,SHL.DE,,EU-XETRA,XETRA,EUR,37.54,,945576.65,35496947.44,4.5100,2.3184,65,false,,false,true,3.5586,68.33,6.76,6.87,0.5972,1.337,supportive,yahoo,2026-07-29T18:51:01+0200,yahoo,
 2026-08-03T19:25:48+0200,TUI1.DE,,EU-XETRA,XETRA,EUR,7.754,,3178815.25,24648533.45,3.2215,2.1805,65,false,,false,true,2.4036,70.36,7.60,8.98,0.9809,1.132,supportive,yahoo,2026-08-03T19:25:48+0200,yahoo,
 2026-07-29T22:16:02+0200,PATH,,US,US,USD,12.59,,1948081.2,24526342.31,3.3662,2.4294,66,false,,false,true,2.9015,61.88,9.02,11.52,0.2567,0.911,supportive,alpaca,2026-07-29T22:16:02+0200,alpaca,
 2026-08-04T17:59:02+0200,PLTR,,US,US,USD,158.3,,1016867.35,160970101.5,25.7447,6.3048,65,false,,false,true,24.4350,71.15,21.94,20.47,1.1338,1.400,supportive,alpaca,2026-08-04T17:59:02+0200,alpaca,already extended intraday/day move 25.74%
