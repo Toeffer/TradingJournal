@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-06 09:59 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-06 11:32 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -9,7 +9,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 ## Coverage
 
-- Signals recorded: 28
+- Signals recorded: 29
 - With 1-day outcome: 28
 - With 10-day outcome: 21
 - With 21-day context outcome: 17
@@ -23,7 +23,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
 |  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
-| 60-69 | 16 | 1d | primary | 16 | -0.63% | +0.26% | 50% | +4.69% | -13.15% |
+| 60-69 | 17 | 1d | primary | 16 | -0.63% | +0.26% | 50% | +4.69% | -13.15% |
 |  |  | 3d | primary | 15 | -1.00% | -0.41% | 47% | +4.05% | -9.72% |
 |  |  | 5d | primary | 13 | -1.39% | -1.15% | 38% | +10.56% | -12.54% |
 |  |  | 10d | primary | 9 | -6.19% | -7.93% | 22% | +3.11% | -13.35% |
@@ -53,7 +53,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 7 | -5.20% | -4.50% | 14% | +2.72% | -12.54% |
 |  |  | 10d | primary | 7 | -4.95% | -6.82% | 43% | +3.11% | -13.37% |
 |  |  | 21d | context | 6 | -8.03% | -10.33% | 17% | +18.37% | -20.74% |
-| yahoo | 7 | 1d | primary | 7 | -0.10% | -0.93% | 29% | +4.69% | -2.56% |
+| yahoo | 8 | 1d | primary | 7 | -0.10% | -0.93% | 29% | +4.69% | -2.56% |
 |  |  | 3d | primary | 7 | +0.64% | +0.05% | 57% | +4.05% | -3.33% |
 |  |  | 5d | primary | 5 | +1.30% | +0.51% | 60% | +4.81% | -1.76% |
 |  |  | 10d | primary | 2 | -3.75% | -3.75% | 0% | -3.09% | -4.40% |
@@ -62,7 +62,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
-| EU-XETRA | 7 | 1d | primary | 7 | -0.10% | -0.93% | 29% | +4.69% | -2.56% |
+| EU-XETRA | 8 | 1d | primary | 7 | -0.10% | -0.93% | 29% | +4.69% | -2.56% |
 |  |  | 3d | primary | 7 | +0.64% | +0.05% | 57% | +4.05% | -3.33% |
 |  |  | 5d | primary | 5 | +1.30% | +0.51% | 60% | +4.81% | -1.76% |
 |  |  | 10d | primary | 2 | -3.75% | -3.75% | 0% | -3.09% | -4.40% |
@@ -76,6 +76,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Date | Ticker | Market | Score | Signal price | Day move | 1d | 5d | 10d | 21d context |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 2026-08-06 | R3NK.DE | EU-XETRA | 68 | 52.2600 | +7.75% | — | — | — | — |
 | 2026-08-04 | PLTR | US | 65 | 158.3000 | +25.74% | +0.56% | — | — | — |
 | 2026-08-03 | TUI1.DE | EU-XETRA | 65 | 7.7540 | +3.22% | -1.88% | — | — | — |
 | 2026-08-03 | HAG.DE | EU-XETRA | 64 | 86.3400 | +8.25% | +1.51% | — | — | — |

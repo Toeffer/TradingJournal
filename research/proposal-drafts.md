@@ -3,7 +3,7 @@
 Auto-generated research scaffolding. **Not proposals, trades, or advice.**
 Judgment fields remain blank and nothing writes to proposals.csv automatically.
 
-Latest scan day: **2026-08-04** · alert threshold: score ≥ 70 · regime: **supportive**
+Latest scan day: **2026-08-06** · alert threshold: score ≥ 70 · regime: **supportive**
 
 ## Draft cards
 
