@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-05 20:37 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-06 09:59 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -24,7 +24,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
 |  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
 | 60-69 | 16 | 1d | primary | 16 | -0.63% | +0.26% | 50% | +4.69% | -13.15% |
-|  |  | 3d | primary | 13 | -1.46% | -1.90% | 38% | +4.05% | -9.72% |
+|  |  | 3d | primary | 15 | -1.00% | -0.41% | 47% | +4.05% | -9.72% |
 |  |  | 5d | primary | 13 | -1.39% | -1.15% | 38% | +10.56% | -12.54% |
 |  |  | 10d | primary | 9 | -6.19% | -7.93% | 22% | +3.11% | -13.35% |
 |  |  | 21d | context | 5 | -6.10% | -11.43% | 20% | +18.37% | -20.32% |
@@ -54,7 +54,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 10d | primary | 7 | -4.95% | -6.82% | 43% | +3.11% | -13.37% |
 |  |  | 21d | context | 6 | -8.03% | -10.33% | 17% | +18.37% | -20.74% |
 | yahoo | 7 | 1d | primary | 7 | -0.10% | -0.93% | 29% | +4.69% | -2.56% |
-|  |  | 3d | primary | 5 | +0.09% | -0.41% | 40% | +4.05% | -3.33% |
+|  |  | 3d | primary | 7 | +0.64% | +0.05% | 57% | +4.05% | -3.33% |
 |  |  | 5d | primary | 5 | +1.30% | +0.51% | 60% | +4.81% | -1.76% |
 |  |  | 10d | primary | 2 | -3.75% | -3.75% | 0% | -3.09% | -4.40% |
 
@@ -63,7 +63,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
 | EU-XETRA | 7 | 1d | primary | 7 | -0.10% | -0.93% | 29% | +4.69% | -2.56% |
-|  |  | 3d | primary | 5 | +0.09% | -0.41% | 40% | +4.05% | -3.33% |
+|  |  | 3d | primary | 7 | +0.64% | +0.05% | 57% | +4.05% | -3.33% |
 |  |  | 5d | primary | 5 | +1.30% | +0.51% | 60% | +4.81% | -1.76% |
 |  |  | 10d | primary | 2 | -3.75% | -3.75% | 0% | -3.09% | -4.40% |
 | US | 21 | 1d | primary | 21 | -0.44% | +0.31% | 52% | +5.84% | -13.15% |
