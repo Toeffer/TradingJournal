@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-09",
+  "generated_at": "2026-08-09T21:40:49Z",
+  "model": "Claude Opus 4.8",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "claude/loving-goodall-slxqnb@2026-08-09",
+  "method": "hybrid",
+  "enabled_sources": ["GitHub repository files", "data/research_snapshot.csv", "public web search (issuer announcements surfaced verbatim)", "FMP batch market-cap (structured market data)", "prior same-day candidate manifest for broker context"],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "dfd34b091f74d19c7e71ebf0832006e3c765f5a4800f1c394fe37c7ba7783202",
+  "source_counts": {"opened": 16, "primary": 7},
+  "candidates": [
+    {
+      "ticker": "PATH", "company": "UiPath Inc.", "classification": "EARLY_WATCH", "source_tag": "scanner_seed", "exchange": "NYSE", "currency": "USD",
+      "catalyst": {"event": "Second-quarter fiscal 2027 financial results (quarter ended 2026-07-31), after market close; conference call announced 2026-08-06", "date": "2026-09-03", "date_status": "verified", "source_type": "primary", "source_url": "https://www.businesswire.com/news/home/20260806817905/en/UiPath-Announces-Second-Quarter-Fiscal-2027-Financial-Results-Conference-Call", "verified_at": "2026-08-09T21:40:49Z"},
+      "market_data": {"as_of": "2026-08-07T16:36:39+02:00", "data_source": "data/research_snapshot.csv", "price": 14.94, "market_cap": null, "avg_dollar_volume": 31737552.95},
+      "expectations": "Consensus for Q2 FY2027 was not independently retrievable this run (FMP estimate/calendar endpoints are plan-gated). Prior-quarter context: UiPath reported Q1 FY2027 earlier in the year and guides ARR growth; the market is watching net-new ARR and agentic-automation adoption. Expectations are therefore recorded as only partially established.",
+      "priced_in": "The snapshot shows an extended breakout (+6.75% day, 2.56x relative volume, RSI 73.69, ~18% above EMA20, 20-day breakout), so near-term enthusiasm ahead of the print may already be partly reflected.",
+      "bull_case": "A liquid, eToro-tradeable US software name with a hard, dated catalyst 25 days out; a genuine surprise plus a holding gap could set up a clean post-earnings-drift entry.",
+      "bear_case": "The stock is extended into a binary earnings event, expectations are incompletely established, and a disappointing print or fading AI-automation momentum can gap it down; there is no defensible setup today.",
+      "pre_mortem": "The most likely failure is treating a confirmed-but-distant binary date as license to chase an already-extended momentum name; the setup, not the date, is what should earn an entry, and the drift can gap either way.",
+      "risk_rating": "High", "confidence": "Medium", "red_team_verdict": "DOWNGRADE_EARLY_WATCH", "red_team_argument": "The catalyst is real, dated and inside the discovery horizon, but the technical state is extended and the event is binary, so no current trigger-ready setup exists; monitor until a structure forms.",
+      "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "UiPath's 2026-08-06 announcement states it will report Q2 fiscal 2027 results (quarter ended 2026-07-31) after market close on Thursday, 2026-09-03, with a 5:00 pm ET call. Direct fetch of the newswire/IR page was blocked by this run's network egress policy; the release text was surfaced verbatim via web search and corroborated below.", "source_type": "primary", "location": "https://www.businesswire.com/news/home/20260806817905/en/UiPath-Announces-Second-Quarter-Fiscal-2027-Financial-Results-Conference-Call", "published_at": "2026-08-06", "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Reputable secondaries corroborate the 2026-09-03 Q2 FY2027 date as confirmed (TipRanks earnings page marks it confirmed; Morningstar carries the same BusinessWire release).", "source_type": "reputable_secondary", "location": "https://www.tipranks.com/stocks/path/earnings", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Canonical snapshot records PATH at USD 14.94 (2026-08-07) with about USD 31.74M average daily dollar volume, 2.56x relative volume, RSI 73.69 and ~18% above EMA20 — above the US $25M liquidity floor but extended.", "source_type": "market_data", "location": "data/research_snapshot.csv#PATH", "published_at": "2026-08-07T16:36:39+02:00", "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    },
+    {
+      "ticker": "TUI1.DE", "company": "TUI AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR",
+      "catalyst": {"event": "FY2026 Q3 quarterly statement", "date": "2026-08-12", "date_status": "verified", "source_type": "primary", "source_url": "https://www.tuigroup.com/en/investors/publications/financial-results", "verified_at": "2026-08-09T21:40:49Z"},
+      "market_data": {"as_of": "2026-08-03T19:25:48+02:00", "data_source": "data/research_snapshot.csv", "price": 7.754, "market_cap": null, "avg_dollar_volume": 24648533.45},
+      "red_team_verdict": "REJECT", "red_team_argument": "A verified near-term catalyst and adequate liquidity are not enough: no structure-based trigger/stop/target with >=1.5R can be built from a single snapshot row, and exit_before_catalyst=yes leaves no room to enter and exit before the 2026-08-12 print.",
+      "rejection_reason": "Verified catalyst inside 21 days but no defensible trigger-ready setup; entering an extended breakout the day before a binary earnings print is anticipation, not confirmation.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "TUI's financial-results calendar and its statutory preliminary publication announcement schedule the FY2026 Q3 quarterly statement for 2026-08-12. Direct page fetch was egress-blocked; date surfaced verbatim via web search of TUI's calendar and its EQS preliminary-announcement filing.", "source_type": "primary", "location": "https://www.tuigroup.com/en/investors/publications/financial-results", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Canonical snapshot records TUI1.DE at EUR 7.754 (2026-08-03) with about EUR 24.65M average daily value, 2.18x relative volume and RSI 70.36.", "source_type": "market_data", "location": "data/research_snapshot.csv#TUI1.DE", "published_at": "2026-08-03T19:25:48+02:00", "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    },
+    {
+      "ticker": "BC8.DE", "company": "Bechtle AG", "classification": "REJECT", "source_tag": "prior_report", "exchange": "XETRA", "currency": "EUR",
+      "catalyst": {"event": "Interim Report 2026 (H1, as of 2026-06-30) and conference call", "date": "2026-08-12", "date_status": "verified", "source_type": "primary", "source_url": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar", "verified_at": "2026-08-09T21:40:49Z"},
+      "red_team_verdict": "REJECT", "red_team_argument": "The event date is real, but Bechtle's 2026-07-28 ad-hoc pre-announcement already disclosed the beat and guidance raise, so the August 12 report is confirmation rather than a fresh catalyst, and BC8.DE has no current snapshot row for structure.",
+      "rejection_reason": "Positive Q2 surprise (business volume +~18%, EBT +>20%) and raised FY2026 guidance already disclosed 2026-07-28; the remaining report is not a fresh catalyst and there is no current normalized structure for a non-chased entry.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "Bechtle's financial calendar schedules the Interim Report 2026 and conference call for 2026-08-12 (date surfaced via web search; direct page fetch egress-blocked).", "source_type": "primary", "location": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Bechtle's 2026-07-28 ad-hoc announcement disclosed preliminary Q2 business volume of about EUR 2.27B (+~18%), EBT of about EUR 80M (+>20%), and a raised full-year 2026 forecast.", "source_type": "primary", "location": "https://www.bechtle.com/de-en/about-bechtle/press/press-releases", "published_at": "2026-07-28", "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    },
+    {
+      "ticker": "HAG.DE", "company": "HENSOLDT AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR",
+      "market_data": {"as_of": "2026-08-07T10:31:17+02:00", "data_source": "data/research_snapshot.csv", "price": 94.8, "market_cap": null, "avg_dollar_volume": 29417629.74},
+      "red_team_verdict": "REJECT", "red_team_argument": "The H1 report already occurred 2026-07-31; the next scheduled financial report is the 9M statement on 2026-11-05, outside the 42-day horizon, and the snapshot state is extended post-report momentum.",
+      "rejection_reason": "No primary-source-verified material forward catalyst inside 42 days (H1 released 2026-07-31; 9M on 2026-11-05); current move is extended.", "next_review_date": "2026-09-27",
+      "evidence": [
+        {"claim": "HENSOLDT's financial calendar shows H1 2026 results on 2026-07-31 and the next 9M statement on 2026-11-05 (surfaced via web search; direct fetch egress-blocked).", "source_type": "primary", "location": "https://investors.hensoldt.net/financial-calendar", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Canonical snapshot records HAG.DE at EUR 94.80 (2026-08-07) with about EUR 29.42M average daily value, 3.56x relative volume, RSI 74.17 and ~14% above EMA20.", "source_type": "market_data", "location": "data/research_snapshot.csv#HAG.DE", "published_at": "2026-08-07T10:31:17+02:00", "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    },
+    {
+      "ticker": "R3NK.DE", "company": "RENK Group AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR",
+      "market_data": {"as_of": "2026-08-06T13:31:35+02:00", "data_source": "data/research_snapshot.csv", "price": 52.26, "market_cap": null, "avg_dollar_volume": 21948567.65},
+      "red_team_verdict": "REJECT", "red_team_argument": "The H1 results and call occurred 2026-08-06, before this run; the next 9M statement is 2026-11-05, outside the horizon, and the snapshot observation is the event-day reaction.",
+      "rejection_reason": "Relevant event already occurred (H1 on 2026-08-06); no new verified material catalyst inside 42 days (9M on 2026-11-05).", "next_review_date": "2026-09-27",
+      "evidence": [
+        {"claim": "RENK's IR calendar lists H1 2026 results and call on 2026-08-06 and the next 9M statement on 2026-11-05 (surfaced via web search; direct fetch egress-blocked).", "source_type": "primary", "location": "https://ir.renk.com/news-events/ir-calendar", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Canonical snapshot records R3NK.DE at EUR 52.26 (2026-08-06) with about EUR 21.95M average daily value and 2.68x relative volume.", "source_type": "market_data", "location": "data/research_snapshot.csv#R3NK.DE", "published_at": "2026-08-06T13:31:35+02:00", "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    },
+    {
+      "ticker": "PLTR", "company": "Palantir Technologies Inc.", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "NASDAQ", "currency": "USD",
+      "market_data": {"as_of": "2026-08-07T16:36:39+02:00", "data_source": "data/research_snapshot.csv; FMP batch market-cap", "price": 170.14, "market_cap": 394947000700, "avg_dollar_volume": 208549224.1},
+      "red_team_verdict": "REJECT", "red_team_argument": "PLTR is an obvious crowded headline-AI mega-cap (market cap ~ USD 395B); scanner momentum cannot override the broker/universe default exclusion.",
+      "rejection_reason": "Excluded-by-default mega-cap / crowded headline-AI name under ETORO_TRADEABILITY.md (market cap ~USD 395B, far above the USD 50B exclusion).", "next_review_date": "2026-09-06",
+      "evidence": [
+        {"claim": "FMP batch market-cap returns PLTR at USD 394,947,000,700 as of 2026-08-07, confirming a mega-cap far above the USD 50B default-exclusion boundary.", "source_type": "market_data", "location": "FMP company/batch-market-cap#PLTR", "published_at": "2026-08-07", "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Canonical snapshot records PLTR at USD 170.14 (2026-08-07) with about USD 208.55M average daily dollar volume, +9.10% daily change and 5.10x relative volume.", "source_type": "market_data", "location": "data/research_snapshot.csv#PLTR", "published_at": "2026-08-07T16:36:39+02:00", "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Repository broker/universe overlay excludes mega-caps above USD 50B and obvious crowded headline-AI names by default.", "source_type": "repository", "location": "ETORO_TRADEABILITY.md", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    },
+    {
+      "ticker": "CELC", "company": "Celcuity Inc.", "classification": "REJECT", "source_tag": "prior_report", "exchange": "NASDAQ", "currency": "USD",
+      "catalyst": {"event": "FDA PDUFA goal date for gedatolisib; FDA approval announced early on 2026-07-14", "date": "2026-07-17", "date_status": "verified", "source_type": "primary", "source_url": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib", "verified_at": "2026-08-09T21:40:49Z"},
+      "red_team_verdict": "REJECT", "red_team_argument": "The original catalyst occurred, no exact verified forward event is scheduled, and there is no current canonical CELC market-data row; the open trade requires management reconciliation, not a new entry.",
+      "rejection_reason": "Completed catalyst (approval 2026-07-14); no exact verified forward date or current canonical setup. Existing trade 2026-0004 is carried separately as manage.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "Celcuity announced FDA approval of gedatolisib (Revtorpyk) on 2026-07-14 and describes a late-Q3 commercial launch and Q3 sNDA plan with no exact binding date (surfaced via web search; direct fetch egress-blocked).", "source_type": "primary", "location": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib", "published_at": "2026-07-14", "accessed_at": "2026-08-09T21:40:49Z"},
+        {"claim": "Repository trade 2026-0004 remains recorded open with entry 89.86 and original stop 85.37.", "source_type": "repository", "location": "trades.csv#2026-0004", "published_at": null, "accessed_at": "2026-08-09T21:40:49Z"}
+      ]
+    }
+  ]
+}
