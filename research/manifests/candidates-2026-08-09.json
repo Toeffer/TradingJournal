@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-09",
+  "generated_at": "2026-08-09T17:01:01Z",
+  "model": "GPT-5.6",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "main@2026-08-09",
+  "method": "hybrid",
+  "enabled_sources": ["GitHub repository files", "data/research_snapshot.csv", "public issuer investor-relations pages", "public eToro pages", "public web search"],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "dfd34b091f74d19c7e71ebf0832006e3c765f5a4800f1c394fe37c7ba7783202",
+  "source_counts": {"opened": 18, "primary": 9},
+  "candidates": [
+    {
+      "ticker": "TUI1.DE", "company": "TUI AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR",
+      "catalyst": {"event": "FY2026 Q3 quarterly statement", "date": "2026-08-12", "date_status": "verified", "source_type": "primary", "source_url": "https://annualreport.tuigroup.com/2025/additional-information/financial-calendar/index.html", "verified_at": "2026-08-09T17:01:01Z"},
+      "market_data": {"as_of": "2026-08-03T19:25:48+02:00", "data_source": "data/research_snapshot.csv; eToro market-cap supplement", "price": 7.754, "market_cap": 3590000000, "avg_dollar_volume": 24648533.45},
+      "expectations": "TUI's May 2026 H1 release confirmed revised FY2026 underlying EBIT guidance of EUR 1.1B-EUR 1.4B after the April geopolitical guidance reset.",
+      "priced_in": "The canonical snapshot already showed a 20-day breakout, +3.22% daily move, 2.18x relative volume and RSI 70.36, so favorable summer trading may be partly reflected.",
+      "bull_case": "Core-universe, liquid EUR XETRA share with a primary-source-verified Q3 report three days away and potential upside if summer trading and Holiday Experiences offset geopolitical pressure.",
+      "bear_case": "The event is imminent, the stock has already broken out, and fuel/geopolitical uncertainty plus Markets + Airline margin pressure can dominate the report.",
+      "pre_mortem": "A long fails because strong summer expectations were already priced in and the Q3 report only confirms the existing guidance range while highlighting geopolitical or airline-margin pressure.",
+      "risk_rating": "High", "confidence": "Medium", "red_team_verdict": "REJECT", "red_team_argument": "A verified catalyst and adequate liquidity are not enough: no structure-based trigger, stop and first target with at least 1.5R can be established from the committed snapshot without inventing levels.",
+      "rejection_reason": "Verified near-term catalyst but no defensible trigger-ready setup or structure-based levels; entering now would be event anticipation.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "TUI's official financial calendar schedules the FY2026 Q3 quarterly statement for August 12, 2026.", "source_type": "primary", "location": "https://annualreport.tuigroup.com/2025/additional-information/financial-calendar/index.html", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "TUI's May 13 H1 release confirmed revised FY2026 underlying EBIT guidance of EUR 1.1B-EUR 1.4B and described geopolitical and fuel-supply assumptions.", "source_type": "primary", "location": "https://www.tuigroup.com/en/newsroom/news/strong-first-half-of-the-year-provides-momentum-for-a-challenging-second-half-amid-economic-and-geopolitical-crises", "published_at": "2026-05-13", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Canonical snapshot records TUI1.DE at EUR 7.754 with about EUR 24.65M average daily value, 2.18x relative volume and RSI 70.36.", "source_type": "market_data", "location": "data/research_snapshot.csv#TUI1.DE", "published_at": "2026-08-03T19:25:48+02:00", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Public eToro Germany page presents TUI1.DE as a purchasable XETRA stock and reports a core-universe market capitalization around EUR 3.6B.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/tui1.de", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    },
+    {
+      "ticker": "BC8.DE", "company": "Bechtle AG", "classification": "REJECT", "source_tag": "prior_report", "exchange": "XETRA", "currency": "EUR",
+      "catalyst": {"event": "Interim Report 2026 and conference call", "date": "2026-08-12", "date_status": "verified", "source_type": "primary", "source_url": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar", "verified_at": "2026-08-09T17:01:01Z"},
+      "expectations": "Bechtle pre-announced strong Q2 figures on July 28, said EBT significantly exceeded market expectations, and raised full-year business-volume, revenue and EBT guidance.",
+      "priced_in": "The central positive surprise and guidance raise were publicly disclosed before the August 12 final report, reducing the remaining catalyst's novelty.",
+      "bull_case": "Strong preliminary Q2 growth, record order backlog and raised guidance support the fundamental trend.",
+      "bear_case": "The surprise is already public and the current canonical snapshot has no BC8.DE row from which to construct a fresh structure-based setup.",
+      "pre_mortem": "A fresh long fails because the July 28 ad-hoc announcement was the actual repricing event and the August 12 report adds insufficient incremental upside.",
+      "risk_rating": "High", "confidence": "High", "red_team_verdict": "REJECT", "red_team_argument": "The event date is real, but the key positive information was already pre-announced and this run lacks current canonical technical structure.",
+      "rejection_reason": "Positive Q2 surprise and guidance raise already disclosed July 28; no current canonical setup levels for a non-chased entry.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "Bechtle's financial calendar schedules the Interim Report 2026 and conference call for August 12, 2026.", "source_type": "primary", "location": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Bechtle's July 28 ad-hoc announcement disclosed strong preliminary Q2 growth, EBT above market expectations and a raised FY2026 forecast.", "source_type": "primary", "location": "https://www.bechtle.com/de-en/about-bechtle/press/press-releases/2026/significant-q2-growth-in-business-volume-and-ebt", "published_at": "2026-07-28", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Public eToro page presents BC8.DE as a purchasable XETRA share with market capitalization around EUR 4B.", "source_type": "market_data", "location": "https://www.etoro.com/markets/bc8.de", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    },
+    {
+      "ticker": "HAG.DE", "company": "HENSOLDT AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR",
+      "market_data": {"as_of": "2026-08-07T10:31:17+02:00", "data_source": "data/research_snapshot.csv", "price": 94.8, "market_cap": null, "avg_dollar_volume": 29417629.74},
+      "red_team_verdict": "REJECT", "red_team_argument": "The H1 report already occurred July 31; September investor conferences are not treated as sufficiently material binding catalysts.",
+      "rejection_reason": "No primary-source-verified material forward catalyst inside 42 days; current move is extended scanner momentum after the reporting event.", "next_review_date": "2026-09-27",
+      "evidence": [
+        {"claim": "HENSOLDT's official calendar shows H1 2026 reporting on July 31 and the next financial report on November 5; September dates are investor conferences.", "source_type": "primary", "location": "https://investors.hensoldt.net/financial-calendar", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Canonical snapshot records HAG.DE at EUR 94.80 with about EUR 29.42M average daily value, 3.56x relative volume and RSI 74.17.", "source_type": "market_data", "location": "data/research_snapshot.csv#HAG.DE", "published_at": "2026-08-07T10:31:17+02:00", "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    },
+    {
+      "ticker": "R3NK.DE", "company": "RENK Group AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR",
+      "market_data": {"as_of": "2026-08-06T13:31:35+02:00", "data_source": "data/research_snapshot.csv; eToro market-cap supplement", "price": 52.26, "market_cap": 4290000000, "avg_dollar_volume": 21948567.65},
+      "red_team_verdict": "REJECT", "red_team_argument": "The H1 results event occurred August 6 before this run; the next 9M statement is November 5, outside the discovery horizon.",
+      "rejection_reason": "Relevant event already occurred; no new verified material catalyst inside 42 days.", "next_review_date": "2026-09-27",
+      "evidence": [
+        {"claim": "RENK's official IR calendar lists H1 2026 results on August 6 and the next 9M statement on November 5, 2026.", "source_type": "primary", "location": "https://ir.renk.com/news-events/ir-calendar", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Canonical snapshot records R3NK.DE at EUR 52.26 with about EUR 21.95M average daily value and 2.68x relative volume.", "source_type": "market_data", "location": "data/research_snapshot.csv#R3NK.DE", "published_at": "2026-08-06T13:31:35+02:00", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Public eToro page presents R3NK.DE as a purchasable XETRA stock and reports market capitalization around EUR 4.29B.", "source_type": "market_data", "location": "https://www.etoro.com/markets/r3nk.de", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    },
+    {
+      "ticker": "PATH", "company": "UiPath Inc.", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "NYSE", "currency": "USD",
+      "market_data": {"as_of": "2026-08-07T16:36:39+02:00", "data_source": "data/research_snapshot.csv; eToro market-cap supplement", "price": 14.94, "market_cap": 6070000000, "avg_dollar_volume": 31737552.95},
+      "red_team_verdict": "REJECT", "red_team_argument": "UiPath's own FAQ says earnings dates are announced by press release when determined, but the opened current events page does not provide a new Q2 FY2027 date; historical cadence cannot verify it.",
+      "rejection_reason": "No primary-source-verified future catalyst date; scanner breakout is extended and cannot substitute for evidence.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "UiPath's official FAQ says quarterly earnings dates are announced in a press release and listed on Events & Presentations when determined.", "source_type": "primary", "location": "https://ir.uipath.com/resources/faq", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Canonical snapshot records PATH at USD 14.94 with about USD 31.74M average daily dollar volume, 2.56x relative volume and RSI 73.69.", "source_type": "market_data", "location": "data/research_snapshot.csv#PATH", "published_at": "2026-08-07T16:36:39+02:00", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Public eToro page presents PATH as a purchasable stock and reports a core-universe market capitalization around USD 6.07B.", "source_type": "market_data", "location": "https://www.etoro.com/markets/path", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    },
+    {
+      "ticker": "PLTR", "company": "Palantir Technologies Inc.", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "NASDAQ", "currency": "USD",
+      "market_data": {"as_of": "2026-08-07T16:36:39+02:00", "data_source": "data/research_snapshot.csv", "price": 170.14, "market_cap": null, "avg_dollar_volume": 208549224.1},
+      "red_team_verdict": "REJECT", "red_team_argument": "PLTR is an obvious crowded headline AI mega-cap; scanner momentum cannot override the broker/universe default exclusion.",
+      "rejection_reason": "Excluded-by-default mega-cap/crowded headline AI name under ETORO_TRADEABILITY.md.", "next_review_date": "2026-09-06",
+      "evidence": [
+        {"claim": "Canonical snapshot records PLTR at USD 170.14 with about USD 208.55M average daily dollar volume, +9.10% daily change and 5.10x relative volume.", "source_type": "market_data", "location": "data/research_snapshot.csv#PLTR", "published_at": "2026-08-07T16:36:39+02:00", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Repository broker/universe overlay excludes mega-caps above USD 50B and obvious crowded headline AI names by default.", "source_type": "repository", "location": "ETORO_TRADEABILITY.md", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    },
+    {
+      "ticker": "CELC", "company": "Celcuity Inc.", "classification": "REJECT", "source_tag": "prior_report", "exchange": "NASDAQ", "currency": "USD",
+      "catalyst": {"event": "FDA PDUFA goal date for gedatolisib; FDA approval announced early July 14", "date": "2026-07-17", "date_status": "verified", "source_type": "primary", "source_url": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib", "verified_at": "2026-08-09T17:01:01Z"},
+      "expectations": "The original binary event is complete. The issuer anticipates late-Q3 commercial launch and a Q3 sNDA submission but gives no exact binding date, and its events page lists no upcoming event.",
+      "priced_in": "FDA approval has been public since July 14; the repository still records trade 2026-0004 as open but the canonical snapshot has no CELC row.",
+      "bull_case": "Approval de-risks the product and creates a commercial pathway.",
+      "bear_case": "The original thesis is stale; commercial execution, financing and adoption now dominate, while the open journal status is unreconciled.",
+      "pre_mortem": "An add-on fails because approval was already repriced and new risk is added before reconciling the existing position and without a dated new catalyst.",
+      "risk_rating": "High", "confidence": "High", "red_team_verdict": "REJECT", "red_team_argument": "The original catalyst occurred, no exact verified forward event is scheduled, and there is no current canonical CELC market-data row.",
+      "rejection_reason": "Completed catalyst; no exact verified forward date or current canonical setup. Existing trade requires management reconciliation, not a new entry.", "next_review_date": "2026-08-16",
+      "evidence": [
+        {"claim": "Celcuity announced FDA approval on July 14, 2026 and said commercial launch is anticipated in late Q3 with an sNDA planned in Q3.", "source_type": "primary", "location": "https://ir.celcuity.com/news-releases/news-release-details/celcuity-announces-fda-approval-revtorpyktm-gedatolisib", "published_at": "2026-07-14", "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Celcuity's current events page lists no upcoming events.", "source_type": "primary", "location": "https://ir.celcuity.com/events-presentations", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"},
+        {"claim": "Repository trade 2026-0004 remains recorded open with entry 89.86 and original stop 85.37.", "source_type": "repository", "location": "trades.csv#2026-0004", "published_at": null, "accessed_at": "2026-08-09T17:01:01Z"}
+      ]
+    }
+  ]
+}
