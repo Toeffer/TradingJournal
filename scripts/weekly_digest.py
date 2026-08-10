@@ -56,6 +56,7 @@ def newest_candidates_file() -> Path | None:
 
 
 def summary_block(path: Path) -> list[str]:
+    """Legacy fallback: pull a '## Summary' block, used by some older reports."""
     output: list[str] = []
     in_summary = False
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -66,6 +67,36 @@ def summary_block(path: Path) -> list[str]:
             continue
         if in_summary and line.strip():
             output.append(line)
+    return output
+
+
+def run_metadata_field(path: Path, label: str) -> str | None:
+    """Pull one '- Label: value' bullet from the '## Run metadata' section."""
+    prefix = f"- {label.lower()}:"
+    in_section = False
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            if in_section:
+                break
+            in_section = line.strip().lower() == "## run metadata"
+            continue
+        if in_section and line.strip().lower().startswith(prefix):
+            return line.split(":", 1)[1].strip()
+    return None
+
+
+def new_research_tickers(path: Path) -> list[str]:
+    """Pull '### TICKER — Company' headers from the '## New research' section."""
+    output: list[str] = []
+    in_section = False
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            if in_section:
+                break
+            in_section = line.strip().lower() == "## new research"
+            continue
+        if in_section and line.startswith("### "):
+            output.append(line.removeprefix("### ").strip())
     return output
 
 
@@ -219,9 +250,19 @@ def main() -> int:
         lines.append(f"- Newest file: `research/{newest.name}`")
         if file_date and (today - file_date).days > STALE_CANDIDATES_DAYS:
             lines.append(f"- ⚠️ Research is {(today - file_date).days} days old.")
-        extracted = summary_block(newest)
-        if extracted:
-            lines.extend(["", *extracted])
+        decision = run_metadata_field(newest, "Weekly decision")
+        counts = run_metadata_field(newest, "New leads / Actionable / Early Watch / Reject counts")
+        if decision:
+            lines.append(f"- Weekly decision: {decision}")
+        if counts:
+            lines.append(f"- New leads / Actionable / Early Watch / Reject: {counts}")
+        tickers = new_research_tickers(newest)
+        if tickers:
+            lines.append(f"- New research reviewed: {', '.join(tickers)}")
+        if not (decision or counts or tickers):
+            extracted = summary_block(newest)
+            if extracted:
+                lines.extend(["", *extracted])
     else:
         lines.append("- No candidate file found.")
     lines.append("")
