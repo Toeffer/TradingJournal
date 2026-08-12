@@ -3,21 +3,21 @@
 Auto-generated research scaffolding. **Not proposals, trades, or advice.**
 Judgment fields remain blank and nothing writes to proposals.csv automatically.
 
-Latest scan day: **2026-08-10** · alert threshold: score ≥ 70 · regime: **supportive**
+Latest scan day: **2026-08-12** · alert threshold: score ≥ 70 · regime: **supportive**
 
 ## Draft cards
 
-### JOBY — scanner score 70 (US)
+### SMCI — scanner score 70 (US)
 
 **Reason to research—not a proposal and not a trade.**
 
 _Mechanical context:_
-- date: 2026-08-10 | direction: long | source: scanner
-- candidate_ref: scanner_signals.csv#2026-08-10:JOBY
+- date: 2026-08-12 | direction: long | source: scanner
+- candidate_ref: scanner_signals.csv#2026-08-12:SMCI
 - regime: supportive
-- reference price: 8.895 (not an entry level)
-- move 3.011% | rel vol 3.3859x | 5d extension 2.0069%
-- indicators, context only: RSI14 60.59 | EMA20 distance 12.44% | BB %B 1.113
+- reference price: 36.175 (not an entry level)
+- move 14.1527% | rel vol 4.9419x | 5d extension 8.3895%
+- indicators, context only: RSI14 65.34 | EMA20 distance 19.84% | BB %B 1.093
 - suggested setup to investigate: `pullback`; a high score is not itself a setup
 
 _Human judgment required before logging:_
