@@ -1,7 +1,8 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
 2026-08-07T10:31:17+0200,HAG.DE,,EU-XETRA,XETRA,EUR,94.8,,310312.55,29417629.74,4.9834,3.5595,70,false,,false,true,4.1301,74.17,14.26,19.28,1.3869,1.062,supportive,yahoo,2026-08-07T10:31:17+0200,yahoo,
-2026-08-06T13:31:35+0200,R3NK.DE,,EU-XETRA,XETRA,EUR,52.26,,419987.9,21948567.65,7.7526,2.6773,68,false,,false,true,3.1380,68.48,10.44,10.40,1.3115,1.091,supportive,yahoo,2026-08-06T13:31:35+0200,yahoo,
+2026-08-13T16:24:46+0200,TKA.DE,,EU-XETRA,XETRA,EUR,13.415,,1739039.55,23329215.56,8.1855,2.3982,66,false,,false,true,5.0509,69.04,9.19,14.23,0.2487,1.312,supportive,yahoo,2026-08-13T16:24:46+0200,yahoo,
+2026-08-13T16:40:49+0200,IREN,,US,US,USD,47.42,,1780226.4,84418335.89,8.6120,2.9059,69,false,,false,true,6.1563,59.22,16.99,9.96,3.0180,1.070,supportive,alpaca,2026-08-13T16:40:49+0200,alpaca,
 2026-08-10T16:41:00+0200,JOBY,,US,US,USD,8.895,,1068320.5,9502710.85,3.0110,3.3859,70,false,,false,true,2.0069,60.59,12.44,6.40,2.8857,1.113,supportive,alpaca,2026-08-10T16:41:00+0200,alpaca,
 2026-08-07T16:36:39+0200,PATH,,US,US,USD,14.94,,2124334.2,31737552.95,6.7524,2.5576,67,false,,false,true,5.2483,73.69,18.13,25.91,1.9126,1.061,supportive,alpaca,2026-08-07T16:36:39+0200,alpaca,
 2026-08-10T16:41:00+0200,PLTR,,US,US,USD,178.78,,1347195.4,240851593.61,3.9449,2.7178,68,false,,false,true,3.6947,75.03,25.51,30.75,3.1512,1.096,supportive,alpaca,2026-08-10T16:41:00+0200,alpaca,
-2026-08-12T16:41:11+0200,SMCI,,US,US,USD,36.175,,2043414.5,73920519.54,14.1527,4.9419,70,false,,false,true,8.3895,65.34,19.84,20.29,2.2756,1.093,supportive,alpaca,2026-08-12T16:41:11+0200,alpaca,
+2026-08-13T16:40:49+0200,SMCI,,US,US,USD,41.18,,2217542,91318379.56,9.5796,3.5439,70,false,,false,true,7.9706,72.18,31.34,34.74,3.1913,1.207,supportive,alpaca,2026-08-13T16:40:49+0200,alpaca,
