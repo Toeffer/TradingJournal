@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-13 10:20 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-13 14:25 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -9,8 +9,8 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 ## Coverage
 
-- Signals recorded: 35
-- With 1-day outcome: 34
+- Signals recorded: 36
+- With 1-day outcome: 35
 - With 10-day outcome: 25
 - With 21-day context outcome: 21
 
@@ -23,13 +23,13 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
 |  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
-| 60-69 | 19 | 1d | primary | 19 | -0.50% | +0.20% | 53% | +4.69% | -13.15% |
-|  |  | 3d | primary | 18 | -0.64% | -0.18% | 50% | +6.63% | -9.72% |
+| 60-69 | 20 | 1d | primary | 19 | -0.50% | +0.20% | 53% | +4.69% | -13.15% |
+|  |  | 3d | primary | 19 | -0.68% | -0.41% | 47% | +6.63% | -9.72% |
 |  |  | 5d | primary | 17 | -0.29% | -1.15% | 41% | +11.41% | -12.54% |
 |  |  | 10d | primary | 13 | -2.25% | -3.09% | 38% | +20.29% | -13.35% |
 |  |  | 21d | context | 9 | -3.98% | -5.43% | 33% | +18.37% | -20.32% |
-| 70-79 | 6 | 1d | primary | 5 | -0.59% | -2.23% | 40% | +4.17% | -3.97% |
-|  |  | 3d | primary | 4 | -2.09% | -1.87% | 25% | +3.99% | -8.59% |
+| 70-79 | 6 | 1d | primary | 6 | +1.96% | -0.28% | 50% | +14.72% | -3.97% |
+|  |  | 3d | primary | 5 | -3.35% | -3.19% | 20% | +3.99% | -8.59% |
 |  |  | 5d | primary | 2 | -3.85% | -3.85% | 0% | -1.40% | -6.30% |
 |  |  | 10d | primary | 2 | -13.04% | -13.04% | 0% | -10.60% | -15.48% |
 |  |  | 21d | context | 2 | -21.03% | -21.03% | 0% | -18.17% | -23.90% |
@@ -43,8 +43,8 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
-| alpaca | 19 | 1d | primary | 18 | +0.34% | +0.09% | 50% | +5.84% | -6.39% |
-|  |  | 3d | primary | 16 | +0.57% | +1.50% | 62% | +7.98% | -8.59% |
+| alpaca | 19 | 1d | primary | 19 | +1.10% | +0.20% | 53% | +14.72% | -6.39% |
+|  |  | 3d | primary | 18 | -0.04% | +1.01% | 56% | +7.98% | -8.59% |
 |  |  | 5d | primary | 14 | -0.86% | -1.79% | 29% | +11.41% | -9.90% |
 |  |  | 10d | primary | 13 | -2.67% | -5.25% | 31% | +20.29% | -15.48% |
 |  |  | 21d | context | 12 | -9.03% | -11.56% | 25% | +11.08% | -28.21% |
@@ -53,7 +53,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 7 | -5.20% | -4.50% | 14% | +2.72% | -12.54% |
 |  |  | 10d | primary | 7 | -4.95% | -6.82% | 43% | +3.11% | -13.37% |
 |  |  | 21d | context | 7 | -8.70% | -12.73% | 14% | +18.37% | -20.74% |
-| yahoo | 9 | 1d | primary | 9 | -0.32% | -0.93% | 33% | +4.69% | -3.97% |
+| yahoo | 10 | 1d | primary | 9 | -0.32% | -0.93% | 33% | +4.69% | -3.97% |
 |  |  | 3d | primary | 9 | -0.37% | -0.41% | 44% | +4.05% | -4.67% |
 |  |  | 5d | primary | 8 | +1.03% | -0.32% | 50% | +5.44% | -2.28% |
 |  |  | 10d | primary | 5 | -0.27% | -0.90% | 40% | +4.95% | -4.40% |
@@ -63,13 +63,13 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
-| EU-XETRA | 9 | 1d | primary | 9 | -0.32% | -0.93% | 33% | +4.69% | -3.97% |
+| EU-XETRA | 10 | 1d | primary | 9 | -0.32% | -0.93% | 33% | +4.69% | -3.97% |
 |  |  | 3d | primary | 9 | -0.37% | -0.41% | 44% | +4.05% | -4.67% |
 |  |  | 5d | primary | 8 | +1.03% | -0.32% | 50% | +5.44% | -2.28% |
 |  |  | 10d | primary | 5 | -0.27% | -0.90% | 40% | +4.95% | -4.40% |
 |  |  | 21d | context | 2 | -1.83% | -1.83% | 50% | +1.35% | -5.01% |
-| US | 26 | 1d | primary | 25 | -0.36% | +0.20% | 52% | +5.84% | -13.15% |
-|  |  | 3d | primary | 23 | -1.24% | -0.51% | 48% | +7.98% | -17.37% |
+| US | 26 | 1d | primary | 26 | +0.22% | +0.25% | 54% | +14.72% | -13.15% |
+|  |  | 3d | primary | 25 | -1.53% | -0.56% | 44% | +7.98% | -17.37% |
 |  |  | 5d | primary | 21 | -2.31% | -3.80% | 24% | +11.41% | -12.54% |
 |  |  | 10d | primary | 20 | -3.47% | -5.38% | 35% | +20.29% | -15.48% |
 |  |  | 21d | context | 19 | -8.91% | -11.69% | 21% | +18.37% | -28.21% |
@@ -78,7 +78,8 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Date | Ticker | Market | Score | Signal price | Day move | 1d | 5d | 10d | 21d context |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
-| 2026-08-12 | SMCI | US | 70 | 36.1750 | +14.15% | — | — | — | — |
+| 2026-08-13 | TKA.DE | EU-XETRA | 66 | 13.4150 | +8.19% | — | — | — | — |
+| 2026-08-12 | SMCI | US | 70 | 36.1750 | +14.15% | +14.72% | — | — | — |
 | 2026-08-10 | PLTR | US | 68 | 178.7800 | +3.94% | -1.36% | — | — | — |
 | 2026-08-10 | JOBY | US | 70 | 8.8950 | +3.01% | -2.59% | — | — | — |
 | 2026-08-07 | PLTR | US | 70 | 170.1400 | +9.10% | +4.17% | — | — | — |
