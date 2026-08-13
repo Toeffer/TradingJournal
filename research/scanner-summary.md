@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-12 20:03 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-13 08:44 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -25,7 +25,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
 | 60-69 | 19 | 1d | primary | 19 | -0.50% | +0.20% | 53% | +4.69% | -13.15% |
 |  |  | 3d | primary | 18 | -0.64% | -0.18% | 50% | +6.63% | -9.72% |
-|  |  | 5d | primary | 16 | -0.17% | -0.88% | 44% | +11.41% | -12.54% |
+|  |  | 5d | primary | 17 | -0.29% | -1.15% | 41% | +11.41% | -12.54% |
 |  |  | 10d | primary | 13 | -2.25% | -3.09% | 38% | +20.29% | -13.35% |
 |  |  | 21d | context | 9 | -3.98% | -5.43% | 33% | +18.37% | -20.32% |
 | 70-79 | 6 | 1d | primary | 5 | -0.59% | -2.23% | 40% | +4.17% | -3.97% |
@@ -55,7 +55,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 21d | context | 7 | -8.70% | -12.73% | 14% | +18.37% | -20.74% |
 | yahoo | 9 | 1d | primary | 9 | -0.32% | -0.93% | 33% | +4.69% | -3.97% |
 |  |  | 3d | primary | 9 | -0.37% | -0.41% | 44% | +4.05% | -4.67% |
-|  |  | 5d | primary | 7 | +1.50% | +0.51% | 57% | +5.44% | -1.76% |
+|  |  | 5d | primary | 8 | +1.03% | -0.32% | 50% | +5.44% | -2.28% |
 |  |  | 10d | primary | 5 | -0.27% | -0.90% | 40% | +4.95% | -4.40% |
 |  |  | 21d | context | 2 | -1.83% | -1.83% | 50% | +1.35% | -5.01% |
 
@@ -65,7 +65,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
 | EU-XETRA | 9 | 1d | primary | 9 | -0.32% | -0.93% | 33% | +4.69% | -3.97% |
 |  |  | 3d | primary | 9 | -0.37% | -0.41% | 44% | +4.05% | -4.67% |
-|  |  | 5d | primary | 7 | +1.50% | +0.51% | 57% | +5.44% | -1.76% |
+|  |  | 5d | primary | 8 | +1.03% | -0.32% | 50% | +5.44% | -2.28% |
 |  |  | 10d | primary | 5 | -0.27% | -0.90% | 40% | +4.95% | -4.40% |
 |  |  | 21d | context | 2 | -1.83% | -1.83% | 50% | +1.35% | -5.01% |
 | US | 26 | 1d | primary | 25 | -0.36% | +0.20% | 52% | +5.84% | -13.15% |
@@ -84,7 +84,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 2026-08-07 | PLTR | US | 70 | 170.1400 | +9.10% | +4.17% | — | — | — |
 | 2026-08-07 | PATH | US | 67 | 14.9400 | +6.75% | +0.20% | — | — | — |
 | 2026-08-07 | HAG.DE | EU-XETRA | 70 | 94.8000 | +4.98% | -3.97% | — | — | — |
-| 2026-08-06 | R3NK.DE | EU-XETRA | 68 | 52.2600 | +7.75% | +1.76% | — | — | — |
+| 2026-08-06 | R3NK.DE | EU-XETRA | 68 | 52.2600 | +7.75% | +1.76% | -2.28% | — | — |
 | 2026-08-04 | PLTR | US | 65 | 158.3000 | +25.74% | +0.56% | +11.41% | — | — |
 | 2026-08-03 | TUI1.DE | EU-XETRA | 65 | 7.7540 | +3.22% | -1.88% | -1.39% | — | — |
 | 2026-08-03 | HAG.DE | EU-XETRA | 64 | 86.3400 | +8.25% | +1.51% | +5.44% | — | — |
