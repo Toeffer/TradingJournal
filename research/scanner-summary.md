@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-14 10:15 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-14 14:18 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -10,7 +10,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 ## Coverage
 
 - Signals recorded: 38
-- With 1-day outcome: 36
+- With 1-day outcome: 38
 - With 10-day outcome: 25
 - With 21-day context outcome: 21
 
@@ -23,14 +23,14 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
 |  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
-| 60-69 | 20 | 1d | primary | 19 | -0.50% | +0.20% | 53% | +4.69% | -13.15% |
+| 60-69 | 20 | 1d | primary | 20 | -0.72% | +0.08% | 50% | +4.69% | -13.15% |
 |  |  | 3d | primary | 19 | -0.68% | -0.41% | 47% | +6.63% | -9.72% |
-|  |  | 5d | primary | 17 | -0.29% | -1.15% | 41% | +11.41% | -12.54% |
+|  |  | 5d | primary | 18 | +0.11% | -0.88% | 44% | +11.41% | -12.54% |
 |  |  | 10d | primary | 13 | -2.25% | -3.09% | 38% | +20.29% | -13.35% |
 |  |  | 21d | context | 9 | -3.98% | -5.43% | 33% | +18.37% | -20.32% |
-| 70-79 | 8 | 1d | primary | 7 | +1.91% | +1.59% | 57% | +14.72% | -3.97% |
+| 70-79 | 8 | 1d | primary | 8 | +1.32% | -0.32% | 50% | +14.72% | -3.97% |
 |  |  | 3d | primary | 5 | -3.35% | -3.19% | 20% | +3.99% | -8.59% |
-|  |  | 5d | primary | 3 | -2.39% | -1.40% | 33% | +0.53% | -6.30% |
+|  |  | 5d | primary | 4 | -0.79% | -0.43% | 50% | +4.01% | -6.30% |
 |  |  | 10d | primary | 2 | -13.04% | -13.04% | 0% | -10.60% | -15.48% |
 |  |  | 21d | context | 2 | -21.03% | -21.03% | 0% | -18.17% | -23.90% |
 | 80+ | 2 | 1d | primary | 2 | -3.65% | -3.65% | 50% | +0.31% | -7.60% |
@@ -43,9 +43,9 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
-| alpaca | 21 | 1d | primary | 19 | +1.10% | +0.20% | 53% | +14.72% | -6.39% |
+| alpaca | 21 | 1d | primary | 21 | +0.62% | -0.02% | 48% | +14.72% | -6.39% |
 |  |  | 3d | primary | 18 | -0.04% | +1.01% | 56% | +7.98% | -8.59% |
-|  |  | 5d | primary | 14 | -0.86% | -1.79% | 29% | +11.41% | -9.90% |
+|  |  | 5d | primary | 16 | -0.07% | -1.28% | 38% | +11.41% | -9.90% |
 |  |  | 10d | primary | 13 | -2.67% | -5.25% | 31% | +20.29% | -15.48% |
 |  |  | 21d | context | 12 | -9.03% | -11.56% | 25% | +11.08% | -28.21% |
 | alpaca+finviz_manual | 7 | 1d | primary | 7 | -2.14% | +0.31% | 57% | +3.38% | -13.15% |
@@ -68,9 +68,9 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 9 | +0.98% | +0.51% | 56% | +5.44% | -2.28% |
 |  |  | 10d | primary | 5 | -0.27% | -0.90% | 40% | +4.95% | -4.40% |
 |  |  | 21d | context | 2 | -1.83% | -1.83% | 50% | +1.35% | -5.01% |
-| US | 28 | 1d | primary | 26 | +0.22% | +0.25% | 54% | +14.72% | -13.15% |
+| US | 28 | 1d | primary | 28 | -0.07% | +0.09% | 50% | +14.72% | -13.15% |
 |  |  | 3d | primary | 25 | -1.53% | -0.56% | 44% | +7.98% | -17.37% |
-|  |  | 5d | primary | 21 | -2.31% | -3.80% | 24% | +11.41% | -12.54% |
+|  |  | 5d | primary | 23 | -1.63% | -3.05% | 30% | +11.41% | -12.54% |
 |  |  | 10d | primary | 20 | -3.47% | -5.38% | 35% | +20.29% | -15.48% |
 |  |  | 21d | context | 19 | -8.91% | -11.69% | 21% | +18.37% | -28.21% |
 
@@ -79,13 +79,13 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | Date | Ticker | Market | Score | Signal price | Day move | 1d | 5d | 10d | 21d context |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
 | 2026-08-13 | TKA.DE | EU-XETRA | 70 | 13.5250 | +9.07% | +1.59% | — | — | — |
-| 2026-08-13 | SMCI | US | 70 | 41.1800 | +9.58% | — | — | — | — |
-| 2026-08-13 | IREN | US | 69 | 47.4200 | +8.61% | — | — | — | — |
+| 2026-08-13 | SMCI | US | 70 | 41.1800 | +9.58% | -2.78% | — | — | — |
+| 2026-08-13 | IREN | US | 69 | 47.4200 | +8.61% | -5.00% | — | — | — |
 | 2026-08-12 | SMCI | US | 70 | 36.1750 | +14.15% | +14.72% | — | — | — |
 | 2026-08-10 | PLTR | US | 68 | 178.7800 | +3.94% | -1.36% | — | — | — |
 | 2026-08-10 | JOBY | US | 70 | 8.8950 | +3.01% | -2.59% | — | — | — |
-| 2026-08-07 | PLTR | US | 70 | 170.1400 | +9.10% | +4.17% | — | — | — |
-| 2026-08-07 | PATH | US | 67 | 14.9400 | +6.75% | +0.20% | — | — | — |
+| 2026-08-07 | PLTR | US | 70 | 170.1400 | +9.10% | +4.17% | +4.01% | — | — |
+| 2026-08-07 | PATH | US | 67 | 14.9400 | +6.75% | +0.20% | +6.83% | — | — |
 | 2026-08-07 | HAG.DE | EU-XETRA | 70 | 94.8000 | +4.98% | -3.97% | +0.53% | — | — |
 | 2026-08-06 | R3NK.DE | EU-XETRA | 68 | 52.2600 | +7.75% | +1.76% | -2.28% | — | — |
 | 2026-08-04 | PLTR | US | 65 | 158.3000 | +25.74% | +0.56% | +11.41% | — | — |
