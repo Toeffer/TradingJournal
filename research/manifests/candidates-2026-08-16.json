@@ -1,0 +1,394 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-16",
+  "generated_at": "2026-08-16T17:00:21Z",
+  "model": "GPT-5.6 Sol",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "b53b81e852a3b1c9e8683efccb75ebff5ea44bb1",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "recent scanner outputs",
+    "public issuer investor-relations pages",
+    "public eToro Germany/EU instrument pages",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "1b250764823b4769a981e4bbc58fb00959ee97963f9d1c7a29456888314a258d",
+  "source_counts": {
+    "opened": 24,
+    "primary": 10
+  },
+  "candidates": [
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "9M reporting event occurred on 2026-08-13; no new primary-source-verified material catalyst inside the 42-day discovery horizon. Scanner momentum alone is insufficient.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "thyssenkrupp's official investor calendar shows the 9M 2025/2026 interim report on August 13, 2026 and the next annual report in December.",
+          "source_type": "primary",
+          "location": "https://www.thyssenkrupp.com/en/investors/calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Canonical snapshot records TKA.DE at EUR 13.525, about EUR 23.52M average daily value, +9.07%, 3.14x relative volume and a 20-day breakout.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#TKA.DE",
+          "published_at": "2026-08-13T18:27:12+02:00",
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro page presents TKA.DE as a purchasable XETRA share; recent public broker observations place market capitalization inside the core universe.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/tka.de",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "catalyst": {
+        "event": "9M 2025/2026 interim report",
+        "date": "2026-08-13",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.thyssenkrupp.com/en/investors/calendar",
+        "verified_at": "2026-08-16T17:00:21Z"
+      },
+      "market_data": {
+        "as_of": "2026-08-13T18:27:12+02:00",
+        "data_source": "data/research_snapshot.csv; eToro market-cap supplement",
+        "price": 13.525,
+        "market_cap": 6500000000,
+        "avg_dollar_volume": 23520509.91
+      }
+    },
+    {
+      "ticker": "IREN",
+      "company": "IREN Limited",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary-source-verified forward catalyst date was found on the opened IREN investor pages; historical reporting cadence is not verification. The name is also in the larger-cap exception bucket and lacks a superior complete setup.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "IREN's opened investor events/reports pages do not state a new future FY2026 results date; historical reporting cadence is not used as verification.",
+          "source_type": "primary",
+          "location": "https://iren.com/investors/events",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Canonical snapshot records IREN at USD 47.42, about USD 84.42M average daily dollar volume, +8.61%, 2.91x relative volume and a 20-day breakout.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#IREN",
+          "published_at": "2026-08-13T16:40:49+02:00",
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro page presents IREN as a purchasable share; recent public broker observations put market cap around USD 14.48B.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/iren",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-08-13T16:40:49+02:00",
+        "data_source": "data/research_snapshot.csv; eToro market-cap supplement",
+        "price": 47.42,
+        "market_cap": 14480000000,
+        "avg_dollar_volume": 84418335.89
+      }
+    },
+    {
+      "ticker": "JOBY",
+      "company": "Joby Aviation, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Q2 2026 results occurred on 2026-08-05 and canonical average daily dollar volume is about USD 9.50M, below the USD 10M conditional US liquidity floor.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "Joby's official IR calendar shows Q2 2026 results on August 5, 2026.",
+          "source_type": "primary",
+          "location": "https://ir.jobyaviation.com/news-events/ir-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Canonical snapshot records JOBY at USD 8.895, about USD 9.50M average daily dollar volume, 3.39x relative volume and a 20-day breakout.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#JOBY",
+          "published_at": "2026-08-10T16:41:00+02:00",
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro Germany page presents JOBY as a purchasable stock and recent public broker observations place market cap near the top of the core universe.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/joby",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Q2 2026 results",
+        "date": "2026-08-05",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.jobyaviation.com/news-events/ir-calendar",
+        "verified_at": "2026-08-16T17:00:21Z"
+      },
+      "market_data": {
+        "as_of": "2026-08-10T16:41:00+02:00",
+        "data_source": "data/research_snapshot.csv; eToro market-cap supplement",
+        "price": 8.895,
+        "market_cap": 9840000000,
+        "avg_dollar_volume": 9502710.85
+      }
+    },
+    {
+      "ticker": "PLTR",
+      "company": "Palantir Technologies Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Excluded by default under ETORO_TRADEABILITY.md as an obvious crowded headline-AI mega-cap; scanner momentum cannot override the broker/universe exclusion.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records PLTR at USD 178.78 with about USD 240.85M average daily dollar volume, 2.72x relative volume, a 20-day breakout and RSI 75.03.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#PLTR",
+          "published_at": "2026-08-10T16:41:00+02:00",
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Repository broker/universe overlay excludes mega-caps above USD 50B and obvious crowded headline AI names by default.",
+          "source_type": "repository",
+          "location": "ETORO_TRADEABILITY.md",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-08-10T16:41:00+02:00",
+        "data_source": "data/research_snapshot.csv",
+        "price": 178.78,
+        "market_cap": null,
+        "avg_dollar_volume": 240851593.61
+      }
+    },
+    {
+      "ticker": "SMCI",
+      "company": "Super Micro Computer, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Fiscal Q4 2026 results occurred on 2026-08-11; no new primary-source-verified forward catalyst was found. The name is extended and in the larger-cap exception bucket.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "Supermicro's official IR materials scheduled fiscal Q4 2026 results for August 11, 2026.",
+          "source_type": "primary",
+          "location": "https://ir.supermicro.com/news/news-details/2026/Supermicro-Announces-Date-for-Fourth-Quarter-and-Fiscal-Year-2026-Financial-Results-and-Conference-Call/default.aspx",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Supermicro's July preliminary update said Q4 revenue was expected near the low end of prior guidance while highlighting record backlog.",
+          "source_type": "primary",
+          "location": "https://ir.supermicro.com/news/news-details/2026/Supermicro-Provides-Preliminary-Fourth-Quarter-Fiscal-Year-2026-Results-and-Business-Update/default.aspx",
+          "published_at": "2026-07-21",
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Canonical snapshot records SMCI at USD 41.18, about USD 91.32M average daily dollar volume, +9.58%, 3.54x relative volume, 7.97% five-day extension and RSI 72.18.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#SMCI",
+          "published_at": "2026-08-13T16:40:49+02:00",
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro page presents SMCI as a purchasable stock; recent public broker observations put market cap around USD 18.4B.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/smci",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Fiscal Q4 2026 results",
+        "date": "2026-08-11",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.supermicro.com/news/news-details/2026/Supermicro-Announces-Date-for-Fourth-Quarter-and-Fiscal-Year-2026-Financial-Results-and-Conference-Call/default.aspx",
+        "verified_at": "2026-08-16T17:00:21Z"
+      },
+      "market_data": {
+        "as_of": "2026-08-13T16:40:49+02:00",
+        "data_source": "data/research_snapshot.csv; eToro market-cap supplement",
+        "price": 41.18,
+        "market_cap": 18400000000,
+        "avg_dollar_volume": 91318379.56
+      }
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Primary-source-verified H1 report is inside the Actionable horizon, but this run lacks current canonical multi-session structure to define a non-arbitrary trigger, stop and first target with planned R >=1.5.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "Aroundtown's official financial calendar schedules the H1 2026 Financial Report for August 26, 2026.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/investor-relations/publications/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Aroundtown announced an EUR 850M bond issuance and concurrent tender offer on July 7, 2026, adding financing/capital-structure context before H1 results.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/investor-relations/news",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro Germany page presents AT1.DE as a purchasable XETRA share; recent public broker data showed about EUR 2.31B market cap, EUR 2.148 price and roughly EUR 6.23M average daily value.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/at1.de",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "catalyst": {
+        "event": "H1 2026 Financial Report",
+        "date": "2026-08-26",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.aroundtown.de/investor-relations/publications/financial-calendar",
+        "verified_at": "2026-08-16T17:00:21Z"
+      },
+      "market_data": {
+        "as_of": "2026-08-16T17:00:21Z",
+        "data_source": "eToro public instrument page; canonical snapshot has no AT1.DE row",
+        "price": 2.148,
+        "market_cap": 2310000000,
+        "avg_dollar_volume": 6229200
+      }
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Verified H1/Q2 event is inside the Actionable horizon, but no complete structure-based setup exists; ongoing advanced takeover negotiations with Uber materially change event risk. Market cap is also in the larger-cap exception bucket.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "Delivery Hero's official financial calendar schedules the Half-Year Financial Report 2026 & Q2 Trading Update for August 27, 2026.",
+          "source_type": "primary",
+          "location": "https://ir.deliveryhero.com/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Delivery Hero disclosed on July 14, 2026 that it was in advanced negotiations with Uber regarding a potential takeover offer.",
+          "source_type": "primary",
+          "location": "https://ir.deliveryhero.com/",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro Germany page presents DHER.DE as a purchasable XETRA share; recent public broker data showed about EUR 11.06B market cap, EUR 36.44 price and roughly EUR 52.11M average daily value.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/dher.de",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Half-Year Financial Report 2026 & Q2 Trading Update",
+        "date": "2026-08-27",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.deliveryhero.com/financial-calendar",
+        "verified_at": "2026-08-16T17:00:21Z"
+      },
+      "market_data": {
+        "as_of": "2026-08-16T17:00:21Z",
+        "data_source": "eToro public instrument page; canonical snapshot has no DHER.DE row",
+        "price": 36.44,
+        "market_cap": 11060000000,
+        "avg_dollar_volume": 52109200
+      }
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS EVENTIM AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Primary-source-verified H1 report is imminent, but the canonical snapshot has no EVD.DE row and no evidence-based trigger, invalidation and first target with planned R >=1.5 can be derived without inventing levels.",
+      "next_review_date": "2026-08-23",
+      "evidence": [
+        {
+          "claim": "CTS EVENTIM's official financial calendar schedules the Half-Year Financial Report for August 20, 2026.",
+          "source_type": "primary",
+          "location": "https://corporate.eventim.de/en/investor-relations/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        },
+        {
+          "claim": "Public eToro page presents EVD.DE as a purchasable XETRA share; recent public broker observations showed about EUR 5.37B market cap, EUR 55.30 price and roughly EUR 17.82M average daily value.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/evd.de",
+          "published_at": null,
+          "accessed_at": "2026-08-16T17:00:21Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Half-Year Financial Report",
+        "date": "2026-08-20",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://corporate.eventim.de/en/investor-relations/financial-calendar",
+        "verified_at": "2026-08-16T17:00:21Z"
+      },
+      "market_data": {
+        "as_of": "2026-08-16T17:00:21Z",
+        "data_source": "eToro public instrument page; canonical snapshot has no EVD.DE row",
+        "price": 55.3,
+        "market_cap": 5370000000,
+        "avg_dollar_volume": 17823498.02
+      }
+    }
+  ]
+}
