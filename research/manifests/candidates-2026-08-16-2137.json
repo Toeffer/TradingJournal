@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-16",
+  "generated_at": "2026-08-16T21:37:55+00:00",
+  "model": "Claude Opus 4.8 (scheduled routine)",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "ed147e8a5a5bc8d9570e9a546f8073a7ea61dfed",
+  "method": "hybrid",
+  "enabled_sources": [
+    "data/research_snapshot.csv",
+    "data/recommendations.csv",
+    "data/recommendation_reviews.csv",
+    "trades.csv",
+    "data/proposals.csv",
+    "research/scanner-summary.md",
+    "web_search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "1b250764823b4769a981e4bbc58fb00959ee97963f9d1c7a29456888314a258d",
+  "source_counts": {
+    "opened": 16,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Scanner momentum breakout (EUR13.525, +9.07%, 3.14x rel-vol, 20-day breakout, RSI 69.96) coincides with an already-completed reporting event: thyssenkrupp's 9M 2025/2026 interim report on 2026-08-13. No new primary-source-verified material catalyst is inside the 42-day discovery horizon, so the move is a post-event momentum chase, not a fresh research object. Issuer investor calendar could not be opened this run (egress-blocked), so any forward date is at best secondary_only.",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot row: TKA.DE EUR13.525 on 2026-08-13, +9.07%, rel-vol 3.14x, above 20-day high, RSI 69.96, avg dollar volume ~EUR23.52M.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#TKA.DE",
+          "published_at": "2026-08-13T18:27:12+02:00",
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        },
+        {
+          "claim": "thyssenkrupp reported 9M 2025/2026 interim figures on 2026-08-13; next scheduled major report (annual) is in December, outside the 42-day horizon (secondary; issuer calendar not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketscreener.com/quote/stock/THYSSENKRUPP-AG-436541/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:34:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "IREN",
+      "company": "IREN Limited",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "IREN DID schedule a forward catalyst inside the Actionable window: FY2026 full-year results on 2026-08-27 (11 days out), announced 2026-08-13 (this corrects the earlier 2026-08-16 run, which recorded 'no verified forward date'). However it is rejected: (1) the event is a binary earnings print; (2) IREN is a larger-cap (~$14.5B) crowded bitcoin-mining/AI name that is extended (+8.61%, 20-day breakout, ~+17% above EMA50) - a larger-cap exception requires a clearly superior, non-chase setup; (3) no current structured price history beyond the momentum snapshot row is available this run, so no defensible trigger/stop/target with >=1.5R can be built; (4) the date is secondary_only (SEC/issuer pages egress-blocked). This is momentum into a binary event, not an allowed setup.",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot row: IREN $47.42 on 2026-08-13, +8.61%, rel-vol 2.91x, 20-day breakout, RSI 59.22, avg dollar volume ~$84.42M.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#IREN",
+          "published_at": "2026-08-13T16:40:49+02:00",
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        },
+        {
+          "claim": "IREN announced it will release FY2026 (year ended 2026-06-30) results on 2026-08-27 with a 5:00pm ET call; press release dated 2026-08-13 (secondary; SEC 8-K and iren.com not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.nasdaq.com/press-release/iren-release-fy26-results-august-27-2026-2026-08-13",
+          "published_at": "2026-08-13",
+          "accessed_at": "2026-08-16T21:37:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "JOBY",
+      "company": "Joby Aviation, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Two independent disqualifiers: (1) Joby's Q2 2026 results were released 2026-08-05, before this run, so the relevant reporting catalyst is already past; (2) canonical avg dollar volume is ~$9.50M, below the $10M US conditional-watchlist floor in ETORO_TRADEABILITY.md. A post-event illiquid breakout with no forward catalyst is not an allowed setup.",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot row: JOBY $8.895 on 2026-08-10, +3.01%, rel-vol 3.39x, 20-day breakout, avg dollar volume ~$9.50M (below $10M floor).",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#JOBY",
+          "published_at": "2026-08-10T16:41:00+02:00",
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        },
+        {
+          "claim": "Joby Aviation reported Q2 2026 results on 2026-08-05 (event already occurred; secondary).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.jobyaviation.com/news/",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:34:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "PLTR",
+      "company": "Palantir Technologies Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Discovery-stage reject. At $178.78 with ~$240M ADV and RSI 75, PLTR is an excluded-by-default mega-cap and crowded headline-AI name (market cap well above the $50B exception ceiling in ETORO_TRADEABILITY.md). A high scanner score cannot promote a name the universe overlay excludes by default.",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot row: PLTR $178.78 on 2026-08-10, +3.94%, rel-vol 2.72x, 20-day breakout, RSI 75.03, avg dollar volume ~$240.85M.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#PLTR",
+          "published_at": "2026-08-10T16:41:00+02:00",
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "company": "Super Micro Computer, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Super Micro reported fiscal Q4 2026 results on 2026-08-11 (event already past); the 2026-07-21 preliminary update had already flagged revenue near the low end of guidance. The name is a larger-cap exception (~$18B), already extended (+9.58%, ~+35% above EMA50, RSI 72), with no new verified forward catalyst. A post-earnings momentum rebound is not a new catalyst setup.",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot row: SMCI $41.18 on 2026-08-13, +9.58%, rel-vol 3.54x, 20-day breakout, RSI 72.18, avg dollar volume ~$91.32M.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#SMCI",
+          "published_at": "2026-08-13T16:40:49+02:00",
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        },
+        {
+          "claim": "Supermicro reported Q4 and full FY2026 results on 2026-08-11 (EPS $1.62 GAAP diluted, net sales $11.1B, gross margin 17.5%); preliminary business update issued 2026-07-21 (secondary).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.businesswire.com/news/home/20260721109492/en/Supermicro-Provides-Fourth-Quarter-of-Fiscal-Year-2026-Preliminary-Business-Update",
+          "published_at": "2026-07-21",
+          "accessed_at": "2026-08-16T21:37:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS EVENTIM AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Catalyst-first European lead. H1 2026 half-year report is scheduled for ~2026-08-20 (4 days), a near-term binary earnings event. Rejected because: (1) the date is only secondary_only this run - the issuer financial calendar (corporate.eventim.de) is egress-blocked and could not be opened, so it fails the verified-primary standard required for Actionable/Early Watch; (2) the canonical snapshot contains no EVD.DE price row and no independent structured price history was reachable this run, so no evidence-based trigger, stop and first target with >=1.5R can be built. An imminent report without current structure is event anticipation, not an allowed entry.",
+      "evidence": [
+        {
+          "claim": "CTS Eventim's next results release (H1 2026 half-year report) is dated ~2026-08-20 (secondary; issuer financial calendar not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketscreener.com/quote/stock/CTS-EVENTIM-AG-CO-KGAA-435918/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:34:00+00:00"
+        },
+        {
+          "claim": "No EVD.DE row exists in the canonical research snapshot; FMP quote/chart (low-tier plan) and issuer/market-data pages were unavailable this run, so no current structured price/structure could be obtained.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Catalyst-first European lead. H1 2026 financial report scheduled ~2026-08-26 (10 days), a near-term binary earnings event. Rejected because: (1) the date is secondary_only this run (issuer financial calendar aroundtown.de is egress-blocked and was not opened); (2) no AT1.DE row in the canonical snapshot and no independent structured price history reachable, so no defensible setup levels; (3) a July 2026 EUR850M bond issuance plus concurrent tender adds a financing/capital-structure overhang that would need explicit analysis before any pre-report entry. Event date alone is not a setup.",
+      "evidence": [
+        {
+          "claim": "Aroundtown's H1 2026 financial report is scheduled for ~2026-08-26 (secondary; issuer financial calendar not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://in.marketscreener.com/quote/stock/AROUNDTOWN-SA-37788018/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:34:00+00:00"
+        },
+        {
+          "claim": "No AT1.DE row exists in the canonical research snapshot and no independent structured price history was reachable this run (FMP low-tier; issuer/market-data pages egress-blocked).",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:33:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Delivery Hero is subject to an AGREED cash takeover by Uber at EUR41.50/share (business combination agreement announced 2026-07-16; both boards support and intend to recommend tendering; Prosus has irrevocably committed, bringing Uber's total economic interest to ~53%). The shares therefore trade as a deal/merger-arb situation anchored near the offer price, and the 2026-08-27 H1/Q2 trading update is immaterial to a normal swing setup. This is a special situation with binary regulatory/closing and threshold risk, not an earnings swing; it is also a larger-cap exception name. No allowed setup with defensible >=1.5R exists.",
+      "evidence": [
+        {
+          "claim": "Uber and Delivery Hero announced a business combination agreement on 2026-07-16 at EUR41.50/share cash (~EUR13.0B fully diluted equity value); boards support and intend to recommend tendering; Prosus irrevocably committed, taking Uber's total economic interest to ~53%.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.businesswire.com/news/home/20260715826698/en/Uber-Announces-Acquisition-Offer-for-Delivery-Hero",
+          "published_at": "2026-07-16",
+          "accessed_at": "2026-08-16T21:37:00+00:00"
+        },
+        {
+          "claim": "Delivery Hero's H1 2026 / Q2 2026 trading update is scheduled for ~2026-08-27 (secondary; issuer IR calendar not openable this run).",
+          "source_type": "reputable_secondary",
+          "location": "https://ir.deliveryhero.com/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-16T21:37:00+00:00"
+        }
+      ]
+    }
+  ]
+}
