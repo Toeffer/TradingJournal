@@ -128,3 +128,23 @@ def test_refreshed_snapshot_fails_without_matching_archive(tmp_path: Path) -> No
     errors = validate_manifest(manifest, root=tmp_path)
 
     assert any("input_snapshot_sha256" in error for error in errors)
+
+
+def test_grandfathered_manifest_skips_unverifiable_snapshot_check(tmp_path: Path) -> None:
+    manifest = valid_manifest(tmp_path)
+    live = tmp_path / "data/research_snapshot.csv"
+    live.write_text("ticker,price\nXYZ,99\n", encoding="utf-8")
+
+    errors = validate_manifest(manifest, root=tmp_path, manifest_name="candidates-2026-07-26.json")
+
+    assert errors == []
+
+
+def test_grandfathering_is_scoped_to_named_manifests_only(tmp_path: Path) -> None:
+    manifest = valid_manifest(tmp_path)
+    live = tmp_path / "data/research_snapshot.csv"
+    live.write_text("ticker,price\nXYZ,99\n", encoding="utf-8")
+
+    errors = validate_manifest(manifest, root=tmp_path, manifest_name="candidates-2026-09-13.json")
+
+    assert any("input_snapshot_sha256" in error for error in errors)

@@ -19,6 +19,16 @@ MANIFEST_DIR = REPO_ROOT / "research/manifests"
 # scanner data changes, so a manifest's recorded hash quickly stops matching
 # the live file; the archive is what keeps old manifests verifiable.
 SNAPSHOT_ARCHIVE_SUBDIR = "research/snapshots"
+# Manifests written before `--archive` support existed (added 2026-08-10).
+# Their input_snapshot_sha256 was never saved anywhere, so it can never be
+# verified against the live snapshot or an archive again. Grandfathered by
+# exact filename only -- this does not relax the check for any other or
+# future manifest, which must still archive the snapshot it used.
+GRANDFATHERED_UNVERIFIABLE_SNAPSHOTS = {
+    "candidates-2026-07-19.json",
+    "candidates-2026-07-26.json",
+    "candidates-2026-08-02.json",
+}
 HEX64 = re.compile(r"^[a-f0-9]{64}$")
 CLASSIFICATIONS = {"ACTIONABLE", "EARLY_WATCH", "REJECT"}
 SOURCE_TYPES = {"primary", "market_data", "reputable_secondary", "repository", "other"}
@@ -256,7 +266,7 @@ def validate_candidate(
     return ticker, primary_count, market_count
 
 
-def validate_manifest(data: Any, *, root: Path = REPO_ROOT) -> list[str]:
+def validate_manifest(data: Any, *, root: Path = REPO_ROOT, manifest_name: str | None = None) -> list[str]:
     errors: list[str] = []
     if not isinstance(data, dict):
         return ["manifest: expected JSON object"]
@@ -281,7 +291,8 @@ def validate_manifest(data: Any, *, root: Path = REPO_ROOT) -> list[str]:
             errors.append(f"input_snapshot: `{snapshot}` does not exist")
         elif isinstance(digest, str) and HEX64.fullmatch(digest):
             actual = hashlib.sha256(snapshot_path.read_bytes()).hexdigest()
-            if actual != digest and not archived_snapshot_matches(digest, root=root):
+            grandfathered = manifest_name in GRANDFATHERED_UNVERIFIABLE_SNAPSHOTS
+            if actual != digest and not archived_snapshot_matches(digest, root=root) and not grandfathered:
                 errors.append(
                     f"input_snapshot_sha256: {digest} matches neither the current "
                     f"`{snapshot}` (now {actual}) nor any archive under "
@@ -332,7 +343,7 @@ def validate_path(path: Path) -> list[str]:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         return [f"{path}: {exc}"]
-    return validate_manifest(data)
+    return validate_manifest(data, manifest_name=path.name)
 
 
 def manifest_paths(arguments: list[str], all_manifests: bool) -> list[Path]:
@@ -358,6 +369,8 @@ def main() -> int:
             print(f"{path}:")
             for error in errors:
                 print(f"  - {error}")
+        elif path.name in GRANDFATHERED_UNVERIFIABLE_SNAPSHOTS:
+            print(f"{path}: valid (snapshot unverifiable, grandfathered)")
         else:
             print(f"{path}: valid")
     return 1 if failed else 0
