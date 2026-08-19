@@ -1,4 +1,4 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
-2026-08-13T18:27:12+0200,TKA.DE,,EU-XETRA,XETRA,EUR,13.525,,1739039.55,23520509.91,9.0726,3.1421,70,false,,false,true,5.9123,69.96,9.99,15.12,0.2986,1.343,supportive,yahoo,2026-08-13T18:27:12+0200,yahoo,
-2026-08-13T16:40:49+0200,IREN,,US,US,USD,47.42,,1780226.4,84418335.89,8.6120,2.9059,69,false,,false,true,6.1563,59.22,16.99,9.96,3.0180,1.070,supportive,alpaca,2026-08-13T16:40:49+0200,alpaca,
-2026-08-13T16:40:49+0200,SMCI,,US,US,USD,41.18,,2217542,91318379.56,9.5796,3.5439,70,false,,false,true,7.9706,72.18,31.34,34.74,3.1913,1.207,supportive,alpaca,2026-08-13T16:40:49+0200,alpaca,
+2026-08-13T18:27:12+0200,TKA.DE,,EU-XETRA,XETRA,EUR,13.525,,1739039.55,23520509.91,9.0726,3.1421,70,false,,false,true,5.9123,69.96,9.99,15.12,0.2986,1.343,mixed,yahoo,2026-08-13T18:27:12+0200,yahoo,
+2026-08-13T16:40:49+0200,IREN,,US,US,USD,47.42,,1780226.4,84418335.89,8.6120,2.9059,69,false,,false,true,6.1563,59.22,16.99,9.96,3.0180,1.070,mixed,alpaca,2026-08-13T16:40:49+0200,alpaca,
+2026-08-13T16:40:49+0200,SMCI,,US,US,USD,41.18,,2217542,91318379.56,9.5796,3.5439,70,false,,false,true,7.9706,72.18,31.34,34.74,3.1913,1.207,mixed,alpaca,2026-08-13T16:40:49+0200,alpaca,

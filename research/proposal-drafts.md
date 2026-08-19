@@ -3,7 +3,7 @@
 Auto-generated research scaffolding. **Not proposals, trades, or advice.**
 Judgment fields remain blank and nothing writes to proposals.csv automatically.
 
-Latest scan day: **2026-08-13** · alert threshold: score ≥ 70 · regime: **supportive**
+Latest scan day: **2026-08-13** · alert threshold: score ≥ 70 · regime: **mixed**
 
 ## Draft cards
 
@@ -14,7 +14,7 @@ Latest scan day: **2026-08-13** · alert threshold: score ≥ 70 · regime: **su
 _Mechanical context:_
 - date: 2026-08-13 | direction: long | source: scanner
 - candidate_ref: scanner_signals.csv#2026-08-13:SMCI
-- regime: supportive
+- regime: mixed
 - reference price: 41.18 (not an entry level)
 - move 9.5796% | rel vol 3.5439x | 5d extension 7.9706%
 - indicators, context only: RSI14 72.18 | EMA20 distance 31.34% | BB %B 1.207
@@ -38,7 +38,7 @@ _Human judgment required before logging:_
 _Mechanical context:_
 - date: 2026-08-13 | direction: long | source: scanner
 - candidate_ref: scanner_signals.csv#2026-08-13:TKA.DE
-- regime: supportive
+- regime: mixed
 - reference price: 13.525 (not an entry level)
 - move 9.0726% | rel vol 3.1421x | 5d extension 5.9123%
 - indicators, context only: RSI14 69.96 | EMA20 distance 9.99% | BB %B 1.343
