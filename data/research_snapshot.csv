@@ -1,2 +1,1 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
-2026-08-13T18:27:12+0200,TKA.DE,,EU-XETRA,XETRA,EUR,13.525,,1739039.55,23520509.91,9.0726,3.1421,70,false,,false,true,5.9123,69.96,9.99,15.12,0.2986,1.343,mixed,yahoo,2026-08-13T18:27:12+0200,yahoo,
