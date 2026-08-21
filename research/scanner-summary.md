@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-21 09:50 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-21 13:53 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -11,7 +11,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 - Signals recorded: 38
 - With 1-day outcome: 38
-- With 10-day outcome: 30
+- With 10-day outcome: 32
 - With 21-day context outcome: 21
 
 ## Outcomes by score bucket
@@ -26,12 +26,12 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 60-69 | 20 | 1d | primary | 20 | -0.72% | +0.08% | 50% | +4.69% | -13.15% |
 |  |  | 3d | primary | 20 | -1.00% | -0.88% | 45% | +6.63% | -9.72% |
 |  |  | 5d | primary | 20 | -0.60% | -1.27% | 40% | +11.41% | -12.54% |
-|  |  | 10d | primary | 17 | -1.40% | -3.09% | 41% | +20.29% | -13.35% |
+|  |  | 10d | primary | 18 | -1.01% | -2.00% | 44% | +20.29% | -13.35% |
 |  |  | 21d | context | 9 | -3.98% | -5.43% | 33% | +18.37% | -20.32% |
 | 70-79 | 8 | 1d | primary | 8 | +1.32% | -0.32% | 50% | +14.72% | -3.97% |
 |  |  | 3d | primary | 8 | -2.10% | -1.87% | 38% | +5.92% | -9.11% |
 |  |  | 5d | primary | 8 | -3.43% | -2.03% | 38% | +4.01% | -12.31% |
-|  |  | 10d | primary | 3 | -10.93% | -10.60% | 0% | -6.71% | -15.48% |
+|  |  | 10d | primary | 4 | -7.80% | -8.66% | 25% | +1.60% | -15.48% |
 |  |  | 21d | context | 2 | -21.03% | -21.03% | 0% | -18.17% | -23.90% |
 | 80+ | 2 | 1d | primary | 2 | -3.65% | -3.65% | 50% | +0.31% | -7.60% |
 |  |  | 3d | primary | 2 | -10.66% | -10.66% | 0% | -3.95% | -17.37% |
@@ -46,7 +46,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | alpaca | 21 | 1d | primary | 21 | +0.62% | -0.02% | 48% | +14.72% | -6.39% |
 |  |  | 3d | primary | 21 | -0.51% | +0.64% | 52% | +7.98% | -9.11% |
 |  |  | 5d | primary | 21 | -1.75% | -2.18% | 33% | +11.41% | -12.31% |
-|  |  | 10d | primary | 14 | -1.77% | -5.00% | 36% | +20.29% | -15.48% |
+|  |  | 10d | primary | 16 | -1.10% | -4.55% | 44% | +20.29% | -15.48% |
 |  |  | 21d | context | 12 | -9.03% | -11.56% | 25% | +11.08% | -28.21% |
 | alpaca+finviz_manual | 7 | 1d | primary | 7 | -2.14% | +0.31% | 57% | +3.38% | -13.15% |
 |  |  | 3d | primary | 7 | -5.38% | -2.71% | 14% | +0.33% | -17.37% |
@@ -71,7 +71,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | US | 28 | 1d | primary | 28 | -0.07% | +0.09% | 50% | +14.72% | -13.15% |
 |  |  | 3d | primary | 28 | -1.73% | -0.95% | 43% | +7.98% | -17.37% |
 |  |  | 5d | primary | 28 | -2.61% | -3.42% | 29% | +11.41% | -12.54% |
-|  |  | 10d | primary | 21 | -2.83% | -5.25% | 38% | +20.29% | -15.48% |
+|  |  | 10d | primary | 23 | -2.27% | -4.74% | 43% | +20.29% | -15.48% |
 |  |  | 21d | context | 19 | -8.91% | -11.69% | 21% | +18.37% | -28.21% |
 
 ## Runner board
@@ -84,8 +84,8 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 2026-08-12 | SMCI | US | 70 | 36.1750 | +14.15% | +14.72% | +0.68% | — | — |
 | 2026-08-10 | PLTR | US | 68 | 178.7800 | +3.94% | -1.36% | -2.53% | — | — |
 | 2026-08-10 | JOBY | US | 70 | 8.8950 | +3.01% | -2.59% | -12.31% | — | — |
-| 2026-08-07 | PLTR | US | 70 | 170.1400 | +9.10% | +4.17% | +4.01% | — | — |
-| 2026-08-07 | PATH | US | 67 | 14.9400 | +6.75% | +0.20% | +6.83% | — | — |
+| 2026-08-07 | PLTR | US | 70 | 170.1400 | +9.10% | +4.17% | +4.01% | +1.60% | — |
+| 2026-08-07 | PATH | US | 67 | 14.9400 | +6.75% | +0.20% | +6.83% | +5.56% | — |
 | 2026-08-07 | HAG.DE | EU-XETRA | 70 | 94.8000 | +4.98% | -3.97% | +0.53% | -6.71% | — |
 | 2026-08-06 | R3NK.DE | EU-XETRA | 68 | 52.2600 | +7.75% | +1.76% | -2.28% | -6.37% | — |
 | 2026-08-04 | PLTR | US | 65 | 158.3000 | +25.74% | +0.56% | +11.41% | +9.97% | — |
