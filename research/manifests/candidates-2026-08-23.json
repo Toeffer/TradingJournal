@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-23",
+  "generated_at": "2026-08-23T17:01:41Z",
+  "model": "GPT-5.6 Sol",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "2c647f77ed3bd42ad2c6ef4000b651402346e603",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "recent scanner outputs",
+    "public issuer investor-relations pages",
+    "official exchange/regulatory notices",
+    "public eToro Germany/EU instrument pages",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "1bbac2049352c0d225b6e1c8e2fa8ffe75e8f6d3a824795b1a47c0c48c8c52d0",
+  "source_counts": {
+    "opened": 14,
+    "primary": 6
+  },
+  "candidates": [
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The H1 2026 report is primary-source verified for 2026-08-26 and eToro tradeability/liquidity are adequate, but the canonical snapshot has no AT1.DE row. With only supplementary current broker data, there is no defensible multi-session structure from which to set an evidence-based trigger, stop, target and planned R >= 1.5 inside the Actionable horizon.",
+      "next_review_date": "2026-08-30",
+      "evidence": [
+        {
+          "claim": "Aroundtown's official investor-relations calendar lists Financial Report H1 2026 on August 26, 2026.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/investor-relations",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Public eToro data presents AT1.DE as a purchasable XETRA share at about EUR 2.048 with EUR 2.25B market cap and 2.42M three-month average volume.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/at1.de",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        }
+      ],
+      "catalyst": {
+        "event": "H1 2026 Financial Report",
+        "date": "2026-08-26",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.aroundtown.de/investor-relations",
+        "verified_at": "2026-08-23T17:01:41Z"
+      }
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The August 27 Q2/H1 update is verified and the share is eToro-tradeable with strong liquidity, but DHER.DE is a larger-cap exception and the active Uber business-combination/takeover process makes normal pre-results stop-based R unreliable. The canonical snapshot also lacks current DHER.DE structure for a complete setup.",
+      "next_review_date": "2026-08-30",
+      "evidence": [
+        {
+          "claim": "Delivery Hero's official IR financial reports page lists Half-Year Financial Report 2026 & Q2 2026 Trading Update for August 27, 2026.",
+          "source_type": "primary",
+          "location": "https://ir.deliveryhero.com/financial-reports-and-presentations",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Delivery Hero's official IR/news pages show the July 2026 Uber transaction/takeover process remains material context before the report.",
+          "source_type": "primary",
+          "location": "https://ir.deliveryhero.com/de?ics=1",
+          "published_at": "2026-07-16",
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Public eToro data presents DHER.DE as a purchasable XETRA share around EUR 37.00 with EUR 11.34B market cap and 1.09M three-month average volume.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/dher.de",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Half-Year Financial Report 2026 & Q2 2026 Trading Update",
+        "date": "2026-08-27",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.deliveryhero.com/financial-reports-and-presentations",
+        "verified_at": "2026-08-23T17:01:41Z"
+      }
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS Eventim AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The verified H1/Q2 report date was August 20, 2026 and the report has already been published. The prior catalyst is therefore complete and no new primary-source-verified material event inside 42 days was identified in the current calendar.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {
+          "claim": "CTS EVENTIM's official financial calendar states publication of the half-year financial report on August 20, 2026; issuer/official-exchange publication confirms it occurred.",
+          "source_type": "primary",
+          "location": "https://corporate.eventim.de/en/investor-relations/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Public eToro data presents EVD.DE as a purchasable XETRA share around EUR 58.40 with EUR 5.57B market cap and about 244k three-month average volume.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/evd.de",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        }
+      ],
+      "catalyst": {
+        "event": "H1/Q2 2026 financial report",
+        "date": "2026-08-20",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://corporate.eventim.de/en/investor-relations/financial-calendar",
+        "verified_at": "2026-08-23T17:01:41Z"
+      }
+    },
+    {
+      "ticker": "NCH2.DE",
+      "company": "thyssenkrupp nucera AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The Q3/9M results were published on August 12, 2026. The issuer calendar lists September investor conferences, but these routine conference appearances are not a sufficiently material verified catalyst for this method. No new qualifying event inside the 42-day discovery horizon was found.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {
+          "claim": "thyssenkrupp nucera's official financial calendar shows Q3/9M results on August 12, 2026 and only routine investor conferences in September before an October conference and December annual report.",
+          "source_type": "primary",
+          "location": "https://investors.thyssenkrupp-nucera.com/investors/financial-calendar-and-events",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Public eToro data presents NCH2.DE as a purchasable XETRA share around EUR 7.56 with about EUR 952M market cap; its roughly 90k-share three-month average volume implies liquidity below the preferred non-US tier at current price.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/nch2.de",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Q3/9M Results 2025/2026",
+        "date": "2026-08-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://investors.thyssenkrupp-nucera.com/investors/financial-calendar-and-events",
+        "verified_at": "2026-08-23T17:01:41Z"
+      }
+    },
+    {
+      "ticker": "HOOD",
+      "company": "Robinhood Markets, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "HOOD is the only current canonical snapshot row and showed a strong August 21 anomaly, but eToro currently reports market cap above USD 80B, which is excluded by default under the broker/universe overlay. The latest primary earnings event occurred July 29 and no new qualifying forward catalyst was verified. Scanner momentum cannot override either failure.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records HOOD at USD 106.23 on August 21, +11.70% on the day, 7.35x relative volume, a 20-day breakout and about USD 64.4M average daily dollar volume.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#HOOD",
+          "published_at": "2026-08-21T16:16:47+02:00",
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Robinhood's official investor-relations release confirms Q2 2026 results were announced July 29, 2026.",
+          "source_type": "primary",
+          "location": "https://investors.robinhood.com/news-releases/news-release-details/robinhood-reports-second-quarter-2026-results",
+          "published_at": "2026-07-29",
+          "accessed_at": "2026-08-23T17:01:41Z"
+        },
+        {
+          "claim": "Public eToro data presents HOOD as purchasable but reports current market capitalization around USD 86.1B, above the default USD 50B exclusion threshold.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/hood",
+          "published_at": null,
+          "accessed_at": "2026-08-23T17:01:41Z"
+        }
+      ]
+    }
+  ]
+}
