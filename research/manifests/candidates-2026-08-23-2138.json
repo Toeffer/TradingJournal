@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-23",
+  "generated_at": "2026-08-23T21:38:23Z",
+  "model": "claude-opus-5 (Claude Code, scheduled run)",
+  "research_mode": "continuity-first catalyst-first; verification gate unreachable",
+  "repository_commit": "3ade54d675f4cb0740fd01f70b3ede5f0a4b828c",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv (1 row)",
+    "data/eu_quote_history.csv (46 XETRA names, daily OHLCV through 2026-08-21)",
+    "data/scanner_signals.csv (stale; no rows between 2026-08-13 and 2026-08-21)",
+    "FMP MCP company/profile-symbol (structured market data; quote and chart endpoints denied by plan)",
+    "FMP MCP calendar/earnings-calendar (restricted to a small symbol set by plan)",
+    "WebSearch (lead generation only)",
+    "BLOCKED: WebFetch — all domains refused by the environment network egress policy",
+    "BLOCKED: direct HTTPS via curl — gateway answered 403 to CONNECT for every host tested",
+    "BLOCKED: Quartr MCP — account has no Pro subscription"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "1bbac2049352c0d225b6e1c8e2fa8ffe75e8f6d3a824795b1a47c0c48c8c52d0",
+  "source_counts": {
+    "opened": 24,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "S",
+      "company": "SentinelOne, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The strongest US lead this week on universe fit: core-bucket market cap of $7.14B, roughly $161M average daily dollar volume, and a reporting date that would sit 4 days out. It still fails Stage 2. The only support for the 2026-08-27 date is a WebSearch summary of a Businesswire release and a Yahoo Finance article; neither could be opened, and RESEARCH_BRIEF.md states plainly that a search snippet cannot verify a final date. Separately, price at $21.19 sits about 11.5% below the 52-week high of $23.95 with no snapshot row and no accessible OHLCV history for US names this run, so there is no observable structure from which to derive a trigger, invalidation or target. Two independent gates fail.",
+      "rejection_reason": "Catalyst date is secondary_only — the primary source could not be opened because the environment blocks all WebFetch egress. No US price history was reachable, so no structure-based setup could be constructed even if the date were verified.",
+      "evidence": [
+        {
+          "claim": "SentinelOne trades at $21.19 with a market capitalisation of $7,135,626,804 and average volume of 7,580,959 shares, implying roughly $161M average daily dollar volume; 52-week range $11.81-$23.95; listed on NYSE in USD.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=S",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:30:00Z"
+        },
+        {
+          "claim": "A WebSearch result summarised a Businesswire/Yahoo Finance report stating SentinelOne would release fiscal Q2 2027 results after market close on Thursday, 2026-08-27. This is lead-grade only; the release itself could not be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch: \"SentinelOne UiPath Asana GitLab Q2 fiscal 2027 earnings date September 2026\"",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:20:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "GTLB",
+      "company": "GitLab Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Universe fit is good — $7.04B market cap is core bucket and roughly $226M average daily dollar volume is far above the $25M US floor — and a 2026-09-01 report would be 9 days out, inside the Actionable horizon. But the date rests on a WebSearch summary of a Businesswire release dated 2026-08-18; ir.gitlab.com and businesswire.com both returned EGRESS_BLOCKED. At $41.67 the stock is roughly 20% below its 52-week high of $52.38, which is a drawdown, not a setup, and no OHLCV history was reachable to test whether the pullback is holding any structure.",
+      "rejection_reason": "Catalyst date is secondary_only — ir.gitlab.com and businesswire.com are both blocked by the network egress policy. No reachable price history, so no defensible trigger, stop or target.",
+      "evidence": [
+        {
+          "claim": "GitLab trades at $41.67 with a market capitalisation of $7,038,063,042 and average volume of 5,426,930 shares, implying roughly $226M average daily dollar volume; 52-week range $18.73-$52.38; listed on NASDAQ Global Select in USD.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=GTLB",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:30:00Z"
+        },
+        {
+          "claim": "A WebSearch result summarised a Businesswire release stating GitLab would report Q2 FY2027 results (quarter ended 2026-07-31) after US market close on Tuesday, 2026-09-01. Attempts to open both businesswire.com and ir.gitlab.com returned EGRESS_BLOCKED.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result + blocked WebFetch of https://www.businesswire.com/news/home/20260818586295/en/GitLab-To-Announce-Second-Quarter-Fiscal-2027-Financial-Results",
+          "published_at": "2026-08-18",
+          "accessed_at": "2026-08-23T21:24:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ASAN",
+      "company": "Asana, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Core-bucket cap of $2.28B and roughly $58M average daily dollar volume both clear the overlay, and a 2026-09-03 report would be 11 days out. The date is again search-summary grade only. More damaging on the thesis side: at $9.58 against a 52-week range of $5.38-$15.71, the stock is roughly 39% below its high — there is no evidence of a completed base or a confirmed move to pull back into, and none could be gathered this run.",
+      "rejection_reason": "Catalyst date is secondary_only and unverifiable under the current egress policy; price is deep in a 52-week drawdown with no reachable structure to support any allowed setup.",
+      "evidence": [
+        {
+          "claim": "Asana trades at $9.58 with a market capitalisation of $2,276,436,540 and average volume of 6,101,694 shares, implying roughly $58M average daily dollar volume; 52-week range $5.38-$15.71; listed on NYSE in USD.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=ASAN",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:30:00Z"
+        },
+        {
+          "claim": "A WebSearch result indicated Asana's Q2 FY2027 results are due 2026-09-03. investors.asana.com could not be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch: \"SentinelOne UiPath Asana GitLab Q2 fiscal 2027 earnings date September 2026\"",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:20:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DOCU",
+      "company": "DocuSign, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "At $11.84B this is a larger-cap exception name, and ETORO_TRADEABILITY.md allows those only when the setup is clearly stronger than the available core-universe candidates. It is not: the date comes from FMP's earnings calendar, which is a structured market-data provider and therefore tier-2, not a primary source, and $62.00 against a 52-week range of $40.16-$86.65 leaves the stock roughly 28% below its high with no reachable structure. An exception name with a weaker evidence base than the core names it would displace fails on its own terms.",
+      "rejection_reason": "Larger-cap exception bucket with no superior setup; catalyst date is market-data grade, not primary-source verified; no reachable price structure.",
+      "evidence": [
+        {
+          "claim": "DocuSign trades at $62.00 with a market capitalisation of $11,838,590,000 and average volume of 3,510,295 shares, implying roughly $218M average daily dollar volume; 52-week range $40.16-$86.65.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=DOCU",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:31:00Z"
+        },
+        {
+          "claim": "FMP's earnings calendar lists DOCU with a reporting date of 2026-09-03 and an EPS estimate of 1.08 on revenue estimate of $867.21M, last updated 2026-08-23. This is a structured market-data provider, not an issuer primary source.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar?from_date=2026-08-24&to_date=2026-09-13",
+          "published_at": "2026-08-23",
+          "accessed_at": "2026-08-23T21:15:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ZM",
+      "company": "Zoom Communications, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "A $31.5B market cap places Zoom in the larger-cap exception bucket, which the overlay caps at one or two names per report and only for clearly superior setups. The 2026-08-25 date is FMP calendar data, not an opened issuer source. At $107.43 against a 52-week high of $114.74 the stock is close to its high, but the report is two days away and RISK_RULES.md defaults every catalyst-driven proposal to exit_before_catalyst = yes — there is not enough time to establish a trigger, see it confirm and exit before the print.",
+      "rejection_reason": "Larger-cap exception without a superior setup; catalyst date is market-data grade only; the two-day window to the event leaves no room for a triggered entry that still exits before the catalyst.",
+      "evidence": [
+        {
+          "claim": "Zoom trades at $107.43 with a market capitalisation of $31,501,937,717 and average volume of 4,103,805 shares, implying roughly $441M average daily dollar volume; 52-week range $70.70-$114.74.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=ZM",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:36:00Z"
+        },
+        {
+          "claim": "FMP's earnings calendar lists ZM with a reporting date of 2026-08-25 and an EPS estimate of 1.48 on revenue estimate of $1.267bn, last updated 2026-08-23.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar?from_date=2026-08-24&to_date=2026-09-13",
+          "published_at": "2026-08-23",
+          "accessed_at": "2026-08-23T21:15:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HOOD",
+      "company": "Robinhood Markets, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "HOOD is the single row in the canonical snapshot and the only fresh scanner observation, so the process is under pressure to make something of it. It must not. Current market capitalisation is $97.2B, roughly double the overlay's $50B exclusion threshold, so no scanner score can promote it. Note also that the snapshot row is already stale in the direction that matters: the snapshot carries $106.23 as of 2026-08-21, while the current FMP profile shows $108.13 after a further +13.70% session — the move continued without the routine, which is exactly the condition under which chasing does most damage. trades.csv records HOOD as a prior trade (2026-0020) taken with no research trail, and the routine has now rejected the name in four consecutive reports.",
+      "rejection_reason": "Excluded by the market-cap overlay at $97.2B, far above the $50B default exclusion. No verified forward catalyst. Scanner momentum cannot override a universe exclusion.",
+      "evidence": [
+        {
+          "claim": "Robinhood trades at $108.13 with a market capitalisation of $97,217,770,721 — above the $50B mega-cap exclusion in ETORO_TRADEABILITY.md — on average volume of 27,531,280 shares; the profile shows a +13.70% session change.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=HOOD",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:31:00Z"
+        },
+        {
+          "claim": "The canonical research snapshot contains exactly one row: HOOD at $106.23 as of 2026-08-21T16:16:47+0200, +11.70% on the day, 7.35x relative volume, above the 20-day high, RSI14 60.98, average daily dollar volume $64,407,195.89.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv#HOOD",
+          "published_at": "2026-08-21",
+          "accessed_at": "2026-08-23T21:32:49Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Carried from research/candidates-2026-08-23.md, where the same event was recorded as verified against the Aroundtown IR calendar. This run could not reproduce that verification: www.aroundtown.de returned a 403 at the egress gateway. Market data is real and reachable — EUR 2.05, EUR 2.12B market cap, core bucket — but average volume of 2,626,654 shares implies only about EUR 5.4M (~USD 5.8M) average daily value, barely above the USD 5M non-US preferred floor. The name is also absent from data/eu_quote_history.csv, so unlike the other XETRA leads it has no multi-session structure available even from repository data. A 3-day-away H1 report with no verified date, marginal liquidity and no structure is event anticipation, not a setup.",
+      "rejection_reason": "Primary source (Aroundtown IR calendar) unreachable this run — www.aroundtown.de refused at the egress gateway, so the 2026-08-26 date is secondary_only. Marginal liquidity near the non-US floor and no reachable price structure.",
+      "evidence": [
+        {
+          "claim": "Aroundtown trades at EUR 2.05 with a market capitalisation of EUR 2,122,838,601 and average volume of 2,626,654 shares, implying roughly EUR 5.4M average daily value; 52-week range EUR 2.042-3.524; XETRA listing, ISIN LU1673108939.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=AT1.DE",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:12:00Z"
+        },
+        {
+          "claim": "The prior same-day run recorded an H1 2026 Financial Report on 2026-08-26 as verified against https://www.aroundtown.de/investor-relations. Re-verification failed this run: the gateway answered 403 to CONNECT for www.aroundtown.de:443.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-08-23.json#AT1.DE",
+          "published_at": "2026-08-23",
+          "accessed_at": "2026-08-23T21:36:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "This is the one lead where repository data does provide real structure, and the structure argues against the trade rather than for it. Over the last ten sessions in data/eu_quote_history.csv the high-to-low range is 1.5% of price — an unusually tight coil. In isolation that reads as a setup; in context it is the signature of a stock pinned by a pending takeover process, and the prior report records a July Uber business-combination path. A breakout from a deal-pinned range is a deal-terms event, not a technical breakout, and a structural stop cannot protect against a deal headline gapping the stock in either direction. Add a EUR 11.19B market cap that requires larger-cap exception treatment and a 2026-08-27 date that could not be re-verified (ir.deliveryhero.com refused at the gateway), and there is nothing here that survives.",
+      "rejection_reason": "Primary source unreachable — ir.deliveryhero.com refused at the egress gateway, so the 2026-08-27 date is secondary_only. The tight 1.5% ten-day range reflects takeover pinning rather than a tradeable coil, and a normal stop cannot price deal-headline gap risk. Larger-cap exception bucket with no superior setup.",
+      "evidence": [
+        {
+          "claim": "Delivery Hero trades at EUR 36.83 with a market capitalisation of EUR 11,187,080,900 and average volume of 1,222,311 shares; 52-week range EUR 14.80-39.83; XETRA listing, ISIN DE000A2E4K43.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=DHER.DE",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:30:00Z"
+        },
+        {
+          "claim": "Repository daily OHLCV through 2026-08-21 gives DHER.DE a close of EUR 36.83, a 20-day high of EUR 38.30, a ten-session high-low range of 1.5% of price, 20-day average daily value of about EUR 20.4M, and a 20-day return of -3.1%.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#DHER.DE",
+          "published_at": "2026-08-21",
+          "accessed_at": "2026-08-23T21:34:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AFX.DE",
+      "company": "Carl Zeiss Meditec AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Structurally the best-looking name in the reachable EU universe: a EUR 2.84B core-bucket cap, about EUR 9.8M average daily value (comfortably above the USD 5M non-US floor), a 20-day return of +16.8% and a close 0.5% under its 20-day high — a name that has moved and is holding near the highs rather than breaking down. What it does not have is a catalyst. Carl Zeiss Meditec's fiscal year ends in September, so no scheduled reporting event falls inside the 42-day discovery horizon, and no primary source could be opened to establish one. SETUPS.md is explicit that price structure alone is a reason to research, not to enter, and the manifest contract requires a primary-source-verified catalyst for any non-rejected candidate. It also sits 25.5% below its 52-week high, so the +16.8% is a bounce inside a downtrend, not a new-high breakout.",
+      "rejection_reason": "No catalyst inside the 42-day discovery horizon and no primary source reachable to establish one. Price structure alone cannot support a classification under the manifest contract.",
+      "evidence": [
+        {
+          "claim": "Carl Zeiss Meditec trades at EUR 32.48 with a market capitalisation of EUR 2,843,171,846 and average volume of 255,981 shares, implying roughly EUR 8.3M average daily value; 52-week range EUR 22.62-48.36.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=AFX.DE",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:31:00Z"
+        },
+        {
+          "claim": "Repository daily OHLCV through 2026-08-21 gives AFX.DE a close of EUR 32.48, a 20-day high of EUR 32.64 (close 0.5% below it), a 20-day return of +16.8%, a 5-day return of +0.6%, 20-day average daily value of about EUR 9.8M, and a close 25.5% below the 52-week high of EUR 43.60.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#AFX.DE",
+          "published_at": "2026-08-21",
+          "accessed_at": "2026-08-23T21:34:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NEM.DE",
+      "company": "Nemetschek SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Core-bucket cap of EUR 7.59B and about EUR 18.4M average daily value both clear the overlay, and a +15.0% 20-day return with a +6.5% last week is the strongest momentum in the reachable EU set. But the close is 2.9% below the 20-day high, so there is no breakout to trade, and the stock sits 29.5% below its 52-week high of EUR 93.20 — this is a recovery off a deep low, not strength. No reporting event falls inside the discovery horizon (Nemetschek's Q3 statement is an October event) and no primary source was reachable to confirm any date. Buying a sharp bounce with no catalyst and no verified event is precisely the 'it went up' rejection in SETUPS.md.",
+      "rejection_reason": "No catalyst inside the 42-day discovery horizon and no reachable primary source; price is below its 20-day high with no breakout structure, and the move is a bounce within a 29.5% drawdown.",
+      "evidence": [
+        {
+          "claim": "Nemetschek trades at EUR 65.75 with a market capitalisation of EUR 7,588,128,271 and average volume of 279,296 shares, implying roughly EUR 18.4M average daily value; 52-week range EUR 50.45-121.00.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=NEM.DE",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:31:00Z"
+        },
+        {
+          "claim": "Repository daily OHLCV through 2026-08-21 gives NEM.DE a close of EUR 65.75, a 20-day high of EUR 67.70 (close 2.9% below it), a 20-day return of +15.0%, a 5-day return of +6.5%, and a close 29.5% below the 52-week high of EUR 93.20.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#NEM.DE",
+          "published_at": "2026-08-21",
+          "accessed_at": "2026-08-23T21:34:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SHL.DE",
+      "company": "Siemens Healthineers AG",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The only XETRA name in the reachable universe that closed above its 20-day high (+0.2%), with a +14.7% 20-day return and about EUR 36.6M average daily value, and it carries a scanner observation from 2026-07-29. The disqualifier is size: EUR 44.99B is roughly USD 48.9B, inside the larger-cap exception bucket only by a small margin and close enough to the USD 50B exclusion that a modest rally pushes it out of the universe entirely. The overlay admits exception names only when the setup is clearly stronger than available core candidates; a 0.2% poke above a 20-day high, with no verified catalyst inside the horizon and the stock still 14.9% below its 52-week high, is not that.",
+      "rejection_reason": "Market cap of about USD 48.9B sits at the very top of the larger-cap exception bucket without a clearly superior setup; no primary-source-verified catalyst inside the discovery horizon.",
+      "evidence": [
+        {
+          "claim": "Siemens Healthineers trades at EUR 40.20 with a market capitalisation of EUR 44,991,798,835 and average volume of 1,073,667 shares; 52-week range EUR 32.81-49.71.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=SHL.DE",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:36:00Z"
+        },
+        {
+          "claim": "Repository daily OHLCV through 2026-08-21 gives SHL.DE a close of EUR 40.20 against a 20-day high of EUR 40.10 (0.2% above it), a 20-day return of +14.7%, 20-day average daily value of about EUR 36.6M, and a close 14.9% below the 52-week high of EUR 47.26.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#SHL.DE",
+          "published_at": "2026-08-21",
+          "accessed_at": "2026-08-23T21:34:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BILI",
+      "company": "Bilibili Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Surfaced only because it appears in the FMP earnings calendar with a 2026-08-27 date. RESEARCH_BRIEF.md sets ASIA_POLICY to exceptional-only, and nothing here is exceptional — it is a calendar row, not a thesis. The instrument is also an ADR rather than a local listing, which ETORO_TRADEABILITY.md requires to be identified and justified. No primary source was reachable to verify the date.",
+      "rejection_reason": "Asia exposure is exceptional-only under the configuration and no exceptional case exists; ADR rather than local listing; catalyst date is market-data grade only.",
+      "evidence": [
+        {
+          "claim": "FMP's earnings calendar lists BILI with a reporting date of 2026-08-27 and an EPS estimate of 0.23 on revenue estimate of $1.167bn, last updated 2026-08-23.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar?from_date=2026-08-24&to_date=2026-09-13",
+          "published_at": "2026-08-23",
+          "accessed_at": "2026-08-23T21:15:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "EVT.DE",
+      "company": "Evotec SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Screened as a candidate late-August German reporter. WebSearch established that the H1 2026 interim report was already published on 2026-08-13, before this run — the event is in the past and cannot be recycled. Repository data independently disqualifies it anyway: about EUR 2.7M average daily value is below even the USD 3M conditional non-US floor, and the close sits 50.1% below the 52-week high.",
+      "rejection_reason": "The H1 2026 catalyst already occurred on 2026-08-13; liquidity of roughly EUR 2.7M average daily value is below the conditional non-US floor.",
+      "evidence": [
+        {
+          "claim": "A WebSearch result reported that Evotec SE released its half-year 2026 interim report on 2026-08-13, with group revenues down 19.2% year-on-year to EUR 300.1M and adjusted EBITDA at a loss of EUR 42.7M.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch: \"Evotec HelloFresh Aroundtown Grand City Properties H1 2026 half-year report date August 2026\"",
+          "published_at": null,
+          "accessed_at": "2026-08-23T21:22:00Z"
+        },
+        {
+          "claim": "Repository daily OHLCV through 2026-08-21 gives EVT.DE a close of EUR 3.36, 20-day average daily value of about EUR 2.7M, and a close 50.1% below the 52-week high of EUR 6.73.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv#EVT.DE",
+          "published_at": "2026-08-21",
+          "accessed_at": "2026-08-23T21:34:00Z"
+        }
+      ]
+    }
+  ]
+}
