@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-08-25 19:42 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-08-26 08:01 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -12,7 +12,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 - Signals recorded: 39
 - With 1-day outcome: 39
 - With 10-day outcome: 34
-- With 21-day context outcome: 21
+- With 21-day context outcome: 23
 
 ## Outcomes by score bucket
 
@@ -27,7 +27,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 20 | -1.00% | -0.88% | 45% | +6.63% | -9.72% |
 |  |  | 5d | primary | 20 | -0.60% | -1.27% | 40% | +11.41% | -12.54% |
 |  |  | 10d | primary | 19 | -1.07% | -2.12% | 42% | +20.29% | -13.35% |
-|  |  | 21d | context | 9 | -3.98% | -5.43% | 33% | +18.37% | -20.32% |
+|  |  | 21d | context | 11 | -3.65% | -5.24% | 36% | +18.37% | -20.32% |
 | 70-79 | 8 | 1d | primary | 8 | +1.32% | -0.32% | 50% | +14.72% | -3.97% |
 |  |  | 3d | primary | 8 | -2.10% | -1.87% | 38% | +5.92% | -9.11% |
 |  |  | 5d | primary | 8 | -3.43% | -2.03% | 38% | +4.01% | -12.31% |
@@ -57,7 +57,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 10 | -0.02% | -0.18% | 50% | +4.05% | -4.67% |
 |  |  | 5d | primary | 10 | +0.61% | -0.32% | 50% | +5.44% | -2.66% |
 |  |  | 10d | primary | 9 | -1.40% | -3.09% | 33% | +9.24% | -7.38% |
-|  |  | 21d | context | 2 | -1.83% | -1.83% | 50% | +1.35% | -5.01% |
+|  |  | 21d | context | 4 | -1.99% | -2.03% | 50% | +1.35% | -5.24% |
 
 ## Outcomes by market
 
@@ -67,7 +67,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 10 | -0.02% | -0.18% | 50% | +4.05% | -4.67% |
 |  |  | 5d | primary | 10 | +0.61% | -0.32% | 50% | +5.44% | -2.66% |
 |  |  | 10d | primary | 9 | -1.40% | -3.09% | 33% | +9.24% | -7.38% |
-|  |  | 21d | context | 2 | -1.83% | -1.83% | 50% | +1.35% | -5.01% |
+|  |  | 21d | context | 4 | -1.99% | -2.03% | 50% | +1.35% | -5.24% |
 | US | 29 | 1d | primary | 29 | -0.07% | -0.02% | 48% | +14.72% | -13.15% |
 |  |  | 3d | primary | 28 | -1.73% | -0.95% | 43% | +7.98% | -17.37% |
 |  |  | 5d | primary | 28 | -2.61% | -3.42% | 29% | +11.41% | -12.54% |
@@ -94,8 +94,8 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 2026-08-03 | HAG.DE | EU-XETRA | 64 | 86.3400 | +8.25% | +1.51% | +5.44% | +9.24% | — |
 | 2026-07-29 | PATH | US | 66 | 12.5900 | +3.37% | -6.39% | +10.56% | +20.29% | — |
 | 2026-07-29 | SHL.DE | EU-XETRA | 65 | 37.5400 | +4.51% | -0.93% | +4.08% | +4.95% | — |
-| 2026-07-28 | MBG.DE | EU-XETRA | 64 | 47.1250 | +3.99% | -2.56% | +0.51% | -0.90% | — |
-| 2026-07-28 | BC8.DE | EU-XETRA | 60 | 35.3600 | +9.47% | +4.69% | +4.81% | +2.09% | — |
+| 2026-07-28 | MBG.DE | EU-XETRA | 64 | 47.1250 | +3.99% | -2.56% | +0.51% | -0.90% | -5.24% |
+| 2026-07-28 | BC8.DE | EU-XETRA | 60 | 35.3600 | +9.47% | +4.69% | +4.81% | +2.09% | +0.96% |
 | 2026-07-14 | DHER.DE | EU-XETRA | 66 | 39.1000 | +5.76% | -1.46% | -1.76% | -3.09% | -5.01% |
 | 2026-07-14 | S | US | 60 | 19.9500 | +7.49% | +1.58% | -6.01% | -8.17% | +11.08% |
 | 2026-07-09 | RIVN | US | 63 | 17.9150 | +7.60% | +2.48% | -4.35% | -7.93% | -12.73% |
