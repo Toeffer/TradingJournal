@@ -1,3 +1,2 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
 2026-08-26T11:55:02+0200,DBK.DE,,EU-XETRA,XETRA,EUR,34.485,,4064981.9,140180900.82,3.8705,2.3616,66,false,,false,true,3.3568,70.76,5.32,8.85,0.0577,1.195,mixed,yahoo,2026-08-26T11:55:02+0200,yahoo,
-2026-08-21T16:16:47+0200,HOOD,,US,US,USD,106.23,,606299.5,64407195.89,11.6976,7.3504,60,false,,false,true,4.6498,60.98,10.06,11.00,1.0531,1.237,mixed,alpaca,2026-08-21T16:16:47+0200,alpaca,
