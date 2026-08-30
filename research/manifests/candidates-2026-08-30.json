@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-30",
+  "generated_at": "2026-08-30T16:57:17Z",
+  "model": "GPT-5.6 Sol",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "5983b901689a67ec8879e2bd632e25153b898228",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "recent scanner outputs",
+    "public issuer investor-relations pages",
+    "public eToro Germany/EU instrument pages",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "fe776d6dd03470275e96ebf3a7c5de3f96a6608b7548ea6df676d5249b1ff619",
+  "source_counts": {"opened": 11, "primary": 4},
+  "candidates": [
+    {
+      "ticker": "PATH",
+      "company": "UiPath Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "UiPath's September 3 fiscal Q2 2027 report is primary-source verified and eToro tradeability, core-universe market cap and liquidity all pass, but PATH is absent from the canonical snapshot and has already risen about 11% over the prior week. No defensible current multi-session structure supports an entry, stop, first target and planned R >= 1.5. With the binary event only four days away, a pre-event entry would be anticipation rather than a validated setup.",
+      "next_review_date": "2026-09-06",
+      "evidence": [
+        {
+          "claim": "UiPath's official IR release states fiscal Q2 2027 results will be reported after market close on September 3, 2026 with a 5:00 p.m. ET call.",
+          "source_type": "primary",
+          "location": "https://ir.uipath.com/news/detail/456/uipath-announces-second-quarter-fiscal-2027-financial-results-conference-call",
+          "published_at": "2026-08-06",
+          "accessed_at": "2026-08-30T16:57:17Z"
+        },
+        {
+          "claim": "Public eToro presents PATH as purchasable at about USD 18.15, USD 9.4B market cap and 67.36M three-month average volume; it shows an 11.01% weekly rise and USD 9.20-19.80 52-week range.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/path",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Fiscal Q2 2027 financial results",
+        "date": "2026-09-03",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.uipath.com/news/detail/456/uipath-announces-second-quarter-fiscal-2027-financial-results-conference-call",
+        "verified_at": "2026-08-30T16:57:17Z"
+      }
+    },
+    {
+      "ticker": "DBK.DE",
+      "company": "Deutsche Bank AG",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "DBK.DE is the only canonical snapshot row and shows a liquid 20-day breakout, but the official next earnings report is October 28, 2026, 59 days away and outside the 42-day discovery horizon. Public eToro market cap is about EUR 75.29B, independently above the default EUR/USD 50B exclusion threshold. Scanner momentum cannot override either gate.",
+      "next_review_date": "2026-10-11",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot records DBK.DE at EUR 34.485 on August 26 with +3.87% daily change, 2.36x relative volume, a 20-day breakout, RSI 70.76 and about EUR 140.2M average daily value.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv#DBK.DE",
+          "published_at": "2026-08-26T11:55:02+02:00",
+          "accessed_at": "2026-08-30T16:57:17Z"
+        },
+        {
+          "claim": "Deutsche Bank's official financial calendar lists the next earnings report for October 28, 2026.",
+          "source_type": "primary",
+          "location": "https://investor-relations.db.com/reports-and-events/financial-calendar?language_id=1",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        },
+        {
+          "claim": "Public eToro presents DBK.DE as purchasable and reports market cap about EUR 75.29B and three-month average volume 2.29M.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/dbk.de",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Aroundtown's H1 report occurred on August 26, 2026 and the official IR page now shows the next Q3 report on November 25, outside the 42-day horizon. The prior catalyst is complete and cannot be recycled into a new entry thesis.",
+      "next_review_date": "2026-10-18",
+      "evidence": [
+        {
+          "claim": "Aroundtown's official IR page shows H1 2026 results published August 26 and its next Q3 2026 financial report on November 25, 2026.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/investor-relations",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        },
+        {
+          "claim": "Public eToro presents AT1.DE as purchasable around EUR 2.02 with EUR 2.24B market cap and 2.41M three-month average volume.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/at1.de",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Delivery Hero published its Q2/H1 results on August 27, 2026 and raised guidance; the official financial calendar currently lists no upcoming dates. The voluntary Uber takeover offer at EUR 41.50 per share remains material special-situation context, so the completed earnings catalyst cannot support a new ordinary swing setup.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {
+          "claim": "Delivery Hero's official August 27 release confirms Q2 2026 and H1 2026 results were published, full-year guidance was raised and the voluntary Uber takeover offer is EUR 41.50 per share.",
+          "source_type": "primary",
+          "location": "https://ir.deliveryhero.com/news/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth/67579e83-ec60-44da-aa02-69c30be73966",
+          "published_at": "2026-08-27",
+          "accessed_at": "2026-08-30T16:57:17Z"
+        },
+        {
+          "claim": "Delivery Hero's official financial calendar currently states that no dates are scheduled.",
+          "source_type": "primary",
+          "location": "https://ir.deliveryhero.com/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        },
+        {
+          "claim": "Public eToro presents DHER.DE as a purchasable XETRA share.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/dher.de",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The previously researched August Q3 event has already occurred and no new primary-source-verified material catalyst inside the current 42-day horizon was established. Familiarity with the prior scanner name is not evidence for a new setup.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {
+          "claim": "Public eToro presents TUI1.DE as a purchasable XETRA share; broker availability remains verifiable but does not create a catalyst.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/markets/tui1.de",
+          "published_at": null,
+          "accessed_at": "2026-08-30T16:57:17Z"
+        }
+      ]
+    }
+  ]
+}
