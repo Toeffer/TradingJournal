@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-08-30",
+  "generated_at": "2026-08-30T21:37:00Z",
+  "model": "Claude Code (automated weekly routine)",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "6cc574b5aac8da2b17e0e6c453969d15f6048364",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "data/eu_quote_history.csv (repository-accumulated XETRA/LSE daily OHLCV)",
+    "recent US and EU scanner outputs",
+    "structured market-event calendar provider",
+    "public web search"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "fe776d6dd03470275e96ebf3a7c5de3f96a6608b7548ea6df676d5249b1ff619",
+  "source_counts": {"opened": 14, "primary": 0},
+  "candidates": [
+    {
+      "ticker": "BMW.DE",
+      "company": "Bayerische Motoren Werke AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "expectations": "The 2026-08-28 move is attributed to broker commentary rather than company disclosure: a Bernstein Outperform reiteration with an unchanged EUR 82 target and a Citigroup 'Positive Catalyst Watch' on a 90-day horizon, alongside a cumulative 2-million battery-EV delivery milestone. Consensus positioning could not be established from an openable source this run.",
+      "priced_in": "The entire German auto complex rose on the same session (VOW3.DE +3.23%, MBG.DE +2.96%, P911.DE +1.61%, CON.DE +1.33%), indicating a sector re-rating rather than a BMW-specific edge. Price is already 2.55% above the breakout level on the breakout day itself.",
+      "bull_case": "A 20-day high on 2.27x relative volume with EUR 79M average daily value, after a seven-month decline, could mark the start of a base-building reversal toward the EUR 70.24 60-day high.",
+      "bear_case": "The stock is 33% below its January level and 10.8% below its own 60-day high, with continuous overhead supply from January to mid-June. The move is broker-note fuel in a downtrend and is prone to mean reversion.",
+      "pre_mortem": "The routine buys a broker-note bounce at the top of its two-day range, inside a seven-month downtrend, on the one session where the underlying price file is known to be defective; the sector bid fades and the position is stopped out on noise well before EUR 70 is tested.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Strongest rejection: the 20-day high is not a meaningful high. BMW traded continuously above the current EUR 62.64 from January through mid-June 2026 and bottomed at EUR 56.40 on 2026-07-24, so the signal is a counter-trend bounce into heavy overhead supply. It survives nothing: entry at EUR 62.64 is already 2.55% beyond the ~2% chase limit SETUPS.md allows; a stop below the recorded breakout-day low of EUR 60.38 is tighter than one ATR (EUR 1.35) and would be a manufactured-R stop; a genuine invalidation below the EUR 57.34-57.56 base implies ~6% risk against a EUR 70.24 first target, which does not clear 1.5R after spread and slippage. Market cap of roughly EUR 38-40B additionally places it in the larger-cap exception bucket, which requires a clearly superior setup.",
+      "rejection_reason": "Only name in the 46-ticker EU universe to satisfy every numeric breakout gate, but the underlying high is not meaningful, the driver is analyst commentary and sector sympathy rather than company disclosure, entry would already be a chase, and no stop exists that is both real invalidation and compatible with 1.5R. No primary-source-verified company catalyst inside 42 days could be opened.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated; final row re-mapped from its 2026-08-29 run-date label to its true 2026-08-28 session)",
+        "price": 62.64,
+        "market_cap": null,
+        "avg_dollar_volume": 79000000
+      },
+      "evidence": [
+        {
+          "claim": "On the last completed session, 2026-08-28, BMW.DE closed EUR 62.64, +4.50% on the session, at 2.27x its 20-day average volume, clearing a 20-day high of EUR 61.08, with 20-day average daily value of EUR 79.0M, ATR(14) of EUR 1.35 (2.15%) and a session low of EUR 60.38.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#BMW.DE (computed after de-duplication and session re-mapping)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "BMW is in a sustained downtrend: EUR 93.62 close on 2026-01-05, a period low of EUR 56.40 on 2026-07-24, and continuous trading above the current EUR 62.64 from January through mid-June 2026. The 60-day high is EUR 70.24.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#BMW.DE (167 clean sessions, 2026-01-05 to 2026-08-28)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "BMW shares traded at EUR 62.70 on 2026-08-28, up EUR 3.14 on the day, after Bernstein kept an Outperform rating with an unchanged EUR 82 target, BMW was placed on Citigroup's 'Positive Catalyst Watch' with a 90-day horizon, and the company reported cumulative deliveries above 2 million pure battery-electric vehicles. This independently corroborates the de-duplicated close and the session re-mapping.",
+          "source_type": "reputable_secondary",
+          "location": "web search results for BMW share price 2026-08-28 (ad-hoc-news.de and marketscreener report summaries)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "The German auto complex rose together on 2026-08-28: VOW3.DE +3.23%, MBG.DE +2.96%, P911.DE +1.61%, CON.DE +1.33%, consistent with a sector move rather than a company-specific catalyst.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (de-duplicated 2026-08-28 session)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "BMW's official investor-relations financial calendar could not be opened to establish or exclude a scheduled event inside the 42-day discovery horizon; the domain is blocked by the environment's network egress policy.",
+          "source_type": "other",
+          "location": "https://www.bmwgroup.com/en/investor-relations/financial-calendar.html (EGRESS_BLOCKED)",
+          "published_at": null,
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "expectations": "Not establishable this run. No openable source for consensus, guidance or positioning; the prior same-day run recorded a Hold consensus and an approximately 11% weekly rise into the event, which this run could not independently reproduce.",
+      "priced_in": "Unknown this run. Treated as a reason to lower confidence, per analysis.md, not as a neutral input.",
+      "bull_case": "A verified near-dated earnings event on a liquid, eToro-tradeable, core-universe name.",
+      "bear_case": "A binary print four days out, on a name with no obtainable price structure, after a reported sharp run into the event.",
+      "pre_mortem": "The routine anticipates a binary print on a name that has already run, using levels it does not actually have, and an overnight gap makes the nominal stop arithmetic meaningless.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Three independent failures, any one sufficient. The date is secondary_only because the issuer IR domain is egress-blocked and no primary source could be opened, and only verified may support Actionable or Early Watch. No structured price data for PATH is available to this run from any source, so trigger, invalidation and target cannot be derived at all rather than merely being difficult. And RISK_RULES.md prefers trading after information is public or exiting before the event, which a 4-day pre-earnings entry contradicts.",
+      "rejection_reason": "Near-dated earnings catalyst that cannot be primary-source verified in this environment, on a name for which no structured price history is obtainable, four days ahead of a binary event.",
+      "next_review_date": "2026-09-06",
+      "catalyst": {
+        "event": "Fiscal Q2 2027 financial results, after market close, with a 5:00 p.m. ET conference call",
+        "date": "2026-09-03",
+        "date_status": "secondary_only",
+        "source_type": "reputable_secondary",
+        "source_url": "web search results carrying UiPath's 2026-08-06 announcement (barchart.com, finance.yahoo.com); primary at ir.uipath.com is EGRESS_BLOCKED",
+        "verified_at": "2026-08-30T21:37:00Z"
+      },
+      "evidence": [
+        {
+          "claim": "UiPath announced on 2026-08-06 that it will report fiscal Q2 2027 results, for the quarter ended 2026-07-31, after market close on Thursday 2026-09-03, with a conference call at 5:00 p.m. ET.",
+          "source_type": "reputable_secondary",
+          "location": "web search results carrying the UiPath press release (barchart.com, finance.yahoo.com)",
+          "published_at": "2026-08-06",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "The UiPath investor-relations primary source could not be opened to verify the date; the domain is blocked by the environment's network egress policy.",
+          "source_type": "other",
+          "location": "https://ir.uipath.com/news-releases (EGRESS_BLOCKED)",
+          "published_at": null,
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "No structured market data for PATH is available to this run: the canonical snapshot contains no US rows, the US scanner recorded zero candidates at or above threshold on 2026-08-29, and the provider's quote and historical-price endpoints are access-denied on the current plan.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv; research/scans/scan-2026-08-29-0407.md; provider endpoint responses",
+          "published_at": "2026-08-30",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "VOW3.DE",
+      "company": "Volkswagen AG (preference shares)",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Closed EUR 77.42 on 2026-08-28, +3.23%, just 0.28% above its 20-day high, but relative volume of 1.95x misses the 2x confirmation gate required by the breakout setup. Market cap of roughly EUR 40B places it in the larger-cap exception bucket, and the move is the same sector-wide auto re-rating that lifted BMW, not a company-specific catalyst.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated)",
+        "price": 77.42,
+        "market_cap": null,
+        "avg_dollar_volume": 57000000
+      },
+      "evidence": [
+        {
+          "claim": "VOW3.DE closed EUR 77.42 on 2026-08-28, +3.23%, at 1.95x its 20-day average volume, 0.28% above a 20-day high of EUR 77.20, with 20-day average daily value of EUR 57.0M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#VOW3.DE (de-duplicated)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "P911.DE",
+      "company": "Dr. Ing. h.c. F. Porsche AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Closed EUR 45.95 on 2026-08-28, 1.28% above its 20-day high on 2.07x relative volume, but the daily move of +1.61% is below the +3% minimum the breakout setup requires, so there is no volume-confirmed thrust. Larger-cap exception bucket, and part of the same one-day auto-sector move.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated)",
+        "price": 45.95,
+        "market_cap": null,
+        "avg_dollar_volume": 16500000
+      },
+      "evidence": [
+        {
+          "claim": "P911.DE closed EUR 45.95 on 2026-08-28, +1.61%, at 2.07x its 20-day average volume, 1.28% above a 20-day high of EUR 45.37, with 20-day average daily value of EUR 16.5M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#P911.DE (de-duplicated)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SRT3.DE",
+      "company": "Sartorius AG (preference shares)",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Closed EUR 253.50 on 2026-08-28, 0.52% above its 20-day high, but on relative volume of 0.79x — below average, not confirmation — and a daily move of only +1.24%, far short of the +3% breakout gate. Larger-cap exception bucket.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated)",
+        "price": 253.5,
+        "market_cap": null,
+        "avg_dollar_volume": 17500000
+      },
+      "evidence": [
+        {
+          "claim": "SRT3.DE closed EUR 253.50 on 2026-08-28, +1.24%, at 0.79x its 20-day average volume, 0.52% above a 20-day high of EUR 252.20, with 20-day average daily value of EUR 17.5M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#SRT3.DE (de-duplicated)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "KGX.DE",
+      "company": "KION GROUP AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core-universe name sitting exactly at its 20-day high (EUR 45.08 against EUR 45.05), but relative volume of 1.06x gives no confirmation and the stock is 9.68% extended over five sessions, which the breakout setup excludes as excessively extended. This is also the ticker of closed trade 2026-0017 (-EUR 11.93, -1.00R); red_team.md requires that a previously failed object show what is genuinely different now, and nothing is.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated)",
+        "price": 45.08,
+        "market_cap": null,
+        "avg_dollar_volume": 13100000
+      },
+      "evidence": [
+        {
+          "claim": "KGX.DE closed EUR 45.08 on 2026-08-28, +1.01%, at 1.06x its 20-day average volume, 0.07% above a 20-day high of EUR 45.05, 9.68% above its close five sessions earlier, with 20-day average daily value of EUR 13.1M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#KGX.DE (de-duplicated)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "Trade 2026-0017 in KGX.DE was opened 2026-07-07 at 45.43 and closed 2026-07-08 at 41.22 for -EUR 11.93 and -1.00R.",
+          "source_type": "repository",
+          "location": "trades.csv#2026-0017",
+          "published_at": "2026-07-08",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core-universe name but trading 0.26% below its 20-day high on 1.14x relative volume, so no breakout exists. Average daily value of EUR 6.4M is only marginally above the EUR 5M-equivalent preferred non-US floor. Its August 12 interim report is complete and the positive surprise was pre-announced on 2026-07-28, so the informational catalyst is spent.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated)",
+        "price": 38.0,
+        "market_cap": null,
+        "avg_dollar_volume": 6400000
+      },
+      "evidence": [
+        {
+          "claim": "BC8.DE closed EUR 38.00 on 2026-08-28, +0.90%, at 1.14x its 20-day average volume, 0.26% below a 20-day high of EUR 38.10, with 20-day average daily value of EUR 6.4M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#BC8.DE (de-duplicated)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "Bechtle's interim report occurred on 2026-08-12 and its preliminary Q2 figures and raised 2026 guidance were disclosed by ad-hoc announcement on 2026-07-28, as established and sourced in the 2026-08-09 weekly report.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-08-09.md#BC8.DE",
+          "published_at": "2026-08-09",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core-universe name with adequate liquidity (EUR 31.3M average daily value), but 1.34% below its 20-day high, 20.8% extended over 20 sessions on a 4.36% ATR, and its 9M interim report on 2026-08-13 is complete with the next scheduled report in December, outside the 42-day discovery horizon.",
+      "next_review_date": "2026-09-06",
+      "market_data": {
+        "as_of": "2026-08-28T17:30:00+02:00",
+        "data_source": "data/eu_quote_history.csv (de-duplicated)",
+        "price": 14.74,
+        "market_cap": null,
+        "avg_dollar_volume": 31300000
+      },
+      "evidence": [
+        {
+          "claim": "TKA.DE closed EUR 14.74 on 2026-08-28, -1.31%, 1.34% below a 20-day high of EUR 14.94, 20.8% above its close 20 sessions earlier, ATR(14) 4.36% of price, with 20-day average daily value of EUR 31.3M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv#TKA.DE (de-duplicated)",
+          "published_at": "2026-08-28",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        },
+        {
+          "claim": "thyssenkrupp's 9M 2025/2026 interim report occurred on 2026-08-13 and the next scheduled annual report is in December 2026, as established and sourced from the issuer investor calendar in the 2026-08-16 weekly report.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-08-16.md#TKA.DE",
+          "published_at": "2026-08-16",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DOCU",
+      "company": "Docusign, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Confirmed fiscal Q2 report after market close on 2026-09-03, inside the Actionable horizon, but it is a larger-cap exception name requiring a clearly superior setup, no structured price history is obtainable for US names this run, and the event is binary and three trading sessions away.",
+      "next_review_date": "2026-09-06",
+      "catalyst": {
+        "event": "Fiscal Q2 2027 results, after market close",
+        "date": "2026-09-03",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "structured market-event calendar provider, earnings calendar 2026-08-31 to 2026-09-04, flagged confirmed",
+        "verified_at": "2026-08-30T21:37:00Z"
+      },
+      "evidence": [
+        {
+          "claim": "The structured earnings calendar lists DOCU reporting 2026-09-03 after market close for fiscal Q2 2027 (period ending 2026-07-30), flagged confirmed, with an EPS estimate of 1.09 and revenue estimate of about USD 867M.",
+          "source_type": "market_data",
+          "location": "structured market-event calendar provider, earnings-calendar 2026-08-31 to 2026-09-04",
+          "published_at": "2026-08-30",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NIO",
+      "company": "NIO Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Reports before market open on 2026-09-01. ASIA_POLICY is exceptional-only and nothing about this name is exceptional; it carries a negative EPS estimate into a binary print, and no structured price history is obtainable for US-listed names this run.",
+      "next_review_date": "2026-09-06",
+      "catalyst": {
+        "event": "Q2 2026 results, before market open",
+        "date": "2026-09-01",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "structured market-event calendar provider, earnings calendar 2026-08-31 to 2026-09-04, flagged confirmed",
+        "verified_at": "2026-08-30T21:37:00Z"
+      },
+      "evidence": [
+        {
+          "claim": "The structured earnings calendar lists NIO reporting 2026-09-01 before market open for Q2 2026, flagged confirmed, with an EPS estimate of -0.07.",
+          "source_type": "market_data",
+          "location": "structured market-event calendar provider, earnings-calendar 2026-08-31 to 2026-09-04",
+          "published_at": "2026-08-30",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ADBE",
+      "company": "Adobe Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Reports 2026-09-10, inside the discovery horizon, but market capitalisation is far above the USD 50B default exclusion in ETORO_TRADEABILITY.md. A mega-cap cannot be promoted on an event date alone, and no structured price history is obtainable for US names this run.",
+      "next_review_date": "2026-10-11",
+      "catalyst": {
+        "event": "Fiscal Q3 2026 results",
+        "date": "2026-09-10",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "structured market-event calendar provider, earnings calendar 2026-08-31 to 2026-09-11",
+        "verified_at": "2026-08-30T21:37:00Z"
+      },
+      "evidence": [
+        {
+          "claim": "The structured earnings calendar lists ADBE reporting 2026-09-10 with an EPS estimate of 6.07 and revenue estimate of about USD 6.69B.",
+          "source_type": "market_data",
+          "location": "structured market-event calendar provider, earnings-calendar 2026-08-31 to 2026-09-11",
+          "published_at": "2026-08-30",
+          "accessed_at": "2026-08-30T21:37:00Z"
+        }
+      ]
+    }
+  ]
+}
