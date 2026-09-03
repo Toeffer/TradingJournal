@@ -1,6 +1,6 @@
 # Proposal Stats
 
-Auto-generated from `data/proposals.csv` on 2026-09-03 18:49 UTC. Do not edit by hand.
+Auto-generated from `data/proposals.csv` on 2026-09-03 18:50 UTC. Do not edit by hand.
 
 Simulation uses conservative daily-bar rules: same-bar ambiguity counts as a
 stop-out, fills ignore spread/slippage, the default holding period is 10 trading
