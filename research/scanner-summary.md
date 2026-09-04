@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-09-03 21:41 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-09-04 17:03 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -11,7 +11,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 - Signals recorded: 40
 - With 1-day outcome: 40
-- With 10-day outcome: 38
+- With 10-day outcome: 39
 - With 21-day context outcome: 29
 
 ## Outcomes by score bucket
@@ -26,7 +26,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | 60-69 | 22 | 1d | primary | 22 | -0.66% | -0.03% | 45% | +4.69% | -13.15% |
 |  |  | 3d | primary | 22 | -0.67% | -0.18% | 50% | +6.63% | -9.72% |
 |  |  | 5d | primary | 22 | -0.63% | -1.27% | 41% | +11.41% | -12.54% |
-|  |  | 10d | primary | 20 | -1.74% | -2.61% | 40% | +20.29% | -14.51% |
+|  |  | 10d | primary | 21 | -0.87% | -2.12% | 43% | +20.29% | -14.51% |
 |  |  | 21d | context | 17 | -0.62% | -5.01% | 41% | +45.47% | -20.32% |
 | 70-79 | 8 | 1d | primary | 8 | +1.32% | -0.32% | 50% | +14.72% | -3.97% |
 |  |  | 3d | primary | 8 | -2.10% | -1.87% | 38% | +5.92% | -9.11% |
@@ -46,7 +46,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | alpaca | 22 | 1d | primary | 22 | +0.59% | -0.02% | 45% | +14.72% | -6.39% |
 |  |  | 3d | primary | 22 | -0.31% | +1.01% | 55% | +7.98% | -9.11% |
 |  |  | 5d | primary | 22 | -1.76% | -2.06% | 32% | +11.41% | -12.31% |
-|  |  | 10d | primary | 21 | -2.54% | -4.74% | 38% | +20.29% | -17.93% |
+|  |  | 10d | primary | 22 | -1.67% | -4.55% | 41% | +20.29% | -17.93% |
 |  |  | 21d | context | 14 | -4.06% | -10.16% | 36% | +45.47% | -28.21% |
 | alpaca+finviz_manual | 7 | 1d | primary | 7 | -2.14% | +0.31% | 57% | +3.38% | -13.15% |
 |  |  | 3d | primary | 7 | -5.38% | -2.71% | 14% | +0.33% | -17.37% |
@@ -71,7 +71,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | US | 29 | 1d | primary | 29 | -0.07% | -0.02% | 48% | +14.72% | -13.15% |
 |  |  | 3d | primary | 29 | -1.53% | -0.56% | 45% | +7.98% | -17.37% |
 |  |  | 5d | primary | 29 | -2.59% | -3.05% | 28% | +11.41% | -12.54% |
-|  |  | 10d | primary | 28 | -3.14% | -5.00% | 39% | +20.29% | -17.93% |
+|  |  | 10d | primary | 29 | -2.46% | -4.74% | 41% | +20.29% | -17.93% |
 |  |  | 21d | context | 21 | -5.61% | -11.43% | 29% | +45.47% | -28.21% |
 
 ## Runner board
@@ -79,7 +79,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 | Date | Ticker | Market | Score | Signal price | Day move | 1d | 5d | 10d | 21d context |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
 | 2026-08-26 | DBK.DE | EU-XETRA | 66 | 34.4850 | +3.87% | -0.13% | +0.07% | — | — |
-| 2026-08-21 | HOOD | US | 60 | 106.2300 | +11.70% | -0.02% | -1.94% | — | — |
+| 2026-08-21 | HOOD | US | 60 | 106.2300 | +11.70% | -0.02% | -1.94% | +16.66% | — |
 | 2026-08-13 | TKA.DE | EU-XETRA | 70 | 13.5250 | +9.07% | +1.59% | -2.66% | +10.43% | — |
 | 2026-08-13 | SMCI | US | 70 | 41.1800 | +9.58% | -2.78% | -9.96% | -6.62% | — |
 | 2026-08-13 | IREN | US | 69 | 47.4200 | +8.61% | -5.00% | -11.44% | -14.51% | — |
