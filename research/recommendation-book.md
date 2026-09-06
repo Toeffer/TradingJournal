@@ -4,12 +4,19 @@ Auto-generated from `data/recommendations.csv`. Research decisions are not trade
 
 ## Current decision load
 
-- Active recommendations: 0
+- Active recommendations: 1
 - Archived/removed recommendations: 1
+- Actions: monitor: 1
 
 ## Active recommendations
 
-No active recommendations. A no-new-trade week is a valid decision.
+| Ticker | Status | This week | Setup | Trigger | Expiry | Stop | Target | Next review |
+|---|---|---|---|---:|---|---:|---:|---|
+| FTK.DE | new | monitor | — | — | — | — | — | 2026-09-13 |
+
+### Decision reasons
+
+- **FTK.DE** — monitor: Primary-source-verified October 5 monthly KPI release is 29 days away; eToro stock tradeability, core market cap and preferred liquidity pass, but no canonical multi-session structure exists for an entry.
 
 ## Recently removed
 
