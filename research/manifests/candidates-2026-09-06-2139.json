@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-06",
+  "generated_at": "2026-09-06T21:39:12Z",
+  "model": "claude-opus-5",
+  "research_mode": "second same-day run; market-data anomaly screen plus catalyst-first research; time-suffixed per research_method/output_schema.md and overwriting nothing",
+  "repository_commit": "ee57be923e249d053759bedfe851fc3c2472c668",
+  "method": "hybrid",
+  "enabled_sources": [
+    "repository:data/research_snapshot.csv",
+    "repository:data/recommendations.csv",
+    "repository:data/recommendation_reviews.csv",
+    "repository:trades.csv",
+    "repository:data/scanner_signals.csv",
+    "repository:research/candidates-2026-09-06.md",
+    "market_data:FMP marketPerformance/biggest-gainers",
+    "market_data:FMP company/profile-symbol",
+    "market_data:FMP calendar/earnings-calendar",
+    "reputable_secondary:WebSearch",
+    "BLOCKED:issuer IR domains (www.aehr.com, www.flatexdegiro.com) - EGRESS_BLOCKED by network proxy",
+    "BLOCKED:Quartr MCP primary-source filings/events - subscription_required, account plan none",
+    "BLOCKED:FMP chart historical EOD and FMP quote - ACCESS DENIED, higher plan required",
+    "BLOCKED:stooq.com and query1.finance.yahoo.com - proxy 403 on CONNECT"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "948577333eea2dfcb5dcb6eb808805354545bef631c3b5f21f83f3001a3208e3",
+  "source_counts": {
+    "opened": 17,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "AEHR",
+      "company": "Aehr Test Systems",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The 2026-09-04 move is explained by an already-public order announcement plus a sell-side initiation. An analyst note is a tier-5 lead and never evidence. The only forward catalyst is fiscal Q1 2027 earnings, and secondary sources disagree on its date (2026-10-01 after close versus a 2026-10-05..2026-10-12 estimate). The issuer calendar could not be opened, so the date is secondary_only, which AGENTS.md requires be classified Reject. Even the earliest claimed date is 25 days out, outside the 21-day actionable window. Beta 3.07 with a 52-week range of 18.70-147.40, and reported insider selling of ~$62.7M over twelve months with no buying, further argue against a fixed-size learning-phase entry.",
+      "rejection_reason": "Catalyst date is secondary_only and inconsistent across sources; price driver is already public; no multi-session structured data is reachable, so no evidence-based entry, stop, target or planned R can be constructed.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 86.26,
+        "market_cap": 2813840017,
+        "avg_dollar_volume": 195752065
+      },
+      "evidence": [
+        {
+          "claim": "Last close $86.26, +13.10% on the session; market cap $2,813,840,017; average volume 2,566,567 shares; beta 3.067; 52-week range 18.70-147.40. Average daily value against the $76.27 pre-gap close is about $195.8M, clearing the $25M US preferred liquidity floor, and the market cap sits in the $500M-$10B core bucket.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=AEHR",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:37:00Z"
+        },
+        {
+          "claim": "The 2026-09-04 advance is attributed to a ~$22M follow-on order from an AI customer for FOX-XP wafer-level burn-in systems and WaferPak hardware, together with a Jefferies initiation at Buy with a $175 price target. Reporting also notes about $62.7M of insider selling over the trailing twelve months with no insider buying.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch: 'Aehr Test Systems AEHR stock September 4 2026 news'",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:36:00Z"
+        },
+        {
+          "claim": "Fiscal Q1 2027 earnings date is reported as 2026-10-01 after close by one secondary source and estimated at 2026-10-05 to 2026-10-12 by another. The sources conflict and neither is the issuer.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch: 'Aehr Test Systems fiscal first quarter 2027 earnings date announcement conference call'",
+          "published_at": null,
+          "accessed_at": "2026-09-06T21:38:00Z"
+        },
+        {
+          "claim": "The issuer primary source could not be opened to verify the earnings date: www.aehr.com returned EGRESS_BLOCKED from the network egress proxy, and investors.aehr.com returned DNS ENOTFOUND. Quartr MCP, the repository's primary-source events route, returned subscription_required for an account on plan 'none'. No primary-source verification was therefore possible.",
+          "source_type": "other",
+          "location": "WebFetch https://www.aehr.com/investor-relations/ -> EGRESS_BLOCKED; WebFetch https://investors.aehr.com/news-events/ir-calendar -> ENOTFOUND; Quartr search_companies -> subscription_required",
+          "published_at": null,
+          "accessed_at": "2026-09-06T21:38:30Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BLTE",
+      "company": "Belite Bio, Inc",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Clinical-stage biotech whose valuation is dominated by the Phase 3 LBS-008 programme. That is a binary event of the kind RISK_RULES.md caps at EUR 75 and SETUPS.md treats as special-situation requiring a primary-source-verified mechanism and date. No dated primary source was reachable. The profile also flags isAdr true, so instrument type needs explicit eToro confirmation that could not be obtained in this environment.",
+      "rejection_reason": "No verified forward event date, unresolved binary readout risk, ADR instrument ambiguity for the eToro Germany account, and no multi-session structural data for levels.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 193.61,
+        "market_cap": 7760874469,
+        "avg_dollar_volume": 33339453
+      },
+      "evidence": [
+        {
+          "claim": "Last close $193.61, +13.16% on the session; market cap $7,760,874,469 (inside the $500M-$10B core bucket); average volume 194,865 shares, giving about $33.3M average daily value against the $171.09 pre-gap close, above the $25M US floor. Flagged isAdr true; beta -1.235.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=BLTE",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:37:10Z"
+        },
+        {
+          "claim": "Company profile describes a clinical-stage biopharmaceutical business whose lead candidate LBS-008 is in Phase 3 for Stargardt disease and atrophic age-related macular degeneration, with LBS-009 preclinical. Value is therefore concentrated in undated binary trial outcomes.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=BLTE (description field)",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:37:10Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TYRA",
+      "company": "Tyra Biosciences, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Average daily value of about $19.1M places TYRA in the $10M-$25M conditional band of ETORO_TRADEABILITY.md, so it could only ever appear on a separate Conditional Watchlist with a High risk rating and explicit human approval, never on the main shortlist. The underlying business is preclinical/clinical oncology driven by undated trial events. Conditional liquidity plus an undated binary catalyst plus no structural data is a clear reject.",
+      "rejection_reason": "Conditional-tier liquidity only ($19.1M average daily value, below the $25M preferred floor), undated binary trial catalyst, and no structural levels available.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 28.65,
+        "market_cap": 1709341426,
+        "avg_dollar_volume": 19073934
+      },
+      "evidence": [
+        {
+          "claim": "Last close $28.65, +15.25% on the session; market cap $1,709,341,426; average volume 767,254 shares, giving about $19.1M average daily value against the $24.86 pre-gap close. Company profile describes a preclinical biopharmaceutical company whose lead candidate TYRA-300 targets FGFR3 in muscle-invasive bladder cancer.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=TYRA",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:37:20Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NX",
+      "company": "Quanex Building Products Corporation",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "On price action alone this was the most interesting post-earnings-drift shape of the session: a +22.23% gap inside the core market-cap bucket. It fails on liquidity, and the liquidity gate is not discretionary. About $7.1M average daily value is below the $25M US preferred floor and also below the $10M conditional floor, so it cannot even reach a Conditional Watchlist.",
+      "rejection_reason": "Fails liquidity outright: about $7.1M average daily value against a $25M preferred floor and a $10M conditional floor.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 22.93,
+        "market_cap": 1053129040,
+        "avg_dollar_volume": 7086965
+      },
+      "evidence": [
+        {
+          "claim": "Last close $22.93, +22.23% on the session; market cap $1,053,129,040 (core bucket); average volume 377,770 shares, giving about $7.1M average daily value against the $18.76 pre-gap close.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=NX",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:36:40Z"
+        },
+        {
+          "claim": "Appeared in the 2026-09-04 biggest-gainers screen at +22.23%, price $22.93, NYSE.",
+          "source_type": "market_data",
+          "location": "FMP MCP marketPerformance/biggest-gainers",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:35:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TITN",
+      "company": "Titan Machinery Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Market cap passes but average daily value of about $5.1M is below both the preferred and the conditional liquidity floors. No further research was spent, per the discovery instruction to check tradeability and liquidity before expensive analysis.",
+      "rejection_reason": "Fails liquidity: about $5.1M average daily value against a $25M preferred floor and a $10M conditional floor.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 26.22,
+        "market_cap": 610983160,
+        "avg_dollar_volume": 5071890
+      },
+      "evidence": [
+        {
+          "claim": "Last close $26.22, +14.85% on the session; market cap $610,983,160 (core bucket); average volume 222,159 shares, giving about $5.1M average daily value against the $22.83 pre-gap close.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=TITN",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:37:05Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BBCP",
+      "company": "Concrete Pumping Holdings, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Market cap of $529M is barely inside the core bucket, and average daily value of about $2.5M fails the liquidity gate by a wide margin. Rejected at discovery without further research.",
+      "rejection_reason": "Fails liquidity by a wide margin: about $2.5M average daily value against a $25M preferred floor.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 10.5,
+        "market_cap": 529130910,
+        "avg_dollar_volume": 2476849
+      },
+      "evidence": [
+        {
+          "claim": "Last close $10.50, +16.02% on the session; market cap $529,130,910; average volume 273,685 shares, giving about $2.5M average daily value against the $9.05 pre-gap close.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=BBCP",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:38:50Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AOUT",
+      "company": "American Outdoor Brands, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The largest non-micro gap of the 2026-09-04 session at +44.66%, but market cap of $181M is well below the $500M MARKET_CAP_MIN, so it is outside the configured universe before liquidity is even considered. Average daily value of about $1.3M would fail that gate too.",
+      "rejection_reason": "Outside the configured universe: $181M market cap against a $500M minimum.",
+      "market_data": {
+        "as_of": "2026-09-04T20:00:00Z",
+        "data_source": "FMP company/profile-symbol",
+        "price": 14.48,
+        "market_cap": 181103098,
+        "avg_dollar_volume": 1332551
+      },
+      "evidence": [
+        {
+          "claim": "Last close $14.48, +44.66% on the session; market cap $181,103,098, below the $500,000,000 configured minimum; average volume 133,122 shares, giving about $1.3M average daily value against the $10.01 pre-gap close.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol?symbol=AOUT",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:38:45Z"
+        }
+      ]
+    },
+    {
+      "ticker": "VOW3.DE",
+      "company": "Volkswagen AG",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Carried from the 17:20 UTC run of the same day and re-checked rather than re-argued. The Future Plan approval of 2026-09-03 is already public and is the obvious explanation for the 2026-09-04 price and volume anomaly, so treating the move itself as a fresh catalyst would violate the scanner-evidence rule. The next scheduled interim report on 2026-10-29 is 53 days out, beyond the 42-day discovery horizon.",
+      "rejection_reason": "Completed, already-public catalyst plus no qualifying verified forward event inside the 42-day discovery horizon.",
+      "market_data": {
+        "as_of": "2026-09-04T20:32:10Z",
+        "data_source": "data/research_snapshot.csv (yahoo, sha256 948577333eea2dfcb5dcb6eb808805354545bef631c3b5f21f83f3001a3208e3)",
+        "price": 81.3,
+        "avg_dollar_volume": 67722591.06
+      },
+      "evidence": [
+        {
+          "claim": "The single canonical snapshot row records VOW3.DE at EUR 81.30, +6.4694% on the session, relative volume 3.9406x, a 20-day breakout, RSI14 64.86 and about EUR 67.72M average daily value, as of 2026-09-04T20:32:10+0200, regime mixed, score 65 (below the scanner-priority score of 70).",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv and research/snapshots/research_snapshot-2026-09-06.csv",
+          "published_at": "2026-09-04",
+          "accessed_at": "2026-09-06T21:34:15Z"
+        },
+        {
+          "claim": "The earlier same-day run recorded the 2026-09-03 Supervisory Board approval of the Future Plan and an official next interim report date of 2026-10-29. Re-verification of those issuer claims was not possible in this run because issuer domains are egress-blocked; the reject stands on the snapshot data and the horizon arithmetic, neither of which depends on that re-verification.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-09-06.md",
+          "published_at": "2026-09-06",
+          "accessed_at": "2026-09-06T21:33:00Z"
+        }
+      ]
+    }
+  ]
+}
