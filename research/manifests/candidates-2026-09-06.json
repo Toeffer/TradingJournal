@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-06",
+  "generated_at": "2026-09-06T17:01:58Z",
+  "model": "GPT-5.6 Sol",
+  "research_mode": "continuity-first evidence-gated hybrid",
+  "repository_commit": "bd0d52bffc6bc0f6926512fc0db0bc09d7b38ac4",
+  "method": "hybrid",
+  "enabled_sources": ["GitHub repository files", "data/research_snapshot.csv", "recent scanner outputs", "public issuer investor-relations pages", "public eToro Germany/EU instrument pages", "public web search"],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "948577333eea2dfcb5dcb6eb808805354545bef631c3b5f21f83f3001a3208e3",
+  "source_counts": {"opened": 30, "primary": 12},
+  "candidates": [
+    {
+      "ticker": "FTK.DE", "company": "flatexDEGIRO SE", "classification": "EARLY_WATCH", "source_tag": "routine", "exchange": "XETRA", "currency": "EUR",
+      "catalyst": {"event": "Monthly KPIs September 2026", "date": "2026-10-05", "date_status": "verified", "source_type": "primary", "source_url": "https://flatexdegiro.com/English/investor-relations/financial-calendar/default.aspx", "verified_at": "2026-09-06T17:01:58Z"},
+      "market_data": {"as_of": "2026-09-06T17:01:58Z", "data_source": "public eToro delayed XETRA market data; supplement to canonical snapshot", "price": 37.74, "market_cap": 4090000000, "avg_dollar_volume": 12821884.97},
+      "expectations": "Management publicly targets approximately EUR 650m of 2026 revenue and EUR 200m-EUR 230m of net income, with customer growth of at least 10% CAGR and more than 4 million customers by end-2027; those accelerated targets raise the bar for monthly KPI releases.",
+      "priced_in": "The verified October KPI release is still 29 days away. Public eToro data shows a core-universe valuation and healthy liquidity, but FTK.DE is absent from the canonical snapshot, so there is no committed multi-session structure to establish whether current expectations have produced a valid breakout, pullback, or trigger-ready level.",
+      "bull_case": "Continued customer and asset growth could support management's accelerated 2026 targets, and the EUR XETRA listing avoids direct FX conversion for the EUR account.",
+      "bear_case": "Monthly KPIs are incremental rather than a full earnings event, trading activity can normalize quickly, and elevated 2026 targets leave room for disappointment even if absolute growth remains positive.",
+      "pre_mortem": "The watch fails because the market already discounts the accelerated 2026 targets and September activity data merely meets expectations, leaving no incremental catalyst while the price structure never produces a valid setup.",
+      "risk_rating": "Medium", "confidence": "Medium", "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "red_team_argument": "The October 5 date, eToro stock availability, core market cap and preferred liquidity survive verification, but the catalyst is outside the Actionable horizon and no canonical multi-session structure exists for defensible entry, stop, target and planned R.",
+      "next_review_date": "2026-09-13",
+      "evidence": [
+        {"claim": "flatexDEGIRO's official financial calendar schedules Monthly KPIs September 2026 for October 5, 2026 at 8:30 CEST.", "source_type": "primary", "location": "https://flatexdegiro.com/English/investor-relations/financial-calendar/default.aspx", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "flatexDEGIRO's official IR overview states 2026 targets of about EUR 650m revenue and EUR 200m-EUR 230m net income, plus customer growth targets.", "source_type": "primary", "location": "https://flatexdegiro.com/English/investor-relations/overview/default.aspx", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro presents FTK.DE as a purchasable XETRA stock; observed delayed data showed EUR 37.74, about EUR 4.09B market cap and 339742.58 three-month average volume (about EUR 12.82M daily value).", "source_type": "market_data", "location": "https://www.etoro.com/markets/ftk.de", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "VOW3.DE", "company": "Volkswagen AG", "classification": "REJECT", "source_tag": "scanner_seed", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "The September 3 Future Plan 2030 approval is already public and coincides with the scanner breakout; the next scheduled financial report is October 29, 53 days away and outside the 42-day discovery horizon. The move therefore has no qualifying forward catalyst in this run.",
+      "next_review_date": "2026-10-04",
+      "evidence": [
+        {"claim": "Volkswagen's official ad-hoc release says the Supervisory Board approved the comprehensive Future Plan on September 3, 2026.", "source_type": "primary", "location": "https://www.volkswagen-group.com/en/ad-hoc/supervisory-board-approves-comprehensive-future-plan-for-the-volkswagen-group-20665", "published_at": "2026-09-03", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Volkswagen's official 2026 schedule lists the January-September interim report for October 29, 2026.", "source_type": "primary", "location": "https://annualreport2025.volkswagen-group.com/additional-information/scheduled-dates-2026.html", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Canonical snapshot records VOW3.DE at EUR 81.30 on September 4 with +6.47%, 3.94x relative volume, a 20-day breakout and about EUR 67.72M average daily value.", "source_type": "market_data", "location": "data/research_snapshot.csv#VOW3.DE", "published_at": "2026-09-04T20:32:10+02:00", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro Germany page presents VOW3.DE as a purchasable XETRA stock in EUR.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/vow3.de", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "AAG.DE", "company": "Aumann AG", "classification": "REJECT", "source_tag": "routine", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "Public eToro market capitalization is about EUR 193.76M, below the EUR/USD-equivalent 500M core-universe minimum; the September 23 conference is also a routine investor conference rather than a sufficiently material binding catalyst.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {"claim": "Aumann's official calendar lists the Berenberg & Goldman Sachs German Corporate Conference on September 23 and the next interim statement on November 12.", "source_type": "primary", "location": "https://www.aumann.com/en/investor-relations/financial-calendar", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro Germany page presents AAG.DE as purchasable and reports about EUR 193.76M market cap and 46187.15 average three-month volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/aag.de", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "DUE.DE", "company": "Dürr AG", "classification": "REJECT", "source_tag": "routine", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "Public eToro data implies only about EUR 1.83M average daily value, below even the non-US conditional liquidity floor; the September/October calendar items are investor conferences/company events and the next financial statement is November 12 outside 42 days.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {"claim": "Dürr's official financial calendar lists investor conferences on September 22-23, an October 15 company event, and the next nine-month interim statement on November 12.", "source_type": "primary", "location": "https://www.durr-group.com/en/investor-relations/financial-calendar", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro presents DUE.DE as purchasable at about EUR 18.06, EUR 1.23B market cap and 101108.3 three-month average volume, implying about EUR 1.83M daily value.", "source_type": "market_data", "location": "https://www.etoro.com/markets/due.de", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "RH", "company": "RH", "classification": "REJECT", "source_tag": "routine", "exchange": "NYSE", "currency": "USD",
+      "catalyst": {"event": "Second quarter fiscal 2026 financial results", "date": "2026-09-10", "date_status": "verified", "source_type": "primary", "source_url": "https://ir.rh.com/news-events/detail/291/rh-to-report-second-quarter-fiscal-2026-financial-results-on-september-10-2026", "verified_at": "2026-09-06T17:01:58Z"},
+      "red_team_verdict": "REJECT", "rejection_reason": "The primary-source-verified earnings event is only four days away, but RH is absent from the canonical snapshot and no defensible multi-session trigger, structure-derived stop, first target and >=1.5R can be established without inventing levels. High beta and a sharp weekly move amplify binary-event gap risk.", "next_review_date": "2026-09-13",
+      "evidence": [
+        {"claim": "RH's official IR release states second-quarter fiscal 2026 results will be reported September 10, 2026 after market close.", "source_type": "primary", "location": "https://ir.rh.com/news-events/detail/291/rh-to-report-second-quarter-fiscal-2026-financial-results-on-september-10-2026", "published_at": "2026-09-03", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "RH's current IR page records a July 8 disclosure that Chairman & CEO Gary Friedman sold a small portion of his RH common-stock ownership.", "source_type": "primary", "location": "https://ir.rh.com/", "published_at": "2026-07-08", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro presents RH as a purchasable stock and recently reported about USD 148.57, USD 2.81B market cap, 847416.73 average volume and beta 2.54.", "source_type": "market_data", "location": "https://www.etoro.com/markets/rh", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "CHWY", "company": "Chewy, Inc.", "classification": "REJECT", "source_tag": "routine", "exchange": "NYSE", "currency": "USD",
+      "catalyst": {"event": "Fiscal second quarter 2026 financial results", "date": "2026-09-09", "date_status": "verified", "source_type": "primary", "source_url": "https://investor.chewy.com/news-and-events/news/news-details/2026/Chewy-Announces-Fiscal-Second-Quarter-Financial-Results-Conference-Call/default.aspx", "verified_at": "2026-09-06T17:01:58Z"},
+      "red_team_verdict": "REJECT", "rejection_reason": "The verified earnings event is three days away and CHWY is absent from the canonical snapshot, so no non-arbitrary trigger/stop/target with >=1.5R can be derived. The pending/closing Modern Animal transaction and expanded repurchase authorization also change the expectations and capital-allocation context.", "next_review_date": "2026-09-13",
+      "evidence": [
+        {"claim": "Chewy's official IR release schedules fiscal Q2 2026 results before market on September 9, 2026.", "source_type": "primary", "location": "https://investor.chewy.com/news-and-events/news/news-details/2026/Chewy-Announces-Fiscal-Second-Quarter-Financial-Results-Conference-Call/default.aspx", "published_at": "2026-08-19", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Chewy's official April 8 release announced the Modern Animal acquisition, expected to close in fiscal Q2 2026, and a USD 500M increase to the share-repurchase authorization.", "source_type": "primary", "location": "https://investor.chewy.com/news-and-events/news/news-details/2026/Chewy-to-Acquire-Modern-Animal-Accelerating-Evolution-to-a-Fully-Integrated-Healthcare-Ecosystem/default.aspx", "published_at": "2026-04-08", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro presents CHWY as a purchasable stock; recent delayed data showed about USD 24.02 and a market cap near USD 9.83B.", "source_type": "market_data", "location": "https://www.etoro.com/markets/chwy", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "AVAV", "company": "AeroVironment, Inc.", "classification": "REJECT", "source_tag": "routine", "exchange": "NASDAQ", "currency": "USD",
+      "catalyst": {"event": "First quarter fiscal year 2027 financial results", "date": "2026-09-09", "date_status": "verified", "source_type": "primary", "source_url": "https://investor.avinc.com/node/21336", "verified_at": "2026-09-06T17:01:58Z"},
+      "red_team_verdict": "REJECT", "rejection_reason": "The verified earnings event is three days away, but AVAV is absent from the canonical snapshot and there is no committed multi-session structure for evidence-based levels or >=1.5R. Entering now would be binary-event anticipation rather than a trigger-ready setup.", "next_review_date": "2026-09-13",
+      "evidence": [
+        {"claim": "AeroVironment's official IR release states fiscal Q1 2027 results will be reported after market close on September 9, 2026.", "source_type": "primary", "location": "https://investor.avinc.com/node/21336", "published_at": "2026-08-26", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro Germany page presents AVAV as a purchasable stock; recent delayed data showed about USD 144.80, USD 7.48B market cap and 1.59M three-month average volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/avav", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    },
+    {
+      "ticker": "ASO", "company": "Academy Sports and Outdoors, Inc.", "classification": "REJECT", "source_tag": "routine", "exchange": "NASDAQ", "currency": "USD",
+      "catalyst": {"event": "Second quarter fiscal 2026 financial results", "date": "2026-09-09", "date_status": "verified", "source_type": "primary", "source_url": "https://investors.academy.com/news-releases/news-release-details/academy-sports-outdoors-announces-second-quarter-fiscal-2026", "verified_at": "2026-09-06T17:01:58Z"},
+      "red_team_verdict": "REJECT", "rejection_reason": "The verified earnings event is three days away, but ASO is absent from the canonical snapshot. Without committed multi-session structure, any entry, stop and target would be arbitrary and cannot satisfy the >=1.5R setup gate.", "next_review_date": "2026-09-13",
+      "evidence": [
+        {"claim": "Academy's official IR release states second-quarter fiscal 2026 results will be released before market on September 9, 2026.", "source_type": "primary", "location": "https://investors.academy.com/news-releases/news-release-details/academy-sports-outdoors-announces-second-quarter-fiscal-2026", "published_at": "2026-08-26", "accessed_at": "2026-09-06T17:01:58Z"},
+        {"claim": "Public eToro Germany page presents ASO as a purchasable stock and reports about USD 2.91B market cap and 1.5M average three-month volume in its delayed market data.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/aso", "published_at": null, "accessed_at": "2026-09-06T17:01:58Z"}
+      ]
+    }
+  ]
+}
