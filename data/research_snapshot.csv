@@ -1,2 +1,2 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
-2026-09-04T20:32:10+0200,VOW3.DE,,EU-XETRA,XETRA,EUR,81.3,,832996.2,67722591.06,6.4694,3.9406,65,false,,false,true,3.7519,64.86,7.48,6.59,0.6813,1.272,defensive,yahoo,2026-09-04T20:32:10+0200,yahoo,
+2026-09-04T20:32:10+0200,VOW3.DE,,EU-XETRA,XETRA,EUR,81.3,,832996.2,67722591.06,6.4694,3.9406,65,false,,false,true,3.7519,64.86,7.48,6.59,0.6813,1.272,mixed,yahoo,2026-09-04T20:32:10+0200,yahoo,
