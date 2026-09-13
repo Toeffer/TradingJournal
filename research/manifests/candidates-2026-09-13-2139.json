@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-13",
+  "generated_at": "2026-09-13T21:39:00Z",
+  "model": "Claude (claude-opus-5)",
+  "research_mode": "continuity-first, evidence-gated, catalyst-first with repository price-structure screen; SECOND same-day run under degraded source access - no primary source was opened by this pass (network egress blocked), therefore no candidate in this manifest is classified ACTIONABLE or EARLY_WATCH and every lead is REJECT per research_method/verification.md. Carry-over recommendations REC-FTK-2026-0906 (FTK.DE) and REC-LW-2026-0913 (LW) were reviewed in research/candidates-2026-09-13-2139.md and data/recommendation_reviews.csv but are deliberately absent here: their catalyst verification belongs to the 17:00 UTC run recorded in research/manifests/candidates-2026-09-13.json and is not restated as this pass's own evidence.",
+  "repository_commit": "abdb251e214a07fa50d55c883f30eed59c111395",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository files (data/eu_quote_history.csv, data/research_snapshot.csv, data/scanner_signals.csv, data/market_regime.csv, prior candidate reports and manifests)",
+    "FMP company/profile-symbol (US symbols only on the available plan)",
+    "FMP calendar/earnings-calendar (restricted large-cap subset)",
+    "web search (leads only; snippets cannot verify a date)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {"opened": 14, "primary": 0},
+  "candidates": [
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No setup and no verifiable evidence. Closed 2026-09-11 at EUR36.84, 0.94% below its 20-day high of 37.19, so the SETUPS.md breakout condition fails; ATR14 is 0.72% of price and the stock has held a 36.47-37.19 band for a month, so a trigger above the 20-day high would carry a structural stop distance wider than any plausible first target. Separately, no primary source could be opened by this pass and eToro availability could not be verified, each of which is an independent reject condition.",
+      "evidence": [
+        {"claim": "Daily OHLCV through 2026-09-11: close 36.84, 20-day high 37.19 (-0.94%), 20-session change -0.70%, 20-day average daily value EUR17.8M, ATR14 0.72% of price.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "eToro tradeability could not be verified: network egress to eToro instrument pages is blocked in this environment.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED; see research/candidates-2026-09-13-2139.md, Source-access limitation", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "CBK.DE",
+      "company": "Commerzbank AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Strongest trend in the screened EU universe but no current breakout: closed 2026-09-11 at EUR42.73, 1.09% below its 20-day high of 43.20. Market capitalisation could not be verified this pass and is plausibly at or above the ETORO_TRADEABILITY.md default 50B exclusion threshold. No primary source opened; eToro availability unverified.",
+      "evidence": [
+        {"claim": "Daily OHLCV through 2026-09-11: close 42.73, 20-day high 43.20 (-1.09%), 5-session +2.72%, 20-session +7.52%, above both the 20- and 50-day moving averages, 20-day average daily value EUR91.9M.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No market-capitalisation source was reachable for XETRA symbols: the available FMP plan serves company profiles for US symbols only, and issuer/exchange pages are egress-blocked.", "source_type": "other", "location": "FMP company/profile-symbol ACCESS DENIED for non-US symbol; WebFetch EGRESS_BLOCKED", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Best core-universe price structure found this pass, and still rejected on evidence. Closed 2026-09-11 at EUR15.41, 1.85% below its 20-day high of 15.70, so no breakout exists; the alternative pullback setup in SETUPS.md requires a verified reason for the original move and this pass could not open any primary source to establish one. eToro availability unverified. Flagged in the report as the first name to re-test next week when sources are reachable.",
+      "evidence": [
+        {"claim": "Daily OHLCV through 2026-09-11: close 15.41, 20-day high 15.70 (-1.85%), 5-session +7.91%, 20-session +11.59%, above both the 20- and 50-day moving averages, 20-day average daily value EUR31.1M, ATR14 3.74% of price.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "Pullback shape present: 2026-09-10 low 14.71 was reclaimed on 2026-09-11 with a 15.41 close at the session high, following a 2026-09-04 advance to a 15.32 high on 3.52M shares.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "Scanner recorded TKA.DE on 2026-08-13 at 13.525, score 70, relative volume 3.14x, breaking above its 20-day high; a lead only, and outside the seven-day lookback.", "source_type": "repository", "location": "data/scanner_signals.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No source establishing the reason for the recent advance could be opened: issuer, exchange, regulator and news domains are egress-blocked and the available FMP plan denies the news endpoint.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED; FMP news ACCESS DENIED", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "VOW3.DE",
+      "company": "Volkswagen AG (preference shares)",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The only scanner seed in any reasonable lookback, and the breakout is not reclaimed: closed 2026-09-11 at EUR81.18, 3.08% below the 20-day high of 83.76 set on the 2026-09-04 breakout day. Market capitalisation could not be verified and is plausibly in or above the larger-cap exception bucket. No primary source opened for the reason behind the move; eToro availability unverified.",
+      "evidence": [
+        {"claim": "Daily OHLCV through 2026-09-11: 2026-09-04 breakout close 81.30 on 3,282,484 shares against a roughly 1.0M 20-day average, then consolidation between 81.18 and 83.10; 2026-09-11 close 81.18, 3.08% below the 20-day high of 83.76, 20-day average daily value EUR81.6M.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "Scanner signal 2026-09-04 20:32 CEST at 81.30, score 65, relative volume 3.94x pace, breaking above the 20-day and 50-day highs; newest signal in the file and outside the seven-day snapshot lookback, so the canonical snapshot holds 0 rows.", "source_type": "repository", "location": "data/scanner_signals.csv, data/research_snapshot.meta.json", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No market-capitalisation or event source was reachable for this XETRA symbol.", "source_type": "other", "location": "FMP company/profile-symbol ACCESS DENIED for non-US symbol; WebFetch EGRESS_BLOCKED", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "BMW.DE",
+      "company": "Bayerische Motoren Werke AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No current breakout - closed 2026-09-11 at EUR63.00, 2.26% below its 20-day high of 64.46 - and a larger-cap exception that nothing this week justifies against available core-universe alternatives. No primary source opened; eToro availability unverified.",
+      "evidence": [
+        {"claim": "Daily OHLCV through 2026-09-11: close 63.00, 20-day high 64.46 (-2.26%), 20-session +6.06%, above both the 20- and 50-day moving averages, 20-day average daily value EUR88.1M.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No issuer calendar or market-capitalisation source was reachable for this XETRA symbol.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED; FMP company/profile-symbol ACCESS DENIED for non-US symbol", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "RWE.DE",
+      "company": "RWE AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No current breakout - closed 2026-09-11 at EUR59.84, 2.76% below its 20-day high of 61.54 - larger-cap exception bucket, and no catalyst could be verified inside the 42-day discovery horizon because no primary source could be opened. eToro availability unverified.",
+      "evidence": [
+        {"claim": "Daily OHLCV through 2026-09-11: close 59.84, 20-day high 61.54 (-2.76%), 5-session +3.21%, above both the 20- and 50-day moving averages, 20-day average daily value EUR70.2M.", "source_type": "repository", "location": "data/eu_quote_history.csv", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No issuer calendar or market-capitalisation source was reachable for this XETRA symbol.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED; FMP company/profile-symbol ACCESS DENIED for non-US symbol", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "KBH",
+      "company": "KB Home",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Universe and liquidity gates pass - core bucket at USD3.01B market cap with roughly USD56M average daily value - and the name still fails on evidence and structure. The 2026-09-22 earnings date is secondary-only for this pass because no primary source could be opened; no US price history was reachable, so no trigger, stop, target or planned R can be built; and the USD49.16 last close sits 11.6% above a 52-week low of 44.03 and 28% below the 68.41 high, which is a downtrend bounce into a binary event rather than a setup. eToro availability unverified.",
+      "evidence": [
+        {"claim": "Last close USD49.16 (+2.95% on the session), market cap USD3,013,984,852, average volume 1,134,994 shares implying roughly USD56M average daily value, 52-week range 44.03-68.41, NYSE, USD.", "source_type": "market_data", "location": "FMP company/profile-symbol?symbol=KBH", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No primary source could be opened to verify the fiscal Q3 2026 earnings date; SEC EDGAR and issuer IR domains are egress-blocked and symbol-filtered SEC filing search is denied by the available data plan.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED (www.sec.gov, issuer IR); FMP secFilings search-by-symbol ACCESS DENIED", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "CAG",
+      "company": "Conagra Brands, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core bucket at USD6.99B with roughly USD227M average daily value, so the universe and liquidity gates pass, but the 2026-09-30 date is secondary-only for this pass, no price history was reachable to build a structure, and the USD14.61 last close against a 12.53-20.32 52-week range is a falling knife into a print. Weakness plus a date is not an allowed setup. eToro availability unverified.",
+      "evidence": [
+        {"claim": "Last close USD14.61 (-0.61% on the session), market cap USD6,991,849,260, average volume 15,543,120 shares implying roughly USD227M average daily value, 52-week range 12.53-20.32, NYSE, USD.", "source_type": "market_data", "location": "FMP company/profile-symbol?symbol=CAG", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No primary source could be opened to verify the fiscal Q1 2027 earnings date.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED (www.sec.gov, issuer IR); FMP secFilings search-by-symbol ACCESS DENIED", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "JBL",
+      "company": "Jabil Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "USD33.33B market cap requires the larger-cap exception, which is not earned against available core-universe alternatives, and the stock rose 5.05% in the last session to USD318.08 - a name already moving hard into its own print, which is the classic chase rather than an edge. Date secondary-only for this pass; eToro availability unverified.",
+      "evidence": [
+        {"claim": "Last close USD318.08 (+5.05% on the session), market cap USD33,330,677,269, average volume 1,223,987 shares, 52-week range 189.60-428.93, NYSE, USD.", "source_type": "market_data", "location": "FMP company/profile-symbol?symbol=JBL", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "No primary source could be opened to verify the fiscal Q4/FY2026 results date.", "source_type": "other", "location": "WebFetch EGRESS_BLOCKED (www.sec.gov, issuer IR); FMP secFilings search-by-symbol ACCESS DENIED", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "FDX",
+      "company": "FedEx Corporation",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected on universe: market cap USD73.81B is above the ETORO_TRADEABILITY.md default 50B mega-cap exclusion. A near earnings date does not override the universe rule.",
+      "evidence": [
+        {"claim": "Last close USD311.99, market cap USD73,810,964,844, average volume 1,828,332 shares, 52-week range 180.80-345.37, NYSE, USD.", "source_type": "market_data", "location": "FMP company/profile-symbol?symbol=FDX", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "Earnings listed for 2026-09-17 in the restricted earnings calendar available to this session; a lead only, not a verified date.", "source_type": "market_data", "location": "FMP calendar/earnings-calendar?from=2026-09-14&to=2026-10-25", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "company": "NIKE, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected on universe: market cap USD54.46B is above the ETORO_TRADEABILITY.md default 50B mega-cap exclusion.",
+      "evidence": [
+        {"claim": "Last close USD36.80, market cap USD54,457,053,080, average volume 24,413,782 shares, 52-week range 36.55-76.97, NYSE, USD.", "source_type": "market_data", "location": "FMP company/profile-symbol?symbol=NKE", "accessed_at": "2026-09-13T21:39:00Z"},
+        {"claim": "Earnings listed for 2026-10-01 in the restricted earnings calendar available to this session; a lead only, not a verified date.", "source_type": "market_data", "location": "FMP calendar/earnings-calendar?from=2026-09-14&to=2026-10-25", "accessed_at": "2026-09-13T21:39:00Z"}
+      ]
+    }
+  ]
+}

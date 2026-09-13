@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-09-13T21:42:08.895274+00:00",
+  "review_date": "2026-09-13",
+  "review_ids": [
+    "REV-2026-09-13-FTK-002",
+    "REV-2026-09-13-LW-001",
+    "REV-2026-09-13-FTK-003",
+    "REV-2026-09-13-LW-002"
+  ],
+  "row_count": 4,
+  "schema_version": 1,
+  "sha256": "f385e80f425671a2b60dbb2d56cdfbb41d0ea8d4c878c86f5f2055e0779d4ca1",
+  "source": "data/recommendation_reviews.csv"
+}
