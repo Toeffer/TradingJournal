@@ -1,0 +1,496 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-20",
+  "generated_at": "2026-09-20T21:32:00Z",
+  "model": "Claude Opus 5",
+  "research_mode": "continuity-first, catalyst-first discovery; second same-day run",
+  "repository_commit": "7caeb24cf224b77bfdaf62d60d8adf121dac3ab4",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "data/research_snapshot.csv (0 rows)",
+    "data/eu_quote_history.csv (46 XETRA tickers, 183 sessions through 2026-09-18)",
+    "data/scanner_signals.csv",
+    "data/market_regime.csv",
+    "FMP MCP company/profile-symbol (US symbols only; non-US plan-denied)",
+    "FMP MCP calendar/earnings-calendar",
+    "FMP MCP secFilings/search-by-symbol",
+    "WebSearch (leads only)",
+    "BLOCKED: all outbound web egress to issuer IR, newswire, regulator and broker domains (HTTP 403)",
+    "BLOCKED: Quartr MCP (subscription_required)",
+    "BLOCKED: FMP quote, chart, technicalIndicators and news tools (plan-denied)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 34,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "QIA.DE",
+      "company": "QIAGEN N.V.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 38.41,
+        "market_cap": null,
+        "avg_dollar_volume": 19342000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Strongest structural reading in the tracked EU universe, but the Q3 2026 results date could not be verified (corporate.qiagen.com egress-blocked; EU symbols plan-denied on FMP), eToro tradeability is unverified, and market cap could not be obtained so the universe bucket is unconfirmed. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Close EUR 38.41 on 2026-09-18; prior-20d high 39.40 (-2.5%); EMA20 37.13 (+3.5%); EMA50 36.50 (+5.2%); RSI(14) 62.0; ATR(14) 1.00; +4.90% over 5 sessions; 20-session average daily value EUR 19.3M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 15.195,
+        "market_cap": null,
+        "avg_dollar_volume": 31907000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Best trend structure in the tracked EU universe, but the only indicated catalyst (2026-12-08, 79 days out) falls outside DISCOVERY_CATALYST_DAYS=42, and that date is a search lead rather than an opened primary source. discovery.md rejects a lead whose only dated event sits outside the horizon; strong structure is not a substitute for a catalyst. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Close EUR 15.195 on 2026-09-18; prior-20d high 15.75 (-3.5%), which equals the 52-week high; EMA20 14.70 (+3.4%); EMA50 13.62 (+11.6%); RSI(14) 60.3; +13.65% over 20 sessions; 20-session average daily value EUR 31.9M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Scanner recorded a breakout signal for TKA.DE on 2026-08-13 at 13.525 with score 70 (relative volume 3.14x, above 20-day and 50-day highs). Discovery context only, 38 days old and outside SCANNER_LOOKBACK_DAYS=7.",
+          "source_type": "repository",
+          "location": "data/scanner_signals.csv",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Lead only: WebSearch indicates the FY2025/2026 Annual Report and annual press conference are scheduled for 2026-12-08. Primary source not opened; used solely to establish that the next event lies outside the 42-day discovery horizon.",
+          "source_type": "other",
+          "location": "WebSearch result set for thyssenkrupp financial calendar 2026",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DHER.DE",
+      "company": "Delivery Hero SE",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 36.46,
+        "market_cap": null,
+        "avg_dollar_volume": 24400000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Extreme volatility compression but no directional confirmation: RSI in the low 40s with price below both the EMA20 and EMA50 makes the coil a coin flip rather than a SETUPS.md setup. Repeatedly carried across three prior reports with nothing genuinely different now. Q3 trading update date unverifiable (ir.deliveryhero.com egress-blocked). No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Close EUR 36.46 on 2026-09-18; prior-20d high 37.18 (-1.9%); prior-20d low 36.21; ATR(14) 0.26 = 0.7% of price, the most compressed of all 46 tracked names; RSI(14) 40.7; below EMA20 (-0.7%) and EMA50 (-0.03%); 20-session average daily value EUR 24.4M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Carried and not promoted in candidates-2026-08-16.md, -08-23.md and -08-30.md.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-08-16.md, -08-23.md, -08-30.md",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NEM.DE",
+      "company": "Nemetschek SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 60.55,
+        "market_cap": null,
+        "avg_dollar_volume": 15481000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "A 5-session bounce inside a downtrend, which SETUPS.md explicitly excludes; the price move is the entire thesis, a discovery-stage rejection condition. Catalyst unverifiable. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Close EUR 60.55 on 2026-09-18; +4.04% over 5 sessions but -16.2% below the prior-20d high and -7.9% over 20 sessions; below EMA20 (-2.6%) and EMA50 (-1.9%); RSI(14) 45.5; 20-session average daily value EUR 15.5M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "WAF.DE",
+      "company": "Siltronic AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 76.95,
+        "market_cap": null,
+        "avg_dollar_volume": 6781000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "EMA20 and EMA50 are crossed against each other, so there is no coherent trend to pull back into. A 5%-of-price ATR against modest turnover implies slippage risk requiring conditional-watchlist treatment. Catalyst unverifiable. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Close EUR 76.95 on 2026-09-18; +4.84% over 5 sessions; above EMA20 (+1.2%) but below EMA50 (-3.0%); -9.5% below the prior-20d high and -23.4% below the 50-day high of 100.50; RSI(14) 50.2; ATR(14) 5.05% of price; 20-session average daily value EUR 6.8M (approx USD 7.8M, above the USD 5M non-US floor).",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "KGX.DE",
+      "company": "KION GROUP AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 40.58,
+        "market_cap": null,
+        "avg_dollar_volume": 13742000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Actively deteriorating structure and the same ticker has already failed in the book (trade 2026-0017, -1.00R) with nothing about the present structure better. Catalyst unverifiable. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Close EUR 40.58 on 2026-09-18; -17.1% below the prior-20d high; -6.50% over 5 sessions, the weakest 5-session reading among the names examined; below EMA20 (-5.2%) and EMA50 (-4.1%); RSI(14) 43.1; 20-session average daily value EUR 13.7M.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "KGX.DE was trade 2026-0017: entered 2026-07-07 at 45.43 with no supporting research file anywhere in the repository, stopped out 2026-07-08 at 41.22 for -11.93 EUR / -1.00R.",
+          "source_type": "repository",
+          "location": "trades.csv",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AYI",
+      "company": "Acuity Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "FMP MCP company/profile-symbol",
+        "price": 302.96,
+        "market_cap": 9069273319,
+        "avg_dollar_volume": 101968000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core-universe name with ample liquidity and an indicated catalyst 11 days out, but FMP's chart endpoint is plan-denied so no OHLC history is obtainable: there is no 20-day high, gap level or swing low from which to derive a trigger, stop or >=1.5R target. A binary earnings event with no structure is an event gamble, and RISK_RULES.md permits such a hold only when planned in advance at <=EUR 75. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Last price USD 302.96; market cap USD 9.07B (core universe); average volume 336,579 shares implying approx USD 102M average daily dollar volume; 52-week range 257.04-380.17; NYSE, USD.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Lead only: fiscal Q4/FY2026 results indicated for 2026-10-01. investors.acuityinc.com returned an egress-policy denial, so the issuer release was not opened.",
+          "source_type": "other",
+          "location": "Prior report research/candidates-2026-09-20.md plus WebSearch; primary source not opened",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "AYI was trade 2026-0003: entered 2026-06-24 at 310.65 on a fiscal Q3 earnings catalyst, closed 2026-06-25 at 372.18 for +27.33 EUR. Prior success is a reason to research, not an entry.",
+          "source_type": "repository",
+          "location": "trades.csv",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CAG",
+      "company": "Conagra Brands, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "FMP MCP company/profile-symbol",
+        "price": 15.13,
+        "market_cap": 7240703580,
+        "avg_dollar_volume": 235119000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No OHLC history obtainable, therefore no defensible levels; a binary event inside the Actionable window on a name sitting in the lower quarter of its 52-week range. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Last price USD 15.13; market cap USD 7.24B (core universe); average volume 15,539,924 shares implying approx USD 235M average daily dollar volume; 52-week range 12.53-20.32, placing price in the lower quarter of the range; NYSE, USD.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Lead only: fiscal Q1 2027 results indicated for 2026-09-30. Issuer newsroom (conagrabrands.com) not opened; egress denied.",
+          "source_type": "other",
+          "location": "Prior report research/candidates-2026-09-20.md; primary source not opened",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "LW",
+      "company": "Lamb Weston Holdings, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "FMP MCP company/profile-symbol",
+        "price": 46.67,
+        "market_cap": 6416238783,
+        "avg_dollar_volume": 73535000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Already terminal in the registry and carried here as a rejected research lead only. Earnings date unverified and no OHLC structure obtainable. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Last price USD 46.67; market cap USD 6.42B (core universe); average volume 1,575,638 shares implying approx USD 73M average daily dollar volume; 52-week range 37.62-67.07. This contradicts the 42.01 reference price recorded by the 17:02 run from an eToro delayed page: against the 47.37 mention price the move is -1.5%, not -11%. Flagged for human verification; the recommendation ledger was not edited.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Recommendation REC-LW-2026-0913 was set to status=expired, action=remove by the 17:02 run on 2026-09-20. It remains terminal and was not re-opened by this run.",
+          "source_type": "repository",
+          "location": "data/recommendations.csv, data/recommendation_reviews.csv",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "JBL",
+      "company": "Jabil Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "FMP MCP company/profile-symbol",
+        "price": 299.57,
+        "market_cap": 31391068252,
+        "avg_dollar_volume": 363720000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "ETORO_TRADEABILITY.md admits a larger-cap exception only when the setup is clearly stronger than the available core-universe candidates; with no OHLC data there is no setup to compare at all. Date unverified. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Last price USD 299.57; market cap USD 31.39B (larger-cap exception bucket); average volume 1,214,139 shares implying approx USD 364M average daily dollar volume; 52-week range 189.60-428.93; NYSE, USD.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Lead only: Q4/FY2026 results indicated for 2026-09-30. Issuer release not opened; egress denied.",
+          "source_type": "other",
+          "location": "Prior report research/candidates-2026-09-20.md; primary source not opened",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CCL",
+      "company": "Carnival Corporation & plc",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "FMP MCP company/profile-symbol",
+        "price": 21.84,
+        "market_cap": 29913136759,
+        "avg_dollar_volume": 477343000
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Larger-cap exception unjustified; a beta-2.3 name printing 52-week lows into a binary event is the opposite of a swing-trade setup; no structure data. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Last price USD 21.84; market cap USD 29.91B (larger-cap exception bucket); average volume 21,856,375 shares implying approx USD 477M average daily dollar volume; 52-week range 21.81-34.03, placing the last price within one cent of the 52-week low; beta 2.31.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Lead only: results indicated for 2026-09-29 with consensus EPS 1.36 and revenue USD 8.40B. FMP's earnings calendar is a structured provider, not a primary source.",
+          "source_type": "other",
+          "location": "FMP MCP calendar/earnings-calendar 2026-09-21 to 2026-10-11",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TLRY",
+      "company": "Tilray Brands, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-18T20:00:00Z",
+        "data_source": "data/eu_quote_history.csv (repository daily OHLCV, close 2026-09-18)",
+        "price": 1.0,
+        "market_cap": null,
+        "avg_dollar_volume": 1.0
+      },
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected at discovery before market-data spend: a chronically dilutive, loss-making issuer, and both discovery.md and red_team.md flag financing and dilution as able to overwhelm a thesis. No verified date and no structure data. The market_data block carries placeholder values only because no quote was retrieved; it must not be read as a price. No primary source could be opened: this session's network egress policy denied every issuer IR page, newswire, regulator site and broker page attempted (HTTP 403 at the proxy), Quartr returned subscription_required, and FMP's quote/chart/technicalIndicators/news tools plus all non-US symbols are plan-denied. Per verification.md and the RESEARCH_BRIEF source policy, an unverified catalyst date cannot support ACTIONABLE or EARLY_WATCH classification; per ETORO_TRADEABILITY.md, eToro availability could not be verified either.",
+      "evidence": [
+        {
+          "claim": "Lead only: results indicated for 2026-10-08 with consensus EPS -0.166 and revenue USD 268.9M, i.e. loss-making. FMP's earnings calendar is a structured provider, not a primary source. No price, market cap or liquidity data was obtained: the name was rejected at discovery before further data spend.",
+          "source_type": "other",
+          "location": "FMP MCP calendar/earnings-calendar 2026-09-21 to 2026-10-11",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        },
+        {
+          "claim": "Primary-source verification was impossible this run; catalyst date status is secondary_only or unverified.",
+          "source_type": "other",
+          "location": "Agent proxy egress denials (403) recorded at http://127.0.0.1:36293/__agentproxy/status; Quartr subscription_required; FMP plan denials",
+          "published_at": null,
+          "accessed_at": "2026-09-20T21:32:00Z"
+        }
+      ]
+    }
+  ]
+}
