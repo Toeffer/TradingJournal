@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-20",
+  "generated_at": "2026-09-20T17:02:02Z",
+  "model": "GPT-5.6 Sol",
+  "research_mode": "continuity-first evidence-gated catalyst-first",
+  "repository_commit": "58a1382102aab3ffff6de94387d4f059264e08a4",
+  "method": "catalyst-first",
+  "enabled_sources": ["GitHub repository files", "data/research_snapshot.csv", "recent scanner outputs", "issuer IR", "eToro Germany/EU", "public web"],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {"opened": 20, "primary": 10},
+  "candidates": [
+    {
+      "ticker": "FTK.DE", "company": "flatexDEGIRO SE", "classification": "REJECT", "source_tag": "prior_report", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "The primary-source-verified 2026-10-05 monthly KPI release is now 15 days away, inside the Actionable horizon, but the canonical snapshot has zero rows and no defensible trigger/stop/target setup exists; governance risk remains elevated after the September 11 chairman resignation.",
+      "evidence": [
+        {"claim": "Official financial calendar schedules September 2026 monthly KPIs for October 5, 2026 at 08:30 CEST.", "source_type": "primary", "location": "https://flatexdegiro.com/German/investor-relations/financial-calendar/default.aspx", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents FTK.DE as a purchasable XETRA stock at EUR30.18 with EUR3.28B market cap and 383130.36 three-month average volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/ftk.de", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "LW", "company": "Lamb Weston Holdings, Inc.", "classification": "REJECT", "source_tag": "prior_report", "exchange": "NYSE", "currency": "USD", "red_team_verdict": "REJECT",
+      "rejection_reason": "The primary-source-verified 2026-10-06 fiscal Q1 earnings event is now 16 days away, inside the Actionable horizon, but the canonical snapshot has zero rows and no defensible pre-event setup exists; the stock is also materially below first mention.",
+      "evidence": [
+        {"claim": "Official September 8 release schedules fiscal Q1 2027 results for October 6, 2026.", "source_type": "primary", "location": "https://investors.lambweston.com/news-releases/news-release-details/lamb-weston-announce-fiscal-year-2027-first-quarter-financial", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents LW as a purchasable stock at USD42.01 with USD5.8B market cap and 2.77M three-month average volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/lw", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "DB1.DE", "company": "Deutsche Börse AG", "classification": "REJECT", "source_tag": "routine", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "Official Q3 results are verified for 2026-10-20, but DB1.DE sits near the top of the larger-cap exception bucket, recent convertible financing complicates the setup, and the zero-row canonical snapshot provides no structure edge.",
+      "evidence": [
+        {"claim": "Official Q3 page states Q3 2026 financial results will be published October 20, 2026.", "source_type": "primary", "location": "https://www.deutsche-boerse.com/dbg-en/investor-relations/financial-calendar/q3-analystconference-2025-4706640", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents DB1.DE as a purchasable XETRA stock at EUR283.90 with EUR48.15B market cap and 322803.14 three-month average volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/db1.de", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "SAP.DE", "company": "SAP SE", "classification": "REJECT", "source_tag": "routine", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "Official Q3 results are verified for 2026-10-21, but SAP remains far above the broker overlay's default EUR/USD 50B market-cap exclusion threshold.",
+      "evidence": [
+        {"claim": "SAP official investor calendar schedules Q3 2026 financial results for October 21, 2026.", "source_type": "primary", "location": "https://www.sap.com/investors/en/financial-documents-and-events/events.html", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro offers SAP.DE as a purchasable XETRA stock and reports market capitalization far above EUR50B.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/sap.de", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "DBK.DE", "company": "Deutsche Bank AG", "classification": "REJECT", "source_tag": "routine", "exchange": "XETRA", "currency": "EUR", "red_team_verdict": "REJECT",
+      "rejection_reason": "Official Q3 earnings are verified for 2026-10-28, but eToro reports about EUR75.82B market cap, above the default EUR/USD 50B exclusion threshold.",
+      "evidence": [
+        {"claim": "Deutsche Bank official financial calendar schedules the Q3 earnings report for October 28, 2026.", "source_type": "primary", "location": "https://investorrelations.db.com/reports-and-events/financial-calendar", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents DBK.DE as a purchasable XETRA stock and reports about EUR75.82B market cap and 2.08M average volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/dbk.de", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "CAG", "company": "Conagra Brands, Inc.", "classification": "REJECT", "source_tag": "routine", "exchange": "NYSE", "currency": "USD", "red_team_verdict": "REJECT",
+      "rejection_reason": "Verified 2026-09-30 earnings are only 10 days away and broker/cap/liquidity gates pass, but the zero-row canonical snapshot provides no defensible trigger, stop, target and >=1.5R; weakness or stabilization plus a date is not an allowed setup.",
+      "evidence": [
+        {"claim": "Conagra official August 31 release schedules fiscal Q1 2027 results for September 30, 2026.", "source_type": "primary", "location": "https://www.conagrabrands.com/news-room/news-conagra-brands-to-release-fiscal-2027-first-quarter-earnings-on-september-30-2026-prn-122962", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents CAG as a purchasable stock at USD15.13 with USD7.24B market cap and 15.56M three-month average volume.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/cag", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "JBL", "company": "Jabil Inc.", "classification": "REJECT", "source_tag": "routine", "exchange": "NYSE", "currency": "USD", "red_team_verdict": "REJECT",
+      "rejection_reason": "Verified 2026-09-30 earnings are 10 days away, but JBL requires a larger-cap exception and the zero-row canonical snapshot provides no complete setup; the exception is not justified by a binary date alone.",
+      "evidence": [
+        {"claim": "Jabil official September 9 release schedules Q4/FY2026 financials before market on September 30, 2026.", "source_type": "primary", "location": "https://investors.jabil.com/news/news-details/2026/Jabil-Announces-Date-for-Fourth-Quarter-and-Fiscal-Year-2026-Earnings-Release-and-Investor-Briefing/default.aspx", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents JBL as a purchasable stock with deep liquidity and a larger-cap-exception market capitalization.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/jbl", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    },
+    {
+      "ticker": "AYI", "company": "Acuity Inc.", "classification": "REJECT", "source_tag": "routine", "exchange": "NYSE", "currency": "USD", "red_team_verdict": "REJECT",
+      "rejection_reason": "Verified 2026-10-01 earnings are 11 days away and eToro stock availability/liquidity pass, but the zero-row canonical snapshot provides no defensible structure-based pre-event setup; broker day ranges are not valid stop evidence.",
+      "evidence": [
+        {"claim": "Acuity official August 28 release schedules fiscal Q4/FY2026 results for October 1, 2026.", "source_type": "primary", "location": "https://investors.acuityinc.com/news-releases/news-release-details/acuity-announce-fiscal-2026-fourth-quarter-and-full-year-results", "accessed_at": "2026-09-20T17:02:02Z"},
+        {"claim": "eToro Germany presents AYI as a purchasable stock with preferred liquidity and market cap near the core/larger-cap boundary.", "source_type": "market_data", "location": "https://www.etoro.com/de/markets/ayi", "accessed_at": "2026-09-20T17:02:02Z"}
+      ]
+    }
+  ]
+}
