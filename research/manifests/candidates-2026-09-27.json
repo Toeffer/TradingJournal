@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-27",
+  "generated_at": "2026-09-27T17:01:34Z",
+  "model": "GPT-5.6 Sol",
+  "research_mode": "continuity-first evidence-gated catalyst-first",
+  "repository_commit": "cea134fc8efe0e52f40c442058f76743000da0f7",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv",
+    "recent scanner outputs",
+    "issuer IR",
+    "eToro Germany/EU",
+    "public web"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 0,
+    "primary": 0
+  },
+  "candidates": []
+}
