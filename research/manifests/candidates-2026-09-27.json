@@ -1,0 +1,560 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-09-27",
+  "generated_at": "2026-09-27T21:48:05Z",
+  "model": "claude-opus-5 (Claude Code scheduled routine)",
+  "research_mode": "continuity-first, catalyst-first; evidence-gated with all three hard gates failing",
+  "repository_commit": "cea134fc8efe0e52f40c442058f76743000da0f7",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository: data/research_snapshot.csv (0 rows) + meta",
+    "repository: data/recommendations.csv, data/recommendation_reviews.csv, trades.csv, data/proposals.csv",
+    "repository: research/candidates-2026-08-16 through 2026-09-20 and matching manifests",
+    "repository: data/scanner_signals.csv (newest signal 2026-09-04)",
+    "market_data: FMP MCP company/profile-symbol (US symbols only)",
+    "market_data: FMP MCP calendar/earnings-calendar (date-range only; per-symbol denied)",
+    "market_data: FMP MCP chart/historical-price-eod-full (TLRY only; denied for LEVI/CALM/AZZ/PUM.DE)",
+    "reputable_secondary: WebSearch result summaries (snippet level; no page could be opened)",
+    "unavailable: all primary-source domains (issuer IR, sec.gov, newswires) - egress-blocked",
+    "unavailable: www.etoro.com - egress-blocked, so broker tradeability is unverifiable",
+    "unavailable: Quartr MCP - no active subscription for this account"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 14,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "LEVI",
+      "company": "Levi Strauss & Co.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "catalyst": {
+        "event": "Third quarter fiscal 2026 results (quarter ended 2026-08-30), release and conference call",
+        "date": "2026-10-07",
+        "date_status": "secondary_only",
+        "source_type": "reputable_secondary",
+        "source_url": "https://www.businesswire.com/news/home/20260923009049/en/Levi-Strauss-Co.-to-Webcast-Third-Quarter-2026-Earnings-Conference-Call",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 19.74,
+        "market_cap": 7723743707,
+        "avg_dollar_volume": 49390000.0
+      },
+      "expectations": "Not established. Consensus, guidance and revision history could not be retrieved: the FMP plan denies the per-symbol earnings endpoint and the estimate/analyst endpoints, and no primary or reputable-secondary page could be opened. The share sits at 19.74 against a 52-week range of 17.72-25.70, i.e. in the lower third, which is context only.",
+      "priced_in": "Unknown. With no consensus and no opened expectations source, the priced-in assessment cannot be made, which analysis.md says caps the object at `monitor` at best even before the verification gate is applied.",
+      "bull_case": "Strongest lead of the week on the gates that could actually be measured: core-universe market cap of $7.72B and roughly $49.4M average daily dollar volume, comfortably above the $25M US preferred floor, with a dated earnings catalyst 10 days out, inside the Actionable 21-day window.",
+      "bear_case": "A binary earnings print 10 days away with no establishable expectations, in the lower third of a 52-week range - the classic shape of pre-event anticipation the method exists to refuse. Price weakness into the event is not a pullback setup.",
+      "pre_mortem": "The most likely overlooked failure is treating an unusually clean liquidity/market-cap profile as if it substituted for the verification gate, and buying a falling apparel name into a print whose consensus was never read.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Strongest attack, and it succeeds: the October 7 date rests on a search-result summary of a Businesswire release that was never opened in this pass. RESEARCH_BRIEF.md states plainly that a search snippet cannot verify a final date and that the synthesizing pass must open the primary source itself. Nothing rebuts this, so the object cannot be promoted regardless of how good the liquidity profile looks.",
+      "rejection_reason": "Catalyst date could not be reached `verified` status: the issuer press release / IR calendar and the SEC filing could not be opened because the environment's egress policy blocks every primary-source domain. research_method/verification.md states that only `verified` may enter the Actionable shortlist or Early Watch list, and that the other statuses are Reject until verified. Independently, ETORO_TRADEABILITY.md requires rejection when eToro availability cannot be verified, and www.etoro.com is also egress-blocked. Finally the canonical snapshot holds 0 rows and FMP EOD history is denied for this symbol on the current plan, so no normalized multi-session structure exists from which to derive a non-arbitrary trigger, stop, target and planned R. Three independent hard gates fail, so no level was invented.",
+      "evidence": [
+        {
+          "claim": "LEVI dated structured market data: last price $19.74, market cap $7,723,743,707, 20-day average volume 2,501,842 shares, implied average daily dollar volume $49.39M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Search results report Levi Strauss & Co. will discuss Q3 fiscal 2026 results (quarter ended 2026-08-30) on Wednesday 2026-10-07, with the press release posted that day at investors.levistrauss.com. Reported by a Businesswire release dated 2026-09-23 and by stocktitan; neither page could be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result summary referencing businesswire.com and stocktitan.net (pages egress-blocked, not opened)",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CALM",
+      "company": "Cal-Maine Foods, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "catalyst": {
+        "event": "First quarter fiscal 2027 results, release and 09:00 ET conference call",
+        "date": "2026-09-30",
+        "date_status": "secondary_only",
+        "source_type": "reputable_secondary",
+        "source_url": "https://investors.calmainefoods.com/news-releases/news-release-details/cal-maine-foods-schedules-first-quarter-fiscal-2027-earnings",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 67.43,
+        "market_cap": 3163620053,
+        "avg_dollar_volume": 60450000.0
+      },
+      "expectations": "Not established for the same tooling reasons as LEVI. Context only: 67.43 against a 52-week range of 66.62-98.44 puts the share within about 1.2% of its 52-week low.",
+      "priced_in": "Unknown; no consensus or guidance source could be opened.",
+      "bull_case": "Core-universe cap of $3.16B and about $60.5M average daily dollar volume, the deepest liquidity in this week's pool, with a dated catalyst.",
+      "bear_case": "The event is 3 days away. Even with a verified date this is a binary print inside the do-not-anticipate zone, on a share sitting on its 52-week low, and RISK_RULES.md caps a deliberate hold-through at EUR75 with an explicit prior decision that does not exist here.",
+      "pre_mortem": "Most likely overlooked failure: reading 'near 52-week low plus imminent catalyst' as mean-reversion value, when egg-cycle pricing can keep compressing earnings and the low is a downtrend, not support.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Two independent kills. The date is secondary_only, and at 3 days out no pre-event setup is permissible under the 21-day/exit-before-catalyst policy anyway - any entry here would be an unsanctioned binary bet at full size.",
+      "rejection_reason": "Catalyst date is secondary_only (the Cal-Maine IR press release could not be opened; egress-blocked), so the verification gate fails. Independently, the event is only 3 calendar days away, which leaves no room for a pre-event structure trade under the exit_before_catalyst=yes default, and eToro tradeability could not be verified. Catalyst date could not be reached `verified` status: the issuer press release / IR calendar and the SEC filing could not be opened because the environment's egress policy blocks every primary-source domain. research_method/verification.md states that only `verified` may enter the Actionable shortlist or Early Watch list, and that the other statuses are Reject until verified. Independently, ETORO_TRADEABILITY.md requires rejection when eToro availability cannot be verified, and www.etoro.com is also egress-blocked. Finally the canonical snapshot holds 0 rows and FMP EOD history is denied for this symbol on the current plan, so no normalized multi-session structure exists from which to derive a non-arbitrary trigger, stop, target and planned R. Three independent hard gates fail, so no level was invented.",
+      "evidence": [
+        {
+          "claim": "CALM dated structured market data: last price $67.43, market cap $3,163,620,053, 20-day average volume 896,554 shares, implied average daily dollar volume $60.45M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Search results report Cal-Maine Foods will report fiscal 2027 first-quarter results on Wednesday 2026-09-30 with a 09:00 ET call, per a scheduling release on investors.calmainefoods.com which could not be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result summary referencing investors.calmainefoods.com (page egress-blocked, not opened)",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AZZ",
+      "company": "AZZ Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "catalyst": {
+        "event": "Second quarter fiscal 2027 results released after market close, conference call the following morning",
+        "date": "2026-10-13",
+        "date_status": "secondary_only",
+        "source_type": "reputable_secondary",
+        "source_url": "https://www.stocktitan.net/news/AZZ/azz-inc-to-review-second-quarter-fiscal-year-2027-financial-results-ytfb2qxtkhqg.html",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 137.17,
+        "market_cap": 4122164255,
+        "avg_dollar_volume": 38270000.0
+      },
+      "expectations": "Not established; no consensus or guidance source could be opened.",
+      "priced_in": "Unknown. 137.17 against a 52-week range of 92.98-162.20 is mid-to-upper range, context only.",
+      "bull_case": "Core-universe cap of $4.12B, about $38.3M average daily dollar volume (above the $25M floor), a dated catalyst 16 days out, and a metal-coatings/electrical-infrastructure business with a real industrial demand narrative rather than a story stock.",
+      "bear_case": "Average volume of only 279k shares means the dollar-volume test passes largely on a high share price; spread and slippage at a EUR150 clip are fine, but the name is thin in share terms and gaps on earnings. No expectations could be read.",
+      "pre_mortem": "Most likely overlooked failure: a high nominal share price flattering the liquidity screen while actual depth at the intended entry is thinner than $38M/day implies.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "The date traces to an aggregator summary of an AZZ scheduling release, not to an opened AZZ or SEC document, so it is secondary_only and the verification gate fails. There is also no opened expectations source, so any pre-earnings thesis would be pure anticipation.",
+      "rejection_reason": "Catalyst date could not be reached `verified` status: the issuer press release / IR calendar and the SEC filing could not be opened because the environment's egress policy blocks every primary-source domain. research_method/verification.md states that only `verified` may enter the Actionable shortlist or Early Watch list, and that the other statuses are Reject until verified. Independently, ETORO_TRADEABILITY.md requires rejection when eToro availability cannot be verified, and www.etoro.com is also egress-blocked. Finally the canonical snapshot holds 0 rows and FMP EOD history is denied for this symbol on the current plan, so no normalized multi-session structure exists from which to derive a non-arbitrary trigger, stop, target and planned R. Three independent hard gates fail, so no level was invented.",
+      "evidence": [
+        {
+          "claim": "AZZ dated structured market data: last price $137.17, market cap $4,122,164,255, 20-day average volume 279,005 shares, implied average daily dollar volume $38.27M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Search results report AZZ Inc. will release second-quarter fiscal 2027 results after the close on 2026-10-13 and hold a call on 2026-10-14. Reported via stocktitan and investor.azz.com; neither page could be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result summary referencing stocktitan.net and investor.azz.com (pages egress-blocked, not opened)",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "OZK",
+      "company": "Bank OZK",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "catalyst": {
+        "event": "Third quarter 2026 earnings release (aggregator estimate, not a company announcement)",
+        "date": "2026-10-15",
+        "date_status": "unverified",
+        "source_type": "reputable_secondary",
+        "source_url": "https://www.marketbeat.com/stocks/NASDAQ/OZK/earnings/",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 46.89,
+        "market_cap": 5118787879,
+        "avg_dollar_volume": 53180000.0
+      },
+      "expectations": "Not established; no consensus or guidance source could be opened.",
+      "priced_in": "Unknown. 46.89 against a 52-week range of 42.37-53.39 is mid-range, context only.",
+      "bull_case": "Core-universe cap of $5.12B and about $53.2M average daily dollar volume, well above the floor.",
+      "bear_case": "The date is only an aggregator expectation, not even a company scheduling release, so it is weaker evidence than the other US leads. A regional bank with commercial-real-estate concentration also carries credit-disclosure gap risk that a price stop cannot bound.",
+      "pre_mortem": "Most likely overlooked failure: trading a bank into a print where the move comes from a credit/reserve disclosure that no amount of price structure anticipates.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Weakest date evidence in the US pool - an aggregator's expected date, which is `unverified` rather than even `secondary_only`. It fails the gate by a wider margin than its peers.",
+      "rejection_reason": "Catalyst date is `unverified`: only an aggregator's expected-date page supports 2026-10-15, and no Bank OZK release or filing could be opened. Catalyst date could not be reached `verified` status: the issuer press release / IR calendar and the SEC filing could not be opened because the environment's egress policy blocks every primary-source domain. research_method/verification.md states that only `verified` may enter the Actionable shortlist or Early Watch list, and that the other statuses are Reject until verified. Independently, ETORO_TRADEABILITY.md requires rejection when eToro availability cannot be verified, and www.etoro.com is also egress-blocked. Finally the canonical snapshot holds 0 rows and FMP EOD history is denied for this symbol on the current plan, so no normalized multi-session structure exists from which to derive a non-arbitrary trigger, stop, target and planned R. Three independent hard gates fail, so no level was invented.",
+      "evidence": [
+        {
+          "claim": "OZK dated structured market data: last price $46.89, market cap $5,118,787,879, 20-day average volume 1,134,065 shares, implied average daily dollar volume $53.18M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Search results report Bank OZK is expected to announce third-quarter 2026 earnings on 2026-10-15; the supporting pages are aggregator expected-date listings (marketbeat, nasdaq) plus ir.ozk.com, none of which could be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result summary referencing marketbeat.com, nasdaq.com and ir.ozk.com (pages egress-blocked, not opened)",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SMPL",
+      "company": "The Simply Good Foods Company",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 9.6,
+        "market_cap": 849035587,
+        "avg_dollar_volume": 22180000.0
+      },
+      "expectations": "Not established.",
+      "priced_in": "Unknown. 9.60 against a 52-week range of 9.375-25.66 means the share has lost roughly 63% from its 52-week high and sits within about 2.4% of the low.",
+      "bull_case": "Core-universe cap of $849M in the preferred small/mid bucket.",
+      "bear_case": "About $22.2M average daily dollar volume sits in the $10-25M conditional band, below the $25M preferred floor, so ETORO_TRADEABILITY.md confines it to the Conditional Watchlist at best; and a 63% drawdown with no readable expectations is a falling knife, not a setup.",
+      "pre_mortem": "Most likely overlooked failure: treating a collapsed multiple as cheapness while the brand-level volume decline that caused it continues.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "No catalyst date could be established at all for the fiscal-Q4 report, conditional-tier liquidity keeps it off the main shortlist by rule, and the only positive observation is that price fell a long way - which SETUPS.md lists explicitly under 'deliberately not a setup'.",
+      "rejection_reason": "No catalyst date could be established even to secondary_only standard, and average daily dollar volume of about $22.2M falls in the $10-25M conditional band rather than above the $25M preferred US floor. eToro tradeability could not be verified and the canonical snapshot holds 0 rows.",
+      "evidence": [
+        {
+          "claim": "SMPL dated structured market data: last price $9.60, market cap $849,035,587, 20-day average volume 2,309,997 shares, implied average daily dollar volume $22.18M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HELE",
+      "company": "Helen of Troy Limited",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 28.63,
+        "market_cap": 666851706,
+        "avg_dollar_volume": 13690000.0
+      },
+      "expectations": "Not established.",
+      "priced_in": "Unknown. 28.63 against a 52-week range of 13.85-30.68 means the share has roughly doubled off its low and sits near the top of the range.",
+      "bull_case": "Core-universe cap of $667M in the preferred small/mid bucket, with a strong recovery trend off the 52-week low.",
+      "bear_case": "About $13.7M average daily dollar volume is firmly in the conditional band, roughly half the preferred floor, and the share is already near its 52-week high after doubling - the definition of a move that should not be chased.",
+      "pre_mortem": "Most likely overlooked failure: chasing the last leg of a recovery in a thin name, where the exit is harder than the entry.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Conditional-tier liquidity plus no establishable catalyst date, on a share that has already doubled. Retaining it would be sunk-effort bias, not evidence.",
+      "rejection_reason": "Average daily dollar volume of about $13.7M is in the $10-25M conditional band, well below the $25M US preferred floor, and no catalyst date could be established even to secondary_only standard. eToro tradeability could not be verified and the canonical snapshot holds 0 rows.",
+      "evidence": [
+        {
+          "claim": "HELE dated structured market data: last price $28.63, market cap $666,851,706, 20-day average volume 478,273 shares, implied average daily dollar volume $13.69M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TLRY",
+      "company": "Tilray Brands, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "catalyst": {
+        "event": "Quarterly results per the FMP structured earnings calendar (consensus EPS -0.164, revenue estimate $267.8M)",
+        "date": "2026-10-08",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "market_data": {
+        "as_of": "2026-09-25T20:00:00Z",
+        "data_source": "FMP company/profile-symbol (EOD 2026-09-25)",
+        "price": 4.13,
+        "market_cap": 461864776,
+        "avg_dollar_volume": 15860000.0
+      },
+      "expectations": "Partially established and unusual for this run: the FMP structured earnings calendar carries a consensus of -0.164 EPS on revenue of about $267.8M for the 2026-10-08 date, i.e. a loss-making quarter is expected.",
+      "priced_in": "Price has fallen from 4.50 on 2026-09-01 to 4.13 on 2026-09-25 and the 52-week range is 3.67-23.20, so the share is down roughly 82% from its high. A loss is plainly expected; the question of what is priced in cannot be answered further without opened sources.",
+      "bull_case": "The only name in this week's pool with both a structured-calendar catalyst date and full multi-session EOD history available, so it is the one lead where price structure could actually be measured.",
+      "bear_case": "Market cap of $461.9M is below the MARKET_CAP_MIN of $500M, so it is outside the configured universe. Liquidity of about $15.9M/day is conditional-tier. It is a loss-making cannabis issuer with a long record of equity issuance, so dilution can overwhelm any technical setup, and the 18 sessions of EOD data show a drifting range with no 20-day breakout to trade.",
+      "pre_mortem": "Most likely overlooked failure: letting 'this is the one name where I actually have data' become the reason to trade it, when the universe rule already excludes it and dilution is the dominant variable.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Data availability is not an edge. The name fails the configured universe on market cap before any setup question arises, sits in conditional liquidity, and the measurable structure is a drifting 4.03-4.29 range with no breakout - so even the one name with usable history offers no setup.",
+      "rejection_reason": "Market cap of $461.9M (FMP, 2026-09-25) is below the configured MARKET_CAP_MIN of $500,000,000, placing it outside the research universe; average daily dollar volume of about $15.9M is also only conditional-tier against the $25M US preferred floor. eToro tradeability could not be verified. The 2026-10-08 date comes from a structured market-data calendar rather than an opened primary source, so it is secondary_only in any case.",
+      "evidence": [
+        {
+          "claim": "TLRY dated structured market data: last price $4.13, market cap $461,864,776, 20-day average volume 3,840,229 shares, implied average daily dollar volume $15.86M (average volume x last price).",
+          "source_type": "market_data",
+          "location": "FMP MCP company/profile-symbol endpoint (dated structured market-data provider)",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "FMP structured earnings calendar lists TLRY reporting 2026-10-08 with consensus EPS -0.164 and revenue estimate $267,765,200; calendar last updated 2026-09-27.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar endpoint, window 2026-09-28 to 2026-10-16",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "18 sessions of dated EOD OHLCV (2026-09-01 to 2026-09-25) show a drift from 4.50 to 4.13 within a recent 4.03-4.29 range; no close above a 20-day high and no 2x relative-volume expansion, so no breakout or pullback setup per SETUPS.md exists.",
+          "source_type": "market_data",
+          "location": "FMP MCP chart/historical-price-eod-full endpoint, TLRY, 2026-09-01 to 2026-09-27",
+          "published_at": "2026-09-25",
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PUM.DE",
+      "company": "PUMA SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "catalyst": {
+        "event": "Q3 2026 quarterly statement",
+        "date": "2026-10-29",
+        "date_status": "secondary_only",
+        "source_type": "reputable_secondary",
+        "source_url": "https://about.puma.com/en/investor-relations/calendar",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "expectations": "Not established; no expectations source could be opened.",
+      "priced_in": "Unknown.",
+      "bull_case": "A dated Q3 statement 32 days out would sit in the 22-42 day Early Watch window, and PUMA is a genuine small/mid-cap turnaround candidate rather than a crowded theme.",
+      "bear_case": "No structured market data of any kind is obtainable for this listing on the current FMP plan, so market cap, liquidity and price structure are all unknown - the name cannot even be sized or liquidity-screened.",
+      "pre_mortem": "Most likely overlooked failure: carrying a European name forward on narrative alone because no data existed to contradict it.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "There is no structured market-data row at all. verification.md requires a dated structured source or the repository snapshot for price and liquidity; the snapshot has 0 rows and FMP denies non-US symbols on this plan. An object with no price data cannot be researched, only speculated about.",
+      "rejection_reason": "No structured market data could be obtained: the FMP plan denies non-US symbols (PUM.DE returned ACCESS DENIED on both profile and EOD-history endpoints) and the canonical snapshot holds 0 rows, so market cap bucket, liquidity tier and price structure are all unknown. The 2026-10-29 date is secondary_only because about.puma.com is egress-blocked, and eToro tradeability could not be verified.",
+      "evidence": [
+        {
+          "claim": "Search results report PUMA SE's Q3 2026 quarterly statement is scheduled for 2026-10-29, per PUMA's IR calendar at about.puma.com, which could not be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result summary referencing about.puma.com IR calendar (page egress-blocked, not opened)",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        },
+        {
+          "claim": "FMP denies non-US symbols on the current plan: company/profile-symbol and chart/historical-price-eod-light for PUM.DE both returned ACCESS DENIED (higher plan required), so no dated structured market-data row exists for this listing.",
+          "source_type": "other",
+          "location": "FMP MCP company/profile-symbol and chart/historical-price-eod-light endpoints, symbol PUM.DE",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:44:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "KGX.DE",
+      "company": "KION GROUP AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "catalyst": {
+        "event": "Q3 2026 quarterly statement for the period ended 2026-09-30, with analyst conference call",
+        "date": "2026-10-29",
+        "date_status": "secondary_only",
+        "source_type": "reputable_secondary",
+        "source_url": "https://www.kiongroup.com/en/Investors/Events-Publications/Financial-Calendar/",
+        "verified_at": "2026-09-27T21:46:00Z"
+      },
+      "expectations": "Not established; no expectations source could be opened.",
+      "priced_in": "Unknown.",
+      "bull_case": "A dated Q3 statement 32 days out would sit in the Early Watch window; intralogistics demand is a real industrial cycle thesis.",
+      "bear_case": "No structured market data is obtainable for this listing. The journal also already holds a losing KGX.DE trade (2026-0017, -11.93 EUR at -1.00R) that had no supporting research file in the repo, so red_team.md's question about a thesis that previously failed applies directly and nothing genuinely different can be shown this week.",
+      "pre_mortem": "Most likely overlooked failure: re-entering a name that already produced an undocumented full-R loss, on no better evidence than last time.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "REJECT",
+      "red_team_argument": "Same absent-market-data kill as PUM.DE, compounded by prior-failure history: trades.csv records KGX.DE trade 2026-0017 stopped out at -1.00R on 2026-07-08 with no research trail. Without data or a verified date there is no way to show what is different now.",
+      "rejection_reason": "No structured market data could be obtained (FMP denies non-US symbols on the current plan; canonical snapshot holds 0 rows), the 2026-10-29 date is secondary_only because kiongroup.com is egress-blocked, and eToro tradeability could not be verified. The ticker also has a prior -1.00R loss in trades.csv (2026-0017) with no documented research, and no new differentiating evidence exists.",
+      "evidence": [
+        {
+          "claim": "Search results report KION GROUP AG's Q3 2026 quarterly statement for the period ended 2026-09-30 is scheduled for 2026-10-29 with an analyst call, per the KION financial calendar at kiongroup.com, which could not be opened.",
+          "source_type": "reputable_secondary",
+          "location": "WebSearch result summary referencing kiongroup.com financial calendar and eqs-news preliminary announcement (pages egress-blocked, not opened)",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        },
+        {
+          "claim": "trades.csv records trade 2026-0017: KGX.DE long opened 2026-07-07 at 45.43, stopped 2026-07-08 at 41.22, pnl -11.93 EUR, r_multiple -1.00, with a thesis note stating no supporting research file exists anywhere in the repository.",
+          "source_type": "repository",
+          "location": "trades.csv row 2026-0017",
+          "published_at": "2026-07-08",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "Canonical research snapshot data/research_snapshot.csv rebuilt for this run contains 0 rows; newest scanner signal in data/scanner_signals.csv remains VOW3.DE dated 2026-09-04, 23 days before this run, outside the 7-day SCANNER_LOOKBACK_DAYS window.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json + data/scanner_signals.csv",
+          "published_at": "2026-09-27",
+          "accessed_at": "2026-09-27T21:39:00Z"
+        },
+        {
+          "claim": "No primary source could be opened in this run: WebFetch to about.puma.com, www.kiongroup.com, www.aixtron.com, www.sec.gov, www.globenewswire.com, www.businesswire.com, finance.yahoo.com, www.nasdaq.com, en.wikipedia.org and www.etoro.com all returned EGRESS_BLOCKED from the environment's network egress policy. Date status therefore cannot reach `verified` and eToro tradeability cannot be verified for any candidate.",
+          "source_type": "other",
+          "location": "session network egress policy (agent proxy); /root/.ccr/README.md documents 403/407 policy denials",
+          "published_at": null,
+          "accessed_at": "2026-09-27T21:46:00Z"
+        }
+      ]
+    }
+  ]
+}
