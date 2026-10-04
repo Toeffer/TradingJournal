@@ -1,0 +1,551 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-10-04",
+  "generated_at": "2026-10-04T21:46:48Z",
+  "model": "Claude Opus 5 (claude-opus-5)",
+  "research_mode": "continuity-first evidence-gated catalyst-first; evidence channels degraded",
+  "repository_commit": "1ad32e92499bc881ddd0c82f6d1a5550985f6363",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub repository files",
+    "data/research_snapshot.csv (0 rows)",
+    "data/eu_quote_history.csv (XETRA OHLCV through 2026-09-22)",
+    "data/scanner_signals.csv and research/scans (no qualifying signal since 2026-09-04)",
+    "FMP MCP (calendar, market cap, <=10-day US close history; quotes/screener/OHLC/non-US plan-denied)",
+    "WebSearch (leads and secondary context only)",
+    "UNAVAILABLE: issuer IR, sec.gov, newswires, etoro.com, stooq.com, finance.yahoo.com (egress-blocked)",
+    "UNAVAILABLE: Quartr MCP primary-source channel (subscription_required)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 41,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "NDX1.DE",
+      "company": "Nordex SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Best structure in the European pool as of the last available session: the close equalled the 20-session high with price above EMA20 and EMA50 and traded value far above the non-US floor. It is still rejected because that structure is 12 days stale and no current EU price source is reachable (FMP non-US data is plan-denied, stooq.com and finance.yahoo.com are egress-blocked), and a secondary price lead near EUR38.78 suggests the breakout level has since failed. Setting a trigger off a 12-day-old level with no visibility into the intervening eight sessions would be exactly the arbitrary level red_team.md forbids. Published Q3 date leads also conflict (one snippet says 2026-11-05, another 2026-10-29/30), so even the event date is unresolved. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "NDX1.DE closed EUR41.90 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR41.90, EMA20 EUR39.34, 20-session average daily traded value about EUR22.1M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Secondary snippet quotes Nordex trading near EUR38.78, below the 2026-09-22 close of EUR41.90.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.ad-hoc-news.de/boerse/news/corporate-news/nordex-stock-trades-at-eur-38-78-with-minus-0-36-percent/70198400",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Search snippets give conflicting Q3 2026 reporting dates for Nordex: 2026-11-05 quarterly statement versus 2026-10-29 presentation / 2026-10-30 release.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketscreener.com/quote/stock/NORDEX-SE-468965/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Q3 2026 / nine-month results (date unresolved between competing secondary sources)",
+        "date": "2026-11-05",
+        "date_status": "unverified",
+        "source_type": "reputable_secondary",
+        "source_url": "https://www.marketscreener.com/quote/stock/NORDEX-SE-468965/calendar/",
+        "verified_at": "2026-10-04T21:46:48Z"
+      }
+    },
+    {
+      "ticker": "JEN.DE",
+      "company": "JENOPTIK AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Price sat 0.1% under its 20-session high with price above EMA20, but 20-session average traded value of about EUR4.4M is below the EUR5M preferred non-US floor, so the name is at best a Conditional Watchlist object and never a main-shortlist candidate without explicit human approval of a lower-liquidity setup. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "JEN.DE closed EUR41.74 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR41.80, EMA20 EUR39.94, 20-session average daily traded value about EUR4.4M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AIXA.DE",
+      "company": "AIXTRON SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Liquidity passes comfortably, but the last available close sat 6.6% below its 20-session high and only marginally above EMA20 while remaining well below EMA50 (EUR38.68) - no breakout and no completed pullback structure. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "AIXA.DE closed EUR36.39 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR38.98, EMA20 EUR36.21, 20-session average daily traded value about EUR19.7M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "KGX.DE",
+      "company": "KION GROUP AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The last available close was 15.1% below its 20-session high and below both EMA20 and EMA50: a downtrend, not a pullback inside an uptrend. SETUPS.md explicitly excludes 'it is down a lot' as a setup. KION also already produced a -1.00R loss as trade 2026-0017. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "KGX.DE closed EUR41.54 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR48.92, EMA20 EUR42.42, 20-session average daily traded value about EUR14.9M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PUM.DE",
+      "company": "PUMA SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The last available close was 13.5% below its 20-session high and below EMA20 and EMA50, with the 50-session high (EUR29.61) far overhead - a sustained downtrend with no defensible invalidation level. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "PUM.DE closed EUR22.75 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR26.29, EMA20 EUR23.25, 20-session average daily traded value about EUR14.9M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "WAF.DE",
+      "company": "Siltronic AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Structurally the second-best European lead (1.0% below the 20-session high, above EMA20 and EMA50), but traded value of about EUR6.8M is only modestly above the non-US floor while the 50-session high of EUR92.80 sits 12% overhead, and the same 12-day staleness and missing current-price problem as the rest of the European pool applies. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "WAF.DE closed EUR82.75 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR83.55, EMA20 EUR76.63, 20-session average daily traded value about EUR6.8M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "S92.DE",
+      "company": "SMA Solar Technology AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Price held above EMA20 and EMA50 but 3.0% below the 20-session high, with traded value of about EUR6.2M close to the non-US floor. No trigger could be set from a 12-day-old level. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "S92.DE closed EUR62.00 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR63.95, EMA20 EUR58.01, 20-session average daily traded value about EUR6.2M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Deepest liquidity in the European pool at about EUR32M and price above EMA20 and EMA50, but 3.5% below the 20-session high with no current price and no verified near-term event. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "evidence": [
+        {
+          "claim": "TKA.DE closed EUR15.31 on 2026-09-22, the last session in the repository's XETRA history; 20-session high (closing/intraday basis) EUR15.87, EMA20 EUR14.83, 20-session average daily traded value about EUR32.0M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "The canonical research snapshot generated immediately before this run contains 0 rows, so no normalized current structure row exists for this ticker.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AAL",
+      "company": "American Airlines Group Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The only core-universe US name whose calendar date falls inside the 0-21 day actionable window, but the six sessions into that date fell 6.7% and closed at the low of the range. A declining tape into a binary earnings print is not one of the four allowed setups, and RISK_RULES.md prefers trading after the information is public. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-10-22",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "AAL closed USD12.94 on 2026-10-02; the six sessions 2026-09-25..2026-10-02 moved -6.7% and averaged about USD856M daily traded value.",
+          "source_type": "market_data",
+          "location": "FMP MCP chart/historical-price-eod-light (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "AAL market capitalisation USD8.57B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists AAL reporting on 2026-10-22. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ETSY",
+      "company": "Etsy, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Strongest US lead on tape: core market cap, deep liquidity, and the only name in the pool in a clean six-session uptrend (+6.3%) closing near its range high. Its calendar date is 31 days out, which is the 22-42 day Early Watch window, so it could not be an entry this week in any case; and because the date is only secondary_only it cannot even hold EARLY_WATCH. This is the name to re-examine first once an evidence channel is restored. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-11-04",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "ETSY closed USD72.77 on 2026-10-02; the six sessions 2026-09-25..2026-10-02 moved +6.3% and averaged about USD194M daily traded value.",
+          "source_type": "market_data",
+          "location": "FMP MCP chart/historical-price-eod-light (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "ETSY market capitalisation USD6.91B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists ETSY reporting on 2026-11-04. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Multiple secondary trackers put Etsy's Q3 2026 report on 2026-11-04, described as an estimate based on past reporting schedules rather than a company confirmation.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.marketbeat.com/stocks/NYSE/ETSY/earnings/",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RIOT",
+      "company": "Riot Platforms, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core market cap and deep liquidity, but the six sessions fell 14.2% from 23.00 to 19.73 with no stabilisation, and the calendar date is 25 days out. A crypto-miner drawdown into a binary print offers no invalidation level that is not arbitrary. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-10-29",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "RIOT closed USD19.73 on 2026-10-02; the six sessions 2026-09-25..2026-10-02 moved -14.2% and averaged about USD314M daily traded value.",
+          "source_type": "market_data",
+          "location": "FMP MCP chart/historical-price-eod-light (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "RIOT market capitalisation USD7.46B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists RIOT reporting on 2026-10-29. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BILI",
+      "company": "Bilibili Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core market cap and adequate liquidity, but price drifted down 3.1% to close at the six-session low and the calendar date is 39 days out, at the far edge of the discovery horizon. As a US-listed ADR of a Chinese issuer it would also need explicit local-listing-versus-ADR verification that is unreachable this run. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-11-12",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "BILI closed USD14.44 on 2026-10-02; the six sessions 2026-09-25..2026-10-02 moved -3.1% and averaged about USD41M daily traded value.",
+          "source_type": "market_data",
+          "location": "FMP MCP chart/historical-price-eod-light (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "BILI market capitalisation USD6.06B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists BILI reporting on 2026-11-12. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "FUBO",
+      "company": "fuboTV Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Average daily traded value of about USD10M sits at the very bottom of the USD10-25M conditional band, far below the USD25M preferred US floor, so it could only ever be a Conditional Watchlist name; price also fell 10.2% over six sessions to close at the low. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-11-02",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "FUBO closed USD8.66 on 2026-10-02; the six sessions 2026-09-25..2026-10-02 moved -10.2% and averaged about USD10M daily traded value.",
+          "source_type": "market_data",
+          "location": "FMP MCP chart/historical-price-eod-light (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "FUBO market capitalisation USD0.95B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists FUBO reporting on 2026-11-02. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "LCID",
+      "company": "Lucid Group, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried in the discovery pool for breadth from the earnings calendar, but dropped before expensive analysis: no current price history was retrieved for it, its calendar date is 31 days out, and a pre-revenue-scale EV issuer carries exactly the financing and dilution risk red_team.md requires to be ruled out from primary filings that cannot be opened this run. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-11-04",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "LCID market capitalisation USD1.31B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists LCID reporting on 2026-11-04. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "No price or volume history was retrieved for LCID in this run; the lead was dropped at discovery before market-data verification, so no price-based claim is made.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-10-04.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TLRY",
+      "company": "Tilray Brands, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected at discovery on the universe rule before any further work: market capitalisation of about USD404M is below the USD500M core-universe floor, and no documented exception applies. Its 2026-10-08 calendar date would otherwise have been the nearest actionable event in the pool. No primary source could be opened in this run: the environment's network egress policy blocks issuer IR domains, sec.gov and newswires, and the Quartr MCP primary-source channel returned subscription_required (plan 'none'). No catalyst date therefore reaches `verified`, which verification.md makes mandatory for ACTIONABLE or EARLY_WATCH. Independently, ETORO_TRADEABLE could not be verified because etoro.com is egress-blocked, and ETORO_TRADEABILITY.md makes unverifiable broker availability a hard reject.",
+      "catalyst": {
+        "event": "Quarterly results (per third-party calendar)",
+        "date": "2026-10-08",
+        "date_status": "secondary_only",
+        "source_type": "market_data",
+        "source_url": "https://financialmodelingprep.com/stable/earnings-calendar",
+        "verified_at": "2026-10-04T21:46:48Z"
+      },
+      "evidence": [
+        {
+          "claim": "TLRY market capitalisation USD0.40B as of 2026-10-02.",
+          "source_type": "market_data",
+          "location": "FMP MCP company/batch-market-cap (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "Third-party earnings calendar lists TLRY reporting on 2026-10-08. This is a structured third-party calendar, which the source policy treats as a lead only; it cannot verify the date.",
+          "source_type": "market_data",
+          "location": "FMP MCP calendar/earnings-calendar from_date=2026-10-05 to_date=2026-11-15 (accessed via MCP)",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        },
+        {
+          "claim": "No price or volume history was retrieved for TLRY in this run; the lead was dropped at discovery before market-data verification, so no price-based claim is made.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-10-04.json",
+          "published_at": null,
+          "accessed_at": "2026-10-04T21:46:48Z"
+        }
+      ]
+    }
+  ]
+}
