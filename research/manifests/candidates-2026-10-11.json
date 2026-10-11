@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-10-11",
+  "generated_at": "2026-10-11T21:45:00Z",
+  "model": "Claude Opus 5 (claude-opus-5, Claude Code cloud session)",
+  "research_mode": "continuity-first, catalyst-first discovery; verification gate failed on session egress and data-subscription limits",
+  "repository_commit": "b9e6798e25c81cdec4176ece0984638584ab24fc",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository snapshot (data/research_snapshot.csv, 2 rows)",
+    "FMP MCP connector (restricted tier: calendar/earnings-calendar mega-caps only, calendar/splits-calendar, secFilings, marketPerformance; quote/search/news/technicalIndicators DENIED, chart restricted to a mega-cap symbol set)",
+    "Quartr MCP connector (unavailable: subscription_required, currentPlan none)",
+    "WebSearch (secondary leads only)",
+    "WebFetch and direct HTTPS (UNAVAILABLE for sec.gov, issuer IR domains, stooq, yahoo, alpaca, nasdaq, boerse-frankfurt: egress policy connect_rejected / DNS not resolved)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "f08ca585cd4f22f9f5c2194e03bde3122eb914d4af2dc9b5979669da3fa354b8",
+  "source_counts": {
+    "opened": 38,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "DB1.DE",
+      "company": "Deutsche Börse AG",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Market cap is far above the €/$50B default exclusion in ETORO_TRADEABILITY.md and no larger-cap exception is justified over a core-universe name; already rejected on the same ground on 2026-09-20. The 2026-10-20 Q3 date is secondary_only because no primary source could be opened, and no structured market-data row exists.",
+      "red_team_argument": "A verified-looking aggregator date does not override the universe rule, and a Q3 print at an exchange operator is not a company-specific swing edge.",
+      "source_tag": "prior_report",
+      "evidence": [
+        {
+          "claim": "Aggregator calendars list Deutsche Börse Q3 2026 results on 2026-10-20 (9 days out).",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://quartalszahlen.info/earnings/index/dax and https://www.boerse.de/boersentermine/ (aggregator calendars; pages not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "DB1.DE was rejected in the prior run for being at the top of the larger-cap exception bucket with a September €600M convertible financing as intervening risk.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-09-20.md",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "BEI.DE",
+      "company": "Beiersdorf AG",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Larger-cap exception bucket with no case made for the exception, and no market data available to evidence which bucket it falls in. The 2026-10-27 Q3 date is secondary_only.",
+      "red_team_argument": "A consumer-staples quarterly statement with no expectations evidence is earnings-week sympathy, not a thesis.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "Aggregator calendars list Beiersdorf Q3 2026 on 2026-10-27 (16 days out).",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://quartalszahlen.info/earnings/index/dax and https://www.boerse.de/boersentermine/ (aggregator calendars; pages not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "BAS.DE",
+      "company": "BASF SE",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Larger-cap exception bucket, no exception justified, and a sector-wide chemicals print is not a company-specific edge. The 2026-10-28 Q3 date is secondary_only.",
+      "red_team_argument": "The thesis would be macro/sector beta; the setup would be unverifiable.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "Aggregator calendars list BASF Q3 2026 on 2026-10-28 (17 days out).",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://quartalszahlen.info/earnings/index/dax and https://www.boerse.de/boersentermine/ (aggregator calendars; pages not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "MTX.DE",
+      "company": "MTU Aero Engines AG",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Larger-cap exception bucket, binary earnings inside the window, and no snapshot structure from which to derive a trigger, stop or target. The 2026-10-29 Q3 date is secondary_only.",
+      "red_team_argument": "Holding or anticipating a binary print without expectations evidence or a defensible stop is exactly what SETUPS.md excludes.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "Aggregator calendars list MTU Aero Engines Q3 2026 on 2026-10-29 (18 days out).",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://quartalszahlen.info/earnings/index/dax and https://www.boerse.de/boersentermine/ (aggregator calendars; pages not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "AOF.DE",
+      "company": "ATOSS Software SE",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "The only core-universe European lead found, rejected on evidence rather than thesis: the 2026-10-23 date comes from an undated aggregator calendar the search itself flagged as probably stale, and ATOSS's traded value sits in or below the €3-5M conditional liquidity tier that ETORO_TRADEABILITY.md keeps off the main shortlist. Neither the date nor the liquidity could be checked against a primary or structured source here.",
+      "red_team_argument": "A thin-liquidity small cap into an unverified earnings date is the worst combination of spread risk and date risk in this pool.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "A boerse.de calendar entry lists ATOSS Software Q3 figures on 2026-10-23; the search flagged the source as undated and likely stale and gave no index membership.",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://www.boerse.de/boersentermine/ (page not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "FCN",
+      "company": "FTI Consulting, Inc.",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "rejection_reason": "Strongest core/boundary lead of the week and the one worth re-running once data access is restored, but rejected on the gate: the company's own earnings-date press release could not be opened, so 2026-10-29 stays secondary_only, and there is no price, market-cap, liquidity or OHLCV row from which to build a trigger, stop, target or planned R.",
+      "red_team_argument": "Without expectations evidence or any structure, a pre-earnings entry would be pure anticipation of a binary event.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "An FTI Consulting press release states Q3 2026 results will be released before the New York market opens on Thursday, 2026-10-29, with a 9:00 a.m. ET call.",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of company Q3-2026 earnings-date press releases (pages not opened directly)",
+          "published_at": "2026-10",
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "CNOB",
+      "company": "ConnectOne Bancorp, Inc.",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Core market cap, but a small regional bank whose average dollar volume is very unlikely to clear the $25M US preferred floor and cannot be verified on this tier. Binary earnings on 2026-10-22 with a secondary_only date and no setup.",
+      "red_team_argument": "Regional-bank quarterlies are credit-and-NIM prints with gap risk and thin books; neither liquidity nor the date could be evidenced.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "A ConnectOne Bancorp release states Q3 2026 results will be released before market open on Thursday, 2026-10-22, with a 10:00 a.m. ET call.",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of company Q3-2026 earnings-date press releases (pages not opened directly)",
+          "published_at": "2026-10",
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "GSBD",
+      "company": "Goldman Sachs BDC, Inc.",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "rejection_reason": "The 2026-11-05 date falls in the 22-42 day Early Watch window (25 days), but Early Watch requires date_status `verified` and this is secondary_only, so it is a Reject by rule. Separately, a BDC NAV print offers no observable price trigger and the name's liquidity could not be evidenced.",
+      "red_team_argument": "Classifying this as Early Watch on an unopened source would be the exact shortcut the verification stage forbids.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "A Goldman Sachs BDC release states Q3 2026 results will be reported after market close on 2026-11-05.",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of company Q3-2026 earnings-date press releases (pages not opened directly)",
+          "published_at": "2026-10",
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "INO",
+      "company": "Inovio Pharmaceuticals, Inc.",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Binary FDA decision on a micro-cap. The 2026-10-30 PDUFA target for INO-3107 appears in one aggregator calendar and is not sponsor-confirmed; the FDA publishes no forward calendar, so the date can only come from a company filing this session cannot open. Financing and dilution risk is material and equally uncheckable.",
+      "red_team_argument": "An unverified binary date on a company that routinely raises equity is the highest-variance, lowest-evidence object in the pool.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "A PDUFA aggregator lists an INO-3107 accelerated-approval target date of 2026-10-30; the source gives no sponsor-confirmed citation and the search noted the FDA publishes no official forward calendar.",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://www.biopharmawatch.com/PDUFA-calendar, https://www.pdufa.bio/calendar, https://www.assyro.com/tools/pdufa-calendar/2026/november and https://dansfera.com/ (mutually inconsistent aggregator calendars; pages not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "AGIO",
+      "company": "Agios Pharmaceuticals, Inc.",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Binary FDA decision at the edge of the Actionable horizon (2026-11-01, 21 days), supported by a single aggregator list and not sponsor-confirmed, so date_status is secondary_only. RISK_RULES.md caps a deliberate binary hold at €75 and requires it to be planned at entry; nothing here justifies proposing one, and no structure exists for a pre-event setup.",
+      "red_team_argument": "Known PDUFA dates on followed biotech names are the most crowded trades available, and the repository's own VERA history shows a tight stop being taken out before the event twice.",
+      "source_tag": "routine",
+      "evidence": [
+        {
+          "claim": "A PDUFA aggregator lists mitapivat with a 2026-11-01 target date.",
+          "source_type": "reputable_secondary",
+          "location": "web-search summary of https://www.biopharmawatch.com/PDUFA-calendar, https://www.pdufa.bio/calendar, https://www.assyro.com/tools/pdufa-calendar/2026/november and https://dansfera.com/ (mutually inconsistent aggregator calendars; pages not opened directly)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "Trades 2026-0005 and 2026-0018 both lost on pre-PDUFA positioning in the same catalyst, the second at full size against the half-size binary rule.",
+          "source_type": "repository",
+          "location": "trades.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No primary issuer/regulator source could be opened by this run: www.sec.gov and issuer IR domains were refused by the session egress policy (connect_rejected / DNS not resolved), so every event date in this manifest is secondary_only and rejected by the verification gate.",
+          "source_type": "other",
+          "location": "session egress policy denial recorded in research/candidates-2026-10-11.md#evidence-gate-failure",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "No dated structured market data (price, market cap, average dollar volume, OHLCV history) is obtainable for this symbol: the FMP connector tier denies quote/screener and restricts chart to a mega-cap symbol set, Quartr returns subscription_required, and the canonical snapshot contains no row for it.",
+          "source_type": "other",
+          "location": "FMP MCP ACCESS DENIED responses and Quartr subscription_required response, 2026-10-11; data/research_snapshot.csv (2 rows)",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "MRVL",
+      "company": "Marvell Technology, Inc.",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Mega-cap and a crowded headline AI name, excluded by default under ETORO_TRADEABILITY.md. The scanner row is a discovery lead, never evidence, and no forward catalyst was identified. The 2026-10-07 signal was already -4.11% one session later.",
+      "red_team_argument": "Without its scanner score this object would never have been researched, which is the discovery-stage disqualifier.",
+      "source_tag": "scanner_seed",
+      "evidence": [
+        {
+          "claim": "MRVL is one of only two rows in the canonical seven-day research snapshot.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv (sha256 f08ca585cd4f22f9f5c2194e03bde3122eb914d4af2dc9b5979669da3fa354b8); archived research/snapshots/research_snapshot-2026-10-11.csv",
+          "published_at": "2026-10-11",
+          "accessed_at": "2026-10-11T21:38:42Z"
+        },
+        {
+          "claim": "Snapshot row: price 286.50 USD, average dollar volume 113,544,605.62, score 60, break of 20-day high, rel-volume 4.03x, regime mixed, as of 2026-10-07T00:59:27+0200 (alpaca).",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "The same scanner signal shows a one-day return of -4.11% and the 60-69 score bucket averages -0.98% at ten sessions over 23 filled signals.",
+          "source_type": "repository",
+          "location": "data/scanner_signals.csv and research/scanner-summary.md",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    },
+    {
+      "ticker": "RXRX",
+      "company": "Recursion Pharmaceuticals, Inc.",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Average dollar volume of $5.36M is below even the $10-25M conditional tier for US names, so the name cannot enter the main shortlist or the conditional watchlist. The signal fired on an intraday move already +15.98% carrying the scanner's own `already extended` warning, and it is -10.86% one day and -9.08% three days later. No forward catalyst was found.",
+      "red_team_argument": "Chasing a 16% single-day move in a sub-$5 clinical-stage name, on a liquidity tier the rules exclude, is the clearest chase in the pool.",
+      "source_tag": "scanner_seed",
+      "evidence": [
+        {
+          "claim": "RXRX is one of only two rows in the canonical seven-day research snapshot.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv (sha256 f08ca585cd4f22f9f5c2194e03bde3122eb914d4af2dc9b5979669da3fa354b8); archived research/snapshots/research_snapshot-2026-10-11.csv",
+          "published_at": "2026-10-11",
+          "accessed_at": "2026-10-11T21:38:42Z"
+        },
+        {
+          "claim": "Snapshot row: price 4.79 USD, average dollar volume 5,364,724.32, score 65, rel-volume 3.97x, note `already extended intraday/day move 15.98%`, as of 2026-10-06T00:03:37+0200 (alpaca).",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        },
+        {
+          "claim": "Recorded one-day return -10.8559% and three-day return -9.0814% for the 2026-10-06 signal.",
+          "source_type": "repository",
+          "location": "data/scanner_signals.csv",
+          "published_at": null,
+          "accessed_at": "2026-10-11T21:40:00Z"
+        }
+      ],
+      "classification": "REJECT",
+      "red_team_verdict": "REJECT"
+    }
+  ]
+}
