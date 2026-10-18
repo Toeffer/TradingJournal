@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-10-18",
+  "generated_at": "2026-10-18T21:45:00Z",
+  "model": "Claude Opus 5 (claude-opus-5)",
+  "research_mode": "continuity-first, evidence-gated catalyst-first; primary-source verification unavailable (egress policy)",
+  "repository_commit": "a9f442e9024fe68030a564d8b921145f39a73e3c",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository: data/research_snapshot.csv (0 rows)",
+    "repository: data/eu_quote_history.csv (46 XETRA tickers, daily bars 2026-01-05..2026-10-16)",
+    "repository: data/market_regime.csv",
+    "repository: data/scanner_signals.csv and research/scans/*",
+    "repository: data/recommendations.csv, data/recommendation_reviews.csv, trades.csv, data/proposals.csv",
+    "web search (snippet-level only; no external page could be opened from this environment)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 0,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "NDX1.DE",
+      "company": "Nordex SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Strongest lead of the run and rejected on evidence, not on thesis. Three independent failures: (1) the 2026-10-15 ad-hoc release and the stated 2026-11-05 full-Q3 date are secondary_only - this environment's network policy blocks every issuer, regulator and market-data host, so no primary source could be opened; (2) eToro tradeability could not be verified because etoro.com is unreachable, and ETORO_TRADEABILITY.md rejects any name whose broker availability cannot be verified; (3) independently of both, no allowed setup produces a defensible planned R of at least 1.5. The post-earnings-drift reading is clean on repository price data - a +11.2% gap on 2026-10-16 from 34.86 to an open of 38.78, closing 39.14 above the open, with the session low 38.48 holding far above the gap midpoint of 36.82 on 1.38M shares against a roughly 600k 20-session average - but SETUPS.md requires entry above a consolidation high with the stop below the gap-day low, and only one post-gap session exists, so no consolidation has formed. Taking the gap-day high as the trigger (40.10) against the gap-day low as invalidation (38.20) and the 2026-09-23 swing high as a conservative first target (42.00) yields exactly 1.00R. Reaching 1.5R from that entry requires either a target of about 42.95 above the 20-day high, or a stop inside the gap-day range, which the red team treats as a manufactured level. Carry forward as the priority object for the next run.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Nordex SE closed at EUR 39.14 on 2026-10-16 after opening at 38.78 against a prior close of 34.86 (a +11.2% opening gap), with session high 40.02, session low 38.48 and volume 1,382,285 against a 20-session average of about 600,000 shares. The 20-session high is 42.10 (set 2026-09-23), price sits 7.56% below it and 4.87% above a 20-period EMA of about 37.32, RSI(14) is 50.8, ATR(14) is 4.17% of price, and 20-session average daily traded value is about EUR 23.9M, above the non-US preferred floor of USD 5M equivalent.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=NDX1.DE, dates 2026-01-05..2026-10-16); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        },
+        {
+          "claim": "Nordex Group reported preliminary Q3/2026 results on 2026-10-15 and raised full-year 2026 EBITDA margin guidance to 11.5-12.5% from 8.0-11.0%, citing preliminary Q3 EBITDA of about EUR 278M on revenue of about EUR 2,187M, and stated that the full Q3 2026 report will be published on 2026-11-05. UNVERIFIED: surfaced only through web-search snippets referencing an EQS ad-hoc release; the issuer release, the Deutsche Boerse EQS page and the Nordex financial calendar could not be opened from this environment, so date_status is secondary_only and cannot support Actionable or Early Watch classification.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.tradingview.com/news/eqs:42f3dfa76094b:0-nordex-se-nordex-group-reports-strong-preliminary-q3-2026-results-and-raises-ebitda-margin-guidance-for-full-year-2026/ (surfaced via web search; page not opened - egress blocked)",
+          "published_at": "2026-10-15",
+          "accessed_at": "2026-10-18T21:30:00Z"
+        },
+        {
+          "claim": "Market regime on the most recent repository reading is defensive: SPY 763.34 against a 50-day MA of 768.48, only 11.3% of the scanner universe above its 20-day MA, and a cross-asset score of -2 of a possible -3 (credit HYG/LQD -0.90%, size IWM/SPY -4.99%, risk XLY/XLP -4.26%). SETUPS.md requires a regime-against note for breakout entries in a defensive regime.",
+          "source_type": "repository",
+          "location": "data/market_regime.csv (row 2026-10-17T00:02:27+0200); research/scans/scan-2026-10-17-0002.md",
+          "published_at": "2026-10-17",
+          "accessed_at": "2026-10-18T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PUM.DE",
+      "company": "PUMA SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Q3 2026 results reported by search snippets as 2026-10-30 (12 days out, inside the Actionable horizon) but secondary_only, with one aggregator dissenting at 2026-10-29; the issuer IR calendar could not be opened, and eToro availability could not be verified. Setup also fails on its own terms: price closed 24.24 on 2026-10-16, only 1.07% below the 20-session high of 24.50, but volume was 536k against a 20-session average of about 570k, so the SETUPS.md breakout condition of at least 2x relative volume is not met - this is a quiet grind, not a confirmed breakout. A binary earnings event 8 trading sessions away would also force exit_before_catalyst with a holding window too short for the 5-10 session horizon the setup assumes.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "PUMA SE closed at EUR 24.24 on 2026-10-16, 1.07% below the 20-session high of 24.50, 4.98% above a 20-period EMA, RSI(14) 63.3, +5.48% over five sessions and +10.23% over twenty, 20.0% below the trailing 52-week high, with 20-session average daily traded value of about EUR 13.6M and 2026-10-16 volume of 536,447 against a 20-session average near 570,000.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=PUM.DE); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        },
+        {
+          "claim": "PUMA SE's financial calendar is reported to schedule Q3 2026 results for 2026-10-30, with one third-party calendar instead showing 2026-10-29. UNVERIFIED: search snippets only; about.puma.com and the issuer IR calendar are unreachable from this environment, so date_status is secondary_only and the sources disagree by one day.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.rttnews.com/Calendar/Earnings/10580/puma-se.aspx (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:28:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ZAL.DE",
+      "company": "Zalando SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "Q3 2026 results reported as 2026-11-03 (16 days out) by several calendar aggregators but by no opened issuer source, so secondary_only; eToro availability unverified. Independently rejected as a chase: RSI(14) is 85.4, price is 8.17% above its 20-period EMA and +17.33% over twenty sessions into a binary earnings event. Buying 0.91% below a 20-session high on that extension is the behaviour SETUPS.md excludes, and the honest action if the date were verified would be wait_pullback, not an entry.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Zalando SE closed at EUR 25.25 on 2026-10-16, 0.91% below the 20-session high of 25.48, 8.17% above a 20-period EMA, RSI(14) 85.4, +6.09% over five sessions and +17.33% over twenty, with 20-session average daily traded value of about EUR 23.1M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=ZAL.DE); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        },
+        {
+          "claim": "Zalando SE Q3 2026 results and earnings call are listed for 2026-11-03 by third-party calendars. UNVERIFIED: corporate.zalando.com could not be opened from this environment; no issuer financial calendar was read, so date_status is secondary_only.",
+          "source_type": "reputable_secondary",
+          "location": "https://uk.marketscreener.com/quote/stock/ZALANDO-SE-18100088/calendar/ (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:29:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HAG.DE",
+      "company": "HENSOLDT AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "No Q3 2026 date could be established at any source quality - search returned only the 2026-07-31 H1 release and a 2024 Q3 precedent of early November, so date_status is unverified, which is a Reject before any setup question. The price is also a textbook chase: +15.27% over five sessions and 9.72% above its 20-period EMA on a 2026-10-16 session that printed a new 20-session high intraday at 89.02. eToro availability unverified, and the market-cap bucket could not be verified either.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "HENSOLDT AG closed at EUR 87.86 on 2026-10-16 after opening 83.82 and printing a session high of 89.02 (a new 20-session high) on volume of 419,357 against a 20-session average near 200,000; price is 9.72% above its 20-period EMA, RSI(14) 71.9, +15.27% over five sessions, 9.1% below the trailing 52-week high, with 20-session average daily traded value of about EUR 20.2M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=HAG.DE); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        },
+        {
+          "claim": "No Q3 2026 reporting date for HENSOLDT AG could be established. Search surfaced only a stated 2026-07-31 H1 2026 publication date and a 2024 Q3 report dated 2024-11-07 as precedent. UNVERIFIED: the issuer IR financial calendar is unreachable from this environment; an inference from a prior-year pattern is explicitly not an acceptable date under research_method/verification.md.",
+          "source_type": "reputable_secondary",
+          "location": "https://de.marketscreener.com/kurs/aktie/HENSOLDT-AG-112902521/termine/ (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:28:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NEM.DE",
+      "company": "Nemetschek SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "No Q3 2026 date established at any source quality (unverified), eToro availability unverified, and the structure is the most extended in the European pool: RSI(14) 88.5, price 10.79% above its 20-period EMA and 15.14% above its 50-period EMA after +21.47% in twenty sessions. Every allowed setup reads this as a name to leave alone or wait on, not to enter.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Nemetschek SE closed at EUR 73.55 on 2026-10-16, 2.18% below the 20-session high of 75.15, 10.79% above its 20-period EMA and 15.14% above its 50-period EMA, RSI(14) 88.5, +9.12% over five sessions and +21.47% over twenty, with 20-session average daily traded value of about EUR 16.5M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=NEM.DE); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "R3NK.DE",
+      "company": "RENK Group AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "No Q3 2026 date established (unverified) and eToro availability unverified. Structurally it is a two-day bounce inside a decline, not an allowed setup: +12.59% over five sessions yet still 11.51% below the 20-session high and 42.2% below the trailing 52-week high, with RSI(14) 44.2. Neither breakout (no 20-day-high clearance) nor pullback (no prior uptrend to retrace into) applies, and the only thesis available is that price moved, which SETUPS.md explicitly excludes.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "RENK Group AG closed at EUR 38.33 on 2026-10-16 after consecutive gains from 34.80 on 2026-10-14, still 11.51% below the 20-session high of 42.73 and 42.2% below the trailing 52-week high, RSI(14) 44.2, with 20-session average daily traded value of about EUR 20.3M and 2026-10-16 volume of 613,568 against a 20-session average near 500,000.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=R3NK.DE); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SZG.DE",
+      "company": "Salzgitter AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "rejection_reason": "No Q3 2026 date established (unverified), eToro availability unverified, and the price structure is a downtrend with no setup: 11.94% below the 20-session high, 2.55% below its 20-period EMA, 28.6% below the trailing 52-week high, RSI(14) 40.7 and -3.40% over the last five sessions. Liquidity of about EUR 7.8M daily clears the non-US preferred floor but buys nothing without a thesis.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Salzgitter AG closed at EUR 48.24 on 2026-10-16, 11.94% below the 20-session high of 54.00, 2.55% below its 20-period EMA and 6.32% below its 50-period EMA, RSI(14) 40.7, -3.40% over five sessions, 28.6% below the trailing 52-week high, with 20-session average daily traded value of about EUR 7.8M.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (rows ticker=SZG.DE); metrics recomputed this run",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-10-18T21:40:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AGIO",
+      "company": "Agios Pharmaceuticals, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Lead taken from PDUFA aggregator calendars only: a 2026-11-01 FDA action date for mitapivat in sickle cell disease, 14 days out. No primary source could be opened - sec.gov and the issuer IR site are unreachable from this environment - so date_status is secondary_only and aggregators are explicitly lead-only under the source policy. eToro availability unverified. There is also no repository price data for any US name this run (research_snapshot.csv has 0 rows and no scanner signal falls inside the 7-day lookback), so no current price, liquidity, market-cap bucket or structure could be established, and a binary FDA decision would in any case require the half-size binary-event rule in RISK_RULES.md rather than a standard entry.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "PDUFA aggregator calendars list a 2026-11-01 FDA target action date for Agios Pharmaceuticals' mitapivat in sickle cell disease, with Priority Review and Accelerated Approval designations. UNVERIFIED: aggregator calendars only, one of which is itself flagged as roughly 347 days stale; no FDA, SEC or issuer source could be opened. Aggregators disagree on several November 2026 entries.",
+          "source_type": "other",
+          "location": "https://www.pdufa.bio/calendar (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:42:00Z"
+        },
+        {
+          "claim": "No structured market data exists in the repository for any US ticker in this run: data/research_snapshot.csv contains 0 rows (sha256 564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334), the newest recorded scanner signals are RXRX 2026-10-06 and MRVL 2026-10-07, both outside the configured 7-day lookback, and the 2026-10-17 US scanner run recorded 0 candidates at or above the alert threshold.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv; data/research_snapshot.meta.json; data/scanner_signals.csv; research/scans/scan-2026-10-17-0002.md",
+          "published_at": "2026-10-18",
+          "accessed_at": "2026-10-18T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CAPR",
+      "company": "Capricor Therapeutics, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Lead is a PDUFA target action date for deramiocel in Duchenne muscular dystrophy reported as extended from 2026-08-22 to 2026-11-22 after the FDA classified the submission a major amendment - 35 days out, which would place it in the Early Watch band rather than Actionable. Rejected because the 8-K that search surfaced could not be opened (sec.gov unreachable), leaving date_status secondary_only, because eToro availability is unverified, and because no repository price, liquidity or market-cap data exists for US names this run. A date the FDA has already moved once is also weak ground for anticipation.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Capricor Therapeutics' PDUFA target action date for deramiocel was reported as extended from 2026-08-22 to 2026-11-22 after the FDA classified the resubmission as a major amendment, adding three months to the review. UNVERIFIED: the underlying Form 8-K at sec.gov could not be opened from this environment; the claim rests on a search snippet of that filing plus aggregator calendars.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.sec.gov/Archives/edgar/data/0001133869/000110465926100071/capr-20260824x8k.htm (surfaced via web search; page not opened - egress blocked)",
+          "published_at": "2026-08-24",
+          "accessed_at": "2026-10-18T21:42:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SVRA",
+      "company": "Savara Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Lead is a reported 2026-11-22 FDA target action date for the molgramostim BLA, 35 days out and therefore Early Watch at best. Rejected on the same three grounds as the other US leads: no primary source could be opened so date_status is secondary_only, eToro availability is unverified, and no repository market data exists for US names this run to establish liquidity or the market-cap bucket. A single binary approval decision with no intermediate trigger inside 21 days is monitoring material, not a setup.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Aggregator PDUFA calendars list a 2026-11-22 FDA target action date for Savara Inc.'s molgramostim BLA. UNVERIFIED: no FDA, SEC or issuer source could be opened from this environment; aggregator calendars are lead-only under the repository source policy.",
+          "source_type": "other",
+          "location": "https://catalyst-ventures.eu/catalysts/pdufa/2026-11 (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:42:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NUVL",
+      "company": "Nuvalent, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Lead is a reported 2026-11-27 FDA action date for neladalkib in ALK-positive NSCLC, 40 days out and Early Watch at best. Rejected because no primary source could be opened (date_status secondary_only), eToro availability is unverified, no repository market data exists for US names this run, and the likely market-cap bucket is above the core universe without a documented exception. Aggregator sources also disagree on several of the late-November entries they list.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Aggregator PDUFA calendars list a 2026-11-27 FDA action date for Nuvalent's neladalkib in ALK-positive NSCLC, alongside other late-November entries on which the aggregators disagree. UNVERIFIED: no FDA, SEC or issuer source could be opened from this environment.",
+          "source_type": "other",
+          "location": "https://catalystalert.io/pdufa (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:42:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "MEOH",
+      "company": "Methanex Corporation",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "rejection_reason": "Lead is a Q3 2026 results conference call reported for 2026-10-30 at 11:00 ET, 12 days out. Rejected because the issuer release could not be opened (date_status secondary_only), eToro availability is unverified, and no repository price, liquidity or structure data exists for US names this run - so the only thing available would be a binary earnings date with no setup attached, which SETUPS.md explicitly refuses to treat as an entry.",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Methanex Corporation is reported to hold its Q3 2026 results conference call on 2026-10-30 at 11:00 ET. UNVERIFIED: the issuer page surfaced by search could not be opened from this environment, so date_status is secondary_only.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.methanex.com/?p=6368 (surfaced via web search; page not opened - egress blocked)",
+          "published_at": null,
+          "accessed_at": "2026-10-18T21:43:00Z"
+        }
+      ]
+    }
+  ]
+}
