@@ -1,0 +1,513 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-10-25",
+  "generated_at": "2026-10-25T18:01:27Z",
+  "model": "GPT-6",
+  "research_mode": "continuity-first evidence-gated catalyst-first with separate red-team pass",
+  "repository_commit": "a3c93fd96f4da456a737cd9a1191fd6c6a35d28e",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub main branch instructions, registry, trades and scanner",
+    "data/research_snapshot.csv",
+    "public opened issuer investor-relations and ad-hoc pages",
+    "public eToro Germany/EU delayed stock pages"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 25,
+    "primary": 14
+  },
+  "candidates": [
+    {
+      "ticker": "SDF.DE",
+      "company": "K+S Aktiengesellschaft",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The issuer verifies the November 10 report (16 days), but this is a binary earnings event with no current normalized 20-day price structure. The previously announced salt-business acquisition and bond/convertible financing introduce leverage and dilution questions. A reported weekly decline of about 8% is not evidence of support.",
+      "expectations": "Guidance and earlier financing/acquisition disclosures raise the earnings bar; the exact market consensus and revision history were not independently established.",
+      "priced_in": "Guidance and earlier financing/acquisition disclosures raise the earnings bar; the exact market consensus and revision history were not independently established.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "The issuer verifies the November 10 report (16 days), but this is a binary earnings event with no current normalized 20-day price structure. The previously announced salt-business acquisition and bond/convertible financing introduce leverage and dilution questions. A reported weekly decline of about 8% is not evidence of support.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Q3 2026 quarterly report at 07:00 CET for 2026-11-10; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://www.kpluss.com/en-us/investor-relations/events/ks-q3-2026-earnings-release/",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents SDF.DE as purchasable shares; delayed quote 12.91 EUR, market cap 2330000000, three-month average shares 1150000. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/sdf.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 12.91,
+        "market_cap": 2330000000,
+        "avg_dollar_volume": 14846500
+      },
+      "catalyst": {
+        "event": "Q3 2026 quarterly report at 07:00 CET",
+        "date": "2026-11-10",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.kpluss.com/en-us/investor-relations/events/ks-q3-2026-earnings-release/",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The November 13 report is verified (19 days), but July's preliminary Q2 beat and guidance increase already repriced expectations. No defensible breakout/retest stop and first target can be constructed from the zero-row canonical snapshot.",
+      "expectations": "The July preliminary Q2 improvement and higher full-year guidance are already public; additional surprise versus current estimates is unknown.",
+      "priced_in": "The July preliminary Q2 improvement and higher full-year guidance are already public; additional surprise versus current estimates is unknown.",
+      "risk_rating": "Medium",
+      "confidence": "Low",
+      "red_team_argument": "The November 13 report is verified (19 days), but July's preliminary Q2 beat and guidance increase already repriced expectations. No defensible breakout/retest stop and first target can be constructed from the zero-row canonical snapshot.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Q3 2026 quarterly statement and call for 2026-11-13; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents BC8.DE as purchasable shares; delayed quote 33.94 EUR, market cap 4310000000, three-month average shares 205525.85. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/bc8.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 33.94,
+        "market_cap": 4310000000,
+        "avg_dollar_volume": 6975547
+      },
+      "catalyst": {
+        "event": "Q3 2026 quarterly statement and call",
+        "date": "2026-11-13",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "DUE.DE",
+      "company": "Dürr AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Issuer event is verified (18 days), but delayed broker three-month value of about €2.14m/day is below the €3m non-US conditional minimum. The BBS Automation efficiency programme adds restructuring/execution uncertainty.",
+      "expectations": "The July efficiency programme and H1 information are public; no verified estimate-revision advantage offsets the weak liquidity.",
+      "priced_in": "The July efficiency programme and H1 information are public; no verified estimate-revision advantage offsets the weak liquidity.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Issuer event is verified (18 days), but delayed broker three-month value of about €2.14m/day is below the €3m non-US conditional minimum. The BBS Automation efficiency programme adds restructuring/execution uncertainty.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Nine-month 2026 interim statement and investor call for 2026-11-12; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://www.durr-group.com/en/investor-relations/financial-calendar",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents DUE.DE as purchasable shares; delayed quote 15.82 EUR, market cap 1100000000, three-month average shares 135080.02. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/due.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 15.82,
+        "market_cap": 1100000000,
+        "avg_dollar_volume": 2136966
+      },
+      "catalyst": {
+        "event": "Nine-month 2026 interim statement and investor call",
+        "date": "2026-11-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.durr-group.com/en/investor-relations/financial-calendar",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS Eventim AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The November 12 publication is verified (18 days), but the CFO departed immediately on September 30. H1 revenue growth of 16.9% and EBITDA growth of 12.4% are public and may be priced in; no defensible structure or 1.5R exists.",
+      "expectations": "Management retained 2026 growth expectations after H1; the governance shock and uncertain Q3 margins complicate expectations.",
+      "priced_in": "Management retained 2026 growth expectations after H1; the governance shock and uncertain Q3 margins complicate expectations.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "The November 12 publication is verified (18 days), but the CFO departed immediately on September 30. H1 revenue growth of 16.9% and EBITDA growth of 12.4% are public and may be priced in; no defensible structure or 1.5R exists.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Q3 2026 quarterly statement for 2026-11-12; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://corporate.eventim.de/en/investor-relations",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents EVD.DE as purchasable shares; delayed quote 57.25 EUR, market cap 5510000000, three-month average shares 289712.71. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/evd.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Issuer investor-relations news lists immediate CFO departure on 2026-09-30.",
+          "source_type": "primary",
+          "location": "https://corporate.eventim.de/investor-relations",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 57.25,
+        "market_cap": 5510000000,
+        "avg_dollar_volume": 16586053
+      },
+      "catalyst": {
+        "event": "Q3 2026 quarterly statement",
+        "date": "2026-11-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://corporate.eventim.de/en/investor-relations",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "AAG.DE",
+      "company": "Aumann AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Event verified (18 days), but roughly €140m market cap is below the €500m floor, and daily value around €0.12m is far below conditional liquidity. Broker availability cannot override both gates.",
+      "expectations": "No relevant consensus advantage established; low float and slippage overwhelm a pre-event thesis.",
+      "priced_in": "No relevant consensus advantage established; low float and slippage overwhelm a pre-event thesis.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Event verified (18 days), but roughly €140m market cap is below the €500m floor, and daily value around €0.12m is far below conditional liquidity. Broker availability cannot override both gates.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Nine-month interim statement for 2026-11-12; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://www.aumann.com/en/investor-relations/financial-calendar",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents AAG.DE as purchasable shares; delayed quote 12.04 EUR, market cap 139860000, three-month average shares 10057.62. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/aag.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 12.04,
+        "market_cap": 139860000,
+        "avg_dollar_volume": 121094
+      },
+      "catalyst": {
+        "event": "Nine-month interim statement",
+        "date": "2026-11-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.aumann.com/en/investor-relations/financial-calendar",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "VOW3.DE",
+      "company": "Volkswagen AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Verified October 29 event is four days away. The large-cap exception is not justified against core names; the September Future Plan was already public, and labour/tariff uncertainty remains. eToro public page omits current market cap and volume.",
+      "expectations": "A cost-restructuring story is known; a near-term earnings surprise and non-arbitrary setup have not been verified.",
+      "priced_in": "A cost-restructuring story is known; a near-term earnings surprise and non-arbitrary setup have not been verified.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Verified October 29 event is four days away. The large-cap exception is not justified against core names; the September Future Plan was already public, and labour/tariff uncertainty remains. eToro public page omits current market cap and volume.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Interim report January–September 2026 for 2026-10-29; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://www.volkswagen-group.com/en/publications-and-financial-calender-16121",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents VOW3.DE as purchasable shares; delayed quote 67.98 EUR, market cap not reported, three-month average shares not reported. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/vow3.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "catalyst": {
+        "event": "Interim report January–September 2026",
+        "date": "2026-10-29",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.volkswagen-group.com/en/publications-and-financial-calender-16121",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Issuer verifies November 25 (31 days), but the October 20 ad-hoc says subsidiary GCP acquired 20.04% of LEG Immobilien and could move toward 29.9% or sell. This materially changes exposure, financing and accounting; broker three-month value about €4.41m/day is near the conditional liquidity tier. A recent 8% weekly decline is not a constructive setup.",
+      "expectations": "The October 20 transaction and potential non-cash profit are public; post-deal leverage, look-through value and financing terms are insufficiently resolved.",
+      "priced_in": "The October 20 transaction and potential non-cash profit are public; post-deal leverage, look-through value and financing terms are insufficiently resolved.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Issuer verifies November 25 (31 days), but the October 20 ad-hoc says subsidiary GCP acquired 20.04% of LEG Immobilien and could move toward 29.9% or sell. This materially changes exposure, financing and accounting; broker three-month value about €4.41m/day is near the conditional liquidity tier. A recent 8% weekly decline is not a constructive setup.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Q3 2026 financial report for 2026-11-25; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/investor-relations",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents AT1.DE as purchasable shares; delayed quote 1.876 EUR, market cap 2150000000, three-month average shares 2350000. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/at1.de",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Issuer ad-hoc of 2026-10-20 reports GCP's 20.04% stake in LEG Immobilien and possible increase to 29.9% or sale.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/newsDetail/158333",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 1.876,
+        "market_cap": 2150000000,
+        "avg_dollar_volume": 4408600
+      },
+      "catalyst": {
+        "event": "Q3 2026 financial report",
+        "date": "2026-11-25",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.aroundtown.de/investor-relations",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "CROX",
+      "company": "Crocs, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Primary source verifies October 29, only four days away. Q2 already raised FY26 EPS outlook to $13.70–14.00; no current multi-session structure supports a defensible pre-earnings trade or 1.5R.",
+      "expectations": "Q3 issuer guidance was adjusted EPS $3.20–3.30 and roughly flat revenue; meeting an already-raised outlook may not surprise.",
+      "priced_in": "Q3 issuer guidance was adjusted EPS $3.20–3.30 and roughly flat revenue; meeting an already-raised outlook may not surprise.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Primary source verifies October 29, only four days away. Q2 already raised FY26 EPS outlook to $13.70–14.00; no current multi-session structure supports a defensible pre-earnings trade or 1.5R.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Q3 2026 results call at 08:30 ET for 2026-10-29; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://investors.crocs.com/news-and-events/press-releases/press-release-details/2026/Crocs-Inc--Announces-Conference-Call-to-Review-Third-Quarter-2026-Earnings-Results/default.aspx",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents CROX as purchasable shares; delayed quote 119.23 USD, market cap 5720000000, three-month average shares 1060000. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/crox",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Issuer Q2 release raised FY2026 adjusted EPS guidance to $13.70–14.00 and gave Q3 adjusted EPS guidance of $3.20–3.30.",
+          "source_type": "primary",
+          "location": "https://investors.crocs.com/news-and-events/press-releases/press-release-details/2026/Crocs-Inc--Reports-Record-Second-Quarter-2026-Results-Raises-Full-Year-2026-Outlook/default.aspx",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 119.23,
+        "market_cap": 5720000000,
+        "avg_dollar_volume": 126383800
+      },
+      "catalyst": {
+        "event": "Q3 2026 results call at 08:30 ET",
+        "date": "2026-10-29",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://investors.crocs.com/news-and-events/press-releases/press-release-details/2026/Crocs-Inc--Announces-Conference-Call-to-Review-Third-Quarter-2026-Earnings-Results/default.aspx",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "ELF",
+      "company": "e.l.f. Beauty, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Issuer announcement October 21 verifies November 4 (10 days). Fiscal Q1 revenue rose 36% and FY27 guidance was raised; valuation and expectations are demanding, while the canonical snapshot supplies no level basis. Earnings-gap and FX risk are unacceptable without a setup.",
+      "expectations": "Fiscal 2027 sales-growth guidance raised to 18–20% from 12–14%; prior 36% quarterly growth raises the market bar.",
+      "priced_in": "Fiscal 2027 sales-growth guidance raised to 18–20% from 12–14%; prior 36% quarterly growth raises the market bar.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Issuer announcement October 21 verifies November 4 (10 days). Fiscal Q1 revenue rose 36% and FY27 guidance was raised; valuation and expectations are demanding, while the canonical snapshot supplies no level basis. Earnings-gap and FX risk are unacceptable without a setup.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer page explicitly schedules Fiscal Q2 2027 results webcast at 16:30 ET for 2026-11-04; not yet completed as of 2026-10-25.",
+          "source_type": "primary",
+          "location": "https://investor.elfbeauty.com/stock-and-financial/press-releases/landing-news/2026/10-21-2026-213013959",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents ELF as purchasable shares; delayed quote 114.24 USD, market cap 6740000000, three-month average shares 1750000. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/elf",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Issuer Q1 FY2027 release reports 36% sales growth and raised FY2027 sales-growth outlook to 18–20%.",
+          "source_type": "primary",
+          "location": "https://investor.elfbeauty.com/stock-and-financial/press-releases/landing-news/2026/08-05-2026-210618204",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 114.24,
+        "market_cap": 6740000000,
+        "avg_dollar_volume": 199920000
+      },
+      "catalyst": {
+        "event": "Fiscal Q2 2027 results webcast at 16:30 ET",
+        "date": "2026-11-04",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://investor.elfbeauty.com/stock-and-financial/press-releases/landing-news/2026/10-21-2026-213013959",
+        "verified_at": "2026-10-25T18:01:27Z"
+      }
+    },
+    {
+      "ticker": "CELH",
+      "company": "Celsius Holdings, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No opened issuer document explicitly dates Q3 2026 results. The August Q2 release is a completed event, not a date source. The core-universe and broker checks pass but the future catalyst is unverified and integration/marketing costs are material.",
+      "expectations": "Q2 adjusted EBITDA fell 12% while revenue rose 11%, and gross margin fell 340bp; acquisition integrations and PepsiCo distribution are already public.",
+      "priced_in": "Q2 adjusted EBITDA fell 12% while revenue rose 11%, and gross margin fell 340bp; acquisition integrations and PepsiCo distribution are already public.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "No opened issuer document explicitly dates Q3 2026 results. The August Q2 release is a completed event, not a date source. The core-universe and broker checks pass but the future catalyst is unverified and integration/marketing costs are material.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Opened issuer source reports completed Q2 2026 results but does not verify a future Q3 2026 date.",
+          "source_type": "primary",
+          "location": "https://ir.celsiusholdingsinc.com/news/news-details/2026/Celsius-Holdings-Reports-Second-Quarter-2026-Financial-Results/default.aspx",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        },
+        {
+          "claim": "Public Germany/EU eToro page presents CELH as purchasable shares; delayed quote 28.47 USD, market cap 7200000000, three-month average shares 8660000. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/celh",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 28.47,
+        "market_cap": 7200000000,
+        "avg_dollar_volume": 246550200
+      }
+    },
+    {
+      "ticker": "RIVN",
+      "company": "Rivian Automotive, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No opened primary source verified a future catalyst date; the stock sits in the $10–50B exception bucket and is not demonstrably superior to core names. Capital needs, production/execution and dilution risk defeat a generic EV-theme thesis.",
+      "expectations": "EV production and financing expectations are material, but no current dated consensus or valid price structure was established.",
+      "priced_in": "EV production and financing expectations are material, but no current dated consensus or valid price structure was established.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "No opened primary source verified a future catalyst date; the stock sits in the $10–50B exception bucket and is not demonstrably superior to core names. Capital needs, production/execution and dilution risk defeat a generic EV-theme thesis.",
+      "pre_mortem": "The idea fails because the known catalyst is priced in or the event gaps against the thesis, while incomplete structure and financing evidence prevent a controlled exit.",
+      "evidence": [
+        {
+          "claim": "Public Germany/EU eToro page presents RIVN as purchasable shares; delayed quote 16.2 USD, market cap 23240000000, three-month average shares 29380000. Broker account-level order eligibility and executable spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/rivn",
+          "accessed_at": "2026-10-25T18:01:27Z"
+        }
+      ],
+      "market_data": {
+        "as_of": "2026-10-25T18:01:27Z",
+        "data_source": "Public delayed eToro Germany/EU page accessed on run date; approximate 3-month volume times displayed delayed price, not canonical 20-day ADV; no exchange quote timestamp supplied",
+        "price": 16.2,
+        "market_cap": 23240000000,
+        "avg_dollar_volume": 475956000
+      }
+    }
+  ]
+}
