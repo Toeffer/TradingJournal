@@ -1,0 +1,475 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-10-25",
+  "generated_at": "2026-10-25T21:39:00Z",
+  "model": "Claude Opus 5",
+  "research_mode": "continuity-first, catalyst-first discovery; Stage 2 verification gate FAILED on evidence access, so every lead is held at lead tier and rejected",
+  "repository_commit": "cf7fcd950bd87ff54ae853a7ce7c5f2f9f42a78b",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository snapshot data/research_snapshot.csv (0 rows)",
+    "repository recommendation registry and append-only review ledger",
+    "repository trades.csv and data/proposals.csv",
+    "local scanner reports 2026-10-20..2026-10-24 (0 candidates at score >= 60)",
+    "research/candidates-2026-10-25.md (earlier same-day run, lead tier only)",
+    "web search result summaries (lead tier only; no page could be opened)",
+    "BLOCKED: all issuer-IR, exchange, broker and market-data hosts (network policy)",
+    "BLOCKED: page-fetch tool (no DNS resolution)"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 0,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "KRN.DE",
+      "company": "Krones AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date is secondary_only, not verified. A web-search summary reports the Krones investor calendar listing a Q3 2026 statement and earnings call on 2026-11-06 (12 days out, inside ACTIONABLE_CATALYST_DAYS=21), and the same summary gives conflicting market caps across sources (~EUR 3.68-3.7bn, USD 4.08bn, USD 4.238B, plus one 1.10B figure the summary itself calls likely erroneous). Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived. Nothing here is a Krones-specific objection: the lead is plausible and core-universe on its face, and it should be re-run first next week.",
+      "red_team_argument": "No company-specific attack was reachable. The fatal objections are procedural: an unopened calendar date cannot be traded against, a conflicting third-party market cap cannot clear the 500M-10B gate, and with a 0-row snapshot no 20-day high, swing low or ATR exists, so any entry/stop/target would be invented rather than derived. The honest verdict is REJECT this week, not a weaker idea.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Krones AG Q3 2026 earnings release and earnings call are listed for 2026-11-06, with Q4 following 2027-02-25; FY2026 guidance is 3-5% currency-adjusted revenue growth, 10.7-11.1% EBITDA margin, ROCE 19-20%; Q2 2026 revenue was just under EUR 1.34bn with order backlog of EUR 4.3bn.",
+          "source_type": "reputable_secondary",
+          "location": "web-search result summary citing https://app.boersengefluester.de/en/newswire/DE0006335003/krones-ag/ (page NOT opened: host unreachable under this session's network policy, so the issuer calendar itself was never read)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Reported market capitalisation for Krones AG is inconsistent across third-party aggregators (~EUR 3.68-3.7bn mid-2026, USD 4.08bn, USD 4.238B, and one 1.10B figure flagged as probably an ADR artefact or error). No dated structured source could be opened to settle it.",
+          "source_type": "reputable_secondary",
+          "location": "web-search result summary citing https://app.parqet.com/en/assets/krones-DE0006335003 (page NOT opened: host unreachable under this session's network policy, so the issuer calendar itself was never read)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "FNTN.DE",
+      "company": "freenet AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date is secondary_only, not verified. A web-search summary reports freenet's financial calendar listing the nine-month statement for 2026-11-11 after the close (17 days out), and flags that the issuer page marks dates subject to change. Third-party market caps cluster around EUR 3.2-3.5bn, which would be core-universe, but come from undated aggregator snapshots. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "A post-close telecom nine-month statement is a routine, low-surprise event; even fully verified it would more likely support `monitor` than an entry. Combined with an unopened calendar, an explicitly provisional date and no price structure at all, REJECT is the only defensible verdict this week.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "freenet AG's financial calendar lists the nine-month statement for 2026-11-11, published after the close of regular XETRA trading, with the issuer page noting dates are subject to change.",
+          "source_type": "reputable_secondary",
+          "location": "web-search result summary citing https://www.freenet.ag/en/investor-relations/financial-calendar/index.html (page NOT opened: host unreachable under this session's network policy, so the issuer calendar itself was never read)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "freenet AG (XETR:FNTN) third-party market capitalisation snapshots: ~EUR 3.54bn at EUR 29.76/share on one undated page, ~EUR 3.21bn at EUR 26.98 on an older snapshot, and EUR 3,151m at March 2026 on another table.",
+          "source_type": "reputable_secondary",
+          "location": "web-search result summary citing https://www.tradingview.com/symbols/XETR-FNTN/ (page NOT opened: host unreachable under this session's network policy, so the issuer calendar itself was never read)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "WCH.DE",
+      "company": "Wacker Chemie AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date is secondary_only, not verified. A web-search summary reports the Wacker Chemie financial calendar listing Q3 2026 results for 2026-10-29 - four days out, inside ACT_NOW_DAYS=7. No market cap or liquidity figure was obtainable at all, so neither the 500M-10B universe gate nor the EUR-equivalent liquidity tier could be tested. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Four days to a binary chemicals print with no verified date, no size or liquidity check and no structure is the textbook case the brief's own 'a future event date is not itself a current setup' rule exists to stop. Even with a verified date this would be at most a post-earnings-drift watch after the print, never a pre-event entry.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Wacker Chemie's financial calendar lists Q3 2026 Results for 2026-10-29.",
+          "source_type": "reputable_secondary",
+          "location": "web-search result summary citing https://www.wacker.com/cms/en-us/investor-relations/events/financial-calender.html (page NOT opened: host unreachable under this session's network policy, so the issuer calendar itself was never read)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SDF.DE",
+      "company": "K+S Aktiengesellschaft",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. Leverage and dilution questions from the announced salt-business acquisition and the bond/convertible financing remain unresolved in this run, and the three-month average value cited is not a 20-day ADV. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Re-asserting another run's issuer and broker figures as this run's evidence would be the precise failure the source policy forbids - a prior report is a lead, not verification. With no primary source openable and no structured market data, the object cannot be promoted, so it leaves this run as a documented lead for the next one.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: the earlier report cited an issuer-confirmed Q3 2026 quarterly report on 2026-11-10 at 07:00 CET (16 days out) and delayed eToro figures of EUR 12.91, EUR 2.33bn market cap and ~EUR 14.85m three-month daily value, alongside salt-acquisition and bond/convertible financing overhangs. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. The cited ~EUR 6.98m three-month daily value sits in the conditional, not preferred, non-US liquidity tier, and July's preliminary Q2 beat plus raised guidance may already be in the price. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Re-asserting another run's issuer and broker figures as this run's evidence would be the precise failure the source policy forbids - a prior report is a lead, not verification. With no primary source openable and no structured market data, the object cannot be promoted, so it leaves this run as a documented lead for the next one.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: the earlier report cited an issuer-confirmed Q3 2026 quarterly statement and call on 2026-11-13 (19 days out) and delayed eToro figures of EUR 33.94, EUR 4.31bn market cap and ~EUR 6.98m three-month daily value. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DUE.DE",
+      "company": "Duerr AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. Independently of the verification failure, the cited ~EUR 2.14m daily value is below the EUR 3m floor of even the conditional non-US liquidity tier, so this name fails the broker overlay on liquidity as well. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Re-asserting another run's issuer and broker figures as this run's evidence would be the precise failure the source policy forbids - a prior report is a lead, not verification. With no primary source openable and no structured market data, the object cannot be promoted, so it leaves this run as a documented lead for the next one.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: the earlier report cited an issuer-confirmed nine-month 2026 interim statement and investor call on 2026-11-12 (18 days out) and delayed eToro figures of EUR 15.82, EUR 1.10bn market cap and ~EUR 2.14m three-month daily value. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS Eventim AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. The unresolved governance change (CFO departing immediately on 2026-09-30) is exactly the kind of fact that needs a primary filing to assess, and that could not be opened here. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Re-asserting another run's issuer and broker figures as this run's evidence would be the precise failure the source policy forbids - a prior report is a lead, not verification. With no primary source openable and no structured market data, the object cannot be promoted, so it leaves this run as a documented lead for the next one.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: the earlier report cited an issuer-confirmed Q3 2026 quarterly statement on 2026-11-12 (18 days out), delayed eToro figures of EUR 57.25, EUR 5.51bn market cap and ~EUR 16.59m three-month daily value, and a CFO departure effective 2026-09-30. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. At 31 days out this sits in the 22-42 day DISCOVERY_CATALYST_DAYS band, so even a verified date would buy only Early Watch and never an entry; the cited ~EUR 4.41m daily value is conditional-tier; and the LEG stake disclosure materially changes exposure, financing and accounting in a way no opened filing could be checked against here. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Re-asserting another run's issuer and broker figures as this run's evidence would be the precise failure the source policy forbids - a prior report is a lead, not verification. With no primary source openable and no structured market data, the object cannot be promoted, so it leaves this run as a documented lead for the next one.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: the earlier report cited an issuer-confirmed Q3 2026 financial report on 2026-11-25, delayed eToro figures of EUR 1.876, EUR 2.15bn market cap and ~EUR 4.41m three-month daily value, and a 2026-10-20 ad-hoc disclosure that subsidiary GCP had acquired 20.04% of LEG Immobilien with scope to move toward 29.9% or sell. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CROX",
+      "company": "Crocs, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. That report cited an issuer press release scheduling the Q3 2026 results call for 2026-10-29 at 08:30 ET - four days out, inside ACT_NOW_DAYS=7 - with delayed eToro figures of USD 119.23, USD 5.72bn market cap and ~USD 126.38m three-month daily value, and Q3 guidance of adjusted EPS USD 3.20-3.30 on roughly flat revenue after Q2 raised FY26 EPS to USD 13.70-14.00. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Even on the prior run's own figures this is a binary print four days away against an already-raised outlook, which is anticipation rather than confirmation. The only honest route into this name is post-earnings-drift after 2026-10-29, which requires gap data this run cannot obtain. REJECT now; re-examine as a drift candidate next week.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: an issuer press release scheduling the Crocs Q3 2026 results conference call for 2026-10-29 at 08:30 ET, with delayed eToro figures of USD 119.23, USD 5.72bn market cap and ~USD 126.38m three-month daily value. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ELF",
+      "company": "e.l.f. Beauty, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Carried as a repository lead from the 19:05 same-day run, not re-verified here. That report cited a 2026-10-21 issuer announcement scheduling the fiscal Q2 2027 results webcast for 2026-11-04 at 16:30 ET (10 days out), with delayed eToro figures of USD 114.24, USD 6.74bn market cap and ~USD 199.92m three-month daily value, after fiscal Q1 revenue rose 36% and FY27 sales-growth guidance was raised to 18-20% from 12-14%. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "This ticker already failed once in the journal's own history: trade 2026-0012 was an ELF pre-earnings long closed the next day for +0.33R, and the book's rule is that a repeated thesis needs something genuinely different. Nothing is different here - the same demanding expectations, the same binary date, and this time not even a verified one.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: a 2026-10-21 issuer announcement scheduling the e.l.f. Beauty fiscal Q2 2027 results webcast for 2026-11-04 at 16:30 ET, with delayed eToro figures of USD 114.24, USD 6.74bn market cap and ~USD 199.92m three-month daily value. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "The same thesis shape already failed in this journal: trade 2026-0012 was a long in ELF ahead of a Q2 FY earnings catalyst, opened 2026-07-01 at 74.39 and closed 2026-07-02 at 76.17 for +0.33R, with the catalyst date itself recorded as speculated and unverified.",
+          "source_type": "repository",
+          "location": "trades.csv row 2026-0012",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CELH",
+      "company": "Celsius Holdings, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No dated future catalyst exists for this name even as a lead: the 19:05 run searched and found no issuer document dating Q3 2026 results, and this run could open nothing at all. A lead with no dated event inside the 42-day discovery horizon fails discovery.md outright, before the verification blocker is reached. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "CELH also already failed in this journal - trade 2026-0016 lost 1.04R on a scanner breakout, and was additionally flagged as having been opened as a 2x leveraged CFD against the MASTERPLAN meta-rules. Re-entering a name that has failed once, with no dated catalyst and no price structure, would be sunk-cost research rather than evidence.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: no issuer-verified future catalyst date could be found for Celsius Holdings; the August Q2 release is a completed event and not a date source. Delayed eToro figures cited were USD 28.47, USD 7.20bn market cap and ~USD 246.55m three-month daily value. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "The same ticker already failed in this journal: trade 2026-0016 was a long in CELH opened 2026-07-06 at 33.16 on a scanner breakout and closed 2026-07-08 at 30.98 for -1.04R, with a note that the broker record implies it was opened as a 2x-leveraged CFD, which MASTERPLAN.md permanently excludes.",
+          "source_type": "repository",
+          "location": "trades.csv row 2026-0016",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "RIVN",
+      "company": "Rivian Automotive, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Fails discovery on two independent grounds before verification is even reached. No dated future catalyst exists for it as a lead, and at the ~USD 23bn market cap the prior run cited it sits in the 10-50B larger-cap exception bucket, which ETORO_TRADEABILITY.md admits only when the setup is clearly stronger than available core-universe candidates - and this run has no setup for any name. Stage 2 verification could not be executed in this run: the session network policy denied CONNECT to every issuer-IR, exchange and market-data host tried (stooq.com, finance.yahoo.com, query1/query2.finance.yahoo.com, www.boerse-frankfurt.de, api.nasdaq.com, www.alphavantage.co, api.twelvedata.com, financialmodelingprep.com, eodhd.com, api.marketdata.app, www.investing.com), and the page-fetch tool had no DNS resolution at all. No primary source was opened, so the catalyst date cannot rise above `secondary_only`; verification.md admits only `verified` dates to Actionable or Early Watch. eToro availability could not be verified either, which ETORO_TRADEABILITY.md treats as an outright rejection. The canonical snapshot carries 0 rows and no dated structured provider was reachable, so market cap, liquidity and multi-session structure were all unavailable and no setup, stop or target could be derived.",
+      "red_team_argument": "Without its EV theme this object would not survive a single screen: no dated event, outside the core universe, and carrying capital-needs and dilution risk that a thematic story does not offset. It is a lead only because a prior report mentioned it, which is explicitly not a reason to keep researching.",
+      "next_review_date": "2026-11-01",
+      "evidence": [
+        {
+          "claim": "Lead carried from the earlier same-day run: no issuer-verified future catalyst date could be found for Rivian; delayed eToro figures cited were USD 16.2, USD 23.24bn market cap and ~USD 475.96m three-month daily value, placing it in the 10-50B larger-cap exception bucket. That report's issuer-page and eToro figures were not re-derived in this run and are treated as a repository lead, not as verified evidence; RESEARCH_BRIEF.md states a prior report can create a lead but cannot verify a final date.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-10-25.md (19:05 run, model GPT-6)",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Canonical structured market-data input for this run is empty: data/research_snapshot.csv holds 0 rows (header only), sha256 564467de...a81334, rebuilt 2026-10-25T21:36:25Z. The newest scanner observation in data/scanner_signals.csv is dated 2026-10-07, outside the 7-day SCANNER_LOOKBACK_DAYS window, which is why the snapshot is empty.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv + data/research_snapshot.meta.json",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        },
+        {
+          "claim": "Network-policy denial record for this session: the agent proxy logged connect_rejected (gateway 403) for stooq.com, query1/query2.finance.yahoo.com, finance.yahoo.com, www.alphavantage.co, api.nasdaq.com, www.boerse-frankfurt.de, api.marketdata.app, eodhd.com, www.investing.com, api.twelvedata.com and financialmodelingprep.com. The page-fetch tool returned getaddrinfo ENOTFOUND for every host attempted.",
+          "source_type": "other",
+          "location": "agent proxy status endpoint $HTTPS_PROXY/__agentproxy/status (recentRelayFailures) + WebFetch tool errors recorded in this run",
+          "published_at": null,
+          "accessed_at": "2026-10-25T21:39:00Z"
+        }
+      ]
+    }
+  ]
+}
