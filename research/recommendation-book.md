@@ -4,12 +4,19 @@ Auto-generated from `data/recommendations.csv`. Research decisions are not trade
 
 ## Current decision load
 
-- Active recommendations: 0
+- Active recommendations: 1
 - Archived/removed recommendations: 3
+- Actions: monitor: 1
 
 ## Active recommendations
 
-No active recommendations. A no-new-trade week is a valid decision.
+| Ticker | Status | This week | Setup | Trigger | Expiry | Stop | Target | Next review |
+|---|---|---|---|---:|---|---:|---:|---|
+| TUI1.DE | new | monitor | — | — | — | — | — | 2026-11-08 |
+
+### Decision reasons
+
+- **TUI1.DE** — monitor: FY2026 results on Dec 9 are primary-source verified 38 days ahead; eToro XETRA stock, core cap and preferred volume pass. Sep 22 guidance was already tightened, but canonical snapshot has no TUI 20-session structure. Monitor only, no trade levels.
 
 ## Recently removed
 
