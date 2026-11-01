@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-01",
+  "generated_at": "2026-11-01T21:45:00Z",
+  "model": "Claude Opus 5 (claude-opus-5, Claude Code cloud session) - second same-day run, 21:45 UTC",
+  "research_mode": "continuity-first; catalyst-first discovery (one eligible 7-day scanner lead, so scanner-first not permitted); verification gate FAILED on environment - no outbound host except GitHub/Anthropic/package registries resolved, so zero primary sources were opened and no lead could reach date_status=verified; separate skeptical red-team pass; outcome NO NEW TRADE",
+  "repository_commit": "4244022dd2ff72933b9d2a9d6f85559ec0537cc3",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository:data/research_snapshot.csv",
+    "repository:research/snapshots/research_snapshot-2026-11-01.csv",
+    "repository:data/scanner_signals.csv",
+    "repository:data/market_regime.csv",
+    "repository:data/eu_quote_history.csv (last dated 2026-10-16)",
+    "repository:research/scans (US 2026-10-29..31; EU latest 2026-10-16)",
+    "repository:trades.csv, data/proposals.csv, data/recommendations.csv, data/recommendation_reviews.csv",
+    "repository:prior candidate reports and manifests (2026-09-06..2026-11-01)",
+    "web_search:snippets only (leads, never verification)",
+    "BLOCKED:web_fetch - every external host failed DNS (tuigroup.com, sec.gov, finance.yahoo.com, stooq.com)",
+    "BLOCKED:mcp_fmp - server exposed no tools",
+    "BLOCKED:mcp_quartr - server exposed no tools"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "e1c8d8d786f0e04c2174591fc1194d8443aef3e7b1d4034c42e06cd7c6ae2a13",
+  "source_counts": {
+    "opened": 0,
+    "primary": 0
+  },
+  "candidates": [
+    {
+      "ticker": "LHA.DE",
+      "company": "Deutsche Lufthansa AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: the Q3 interim report is reported for 2026-11-03, i.e. a binary earnings event two days into the decision window, with no normalized multi-session structure in the one-row canonical snapshot and only a 2026-10-16 repository close; fuel/FX/capacity gap risk is unquantified and the newest regime read is defensive.",
+      "evidence": [
+        {
+          "claim": "Multiple financial calendars and a dpa-AFX week preview place the Lufthansa Q3 2026 interim report on 2026-11-03; no time of day corroborated and the issuer calendar could not be opened.",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: aktiencheck dpa-AFX 'WOCHENVORSCHAU: Termine bis 11. November 2026'; in.marketscreener.com Lufthansa calendar; ch.zonebourse.com Lufthansa agenda (pages not opened - hosts blocked)",
+          "published_at": "2026-10-30",
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "Last dated repository close 2026-10-16: 7.186 EUR on 3,575,686 shares (approx. EUR 25.7m/day), core market-cap bucket; 16 days stale.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (ticker LHA.DE, date 2026-10-16)",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NDX1.DE",
+      "company": "Nordex SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: preliminary Q3 EBITDA of roughly EUR 278m has already been published, so the 2026-11-05 release is largely pre-announced - the surprise is reduced while the expectations bar is raised. No current structure exists for a stop or target.",
+      "evidence": [
+        {
+          "claim": "Secondary sources report Nordex will publish full Q3 2026 results on Thursday 2026-11-05 and that a preliminary Q3 EBITDA of about EUR 278m was already reported.",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: boerse-express.com 'Nordex Aktie: Quartalsbericht am 5. November'; ad-hoc-news.de corporate-news item; finanzen.net/termine/nordex (pages not opened - hosts blocked)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "Last dated repository close 2026-10-16: 39.14 EUR on 1,382,285 shares (approx. EUR 54m/day), core market-cap bucket; 16 days stale.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (ticker NDX1.DE, date 2026-10-16)",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "JEN.DE",
+      "company": "Jenoptik AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: the 2026-11-10 nine-month date rests on a single secondary source (unverified), the repository's own last dated turnover of about EUR 4.2m/day is below the EUR/USD 5m preferred floor for non-US names (conditional tier only, which requires a verified catalyst this run cannot provide), and the 2026 EBITDA-margin target was already raised to ~22%.",
+      "evidence": [
+        {
+          "claim": "A single secondary source reports Jenoptik nine-month figures on 2026-11-10 and an EBITDA-margin guidance raise to about 22% for 2026.",
+          "source_type": "other",
+          "location": "Web search result: ad-hoc-news.de 'Jenoptik-Aktie profitiert von hoeherem Margenziel und starkem Quartal' (page not opened - host blocked)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "Last dated repository close 2026-10-16: 36.64 EUR on 114,623 shares (approx. EUR 4.2m/day), below the non-US preferred liquidity floor.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (ticker JEN.DE, date 2026-10-16)",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "S92.DE",
+      "company": "SMA Solar Technology AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: liquidity of roughly EUR 6.0m/day only just clears the non-US floor on 16-day-old data, guidance risk around the 2026-11-12 statement is two-sided, and no multi-session structure is available for an entry, stop or target.",
+      "evidence": [
+        {
+          "claim": "Several secondary sources report the SMA Solar January-September 2026 quarterly statement on 2026-11-12 with an analyst call at 13:30 CET.",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: wallstreet-online.de SMA Solar share page; ad-hoc-news.de 'SMA Solar sets November 12 results' and related items (pages not opened - hosts blocked)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "Last dated repository close 2026-10-16: 57.65 EUR on 104,151 shares (approx. EUR 6.0m/day), core market-cap bucket; 16 days stale.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (ticker S92.DE, date 2026-10-16)",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "routine+scanner_seed",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: no date for the FY2026 annual results could be corroborated at all (unverified), and the only price signal is a 2026-08-13 scanner breakout far outside the 7-day lookback - a stale observation that discovery.md forbids using as breadth padding.",
+      "evidence": [
+        {
+          "claim": "The only scanner observation for TKA.DE is dated 2026-08-13 (price 13.525, +9.07%, rel-vol 3.14x, above 20d and 50d high, score 70) - outside the 7-day scanner lookback and therefore a lead only.",
+          "source_type": "repository",
+          "location": "data/scanner_signals.csv (ticker TKA.DE, timestamp 2026-08-13T18:27:12+0200)",
+          "published_at": "2026-08-13",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        },
+        {
+          "claim": "Last dated repository close 2026-10-16: 14.35 EUR on 1,853,269 shares (approx. EUR 26.6m/day), core market-cap bucket; no FY2026 results date corroborated by any source reached in this run.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (ticker TKA.DE, date 2026-10-16)",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected as an ENTRY for this run only, not invalidated as a research object. No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. The FY2026 results date of 2026-12-09 was primary-source verified by the 18:00Z run today (research/manifests/candidates-2026-11-01.json); this run could not re-open that issuer page, so it cannot assert EARLY_WATCH on its own evidence. The active recommendation REC-TUI1-2026-1101 is therefore retained in data/recommendations.csv at status `carry` / action `monitor` on the earlier verified review, with next review 2026-11-08 unchanged. No entry, stop, target or planned R exists; the catalyst is 38 days out with no nearer verified trigger, the September 22 pre-close update already narrowed FY26 underlying EBIT guidance to EUR 1.2-1.3bn, and the tape is defensive.",
+      "evidence": [
+        {
+          "claim": "Active recommendation REC-TUI1-2026-1101 was created today at 2026-11-01T18:00:00Z with status `new`, action `monitor`, reference price 6.956 EUR and catalyst date 2026-12-09; this run reviewed it and appended a `carry`/`monitor` row rather than changing its levels.",
+          "source_type": "repository",
+          "location": "data/recommendations.csv and data/recommendation_reviews.csv (REC-TUI1-2026-1101, REV-2026-11-01-TUI1-001)",
+          "published_at": "2026-11-01",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        },
+        {
+          "claim": "Repository's own last dated close for TUI1.DE is 6.754 EUR on 2026-10-16 with 1,791,905 shares (approx. EUR 12.1m/day); the 6.956 EUR reference price is the earlier run's delayed broker display, not re-opened here.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (ticker TUI1.DE, date 2026-10-16)",
+          "published_at": "2026-10-16",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SOFI",
+      "company": "SoFi Technologies, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific and decisive on its own: the Q3 2026 catalyst already occurred on 2026-10-27, and the snapshot plus the scanner's own next-session return show roughly +21% over two sessions (16.405 then about +7.35%). A `post-earnings-drift` setup needs a formed consolidation and a gap-day-low stop; the Oct 29 and Oct 30 OHLC needed to locate either is unobtainable in this run, so any trigger would be an arbitrary number on an extended chase. Market cap of roughly USD 21.6bn also places it in the 10-50bn exception bucket, which a post-event chase does not earn.",
+      "evidence": [
+        {
+          "claim": "Canonical snapshot row: SOFI at 16.405 USD, +13.45% on the session, relative volume 2.91x, above the 20-day high, 20-day average dollar volume about USD 28.7m, regime tag defensive; the only lead inside the 7-day scanner lookback.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv (SOFI, as_of 2026-10-28T00:45:07+0100) / research/snapshots/research_snapshot-2026-11-01.csv, sha256 e1c8d8d786f0e04c2174591fc1194d8443aef3e7b1d4034c42e06cd7c6ae2a13",
+          "published_at": "2026-10-28",
+          "accessed_at": "2026-11-01T21:36:14Z"
+        },
+        {
+          "claim": "Scanner ledger records a one-day forward return of +7.35% after that observation and no later SOFI row; US scans for 2026-10-29, 10-30 and 10-31 recorded no candidate at or above the alert threshold.",
+          "source_type": "repository",
+          "location": "data/scanner_signals.csv (SOFI 2026-10-28 row) and research/scans/scan-2026-10-29-0059.md, scan-2026-10-30-0055.md, scan-2026-10-31-0043.md",
+          "published_at": "2026-10-31",
+          "accessed_at": "2026-11-01T21:38:00Z"
+        },
+        {
+          "claim": "Secondary coverage confirms Q3 2026 was reported 2026-10-27 with adjusted revenue about USD 1.37bn, adjusted EPS USD 0.18, FY26 adjusted revenue guidance raised to about USD 5.04bn and preliminary 2027 targets - i.e. the good news is public and the move is a reaction, not an anticipation.",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: investing.com Q3 2026 earnings-call transcript item; seekingalpha.com news 4657752; tikr.com and chartmill.com Q3 items (pages not opened - hosts blocked)",
+          "published_at": "2026-10-27",
+          "accessed_at": "2026-11-01T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "COGT",
+      "company": "Cogent Biosciences, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: 2026-11-30 is 29 days out, which at best is the Early Watch band that requires a verified date. It is a binary FDA decision, which RISK_RULES.md caps at EUR 75 and defaults to a pre-event exit; a second PDUFA date around 2026-12-30 and a 2027 AdvSM date make the news flow lumpy; and no dated structured quote or market cap could be obtained (search-derived caps range USD 5.5-6.8bn and are stale), so neither bucket nor liquidity can be confirmed.",
+      "evidence": [
+        {
+          "claim": "Secondary FDA calendars and dated news report a priority-review PDUFA date of 2026-11-30 for bezuclastinib in GIST, a separate NonAdvSM date of 2026-12-30, and an AdvSM date in June 2027, with no advisory committee planned.",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: marketbeat.com/stocks/NASDAQ/COGT/fda-events; rttnews.com bezuclastinib NDA item; biopharmawatch.com COGT item (pages not opened - hosts blocked)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "No dated structured market data could be obtained for COGT in this run; search-derived market caps of USD 5.5-6.8bn are undated or months old and are recorded as context only, not as a market-data source.",
+          "source_type": "other",
+          "location": "Web search results only (finance.yahoo.com, stocktitan.net, panabee.com items; hosts blocked, pages not opened)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BBIO",
+      "company": "BridgeBio Pharma, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: the 2026-11-27 PDUFA date is only available via a calendar's summary of an 8-K that could not be opened, no dated quote or market cap is obtainable so the 10-50bn exception test cannot even be applied, and the event is a binary approval decision with no measurable structure.",
+      "evidence": [
+        {
+          "claim": "An aggregator reports a priority-review PDUFA date of 2026-11-27 for BBP-418, citing an SEC 8-K that could not be opened in this run.",
+          "source_type": "other",
+          "location": "Web search results: catalyst-ventures.eu/catalysts/event/SECREG-BBIO-PDUFA-2026-11-27 (page not opened - host blocked)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "No dated structured market data, market cap or average dollar volume could be obtained for BBIO in this run.",
+          "source_type": "other",
+          "location": "No reachable market-data source (all providers blocked by session network policy)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CAPR",
+      "company": "Capricor Therapeutics, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: the deramiocel action date was already pushed from 2026-08-22 to 2026-11-22 after the FDA treated the submission as a major amendment, which is itself evidence of review risk; the company is plausibly at or below the USD 500m universe floor with thin liquidity, and neither could be confirmed from a dated source here; and it is a binary decision with no structure.",
+      "evidence": [
+        {
+          "claim": "Secondary sources summarising an 8-K report that the FDA extended the deramiocel BLA action date from 2026-08-22 to 2026-11-22 after treating the submission as a major amendment (three-month extension).",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: sec.gov/Archives/edgar/data/0001133869/000110465926100071/capr-20260824x8k.htm surfaced but NOT opened (host blocked); catalystalert.io/pdufa and biopharmawatch.com PDUFA calendar",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "No dated structured market data, market cap or average dollar volume could be obtained for CAPR in this run, so the USD 500m market-cap floor and the USD 25m liquidity floor cannot be tested.",
+          "source_type": "other",
+          "location": "No reachable market-data source (all providers blocked by session network policy)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SVRA",
+      "company": "Savara Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific: the 2026-11-22 molgramostim date rests on a single aggregator that also publishes modelled approval odds (unverified), no dated market data is obtainable, and the event is binary with no measurable structure.",
+      "evidence": [
+        {
+          "claim": "A single aggregator lists a 2026-11-22 PDUFA date for Savara's molgramostim alongside modelled approval odds; no issuer document was reachable.",
+          "source_type": "other",
+          "location": "Web search results: PDUFA aggregator calendars (catalyst-ventures.eu, biopharmawatch.com); pages not opened - hosts blocked",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "No dated structured market data, market cap or average dollar volume could be obtained for SVRA in this run.",
+          "source_type": "other",
+          "location": "No reachable market-data source (all providers blocked by session network policy)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HURN",
+      "company": "Huron Consulting Group Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No primary source could be opened in this run: the session network policy resolves only GitHub/Anthropic/package-registry hosts, so issuer IR pages, sec.gov, exchange/index notices and market-data hosts all failed at DNS, and the FMP/Quartr MCP servers exposed no tools. Per research_method/verification.md a search snippet cannot verify a date, so date_status cannot reach `verified` and neither ACTIONABLE nor EARLY_WATCH is permissible. Name-specific and decisive on its own: this special situation is already over. The S&P SmallCap 600 addition was announced on 2026-10-22 and takes effect before the open on 2026-11-02, so the mechanical index demand clears at the 2026-10-30 close. Entering on the effective date buys the exit of the flow, and no dated quote or liquidity figure is obtainable to size or stop it.",
+      "evidence": [
+        {
+          "claim": "An S&P Dow Jones Indices announcement dated 2026-10-22 names Huron Consulting Group as an S&P SmallCap 600 addition effective prior to the opening of trading on Monday 2026-11-02.",
+          "source_type": "reputable_secondary",
+          "location": "Web search results: spglobal.com/spdji index-news announcement 20261022-1485639 and placera.se press release mirror (PDF/pages not opened - hosts blocked)",
+          "published_at": "2026-10-22",
+          "accessed_at": "2026-11-01T21:41:00Z"
+        },
+        {
+          "claim": "No dated structured market data, market cap or average dollar volume could be obtained for HURN in this run.",
+          "source_type": "other",
+          "location": "No reachable market-data source (all providers blocked by session network policy)",
+          "published_at": null,
+          "accessed_at": "2026-11-01T21:41:00Z"
+        }
+      ]
+    }
+  ]
+}

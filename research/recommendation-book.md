@@ -12,11 +12,11 @@ Auto-generated from `data/recommendations.csv`. Research decisions are not trade
 
 | Ticker | Status | This week | Setup | Trigger | Expiry | Stop | Target | Next review |
 |---|---|---|---|---:|---|---:|---:|---|
-| TUI1.DE | new | monitor | — | — | — | — | — | 2026-11-08 |
+| TUI1.DE | carry | monitor | — | — | — | — | — | 2026-11-08 |
 
 ### Decision reasons
 
-- **TUI1.DE** — monitor: FY2026 results on Dec 9 are primary-source verified 38 days ahead; eToro XETRA stock, core cap and preferred volume pass. Sep 22 guidance was already tightened, but canonical snapshot has no TUI 20-session structure. Monitor only, no trade levels.
+- **TUI1.DE** — monitor: Second same-day run (Claude Opus 5, 21:45 UTC): no material change since the 18:00Z review. No trading session has opened in between, the FY2026 results date 2026-12-09 (38 days) is unchanged, and search surfaced no new issuer disclosure. This run could NOT independently re-open the issuer page or the broker page - the session network policy blocks every outbound host except GitHub/Anthropic - so the earlier primary-source verification stands and is not re-asserted here. Still Early Watch distance with no nearer verified trigger and no multi-session XETRA structure in the one-row canonical snapshot; regime is defensive (Oct 31 scan: SPY 755.72 vs 50d 767.48, breadth 22.6%). Monitor only, no trade levels.
 
 ## Recently removed
 
