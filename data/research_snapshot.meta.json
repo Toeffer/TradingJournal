@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-04T00:35:29.283428+00:00",
+  "generated_at": "2026-11-05T00:52:49.991587+00:00",
   "research_snapshot_lookback_days": 7,
-  "row_count": 0,
+  "row_count": 1,
   "schema_version": 2,
-  "sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "sha256": "62577ba2c3eec6010d4a35f6c0d93606113ae51523f1b54880113a885fa66e4b",
   "source_files": [
     "data/scanner_signals.csv",
     "data/market_regime.csv",

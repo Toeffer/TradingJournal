@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-11-04 00:35 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-11-05 00:52 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -9,10 +9,10 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 ## Coverage
 
-- Signals recorded: 44
+- Signals recorded: 45
 - With 1-day outcome: 44
 - With 10-day outcome: 43
-- With 21-day context outcome: 41
+- With 21-day context outcome: 42
 
 ## Outcomes by score bucket
 
@@ -23,11 +23,11 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 8 | -1.78% | -2.61% | 25% | +3.81% | -4.50% |
 |  |  | 10d | primary | 8 | +0.60% | -0.83% | 50% | +11.67% | -5.50% |
 |  |  | 21d | context | 8 | -7.39% | -6.86% | 25% | +9.44% | -28.21% |
-| 60-69 | 26 | 1d | primary | 26 | -0.77% | -0.03% | 46% | +7.35% | -13.15% |
+| 60-69 | 27 | 1d | primary | 26 | -0.77% | -0.03% | 46% | +7.35% | -13.15% |
 |  |  | 3d | primary | 26 | -1.15% | -0.28% | 46% | +6.63% | -9.72% |
-|  |  | 5d | primary | 25 | -1.92% | -1.39% | 40% | +11.41% | -19.94% |
+|  |  | 5d | primary | 26 | -1.62% | -1.27% | 42% | +11.41% | -19.94% |
 |  |  | 10d | primary | 25 | -2.42% | -3.09% | 40% | +20.29% | -23.49% |
-|  |  | 21d | context | 23 | -1.62% | -5.24% | 35% | +45.47% | -20.32% |
+|  |  | 21d | context | 24 | -2.35% | -5.34% | 33% | +45.47% | -20.32% |
 | 70-79 | 8 | 1d | primary | 8 | +1.32% | -0.32% | 50% | +14.72% | -3.97% |
 |  |  | 3d | primary | 8 | -2.10% | -1.87% | 38% | +5.92% | -9.11% |
 |  |  | 5d | primary | 8 | -3.43% | -2.03% | 38% | +4.01% | -12.31% |
@@ -43,11 +43,11 @@ provider-mixed samples are descriptive—not evidence of an edge.
 
 | Group | Signals | Horizon | Role | Filled | Avg | Median | Hit rate | Best | Worst |
 |---|---:|---|---|---:|---:|---:|---:|---:|---:|
-| alpaca | 25 | 1d | primary | 25 | +0.22% | -0.02% | 44% | +14.72% | -10.86% |
+| alpaca | 26 | 1d | primary | 25 | +0.22% | -0.02% | 44% | +14.72% | -10.86% |
 |  |  | 3d | primary | 25 | -0.88% | +0.64% | 52% | +7.98% | -9.11% |
-|  |  | 5d | primary | 24 | -3.04% | -2.35% | 29% | +11.41% | -19.94% |
+|  |  | 5d | primary | 25 | -2.68% | -2.18% | 32% | +11.41% | -19.94% |
 |  |  | 10d | primary | 24 | -3.11% | -5.00% | 38% | +20.29% | -23.49% |
-|  |  | 21d | context | 22 | -3.98% | -7.54% | 36% | +45.47% | -28.21% |
+|  |  | 21d | context | 23 | -4.64% | -8.89% | 35% | +45.47% | -28.21% |
 | alpaca+finviz_manual | 7 | 1d | primary | 7 | -2.14% | +0.31% | 57% | +3.38% | -13.15% |
 |  |  | 3d | primary | 7 | -5.38% | -2.71% | 14% | +0.33% | -17.37% |
 |  |  | 5d | primary | 7 | -5.20% | -4.50% | 14% | +2.72% | -12.54% |
@@ -68,19 +68,20 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 5d | primary | 12 | +0.53% | +0.13% | 58% | +5.44% | -2.66% |
 |  |  | 10d | primary | 12 | -0.53% | -2.00% | 42% | +10.43% | -7.38% |
 |  |  | 21d | context | 12 | -4.66% | -5.13% | 33% | +13.94% | -16.61% |
-| US | 32 | 1d | primary | 32 | -0.30% | -0.02% | 47% | +14.72% | -13.15% |
+| US | 33 | 1d | primary | 32 | -0.30% | -0.02% | 47% | +14.72% | -13.15% |
 |  |  | 3d | primary | 32 | -1.86% | -0.95% | 44% | +7.98% | -17.37% |
-|  |  | 5d | primary | 31 | -3.53% | -3.80% | 26% | +11.41% | -19.94% |
+|  |  | 5d | primary | 32 | -3.23% | -3.42% | 28% | +11.41% | -19.94% |
 |  |  | 10d | primary | 31 | -3.53% | -5.25% | 39% | +20.29% | -23.49% |
-|  |  | 21d | context | 29 | -5.12% | -8.89% | 31% | +45.47% | -28.21% |
+|  |  | 21d | context | 30 | -5.59% | -8.92% | 30% | +45.47% | -28.21% |
 
 ## Runner board
 
 | Date | Ticker | Market | Score | Signal price | Day move | 1d | 5d | 10d | 21d context |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
-| 2026-10-28 | SOFI | US | 69 | 16.4050 | +13.45% | +7.35% | — | — | — |
+| 2026-11-05 | ARRY | US | 60 | 5.3200 | +14.16% | — | — | — | — |
+| 2026-10-28 | SOFI | US | 69 | 16.4050 | +13.45% | +7.35% | +6.00% | — | — |
 | 2026-10-07 | MRVL | US | 60 | 286.5000 | +5.63% | -4.11% | -14.32% | -14.60% | — |
-| 2026-10-06 | RXRX | US | 65 | 4.7900 | +15.98% | -10.86% | -19.94% | -23.49% | — |
+| 2026-10-06 | RXRX | US | 65 | 4.7900 | +15.98% | -10.86% | -19.94% | -23.49% | -19.21% |
 | 2026-09-04 | VOW3.DE | EU-XETRA | 65 | 81.3000 | +6.47% | +2.21% | +0.20% | -5.88% | -15.70% |
 | 2026-08-26 | DBK.DE | EU-XETRA | 66 | 34.4850 | +3.87% | -0.13% | +0.07% | +1.61% | -8.19% |
 | 2026-08-21 | HOOD | US | 60 | 106.2300 | +11.70% | -0.02% | -1.94% | +16.66% | +16.75% |
