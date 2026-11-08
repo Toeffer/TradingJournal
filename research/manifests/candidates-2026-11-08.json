@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-08",
+  "generated_at": "2026-11-08T18:07:35.099Z",
+  "model": "GPT-6",
+  "research_mode": "continuity-first hybrid, issuer-source verification, separate skeptical red team",
+  "repository_commit": "d6a5f2cacefe5777272cf2c5882edcfb4dccb6ed",
+  "method": "hybrid",
+  "enabled_sources": [
+    "GitHub main instructions and prior six-week candidate/recommendation history",
+    "canonical committed data/research_snapshot.csv and meta SHA-256",
+    "November 5-7 US and November 3 EU scanner leads",
+    "opened issuer IR, regulatory and transaction releases",
+    "public eToro Germany/EU stock-share pages",
+    "dated De Belegger XETRA and ChartExchange NYSE structured quotes"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "c9846a1ae3c174f1711c9d5056e38b3fad0803696581fbf67d79c8475c039d96",
+  "source_counts": {
+    "opened": 26,
+    "primary": 12
+  },
+  "candidates": [
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "EARLY_WATCH",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "evidence": [
+        {
+          "claim": "TUI issuer's September 22 pre-close update explicitly schedules December 9 FY2026 results; tightened underlying EBIT guidance EUR1.2-1.3bn, revenue guidance suspended.",
+          "source_type": "primary",
+          "location": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany page offers purchase of TUI1.DE ordinary XETRA EUR share; account-level executable order and spread remain unverified.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/tui1.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Dated XETRA November 6 17:35 close EUR7.57 and EUR3.84bn cap; eToro 3-month mean volume ~2.85m shares/day gives ~EUR21.57m/day price-times-volume proxy, not canonical 20d ADV.",
+          "source_type": "market_data",
+          "location": "https://www.debelegger.nl/de/aktie/TUI1.XETRA",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "September 22 issuer guidance already narrowed FY26 underlying EBIT to EUR1.2-1.3bn; summer bookings -5% and early winter -7% booked revenue, with late-booking patterns. Updated independent consensus not verified.",
+      "priced_in": "November 6 close EUR7.57 versus first-mention EUR6.956 (+8.8%) makes chasing a pre-announced guidance range particularly weak; Q4 bookings and FY27 outlook matter more than a simple guidance meet.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "The pre-close update is already priced in; an 8.8% advance since first mention lacks an independently verified retest/stop/target. Keep only as monitoring; no ACT-NOW signal.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "catalyst": {
+        "event": "FY2026 full-year results and annual report",
+        "date": "2026-12-09",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-06T17:35:00+01:00",
+        "data_source": "De Belegger XETRA close plus eToro 3M volume proxy (EUR equivalent)",
+        "price": 7.57,
+        "market_cap": 3840000000,
+        "avg_dollar_volume": 21574500
+      },
+      "bull_case": "Cruise and hotels pricing, late-booking improvement and winter capacity discipline lift FY27 outlook.",
+      "bear_case": "Winter demand, fuel/geopolitical exposure and airline pressure offset holiday-experiences growth; sell-the-news despite meeting EBIT guidance.",
+      "next_review_date": "2026-11-15"
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath, Inc.",
+      "classification": "EARLY_WATCH",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "evidence": [
+        {
+          "claim": "Issuer release dated November 5 explicitly schedules fiscal Q3 2027 results for Thursday December 3 after close, call at 5 pm ET; supersedes conflicting third-party December 2 calendars.",
+          "source_type": "primary",
+          "location": "https://ir.uipath.com/news/detail/480/uipath-announces-third-quarter-fiscal-2027-financial-results-conference-call",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany page offers PATH common stock/share purchase (USD NYSE); account-level order eligibility/spread not checked.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/path",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "ChartExchange dated November 6 NYSE close USD12.99, USD6.75bn cap, 30-day average volume ~27.97m shares; rounded USD13.00 reference and ~$364m/day proxy. Not canonical 20-day ADV.",
+          "source_type": "market_data",
+          "location": "https://chartexchange.com/symbol/nyse-path/",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Issuer July 31 ARR $1.938bn (+12% y/y) and 109% net retention are known; analyst target and next-quarter consensus revisions not independently established.",
+      "priced_in": "November 6 USD13 close below approximately USD14.04 50-day average; the announced date does not establish a momentum entry. ChartExchange indicative short interest ~25.44% of float adds squeeze/volatility risk, not a long thesis.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Even with a dated 20+ session OHLCV history, price is below 50d SMA and lacks a confirmed breakout or pullback acceptance. No defensible >=1.5R trigger; monitor only.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "catalyst": {
+        "event": "Fiscal Q3 2027 results after US market close and 17:00 ET call",
+        "date": "2026-12-03",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.uipath.com/news/detail/480/uipath-announces-third-quarter-fiscal-2027-financial-results-conference-call",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-06T15:59:56-05:00",
+        "data_source": "ChartExchange NYSE dated close and 30d volume proxy (USD)",
+        "price": 13,
+        "market_cap": 6750000000,
+        "avg_dollar_volume": 363610000
+      },
+      "bull_case": "Better agentic-automation adoption and retention support ARR and margins beyond expectations.",
+      "bear_case": "Growth disappoints against AI/automation narrative, renewals soften, or crowded short positioning creates a gap that reverses.",
+      "next_review_date": "2026-11-15"
+    },
+    {
+      "ticker": "SDF.DE",
+      "company": "K+S Aktiengesellschaft",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3/2026 quarterly report 07:00 CET; issuer source opened; 2026-11-10 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://www.kpluss.com/en-us/investor-relations/events/ks-q3-2026-earnings-release/",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for SDF.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/sdf.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Guidance and financing already known; fresh consensus revisions not verified.",
+      "priced_in": "Near-term binary print dominates any generic earnings-anticipation thesis.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Two days to a binary earnings release; financing, salt-acquisition exposure and already-public guidance create gap and dilution risk; no current structure-based >=1.5R setup.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Two days to a binary earnings release; financing, salt-acquisition exposure and already-public guidance create gap and dilution risk; no current structure-based >=1.5R setup.",
+      "catalyst": {
+        "event": "Q3/2026 quarterly report 07:00 CET",
+        "date": "2026-11-10",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.kpluss.com/en-us/investor-relations/events/ks-q3-2026-earnings-release/",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3 2026 quarterly statement and call; issuer source opened; 2026-11-13 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for BC8.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/bc8.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "July preliminary beat and guidance upgrade are already known.",
+      "priced_in": "Positive operating momentum is not a surprise absent fresh estimates.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Five days to earnings; prior July guidance raise lifted expectations; no multi-session technical invalidation or realistic >=1.5R target.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Five days to earnings; prior July guidance raise lifted expectations; no multi-session technical invalidation or realistic >=1.5R target.",
+      "catalyst": {
+        "event": "Q3 2026 quarterly statement and call",
+        "date": "2026-11-13",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.bechtle.com/de-en/about-bechtle/investors/financial-calendar",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS Eventim AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3 quarterly statement publication; issuer source opened; 2026-11-12 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://corporate.eventim.de/en/investor-relations",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for EVD.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/evd.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "H1 double-digit growth public; exact Q3 consensus not established.",
+      "priced_in": "Positive concert/ticket demand and analyst optimism are already visible.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Four days to earnings; September 30 CFO departure and H1 growth raise governance/expectation risk; no validated stop/target.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Four days to earnings; September 30 CFO departure and H1 growth raise governance/expectation risk; no validated stop/target.",
+      "catalyst": {
+        "event": "Q3 quarterly statement publication",
+        "date": "2026-11-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://corporate.eventim.de/en/investor-relations",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "DUE.DE",
+      "company": "Dürr AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3/9M financial figures and analyst call; issuer source opened; 2026-11-12 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://www.durr-group.com/en/investor-relations/financial-calendar/financial-calendar-detailseite/view/interim-statement-for-the-first-nine-months-of-2026-analysts-investors-call-95061",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for DUE.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/due.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Vector efficiency plan already public; fresh estimates unknown.",
+      "priced_in": "Any positive restructuring narrative competes with illiquidity and execution risk.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Four days to results; eToro delayed EUR16.36 x 141081 three-month average shares = ~EUR2.31m/day, below EUR3m conditional liquidity floor; restructuring risk.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Four days to results; eToro delayed EUR16.36 x 141081 three-month average shares = ~EUR2.31m/day, below EUR3m conditional liquidity floor; restructuring risk.",
+      "catalyst": {
+        "event": "Q3/9M financial figures and analyst call",
+        "date": "2026-11-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.durr-group.com/en/investor-relations/financial-calendar/financial-calendar-detailseite/view/interim-statement-for-the-first-nine-months-of-2026-analysts-investors-call-95061",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3 2026 financial report; issuer source opened; 2026-11-25 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://www.aroundtown.de/investor-relations",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for AT1.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/at1.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Transaction exposure and property refinancing risk dominate expectations; consensus not verified.",
+      "priced_in": "October real-estate transaction is already public; financing is a possible adverse surprise.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Seventeen-day event but October 20 Grand City/LEG stake transaction and financing complexity, ~EUR3.3m/day conditional liquidity proxy and no complete setup. Not promoted to conditional watchlist.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Seventeen-day event but October 20 Grand City/LEG stake transaction and financing complexity, ~EUR3.3m/day conditional liquidity proxy and no complete setup. Not promoted to conditional watchlist.",
+      "catalyst": {
+        "event": "Q3 2026 financial report",
+        "date": "2026-11-25",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.aroundtown.de/investor-relations",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Annual report FY2025/26; issuer source opened; 2026-12-08 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://www.thyssenkrupp.com/en/investor-relations/calendar",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for TKA.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/tka.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Prior annual outlook and steel restructuring costs are widely known; current consensus revisions unverified.",
+      "priced_in": "The date is not a trade trigger; substantial negative operational expectations already exist.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Thirty-day verified event, but steel restructuring, expected losses and potential divestment/financing overwhelm a catalyst-only thesis; no defensible technical levels or current expectation edge.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Thirty-day verified event, but steel restructuring, expected losses and potential divestment/financing overwhelm a catalyst-only thesis; no defensible technical levels or current expectation edge.",
+      "catalyst": {
+        "event": "Annual report FY2025/26",
+        "date": "2026-12-08",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.thyssenkrupp.com/en/investor-relations/calendar",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "AAG.DE",
+      "company": "Aumann AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Nine-month interim statement; issuer source opened; 2026-11-12 is a scheduled event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://www.aumann.com/en/investor-relations/financial-calendar",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for AAG.DE; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/aag.de",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Small-cap machinery order sensitivity; consensus not verified.",
+      "priced_in": "Any event reaction can be dominated by spread and market impact.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Market cap ~EUR178m below EUR500m core floor and delayed EUR13.90 x 33,364 three-month shares ~EUR0.46m/day far below liquidity floor.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Market cap ~EUR178m below EUR500m core floor and delayed EUR13.90 x 33,364 three-month shares ~EUR0.46m/day far below liquidity floor.",
+      "catalyst": {
+        "event": "Nine-month interim statement",
+        "date": "2026-11-12",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.aumann.com/en/investor-relations/financial-calendar",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    },
+    {
+      "ticker": "ARRY",
+      "company": "Array Technologies, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3 results and Shoals stock-for-stock merger announcement (already occurred); issuer source opened; 2026-11-04 is a completed event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://ir.arraytechinc.com/news-releases/news-release-details/array-technologies-and-shoals-technologies-group-announce",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for ARRY; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/arry",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Canonical committed scanner snapshot: ARRY signal price $5.32, IEX average dollar value $2,560,279.26, Nov 5; scanner is a lead, not event verification.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Record $2.6bn orderbook but 2026 revenue/EBITDA guidance reduced; merger synergies only indicative.",
+      "priced_in": "Nov 5 14.16% move is reaction to disclosed news, not an unpriced upcoming event.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Nov 5 scanner breakout followed Nov 4 Q3 results and merger announcement; no future dated binding closing/vote in 42 days. Stock-for-stock 1.6931 exchange ratio, preferred redemptions and reduced FY26 guidance complicate the risk. Canonical IEX value only $2.56m/day, not full-tape.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Nov 5 scanner breakout followed Nov 4 Q3 results and merger announcement; no future dated binding closing/vote in 42 days. Stock-for-stock 1.6931 exchange ratio, preferred redemptions and reduced FY26 guidance complicate the risk. Canonical IEX value only $2.56m/day, not full-tape.",
+      "catalyst": {
+        "event": "Q3 results and Shoals stock-for-stock merger announcement (already occurred)",
+        "date": "2026-11-04",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.arraytechinc.com/news-releases/news-release-details/array-technologies-and-shoals-technologies-group-announce",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-05T01:52:46+01:00",
+        "data_source": "canonical committed Alpaca/IEX scanner snapshot; not full tape",
+        "price": 5.32,
+        "market_cap": null,
+        "avg_dollar_volume": 2560279.26
+      }
+    },
+    {
+      "ticker": "GRAB",
+      "company": "Grab Holdings Ltd",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Q3 2026 results (already occurred); issuer source opened; 2026-11-02 is a completed event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://investors.grab.com/news-and-events/news-details/2026/Grab-to-Announce-Third-Quarter-2026-Results-on-2-November-2026-2026-IH3lUy3opQ/default.aspx",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for GRAB; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/grab",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Canonical committed scanner snapshot: GRAB signal price $3.47, IEX average dollar value $13,022,929.09, Nov 6; scanner is a lead, not event verification.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "Q2 guidance raise, buybacks and Atome acquisition already public; Q3 event completed.",
+      "priced_in": "Nov 6 scanner move is a reaction, not an independently verified future catalyst.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Nov 6 breakout followed completed Nov 2 earnings; eToro cap ~USD13.9bn larger-cap exception not justified, no dated forward catalyst or post-event consolidation/stop.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Nov 6 breakout followed completed Nov 2 earnings; eToro cap ~USD13.9bn larger-cap exception not justified, no dated forward catalyst or post-event consolidation/stop.",
+      "catalyst": {
+        "event": "Q3 2026 results (already occurred)",
+        "date": "2026-11-02",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://investors.grab.com/news-and-events/news-details/2026/Grab-to-Announce-Third-Quarter-2026-Results-on-2-November-2026-2026-IH3lUy3opQ/default.aspx",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-06T01:56:45+01:00",
+        "data_source": "canonical committed Alpaca/IEX scanner snapshot; not full tape",
+        "price": 3.47,
+        "market_cap": null,
+        "avg_dollar_volume": 13022929.09
+      }
+    },
+    {
+      "ticker": "SHLS",
+      "company": "Shoals Technologies Group Inc",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "evidence": [
+        {
+          "claim": "Shoals/Array merger announced (already occurred); issuer source opened; 2026-11-04 is a completed event as of 2026-11-08.",
+          "source_type": "primary",
+          "location": "https://ir.arraytechinc.com/news-releases/news-release-details/array-technologies-and-shoals-technologies-group-announce",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        },
+        {
+          "claim": "Public eToro Germany stock/share page for SHLS; delayed quote and 3-month liquidity proxy only, not a live executable order or current 20-day snapshot.",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/shls",
+          "accessed_at": "2026-11-08T18:07:35.099Z"
+        }
+      ],
+      "expectations": "$100m potential annual synergies are management projections, not realized; proxy materials pending.",
+      "priced_in": "Merger terms and synergies publicly announced; no new timed edge.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_argument": "Nov 4 definitive merger announcement has no fixed closing/vote date within 42 days (Q1 2027 is only expected); 1.6931 ARRY shares per SHLS share and ~65% combined ownership bring exchange-ratio, dilution, approval and gap risks.",
+      "pre_mortem": "The dated event is already priced in or too close, and a financing/gap/spread surprise defeats any presumed stop.",
+      "rejection_reason": "Nov 4 definitive merger announcement has no fixed closing/vote date within 42 days (Q1 2027 is only expected); 1.6931 ARRY shares per SHLS share and ~65% combined ownership bring exchange-ratio, dilution, approval and gap risks.",
+      "catalyst": {
+        "event": "Shoals/Array merger announced (already occurred)",
+        "date": "2026-11-04",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.arraytechinc.com/news-releases/news-release-details/array-technologies-and-shoals-technologies-group-announce",
+        "verified_at": "2026-11-08T18:07:35.099Z"
+      }
+    }
+  ]
+}

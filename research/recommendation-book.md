@@ -4,19 +4,21 @@ Auto-generated from `data/recommendations.csv`. Research decisions are not trade
 
 ## Current decision load
 
-- Active recommendations: 1
+- Active recommendations: 2
 - Archived/removed recommendations: 3
-- Actions: monitor: 1
+- Actions: monitor: 2
 
 ## Active recommendations
 
 | Ticker | Status | This week | Setup | Trigger | Expiry | Stop | Target | Next review |
 |---|---|---|---|---:|---|---:|---:|---|
-| TUI1.DE | new | monitor | — | — | — | — | — | 2026-11-08 |
+| PATH | new | monitor | — | — | — | — | — | 2026-11-15 |
+| TUI1.DE | carry | monitor | — | — | — | — | — | 2026-11-15 |
 
 ### Decision reasons
 
-- **TUI1.DE** — monitor: FY2026 results on Dec 9 are primary-source verified 38 days ahead; eToro XETRA stock, core cap and preferred volume pass. Sep 22 guidance was already tightened, but canonical snapshot has no TUI 20-session structure. Monitor only, no trade levels.
+- **PATH** — monitor: December 3 FY27 Q3 results issuer-verified 25 days away; eToro NYSE share and core cap/liquidity pass, but USD13 Nov 6 close below 50d SMA and no breakout/retest with >=1.5R. Monitor only.
+- **TUI1.DE** — monitor: December 9 FY26 results remain issuer-verified 31 days away; Nov 6 XETRA close EUR7.57 is +8.8% from EUR6.956 first mention. Sep 22 EBIT guidance is public, no validated retest/stop/target or >=1.5R. Monitor; do not chase.
 
 ## Recently removed
 

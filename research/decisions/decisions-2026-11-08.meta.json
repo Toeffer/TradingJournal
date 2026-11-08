@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-08T18:07:35.099Z",
+  "review_date": "2026-11-08",
+  "source": "data/recommendation_reviews.csv",
+  "row_count": 2,
+  "review_ids": [
+    "REV-2026-11-08-PATH-001",
+    "REV-2026-11-08-TUI1-002"
+  ],
+  "sha256": "45d9fe6d8c49587f4020ef8f559fe1093f7e50066596f6f1ad449c5727d12adf"
+}
