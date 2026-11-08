@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-08",
+  "generated_at": "2026-11-08T21:43:38Z",
+  "model": "Claude Opus 5",
+  "research_mode": "continuity-first hybrid; repository EU price-history screen plus US scanner snapshot and catalyst search; separate skeptical red-team pass. Second same-day run under the matched-input model-comparison rule; the 18:07Z GPT-6 run is preserved unchanged.",
+  "repository_commit": "52fc13d06b7835526b6c533b86772b4ef2fe6ae6",
+  "method": "hybrid",
+  "enabled_sources": [
+    "data/research_snapshot.csv (rebuilt 2026-11-08T21:36Z, byte-identical to the 18:07Z input)",
+    "data/eu_quote_history.csv (46 XETRA/LSE tickers, 215 sessions, 2026-01-05..2026-11-03)",
+    "data/market_regime.csv (through 2026-11-07)",
+    "data/scanner_signals.csv; research/scanner-summary.md; research/scans/*",
+    "trades.csv; data/proposals.csv; data/recommendations.csv; data/recommendation_reviews.csv",
+    "research/candidates-2026-11-08.md and manifest (18:07Z run); 2026-11-01; 2026-10-25; 2026-09-20",
+    "indexed web search (reachable)",
+    "BLOCKED BY NETWORK POLICY, NOT OPENED BY THIS RUN: tuigroup.com, ir.uipath.com, businesswire.com, sec.gov, etoro.com, kpluss.com, bechtle.com, chartexchange.com, marketscreener.com, finance.yahoo.com"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "c9846a1ae3c174f1711c9d5056e38b3fad0803696581fbf67d79c8475c039d96",
+  "source_counts": {
+    "opened": 24,
+    "primary": 2
+  },
+  "candidates": [
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "EARLY_WATCH",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "catalyst": {
+        "event": "FY2026 annual report and analyst/investor conference",
+        "date": "2026-12-09",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+        "verified_at": "2026-11-08T18:07:35Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-03T17:30:00+01:00",
+        "data_source": "data/eu_quote_history.csv (repository; XETRA daily OHLCV, 215 sessions)",
+        "price": 7.384,
+        "market_cap": null,
+        "avg_dollar_volume": 19010000.0
+      },
+      "expectations": "Underlying EBIT guidance of EUR1.2-1.3bn and suspended revenue guidance have been public since the issuer's 2026-09-22 update, so the FY26 outcome range is already disclosed. No fresh sell-side revision data could be obtained this run; treat consensus positioning as unknown.",
+      "priced_in": "Partly. The guidance narrowing is old news. What is NOT priced by last week's report is the 2026-11-03 session: a +5.94% close at EUR7.384 on 3.28x the 20-session average volume, breaking a base that had capped the stock since 2026-08-11. A secondary reference of EUR7.57 on Nov 6 would place price 2.5% above the breakout level, i.e. already extended for a breakout entry.",
+      "bull_case": "Breakout from a three-month base on 3.28x volume, with apparent relative strength through a 4.34% single-day index decline, suggests accumulation ahead of FY26 results already guided to EUR1.2-1.3bn underlying EBIT.",
+      "bear_case": "A one-day volume spike in a defensive tape with breadth at 20.8%, whose cause this run could not identify because no issuer source was openable; price fails straight back below the EUR6.990 breakout-day low.",
+      "pre_mortem": "The most likely overlooked failure: Nov 3's 3.28x volume was an event-driven spike on news this run never saw, so the 'base breakout' reading is a chart artifact on top of unknown information, and price is back under EUR7 before any retest entry triggers. Three unverifiable sessions (Nov 4-6) have already passed.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "red_team_argument": "The breakout is real and repository-verified, but no defensible setup reaches 1.5R. Structural stop below the EUR6.990 breakout-day low (use EUR6.95) against a EUR7.40 retest entry is EUR0.45 risk; nearest supply is the 2026-08-03..08-10 swing cluster topping at EUR7.908, giving 0.78R to a EUR7.75 first target and only 1.13R to EUR7.908. 1.5R would need a EUR8.075 target, above the August high and inside July-August supply. Tightening the stop to ~EUR7.20 manufactures 1.8R but is only ~1x the EUR0.194 ATR14 and is not invalidation. Catalyst is 31 days out, so no catalyst support inside 21 days. Defensive regime requires regime-against logging. Action is wait_pullback, not an entry.",
+      "next_review_date": "2026-11-15",
+      "evidence": [
+        {
+          "claim": "Issuer pre-close update schedules FY2026 annual results for 2026-12-09. Opened and recorded by the 2026-11-08T18:07Z run of this same report date (research/manifests/candidates-2026-11-08.json); NOT re-opened by this run, because tuigroup.com is refused by this session's network policy.",
+          "source_type": "primary",
+          "location": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+          "accessed_at": "2026-11-08T18:07:35Z"
+        },
+        {
+          "claim": "Nov 3 XETRA close EUR7.384 on 8,275,072 shares; prior 20-session high EUR6.986; 20-session average volume 2,520,747 shares (relative volume 3.28x); prior close EUR6.970 (+5.94%); 20-session ADV EUR19.01m/day; ATR14 EUR0.194; SMA20 EUR6.786; SMA50 EUR6.784; last session above EUR7.384 was 2026-08-11; 2026-08-03..08-10 swing cluster high EUR7.908. All computed by this run from the repository file.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "TUI1.DE is the only ticker of all 46 in the repository EU universe satisfying both a 20-session breakout and >=2x relative volume on the 2026-11-03 session.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "Independent secondary corroboration of the 2026-12-09 FY2026 results date via the TUI financial-calendar listing and dated financial-news reports of the 2026-09-22 announcement. Indexed search result only; the page itself was not opened.",
+          "source_type": "reputable_secondary",
+          "location": "indexed web search: TUI financial calendar / annual report 2026 financial calendar listing",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "eToro Germany tradeability (XETRA EUR ordinary share, ticker TUI1.DE) and ~EUR3.8bn market cap are carried from the 18:07Z run and were NOT re-verified here; etoro.com is refused by network policy. No proposal may be created until re-verified.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-11-08.json",
+          "accessed_at": "2026-11-08T18:07:35Z"
+        },
+        {
+          "claim": "Market regime defensive: SPY 766.73 (Nov 5 scan) -> 733.43 (Nov 6 scan) = -4.34%, breadth 32.1% -> 20.8% -> 32.1%, SPY ~3.9% below its 50-day average; credit HYG/LQD -2.01%, risk XLY/XLP -3.54%.",
+          "source_type": "market_data",
+          "location": "data/market_regime.csv rows 2026-11-05..2026-11-07",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath, Inc.",
+      "classification": "EARLY_WATCH",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "catalyst": {
+        "event": "Fiscal Q3 2027 financial results, after US close, 17:00 ET conference call",
+        "date": "2026-12-03",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://ir.uipath.com/news/detail/480/uipath-announces-third-quarter-fiscal-2027-financial-results-conference-call",
+        "verified_at": "2026-11-08T18:07:35Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-06T21:00:00+00:00",
+        "data_source": "Carried from the 18:07Z run (chartexchange NYSE reference); NOT re-verified this run, host unreachable. No PATH row exists in any repository market-data source.",
+        "price": 13.0,
+        "market_cap": 6750000000.0,
+        "avg_dollar_volume": 364000000.0
+      },
+      "expectations": "Now well established, and this is the material addition versus the 18:07Z run, which recorded fresh consensus as unconfirmed and relied on July ARR of ~USD1.938bn. Company Q3 FY27 guidance is revenue USD440-445m and ARR USD1.992-1.997bn as of 2026-10-31. Analyst consensus Q3 revenue is approximately USD441.1-441.2m, essentially the guidance midpoint. FY27 guidance USD1.789-1.794bn against roughly USD1.78bn consensus.",
+      "priced_in": "Yes, adversely for anticipation. Consensus sitting at the guidance midpoint leaves no cushion: merely meeting guidance is the expected outcome. The decisive evidence is the prior quarter's reaction - Q2 FY27 revenue of USD410.26m beat the USD397.77m expectation and the stock still fell about 9.77% after hours. A beat did not produce upside one quarter ago.",
+      "bull_case": "Agentic/automation ARR re-accelerates past the USD1.997bn top end and FY28 commentary resets the growth narrative.",
+      "bear_case": "Q3 lands inside guidance, ARR is unremarkable, and the stock de-rates again on FY28 commentary, repeating the Q2 pattern of selling off into a beat.",
+      "pre_mortem": "The overlooked failure is treating a verified date as an edge. With consensus at the guidance midpoint and a demonstrated sell-the-beat reaction, an anticipatory long is gapped through any stop on Dec 3 regardless of where that stop sits; and price is already below its ~USD14.04 50-day average, so the trend does not support anticipation either.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "red_team_argument": "No setup exists and none can be computed: this repository holds no PATH price history (the snapshot carries only ARRY and GRAB) and every quote host is unreachable, so entry, stop, target and R are unavailable rather than merely unattractive. On top of that the expectations work argues actively against pre-event entry - consensus equals the guidance midpoint and the last beat produced a ~9.77% after-hours decline. The event is 25 days out, outside the 21-day actionable window, with no nearer verified trigger. Correct action is monitor; if it is ever traded it belongs after Dec 3 as a post-earnings-drift candidate.",
+      "next_review_date": "2026-11-15",
+      "evidence": [
+        {
+          "claim": "Issuer announcement schedules fiscal Q3 2027 results for 2026-12-03 after the US close with a 17:00 ET call. Opened and recorded by the 2026-11-08T18:07Z run of this same report date; NOT re-opened by this run, because ir.uipath.com is refused by this session's network policy.",
+          "source_type": "primary",
+          "location": "https://ir.uipath.com/news/detail/480/uipath-announces-third-quarter-fiscal-2027-financial-results-conference-call",
+          "accessed_at": "2026-11-08T18:07:35Z"
+        },
+        {
+          "claim": "Reference price USD13.00 at the 2026-11-06 close, market cap ~USD6.75bn, ~USD364m/day average dollar volume, 50-day SMA ~USD14.04. Carried from the 18:07Z run's chartexchange reference and NOT re-verified this run.",
+          "source_type": "market_data",
+          "location": "research/manifests/candidates-2026-11-08.json (chartexchange.com/symbol/nyse-path/ not re-opened)",
+          "accessed_at": "2026-11-08T18:07:35Z"
+        },
+        {
+          "claim": "Independent secondary corroboration of the 2026-12-03 event date and the 2026-11-05 announcement; also records that one IR listing dates the announcement 2026-10-09 and that third-party calendars still show 2026-12-02. The issuer date governs; flagged for human verification.",
+          "source_type": "reputable_secondary",
+          "location": "indexed web search: UiPath third quarter fiscal 2027 financial results conference call",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "Q3 FY27 company guidance revenue USD440-445m and ARR USD1.992-1.997bn as of 2026-10-31; analyst consensus Q3 revenue ~USD441.1-441.2m; FY27 guidance USD1.789-1.794bn vs ~USD1.78bn consensus; Q2 FY27 revenue USD410.26m vs USD397.77m expected, followed by a ~9.77% after-hours decline. Indexed search aggregation of Investing.com and MarketBeat figures; pages not opened.",
+          "source_type": "reputable_secondary",
+          "location": "indexed web search: UiPath Q3 fiscal 2027 consensus estimates revenue ARR",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "eToro Germany tradeability (NYSE USD common stock) carried from the 18:07Z run and NOT re-verified here; etoro.com is refused by network policy.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-11-08.json",
+          "accessed_at": "2026-11-08T18:07:35Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Rejected on evidence access and measurability, not merit - this was the strongest new lead. A 2026-11-05 ad-hoc release (three days before this run) published preliminary Q3 figures - business volume +~19% to ~EUR2.44bn, EBT +~14% to ~EUR92m - and raised the 2026 EBT growth forecast above 10%, with final figures due 2026-11-13. That makes Nov 13 largely a confirmation of already-public price-sensitive information rather than the binary the 18:07Z run described from stale July data. It still fails here because: (1) bechtle.com could not be opened, so the ad-hoc is secondary_only; (2) the repository EU history ends 2026-11-03, two sessions BEFORE the release, so there is no observable price reaction - no gap, no consolidation high, no stop, no drift target, and a post-earnings-drift setup requires the gap to hold above its midpoint, which is unmeasurable; (3) 20-session ADV is only EUR5.55m/day (159,395 shares) on a EUR34 share, barely above the EUR5m non-US preferred floor, so spread and slippage matter at EUR150; (4) the 2026-11-03 row is defective - open 35.580 above session high 34.340. Promotion path: open the issuer release and the Nov 13 statement, obtain Nov 4-onward XETRA sessions, and assess as a drift candidate with a real stop.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR34.18 (+2.03% from EUR33.50), relative volume 1.35x, 20-session ADV EUR5.55m/day (159,395 shares), 2.27% below SMA20 and 2.78% below SMA50, ATR14 EUR1.034. Nov 3 row defective: open 35.580 exceeds session high 34.340.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "2026-11-05 ad-hoc release: preliminary Q3 business volume ~EUR2.44bn (+~19%), EBT ~EUR92m (+~14%), 2026 EBT growth forecast raised above 10%, final figures 2026-11-13. Indexed search corroboration across several outlets; issuer page not opened.",
+          "source_type": "reputable_secondary",
+          "location": "indexed web search: Bechtle Q3 2026 ad-hoc successful Q3 full-year forecast raised",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SZG.DE",
+      "company": "Salzgitter AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Independently of the gate: no 20-session breakout (close EUR50.50 below the 20-session high), relative volume 1.68x is below the 2x breakout requirement, 20-session ADV of EUR7.54m/day is only modestly above the EUR5m non-US floor, and no dated catalyst inside the 42-day discovery horizon was identified. A +7.22% session on sub-2x volume with no identified reason is 'price moved', which discovery.md rejects explicitly.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR50.50, +7.22% session, relative volume 1.68x, 20-session ADV EUR7.54m/day, 7.09% above SMA20, no 20-session breakout.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "LHA.DE",
+      "company": "Deutsche Lufthansa AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Also fails on setup and portfolio grounds: no 20-session breakout, relative volume 1.21x against the 2x requirement, and no verified dated catalyst in the horizon. It is additionally the same travel/airline theme as the TUI1.DE carry-over, and RISK_RULES.md caps same-sector/theme exposure at 2 positions, so it would compete with rather than complement the existing object.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR7.468, +4.13% session, relative volume 1.21x, 20-session ADV EUR29.49m/day, 3.45% above SMA20, no 20-session breakout.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AIXA.DE",
+      "company": "Aixtron SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Also fails on setup: no 20-session breakout, relative volume 0.87x - below average, not elevated - and price only 0.90% above SMA20, so there is no structure to trade. No verified dated catalyst in the horizon.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR33.59, +3.87% session, relative volume 0.87x, 20-session ADV EUR29.09m/day, 0.90% above SMA20, no 20-session breakout.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HFG.DE",
+      "company": "HelloFresh SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Fails the broker liquidity overlay outright: 20-session ADV of EUR2.99m/day sits in the EUR3-5m conditional band of ETORO_TRADEABILITY.md, below the EUR5m non-US preferred floor, so it could only ever appear on a separate Conditional Watchlist with High risk rating. It also shows no 20-session breakout and relative volume of 0.91x, and a +7.38% session on below-average volume on a EUR2.90 share is exactly the low-liquidity noise this filter exists to exclude.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR2.895, +7.38% session, relative volume 0.91x, 20-session ADV EUR2.99m/day, 2.57% above SMA20, no 20-session breakout.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Also fails on structure: close EUR12.37 is 5.29% below SMA20 and 12.45% below SMA50, relative volume 0.86x, no 20-session breakout, and a EUR0.699 ATR14 (5.65% of price) means any stop tight enough for 1.5R would be inside one day's noise. A downtrending name with no verified catalyst is a monitor at best, not a candidate.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR12.37, +2.95% session, relative volume 0.86x, 20-session ADV EUR27.45m/day, 5.29% below SMA20, 12.45% below SMA50, ATR14 EUR0.699.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "KGX.DE",
+      "company": "KION Group AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Also fails on structure and history: no 20-session breakout, relative volume 1.00x, close 12.59% below SMA50, and the Nov 3 row carries the same stale-open defect as BC8.DE (open 34.060 above session high 33.940). red_team.md requires asking whether a ticker already failed in the book: trade 2026-0017 was a KGX.DE long closed at -1.00R on 2026-07-08 with no supporting research trail. Nothing identified here is genuinely different.",
+      "evidence": [
+        {
+          "claim": "Nov 3 close EUR33.94, +2.01% session, relative volume 1.00x, 20-session ADV EUR13.12m/day, 0.23% below SMA20, 12.59% below SMA50. Nov 3 row defective: open 34.060 exceeds session high 33.940.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv (repository structured market data; 46 tickers, 215 sessions, 2026-01-05..2026-11-03)",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "Trade 2026-0017: KGX.DE long opened 2026-07-07 at 45.43, stopped 2026-07-08 at 41.22, -11.93 EUR, -1.00R, no supporting research file in the repository.",
+          "source_type": "repository",
+          "location": "trades.csv row 2026-0017",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SDF.DE",
+      "company": "K+S Aktiengesellschaft",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Stage 2 verification gate not satisfiable in this environment: every primary-source host (issuer IR, exchange, regulator, broker) is refused by this session's network policy, so no primary source could be opened by the synthesizing pass. Per research_method/verification.md a secondary_only date cannot enter the Actionable or Early Watch list. Also fails on two independent grounds: there is no row for SDF.DE in any repository market-data source (it is absent from the 46-ticker EU universe and from the snapshot), so no price, 20-session high, ADV or stop can be computed at all; and the Q3/2026 report lands 2026-11-10, two days away, which is an un-anticipatable binary event. RISK_RULES.md permits holding through a binary only at EUR75 or less with explicit prior approval, which does not exist.",
+      "evidence": [
+        {
+          "claim": "No SDF.DE row exists in data/eu_quote_history.csv (46-ticker universe) or data/research_snapshot.csv, so no structured market data is available to this run.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv; data/research_snapshot.csv @ c9846a1ae3c174f1711c9d5056e38b3fad0803696581fbf67d79c8475c039d96",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "K+S Q3/2026 quarterly report scheduled 2026-11-10 at 07:00 CET, with a quiet period running from 2026-10-13. Indexed search corroboration of the issuer financial calendar; page not opened.",
+          "source_type": "reputable_secondary",
+          "location": "indexed web search: K+S Q3 2026 earnings release November 10 2026",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "ARRY",
+      "company": "Array Technologies, Inc.",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Fails the liquidity floor by an order of magnitude: 20-session average dollar volume of USD2.56m is about a tenth of the USD25m preferred floor and below even the USD10-25m conditional tier, so it cannot enter the shortlist or the conditional watchlist. It is also extended and overbought - RSI14 74.75, 38.9% above EMA20, 13.43% above the 5-day high - and no verified forward catalyst was identified; the only thesis is that price moved +14.16%, which discovery.md rejects. Scanner score 60 sits in the 60-69 bucket that averages -2.42% at 10 sessions across 25 filled signals.",
+      "evidence": [
+        {
+          "claim": "Nov 5 snapshot row: price USD5.32, +14.16% session, relative volume 9.94x, 20-session average dollar volume USD2.56m, RSI14 74.75, 38.9% above EMA20, 5-day extension 13.43%, score 60, regime defensive.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv @ c9846a1ae3c174f1711c9d5056e38b3fad0803696581fbf67d79c8475c039d96",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        },
+        {
+          "claim": "Scanner 60-69 score bucket: 25 filled 10-session signals averaging -2.42% with a 40% hit rate; no demonstrated edge.",
+          "source_type": "repository",
+          "location": "research/scanner-summary.md",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    },
+    {
+      "ticker": "GRAB",
+      "company": "Grab Holdings Limited",
+      "classification": "REJECT",
+      "source_tag": "scanner_seed",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Fails the preferred liquidity floor: 20-session average dollar volume of USD13.02m sits in the USD10-25m conditional tier, below the USD25m preferred floor, so ETORO_TRADEABILITY.md allows it only on a separate Conditional Watchlist with a High risk rating and a primary-source-verified catalyst - and no verified forward catalyst exists, which is the binding failure. RSI14 70.30 and 15.77% above EMA20 also leave it extended into a defensive tape with breadth at 32.1%.",
+      "evidence": [
+        {
+          "claim": "Nov 6 snapshot row: price USD3.47, +3.58% session, relative volume 2.40x, 20-session average dollar volume USD13.02m, RSI14 70.30, 15.77% above EMA20, 5-day extension 2.51%, score 66, regime defensive.",
+          "source_type": "market_data",
+          "location": "data/research_snapshot.csv @ c9846a1ae3c174f1711c9d5056e38b3fad0803696581fbf67d79c8475c039d96",
+          "accessed_at": "2026-11-08T21:43:38Z"
+        }
+      ]
+    }
+  ]
+}
