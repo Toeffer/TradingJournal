@@ -1,2 +1,1 @@
 as_of,ticker,company,market,exchange,currency,price,market_cap,avg_volume_20d,avg_dollar_volume,change_pct,rel_volume,score,discovery_seed,discovery_seed_source,legacy_seed_tag,break_20d_high,extension_5d_pct,rsi14,ema20_dist_pct,ema50_dist_pct,macd_hist_pct,bb_percent_b,market_regime,signal_source,signal_timestamp,data_source,notes
-2026-11-06T01:56:45+0100,GRAB,,US,US,USD,3.47,,3753005.5,13022929.09,3.5821,2.3981,66,false,,false,true,2.5111,70.30,15.77,12.24,2.2621,1.131,mixed,alpaca,2026-11-06T01:56:45+0100,alpaca,
