@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-15",
+  "generated_at": "2026-11-15T18:01:18Z",
+  "model": "GPT-6",
+  "research_mode": "continuity-first catalyst-first; skeptical red-team pass",
+  "repository_commit": "25a91d39a5c90c47b5863ee906fc01940feb21a1",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub main repository and committed snapshot",
+    "issuer IR primary pages",
+    "public eToro Germany stock pages",
+    "dated stockanalysis.com market data",
+    "recent scanner and prior report"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "candidates": [
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "EARLY_WATCH",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "red_team_argument": "The December event is real but FY26 EBIT guidance is already disclosed and recent gains are not a structural entry. No independently validated 1.5R.",
+      "expectations": "Issuer's September 22 guidance: FY26 underlying EBIT EUR1.2-1.3bn. Fresh consensus not independently verified.",
+      "priced_in": "November 13 close EUR7.52 versus EUR6.956 first mention (+8.1%); much of the FY26 news is known. FY27 bookings matter more than a guidance meet.",
+      "bull_case": "Holiday Experiences rates and winter bookings strengthen FY27 outlook.",
+      "bear_case": "Winter demand and airline costs disappoint; sell-the-news gap despite FY26 guidance meet.",
+      "pre_mortem": "The stock gaps down on weak FY27 outlook despite FY26 EBIT meeting published guidance.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "next_review_date": "2026-11-22",
+      "catalyst": {
+        "event": "FY2026 annual results",
+        "date": "2026-12-09",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+        "verified_at": "2026-11-15T18:01:18Z"
+      },
+      "market_data": {
+        "as_of": "2026-11-13T17:35:00+01:00",
+        "data_source": "StockAnalysis XETRA dated close; eToro 3-month volume indicative (not canonical 20d)",
+        "price": 7.52,
+        "market_cap": 3810000000,
+        "avg_dollar_volume": 19780000
+      },
+      "evidence": [
+        {
+          "claim": "Issuer September 22 update states December 9 FY26 results and EBIT guidance EUR1.2-1.3bn",
+          "source_type": "primary",
+          "location": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        },
+        {
+          "claim": "eToro Germany public purchase page lists TUI1.DE XETRA ordinary EUR share; account execution unverified",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/tui1.de",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        },
+        {
+          "claim": "November 13 XETRA close EUR7.52; market cap EUR3.81bn; indicative average traded value ~EUR19.78m",
+          "source_type": "market_data",
+          "location": "https://stockanalysis.com/quote/etr/TUI1/",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath, Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Verified December 3 earnings is now 18 days away; no validated current breakout, structure-based stop/target or >=1.5R. Prior watch must be removed rather than auto-promoted.",
+      "expectations": "Known ARR growth; analyst Hold consensus and $15.41 target are not a near-term trigger.",
+      "priced_in": "November 13 close $13.27 versus first mention $13 (+2.1%); recent 20-day high ~$14.33 remains above price.",
+      "pre_mortem": "Binary earnings gap breaks presumed support before any stop can execute.",
+      "evidence": [
+        {
+          "claim": "Issuer Nov 5 announcement explicitly sets December 3 fiscal Q3 2027 results after US close",
+          "source_type": "primary",
+          "location": "https://ir.uipath.com/news/detail/480/uipath-announces-third-quarter-fiscal-2027-financial-results-conference-call",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        },
+        {
+          "claim": "November 13 NYSE close $13.27, market cap ~$6.92bn and volume 17.94m shares",
+          "source_type": "market_data",
+          "location": "https://stockanalysis.com/stocks/path/",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        },
+        {
+          "claim": "Public eToro stock purchase page for PATH; account-specific order eligibility unverified",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/path",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SDF.DE",
+      "company": "K+S Aktiengesellschaft",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 10 earnings has occurred; prior event cannot be recycled.",
+      "evidence": [
+        {
+          "claim": "Prior-report event lead, now past; not fresh date verification",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-08.md",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 13 quarterly statement has occurred; no verified new future event/setup.",
+      "evidence": [
+        {
+          "claim": "Prior-report event lead, now past; not fresh date verification",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-08.md",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        }
+      ]
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS Eventim AG",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 12 quarterly report has occurred; no verified new future event/setup.",
+      "evidence": [
+        {
+          "claim": "Prior-report event lead, now past; not fresh date verification",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-08.md",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DUE.DE",
+      "company": "Dürr AG",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 12 report has occurred and previous liquidity was below conditional floor.",
+      "evidence": [
+        {
+          "claim": "Prior-report event lead, now past; not fresh date verification",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-08.md",
+          "accessed_at": "2026-11-15T18:01:18Z"
+        }
+      ]
+    }
+  ],
+  "source_counts": {
+    "opened": 10,
+    "primary": 2
+  }
+}
