@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-15",
+  "generated_at": "2026-11-15T21:45:00+00:00",
+  "model": "Claude Opus 5 (claude-opus-5), Claude Code scheduled run",
+  "research_mode": "continuity-first, catalyst-first discovery, separate red-team pass. SECOND same-day run: an earlier 2026-11-15T18:01:18Z run (model recorded as GPT-6) already produced research/candidates-2026-11-15.md and decisions-2026-11-15.csv; this run uses the -2145 time suffix and overwrites nothing. Hard constraint on this run: outbound page access is unavailable (WebFetch DNS resolution blocked for every external host tested; the Quartr MCP server exposes only keyword alerts), so no primary source could be opened directly. Search-engine results and in-repository prior primary records were used instead, and every affected claim says so.",
+  "repository_commit": "cdbd480c4a53e0106782eaa9de7a2dbfd77452dd",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "data/eu_quote_history.csv (repository daily XETRA OHLCV, 46 tickers, 220 sessions to 2026-11-10)",
+    "data/research_snapshot.csv (rebuilt with --archive this run; 0 rows)",
+    "data/scanner_signals.csv (no row newer than 2026-11-06)",
+    "data/market_regime.csv (2026-11-14: defensive)",
+    "research/scans/scan-2026-11-14-0152.md and scan-eu-2026-11-10-0122.md (zero alerts)",
+    "prior research manifests 2026-10-25, 2026-11-01, 2026-11-08, 2026-11-15",
+    "data/recommendations.csv, data/recommendation_reviews.csv, trades.csv, data/proposals.csv",
+    "WebSearch (search-engine quotation of issuer pages; no direct page access)",
+    "UNAVAILABLE: WebFetch/outbound HTTP to issuer, exchange, regulator and market-data hosts"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 26,
+    "primary": 1
+  },
+  "candidates": [
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "EARLY_WATCH",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "catalyst": {
+        "event": "FY2026 annual report and full-year results (financial year to 30 September 2026), with analyst/investor presentation the same day",
+        "date": "2026-12-09",
+        "date_status": "verified",
+        "source_type": "primary",
+        "source_url": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+        "verified_at": "2026-11-15T21:45:00+00:00"
+      },
+      "market_data": {
+        "as_of": "2026-11-10T17:30:00+01:00",
+        "data_source": "data/eu_quote_history.csv (repository daily XETRA OHLCV, yahoo-sourced, 220 accumulated sessions)",
+        "price": 7.698,
+        "market_cap": null,
+        "avg_dollar_volume": 23100000.0
+      },
+      "expectations": "Underlying EBIT guidance of EUR1.2-1.3bn for FY26 has been public since the 22 September 2026 pre-close update and was reaffirmed with the 12 August Q3 release, so the FY26 number itself is largely known; the open question is the FY27 outlook given on the day. No fresh sell-side consensus or estimate-revision data could be obtained this session (no outbound page access), so the expectations picture is incomplete and confidence is capped at Low.",
+      "priced_in": "Partly priced in. Price rose from EUR6.956 at first mention (2026-11-01) to EUR7.698 on 2026-11-10 (+10.7%), a +11% two-week advance that included a 2026-11-02 volume-expansion session (8.3m shares versus a roughly 3m preceding norm) and a fresh 20-session high. The known-guidance part of the event is therefore reflected; the FY27 outlook is not.",
+      "bull_case": "Hotel/cruise pricing and winter booking momentum carry into FY27, the market gets a credible FY27 EBIT path on 9 December, and the stock continues the re-rating off the EUR6.57 20-session low.",
+      "bear_case": "FY26 merely meets already-public guidance while the FY27 outlook is cut on airline cost, fuel or softer bookings; the November advance unwinds in a single earnings gap that no stop can protect against.",
+      "pre_mortem": "Most likely overlooked failure: the 9 December report is a sell-the-news event precisely because the guidance was pre-released in September, so the only new information is the FY27 outlook and positioning into it is long. Second: this object has now been carried for three weekly cycles with no setup ever proposed, which is how sunk research effort turns into an eventual chase.",
+      "risk_rating": "High",
+      "confidence": "Low",
+      "red_team_verdict": "DOWNGRADE_EARLY_WATCH",
+      "red_team_argument": "Strongest rejection argument: after +10.7% from first mention and with price at the 20-session high, any entry here is a chase into a binary annual report, and the thesis contains no edge the market lacks because guidance is public. It survives as research rather than being removed only because the event date is dated and material, the instrument passes broker/liquidity gates, and the structure is measurable and orderly. It does not survive as a trade: the catalyst is 24 days out (outside the 21-day actionable horizon), no separate nearer verified trigger exists, and no defensible stop/target with >=1.5R can be built from a 3-session-stale price history. Action is wait_pullback, not entry.",
+      "next_review_date": "2026-11-22",
+      "evidence": [
+        {
+          "claim": "FY2026 results scheduled for 9 December 2026. Chain of custody for this run: the primary issuer page was opened and recorded by the 2026-11-08 run (see research/manifests/candidates-2026-11-08.json, same URL, verified_at 2026-11-08T18:07:35Z) and again by the earlier 2026-11-15 18:01Z run; this session CANNOT open outbound pages (WebFetch DNS resolution is blocked for all external hosts), so re-verification today came from a search engine that quoted TUI's own statements giving 9 December 2026, plus the in-repository primary record. Flagged for human re-verification before any proposal. One aggregator (MarketScreener) lists 8 December, which the issuer date overrides.",
+          "source_type": "primary",
+          "location": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Dated structured market data: XETRA close EUR7.698 on 2026-11-10 (session high EUR7.762, volume 3.07m). Computed from the same file over the trailing 20 sessions: 20-session high EUR7.70, 20-session low EUR6.57, mean daily turnover EUR23.1m, ATR(14) 2.82% of price, +15.6% over 20 sessions. History ends 2026-11-10, so Nov 11-13 bars are missing.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Repository cross-reference: the earlier 2026-11-15 18:01Z run recorded EUR7.52 as a 2026-11-13 XETRA reference and EUR3.81bn market cap from a third-party market-data page. That implies roughly a 2.3% fade off the 2026-11-10 close and places the name in the ETORO_TRADEABILITY core bucket (approx. USD4.4bn). This session could not re-open that page, so the figure is carried as a repository record, not as independently verified data.",
+          "source_type": "repository",
+          "location": "research/candidates-2026-11-15.md",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Expectations evidence is incomplete by explicit statement: FY26 underlying EBIT guidance EUR1.2-1.3bn is public from the September pre-close update, but no current consensus, estimate-revision, short-interest, insider or financing check could be run this session. Treated as an evidence gap that caps confidence at Low, not as a neutral finding.",
+          "source_type": "other",
+          "location": "RESEARCH_BRIEF.md source policy, stages 2-3",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Broker gate: eToro tradeability for TUI1.DE was recorded YES on the public eToro Germany market page by the prior two runs (ordinary XETRA EUR share, no ADR/CFD route needed). Not re-verifiable this session; account-level permissions and executable spread remain unverified in every run so far.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-11-08.json",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Data-quality caveat found this run: the repository EU history holds an apparently duplicated bar for TUI1.DE (2026-11-02 and 2026-11-03 both close 7.3840 with near-identical volume 8.30m/8.28m). Any future level-setting on this name should not treat those as two independent sessions.",
+          "source_type": "repository",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "TKA.DE",
+      "company": "thyssenkrupp AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Annual report FY2025/26 on 2026-12-08 is 23 days out and was primary-verified in-repo by the 2026-11-08 run; a search-engine quotation of the same issuer calendar corroborated it today and added an IR quiet period of 2026-11-17 to 2026-12-07. Rejected on setup and thesis, not on the date: repository history shows the 2026-11-10 close of EUR12.32 sitting 14.1% below the 20-session high of EUR14.35 and 11.2% below the 50-session mean, i.e. a downtrend into a loss-making annual report, which is weaker than the 2026-11-08 run described. Liquidity passes (EUR26.4m/day) and the EUR7.7bn cap is core, but a catalyst-only thesis with no expectation edge and no structure is not a research object worth adding to the active book.",
+      "evidence": [
+        {
+          "claim": "Prior in-repo primary record: annual report FY2025/26 dated 2026-12-08 from the issuer IR calendar, opened and recorded 2026-11-08T18:07:35Z. Corroborated today only by search-engine quotation of that same calendar page, which also gives the 2026-11-17 to 2026-12-07 quiet period; this session cannot open the page itself, so the status is treated as carried, not re-verified.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-11-08.json",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Dated structured market data: 2026-11-10 close EUR12.32; 20-session high EUR14.35, 20-session low EUR11.65, -14.1% from that high, -3.3% versus the 20-session mean and -11.2% versus the 50-session mean, mean daily turnover EUR26.4m, ATR(14) 5.31%, -11.2% over 20 sessions.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "AT1.DE",
+      "company": "Aroundtown SA",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The only lead found with an in-repo primary-verified catalyst actually inside the 0-21 day actionable window: Q3 2026 report on 2026-11-25, 10 days away, recorded from the issuer IR page by the 2026-10-25, 2026-11-01 and 2026-11-08 runs. Re-rejected because nothing that caused the prior rejections has changed: liquidity was measured at roughly EUR3.3m/day, which is below the ETORO_TRADEABILITY preferred non-US floor of USD5m and only inside the conditional band, the ticker is absent from the repository EU history universe so no independent 20-session structure can be computed for it, and no setup, stop or target exists. Kept visible rather than silently dropped because its date is the nearest verified event in the book.",
+      "evidence": [
+        {
+          "claim": "Prior in-repo primary record: Q3 2026 financial report dated 2026-11-25 from the issuer IR page, opened and recorded 2026-11-08T18:07:35Z (and in the 2026-10-25 and 2026-11-01 manifests). Not re-verifiable this session.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-11-08.json",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Prior recorded liquidity proxy of roughly EUR3.3m/day from the public eToro Germany page, plus the October 20 Grand City/LEG stake transaction and financing complexity cited in the 2026-11-08 rejection. Absent from data/eu_quote_history.csv (46-ticker universe), so no repository structure check is possible.",
+          "source_type": "repository",
+          "location": "research/manifests/candidates-2026-11-08.json",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "LHA.DE",
+      "company": "Deutsche Lufthansa AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Strongest raw momentum in the European universe this week and rejected for exactly that reason. Repository history puts the 2026-11-10 close of EUR8.69 2.8% ABOVE its own prior 20-session high after +20.0% in 20 sessions and +16.4% in five, 17.0% above the 20-session mean. Search found the driver to be already-public news (the 2026-11-03 Q3 release plus a job-cut/profitability-target programme), i.e. the thesis is 'price already moved', which SETUPS.md explicitly lists as not a setup, and no forward event inside the 42-day discovery horizon could be verified. Chasing a third standard deviation off the mean into no catalyst is the single worst risk-adjusted action available. Market cap of roughly EUR10.4bn also falls in the larger-cap exception bucket, which requires the setup to be clearly better than core names rather than merely more exciting.",
+      "evidence": [
+        {
+          "claim": "Dated structured market data: 2026-11-10 close EUR8.69; prior 20-session high EUR8.46 (close is 2.8% above it), 20-session low EUR6.94, +17.0% versus the 20-session mean, +15.3% versus the 50-session mean, +20.0% over 20 sessions, +16.4% over five, mean daily turnover EUR35.7m, ATR(14) 2.29%.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Context from search-engine results only: a 2026-11-03 Q3 2026 release (point-to-point adjusted EBIT +EUR16m to EUR214m; group adjusted operating result reported up about 6% to EUR1.4bn) and separate coverage of a 4,000-job cut with raised profitability targets. The company's last Capital Markets Day found was 29 September 2025. No November or December 2026 investor event could be established, and no issuer page could be opened to check.",
+          "source_type": "reputable_secondary",
+          "location": "https://newsroom.lufthansagroup.com/en/lufthansa-group-increases-operating-profit--strong-demand-and-cost-discipline-more-than-offset-higher-fuel-costs/",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "NDX1.DE",
+      "company": "Nordex SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Best-looking core-universe breakout structure in the European universe (2026-11-10 close EUR42.96, 0.7% under the 20-session high, +16.7% in 20 sessions, EUR23.3m/day turnover, cap roughly EUR6bn) but rejected on both legs of the gate: +13.8% in five sessions makes it extended rather than a retest, and no dated event inside the 42-day discovery horizon could be verified - the Q3 release already occurred on 2026-11-10, so the catalyst is in the past. The attempt to open the issuer financial calendar failed outright (nordex-online.com does not resolve from this session). A name whose only forward argument is momentum is a monitor candidate at best, and promoting it would mean padding the decision sheet.",
+      "evidence": [
+        {
+          "claim": "Dated structured market data: 2026-11-10 close EUR42.96; 20-session high EUR43.24 (-0.65%), 20-session low EUR33.24, +12.1% versus the 20-session mean, +16.7% over 20 sessions, +13.8% over five, mean daily turnover EUR23.3m, ATR(14) 3.52%.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Catalyst verification failed, not merely absent: https://www.nordex-online.com/en/investor-relations/financial-calendar/ could not be opened from this session (DNS resolution blocked for all external hosts), and search returned no dated Nordex investor event between 2026-11-15 and 2026-12-27.",
+          "source_type": "other",
+          "location": "WebFetch failure, www.nordex-online.com",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "QIA.DE",
+      "company": "QIAGEN N.V.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Cleanest low-volatility coil in the universe: 2026-11-10 close EUR45.12, only 0.8% under the 20-session high, ATR(14) of 0.67% of price (the tightest of all 46 names) and EUR67.8m/day turnover. Rejected because a coil is a trigger, not a thesis: no dated catalyst inside the 42-day horizon could be verified, and at roughly EUR9.5bn (about USD11bn) it sits in the larger-cap exception bucket, which ETORO_TRADEABILITY limits to setups clearly stronger than the core alternatives. Worth re-screening next week if an event appears; not worth a decision-sheet slot now.",
+      "evidence": [
+        {
+          "claim": "Dated structured market data: 2026-11-10 close EUR45.12; 20-session high EUR45.49 (-0.81%), 20-session low EUR40.41, +2.9% versus the 20-session mean, +11.3% over 20 sessions, +0.3% over five, mean daily turnover EUR67.8m, ATR(14) 0.67% - the lowest realized range in the universe.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "No dated issuer event inside 2026-11-15 to 2026-12-27 could be established; no issuer page could be opened from this session.",
+          "source_type": "other",
+          "location": "RESEARCH_BRIEF.md discovery horizon check",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "PUM.DE",
+      "company": "PUMA SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core-universe European name (cap roughly EUR4bn) with a recovering trend (+16.3% in 20 sessions) but the 2026-11-10 close of EUR26.96 sits 3.2% below the 20-session high and 0.4% lower over five sessions - mid-range, neither a breakout nor a completed retest. No dated event inside the discovery horizon could be verified; the attempt to open the issuer financial calendar failed (puma.com does not resolve from this session). Rejected on absent catalyst verification plus absent structure, which is the correct outcome rather than a reason to lower the evidence bar.",
+      "evidence": [
+        {
+          "claim": "Dated structured market data: 2026-11-10 close EUR26.96; 20-session high EUR27.84 (-3.16%), 20-session low EUR22.80, +5.9% versus the 20-session mean, +16.3% over 20 sessions, -0.4% over five, mean daily turnover EUR17.1m, ATR(14) 3.29%.",
+          "source_type": "market_data",
+          "location": "data/eu_quote_history.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "Catalyst verification failed: https://www.puma.com/investor-relations/financial-calendar could not be opened from this session (DNS resolution blocked), and no dated Puma investor event in the horizon was found by search.",
+          "source_type": "other",
+          "location": "WebFetch failure, www.puma.com",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "CORT",
+      "company": "Corcept Therapeutics Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Relacorilant Cushing's syndrome PDUFA reported as 2026-12-17 (32 days, Early Watch window) by aggregator calendars only. Search explicitly could not find the date in Corcept's own release - the issuer release confirms a resubmission after a complete response letter and a goal date 'six months after submission', which is derived, not stated. Date status is therefore secondary_only/derived, which RESEARCH_BRIEF.md puts at Reject until verified. Independently: a binary FDA decision would cap position value at EUR75 under RISK_RULES.md and the default policy is to exit before the event, so the catalyst itself cannot be the trade; no price or market-cap data could be obtained for the name this session.",
+      "evidence": [
+        {
+          "claim": "Issuer release confirms resubmission of the relacorilant NDA for Cushing's syndrome following a complete response letter, with the agency indicating a PDUFA date six months after submission. The specific 2026-12-17 date appears only on third-party aggregators; search found no issuer statement of it. Prior relacorilant goal date was 2026-07-11, itself moved from 2025-12-30 - a date with a history of moving.",
+          "source_type": "reputable_secondary",
+          "location": "https://ir.corcept.com/news-releases/news-release-details/corcept-resubmit-its-new-drug-application-relacorilant-treatment",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "No price, volume or market-cap data obtainable: the repository snapshot is empty for this run and no market-data page could be opened.",
+          "source_type": "other",
+          "location": "data/research_snapshot.csv (0 rows)",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "MLYS",
+      "company": "Mineralys Therapeutics Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Lorundrostat hypertension PDUFA reported as 2026-12-22 (37 days) by biotech catalyst aggregators only; no issuer or FDA primary source could be opened from this session, so date status is secondary_only and the lead is Reject until verified. Also binary (EUR75 cap, exit-before-event default) with no obtainable market data.",
+      "evidence": [
+        {
+          "claim": "Aggregator catalyst calendars list a 2026-12-22 PDUFA target for lorundrostat; no primary issuer or FDA source could be opened this session.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.biopharmawatch.com/blog/q4-2026-pdufa-dates",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "PRAX",
+      "company": "Praxis Precision Medicines Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Relutrigine PDUFA reported as 2026-12-27, exactly at the 42-day discovery boundary, and reported as already extended once from 2026-09-27 after a major amendment - the clearest possible warning that the date is not binding. Aggregator-only sourcing, no primary source openable, so secondary_only and Reject until verified. Binary event, no obtainable market data.",
+      "evidence": [
+        {
+          "claim": "Aggregator catalyst calendars list a 2026-12-27 target action date for relutrigine, extended from 2026-09-27 following a major amendment; no primary source could be opened this session.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.biopharmawatch.com/blog/q4-2026-pdufa-dates",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "S",
+      "company": "SentinelOne Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Core-universe US software name listed by earnings calendars for 2026-12-03 (18 days, inside the actionable window) - the right shape of lead for this week, rejected purely on evidence: the date comes from third-party calendars that themselves flag many entries as unconfirmed, no issuer release could be opened, and no price, 20-session structure or liquidity figure is obtainable (empty repository snapshot, no US OHLCV in-repo, no outbound market-data access). A pre-earnings entry would also default to exit before the event, leaving at most 12 sessions of runway.",
+      "evidence": [
+        {
+          "claim": "Third-party earnings calendars list SentinelOne among 2026-12-03 after-close reporters; the same sources state that hundreds of November/December entries are company-unconfirmed. No issuer release could be opened this session.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.tipranks.com/calendars/earnings/2026-11-30",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "No market data obtainable: data/research_snapshot.csv has 0 rows this run, data/scanner_signals.csv has no row newer than 2026-11-06, and the repository holds daily OHLCV for XETRA names only.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    },
+    {
+      "ticker": "TTAN",
+      "company": "ServiceTitan Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Same shape and same failure as SentinelOne: listed by third-party calendars for 2026-12-03 (18 days), no openable issuer confirmation, and no obtainable price, structure or liquidity data. Rejected on verification and market-data gates rather than carried forward on story.",
+      "evidence": [
+        {
+          "claim": "Third-party earnings calendars list ServiceTitan among 2026-12-03 after-close reporters; no issuer confirmation could be opened this session.",
+          "source_type": "reputable_secondary",
+          "location": "https://www.tipranks.com/calendars/earnings/2026-11-30",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        },
+        {
+          "claim": "No market data obtainable for US names this run; see the empty repository snapshot and the 2026-11-06 scanner high-water mark.",
+          "source_type": "repository",
+          "location": "data/research_snapshot.csv",
+          "published_at": null,
+          "accessed_at": "2026-11-15T21:45:00+00:00"
+        }
+      ]
+    }
+  ]
+}
