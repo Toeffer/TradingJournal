@@ -1,27 +1,26 @@
 # Rolling Recommendation Book
 
-Auto-generated from `data/recommendations.csv`. Research decisions are not trade executions.
+Auto-generated summary of `data/recommendations.csv`. Research decisions are not executions.
 
 ## Current decision load
 
-- Active recommendations: 2
-- Archived/removed recommendations: 3
-- Actions: monitor: 2
+- Active recommendations: 1
+- Archived/removed recommendations: 4
+- Actions: monitor: 1
 
 ## Active recommendations
 
 | Ticker | Status | This week | Setup | Trigger | Expiry | Stop | Target | Next review |
-|---|---|---|---|---:|---|---:|---:|---|
-| PATH | new | monitor | — | — | — | — | — | 2026-11-15 |
-| TUI1.DE | carry | monitor | — | — | — | — | — | 2026-11-15 |
+|---|---|---|---|---|---|---|---|---|
+| TUI1.DE | carry | monitor | — | — | — | — | — | 2026-11-22 |
 
 ### Decision reasons
 
-- **PATH** — monitor: December 3 FY27 Q3 results issuer-verified 25 days away; eToro NYSE share and core cap/liquidity pass, but USD13 Nov 6 close below 50d SMA and no breakout/retest with >=1.5R. Monitor only.
-- **TUI1.DE** — monitor: December 9 FY26 results remain issuer-verified 31 days away; Nov 6 XETRA close EUR7.57 is +8.8% from EUR6.956 first mention. Sep 22 EBIT guidance is public, no validated retest/stop/target or >=1.5R. Monitor; do not chase.
+- **TUI1.DE** — monitor: issuer-verified December 9 results, 24 days away; November 13 XETRA close EUR7.52 (+8.1% since first mention), guidance public, no valid 1.5R setup.
 
 ## Recently removed
 
-- **FTK.DE** — invalidated: Monitoring phase ended without a valid Actionable setup as the catalyst entered the 0-21 day window; archive unless a genuinely new thesis/event creates a new research object.
-- **LW** — expired: Early-Watch phase expired without a valid Actionable setup as earnings entered the 0-21 day window; archive after this review.
-- **CELC** — archived: Archive management recommendation after the human confirms trade closure or journal reconciliation. SATISFIED 2026-08-10.
+- **PATH** — expired: December 3 earnings now 18 days away; no validated setup before entering actionable horizon.
+- **FTK.DE** — invalidated: no valid setup before catalyst.
+- **LW** — expired: no valid setup before catalyst.
+- **CELC** — archived: linked trade confirmed closed.
