@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-22",
+  "generated_at": "2026-11-22T21:42:22Z",
+  "model": "Claude Opus 5 (claude-opus-5), Claude Code cloud session",
+  "research_mode": "continuity-first; catalyst-first; distinct skeptical red-team pass; second same-day run (independent model) after the 17:59Z GPT-6 run",
+  "repository_commit": "0eb7b2ff8d2b35b58fa6215480fb626aca6909dd",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "repository canonical snapshot data/research_snapshot.csv (regenerated with --archive at 21:36Z, 0 rows)",
+    "repository recommendation registry, append-only review ledger and prior candidate reports",
+    "repository US and EU scanner reports and data/market_regime.csv",
+    "WebSearch result summaries (lead generation only; no page was opened)",
+    "DENIED: direct retrieval of issuer IR pages, SEC EDGAR, stoxx.com, etoro.com and structured market-data providers - blocked by this session's network policy"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {"opened": 0, "primary": 0},
+  "candidates": [
+    {
+      "ticker": "MDB",
+      "company": "MongoDB, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Earnings date is secondary_only: the issuer release announcing it could not be opened in this run (network policy blocks ir.mongodb.com and SEC EDGAR), so the date cannot reach `verified` and the name may not enter Actionable or Early Watch. Independently: no eToro Germany verification was possible, no dated structured market data could be retrieved, and reported size sits above the $10bn core-universe ceiling with no exception case made. A binary earnings date is not a setup.",
+      "expectations": "Unknown this run. No consensus, estimate-revision or positioning data could be retrieved from a dated source.",
+      "pre_mortem": "The lead is treated as research because a date exists, and a crowded database/AI-adjacent name gaps through any imagined stop on the print.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: a WebSearch summary reports a November 5, 2026 issuer notice scheduling Q3 FY2027 results for Tuesday, December 1, 2026 after the close",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.tradingview.com/news/prnewswire:45edd61ec765f:0-mongodb-inc-announces-date-of-third-quarter-fiscal-2027-earnings-call/",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BOX",
+      "company": "Box, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date is secondary_only - the November 2, 2026 issuer notice was not opened, so verification fails the hard gate. eToro Germany availability could not be verified (etoro.com unreachable), which rejects the name on the broker overlay by itself. No dated price, 20-day ADV or market cap could be retrieved, so no liquidity tier, no structure and no R arithmetic exist.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "A plausible core-universe size is mistaken for a tradeable idea while the only concrete fact is a future binary print.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary reports Box will publish Q3 FY2027 results after the close on December 1, 2026, announced November 2, 2026",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://finance.yahoo.com/markets/stocks/articles/box-sets-date-announce-third-130000382.html",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "DOCU",
+      "company": "Docusign, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date secondary_only (November 19, 2026 issuer notice not opened). Reported size sits in the $10-50bn larger-cap exception bucket, and no exception case can be made because no comparable core-universe candidate was verified either. Broker and market-data gates both unverifiable this run.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "An exception is granted on familiarity rather than on a demonstrably stronger setup.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary reports Q3 FY2027 results after the close on December 3, 2026, notice dated November 19, 2026",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://finance.yahoo.com/markets/stocks/articles/docusign-announce-third-quarter-fiscal-210500055.html",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "AGX",
+      "company": "Argan, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date secondary_only (November 19, 2026 Business Wire notice not opened). Market data is actively contradictory: undated snippets for the same session span roughly $437 to $625 per share and $5.25-5.51bn market cap, a spread that makes any trigger, stop or target arithmetic fiction. No eToro verification. Rejected on evidence quality, not on the thesis.",
+      "expectations": "Unknown this run. No dated consensus or guidance evidence retrieved.",
+      "pre_mortem": "A power/data-centre construction story is treated as verified while the quoted price is wrong by 40 percent, so every level in the setup is meaningless.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary reports Q3 FY2027 results and conference call on Thursday, December 3, 2026, notice dated November 19, 2026",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.businesswire.com/news/home/20261119026934/en/Argan-Inc.-to-Announce-Third-Quarter-Fiscal-2027-Results-and-Host-Conference-Call-on-Thursday-December-3-2026",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        },
+        {
+          "claim": "CONTRADICTORY, UNDATED: price snippets of $436.78 and $624.50 and market caps of $5.25bn, $5.44bn and $5.51bn were returned for the same name with no as-of date",
+          "source_type": "other",
+          "location": "unopened URLs surfaced by WebSearch: https://stockanalysis.com/stocks/agx/market-cap/ and https://www.google.com/finance/quote/AGX:NYSE",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SAIC",
+      "company": "Science Applications International Corporation",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date secondary_only (November 18, 2026 issuer notice not opened; globenewswire.com unreachable). No broker verification, no dated market data, no structure. Government-services earnings is a binary event, and the default policy is to exit before, not position into, such a print.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "A defensive-sector label is confused with a defensive setup during a market-wide drawdown.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary reports Q3 FY2027 earnings call before the open on December 3, 2026, notice dated November 18, 2026",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://investors.saic.com/news-releases/news-release-details/saic-schedules-third-quarter-fiscal-year-2027-earnings",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SAIL",
+      "company": "SailPoint, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NASDAQ",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Date secondary_only (November 12, 2026 issuer notice not opened). Reported size is above the core-universe ceiling, post-IPO float and lockup mechanics were not checked because the prospectus could not be opened, and no broker or market-data verification was possible.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "Unchecked post-IPO supply - a secondary offering or lockup release - overwhelms an earnings thesis nobody verified.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary reports fiscal Q3 2027 results before the US open on December 8, 2026, release dated November 12, 2026",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.sailpoint.com/press-releases/sailpoint-fiscal-q3-2027-earnings-call",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "CHPT",
+      "company": "ChargePoint Holdings, Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected at discovery. Size indications place the company at or below the configured $500m market-cap floor and its liquidity profile below the preferred tier, and the name carries a documented history of dilution and equity issuance that an unverified earnings date cannot offset. Date is in any case only secondary_only.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "A cheap-looking EV-charging name is bought for the date and diluted into by the issuer.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary reports Q3 FY2027 results on December 3, 2026 for the quarter ended October 31, 2026",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://finance.yahoo.com/markets/stocks/articles/chargepoint-report-third-quarter-fiscal-133000624.html",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:39:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "NDA.DE",
+      "company": "Aurubis AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Strongest European lead of the run and still a reject. The December 2, 2026 FY2025/26 annual-report date is only secondary_only: aurubis.com could not be opened, so the issuer financial calendar was never read in this pass. The guidance raise at Q3 in August 2026 is already public, which argues the direction of the news is partly priced. No eToro Germany verification, no dated XETRA price, no 20-day traded value, therefore no liquidity tier, no structure and no computable R.",
+      "expectations": "Partly known but unverified: WebSearch summaries report the issuer raised its 2025/26 forecast alongside an improved quarterly result in 2026. Refreshed consensus and estimate revisions are unknown.",
+      "pre_mortem": "The annual report meets the already-raised guidance, the 2026/27 outlook is cautious on treatment and refining charges, and a thin XETRA book gaps the stock on the open while the EUR150 ticket sits inside a wide spread.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summaries of the issuer's Q3 2025/26 quarterly report and Q3 earnings-call transcript both place the FY2025/26 annual report on December 2, 2026, with Q1 2026/27 on February 4, 2027 and the AGM on February 11, 2027",
+          "source_type": "other",
+          "location": "unopened URLs surfaced by WebSearch: https://www.aurubis.com/dam/jcr:28af3925-b00a-4899-86b5-c34dd376fb17/Aurubis_Quarterly%20Report_Q3_2025_26.pdf and https://www.marketscreener.com/quote/stock/AURUBIS-AG-436439/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:40:00Z"
+        },
+        {
+          "claim": "LEAD ONLY, UNOPENED: issuer press release headline reports an improved quarterly result and an increased 2025/26 forecast",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.aurubis.com/en/media/press-releases/press-releases-2026/aurubis-achieves-improved-quarterly-result-and-increases-202526-forecast",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:40:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "HBH.DE",
+      "company": "Hornbach Holding AG & Co. KGaA",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "The reported December 22, 2026 Q3 statement is 30 days away, which is the Early Watch band, not Actionable - and Early Watch requires a verified date, which this is not (hornbach-holding.de not opened; the search result itself flagged the date as possibly a crawl stamp). Independently, the name's traded value is habitually far below even the conditional non-US floor of $3-5m equivalent per day, so a EUR150 ticket would be priced inside a wide spread for no edge.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "A thin German retail small cap is carried for five weeks on an unverified date and then gaps on a Christmas-period trading statement in an illiquid book.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary of the issuer financial calendar lists a Q3 quarterly statement on 22-12-2026, with the caveat that the date may be a crawl stamp",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.hornbach-holding.de/en/investor-relations/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "B4B.DE",
+      "company": "METRO AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "No date at all: the FY2025/26 annual-report date could not be established even at secondary level, and `derived` from the prior-year December pattern is explicitly not acceptable for classification. The free float and ownership situation after the controlling-shareholder process also makes the liquidity and squeeze-out mechanics unsuitable for a swing ticket, and none of that could be checked from a primary filing this run.",
+      "expectations": "Unknown this run.",
+      "pre_mortem": "Last year's calendar is assumed to repeat, the report lands on a different day, and the position is held into an event the research never actually dated.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch could not establish a fiscal 2025/26 annual-report date; it found only that the prior-year report carried a December 2025 date, which is an inference rather than a stated date",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://investors.metroag.de/events/annual-general-meeting",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:40:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "VBK.DE",
+      "company": "VERBIO SE",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected at discovery. The only dated December item is a December 7, 2026 ex-dividend date of EUR0.20, which is a mechanical price adjustment and not a catalyst; the next reporting event is February 11, 2027, outside the 42-day discovery horizon. Reported size is also below the configured $500m floor.",
+      "expectations": "Not applicable.",
+      "pre_mortem": "An ex-dividend mark-down is mistaken for a sell-off and bought.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: aggregator calendar summary lists a 2026-12-07 ex-dividend of EUR0.20 and the next earnings release on 2027-02-11",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.marketscreener.com/quote/stock/VERBIO-SE-516720/calendar/",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:41:00Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SZU.DE",
+      "company": "Suedzucker AG",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Rejected at discovery on horizon. The Q3 2026/27 quarterly statement is reported for January 14, 2027, which is 53 days away and therefore outside the 42-day discovery horizon entirely. Nothing dated exists for this name inside the window.",
+      "expectations": "Not applicable.",
+      "pre_mortem": "A distant January date is pulled into a weekly decision sheet to avoid an empty page.",
+      "evidence": [
+        {
+          "claim": "LEAD ONLY, UNOPENED: WebSearch summary of the issuer financial calendar places the Q3 2026/27 statement on 14.01.2027",
+          "source_type": "other",
+          "location": "unopened URL surfaced by WebSearch: https://www.suedzuckergroup.com/en/investor-relations/financial-calendar",
+          "published_at": null,
+          "accessed_at": "2026-11-22T21:41:00Z"
+        }
+      ]
+    }
+  ]
+}
