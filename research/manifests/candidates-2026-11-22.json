@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-22",
+  "generated_at": "2026-11-22T17:59:26Z",
+  "model": "GPT-6",
+  "research_mode": "continuity-first; catalyst-first; separate skeptical red-team",
+  "repository_commit": "bd8acb0af5ef62c39d7582961b13ca48cdf5f6c3",
+  "method": "catalyst-first",
+  "enabled_sources": [
+    "GitHub main canonical snapshot and recommendation ledger",
+    "issuer primary releases",
+    "public eToro Germany stock pages",
+    "dated structured XETRA and issuer market data",
+    "EU scanner reports"
+  ],
+  "input_snapshot": "data/research_snapshot.csv",
+  "input_snapshot_sha256": "564467de230c68e0f3429fa65168d4b551a892a28f1b2f963063c07841a81334",
+  "source_counts": {
+    "opened": 5,
+    "primary": 2
+  },
+  "candidates": [
+    {
+      "ticker": "TUI1.DE",
+      "company": "TUI AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Issuer-confirmed December 9 FY26 results are now 17 days away; original Early Watch has no validated entry/stop/target or 1.5R and must expire rather than auto-upgrade.",
+      "expectations": "September 22 underlying EBIT guidance EUR1.2-1.3bn already public; fresh consensus unknown.",
+      "priced_in": "November 20 close EUR6.86 versus EUR6.956 first mention and EUR7.52 Nov 13.",
+      "pre_mortem": "Winter bookings disappoint despite FY26 guidance meet; overnight gap overwhelms assumed stop.",
+      "evidence": [
+        {
+          "claim": "Issuer September 22 release explicitly confirms December 9 FY26 results and EUR1.2-1.3bn EBIT guidance",
+          "source_type": "primary",
+          "location": "https://www.tuigroup.com/en/investors/financial-news/pre-close-trading-update-2026",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        },
+        {
+          "claim": "November 20 17:35 CET XETRA close EUR6.86 and market cap EUR3.48bn",
+          "source_type": "market_data",
+          "location": "https://stockanalysis.com/quote/etr/TUI1/",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        },
+        {
+          "claim": "eToro Germany publicly lists TUI1.DE as purchasable XETRA EUR stock/share; account eligibility unknown",
+          "source_type": "market_data",
+          "location": "https://www.etoro.com/de/markets/tui1.de",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        }
+      ]
+    },
+    {
+      "ticker": "GAP",
+      "company": "Gap Inc.",
+      "classification": "REJECT",
+      "source_tag": "routine",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Issuer Q3 release already occurred November 19; no verified forward catalyst or post-earnings setup; eToro Germany availability not verified.",
+      "evidence": [
+        {
+          "claim": "Issuer November 19 Q3 results are completed; sales +2%, comparable sales flat",
+          "source_type": "primary",
+          "location": "https://investors.gapinc.com/press-releases/news-details/2026/Gap-Inc--Reports-Third-Quarter-Fiscal-2026-Results/default.aspx",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        },
+        {
+          "claim": "Issuer stock page November 20 close $20.94 versus November 19 $18.79",
+          "source_type": "market_data",
+          "location": "https://investors.gapinc.com/stock-information/default.aspx",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        }
+      ]
+    },
+    {
+      "ticker": "PATH",
+      "company": "UiPath Inc.",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "Previously expired on November 15 without valid structure; no new independently verified thesis or setup; do not resurrect terminal object.",
+      "evidence": [
+        {
+          "claim": "November 15 report documents prior watch expiry, no setup",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-15.md",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        }
+      ]
+    },
+    {
+      "ticker": "SDF.DE",
+      "company": "K+S Aktiengesellschaft",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 10 report passed; no new verified future catalyst or setup.",
+      "evidence": [
+        {
+          "claim": "Prior event identified in November 15 research; event now past",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-15.md",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        }
+      ]
+    },
+    {
+      "ticker": "BC8.DE",
+      "company": "Bechtle AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 13 report passed; no new verified future catalyst or setup.",
+      "evidence": [
+        {
+          "claim": "Prior event identified in November 15 research; event now past",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-15.md",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        }
+      ]
+    },
+    {
+      "ticker": "EVD.DE",
+      "company": "CTS Eventim AG",
+      "classification": "REJECT",
+      "source_tag": "prior_report",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "red_team_verdict": "REJECT",
+      "rejection_reason": "November 12 report passed; no new verified future catalyst or setup.",
+      "evidence": [
+        {
+          "claim": "Prior event identified in November 15 research; event now past",
+          "source_type": "repository",
+          "location": "https://github.com/Toeffer/TradingJournal/blob/main/research/candidates-2026-11-15.md",
+          "accessed_at": "2026-11-22T17:59:26Z"
+        }
+      ]
+    }
+  ]
+}
