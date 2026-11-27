@@ -1,6 +1,6 @@
 # Scanner Signal Summary
 
-Auto-generated from `data/scanner_signals.csv` on 2026-11-27 02:49 UTC. Do not edit by hand.
+Auto-generated from `data/scanner_signals.csv` on 2026-11-27 23:20 UTC. Do not edit by hand.
 
 Not financial advice and not a trade signal. Signal prices are intraday snapshots.
 The 1/3/5/10-day columns are the primary scanner evaluation. The 21-day column is
@@ -12,7 +12,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 - Signals recorded: 46
 - With 1-day outcome: 46
 - With 10-day outcome: 46
-- With 21-day context outcome: 43
+- With 21-day context outcome: 44
 
 ## Outcomes by score bucket
 
@@ -27,7 +27,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 28 | -1.60% | -0.88% | 43% | +6.63% | -11.18% |
 |  |  | 5d | primary | 28 | -2.09% | -1.58% | 39% | +11.41% | -19.94% |
 |  |  | 10d | primary | 28 | -3.69% | -3.75% | 36% | +20.29% | -23.49% |
-|  |  | 21d | context | 25 | -4.39% | -5.43% | 32% | +45.47% | -53.37% |
+|  |  | 21d | context | 26 | -4.93% | -5.81% | 31% | +45.47% | -53.37% |
 | 70-79 | 8 | 1d | primary | 8 | +1.32% | -0.32% | 50% | +14.72% | -3.97% |
 |  |  | 3d | primary | 8 | -2.10% | -1.87% | 38% | +5.92% | -9.11% |
 |  |  | 5d | primary | 8 | -3.43% | -2.03% | 38% | +4.01% | -12.31% |
@@ -47,7 +47,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 27 | -1.36% | -0.51% | 48% | +7.98% | -11.18% |
 |  |  | 5d | primary | 27 | -3.09% | -2.53% | 30% | +11.41% | -19.94% |
 |  |  | 10d | primary | 27 | -4.36% | -5.25% | 33% | +20.29% | -23.49% |
-|  |  | 21d | context | 24 | -6.67% | -8.92% | 33% | +45.47% | -53.37% |
+|  |  | 21d | context | 25 | -7.15% | -8.96% | 32% | +45.47% | -53.37% |
 | alpaca+finviz_manual | 7 | 1d | primary | 7 | -2.14% | +0.31% | 57% | +3.38% | -13.15% |
 |  |  | 3d | primary | 7 | -5.38% | -2.71% | 14% | +0.33% | -17.37% |
 |  |  | 5d | primary | 7 | -5.20% | -4.50% | 14% | +2.72% | -12.54% |
@@ -72,7 +72,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |  |  | 3d | primary | 34 | -2.19% | -1.55% | 41% | +7.98% | -17.37% |
 |  |  | 5d | primary | 34 | -3.52% | -3.88% | 26% | +11.41% | -19.94% |
 |  |  | 10d | primary | 34 | -4.48% | -5.38% | 35% | +20.29% | -23.49% |
-|  |  | 21d | context | 31 | -7.13% | -8.96% | 29% | +45.47% | -53.37% |
+|  |  | 21d | context | 32 | -7.49% | -9.86% | 28% | +45.47% | -53.37% |
 
 ## Runner board
 
@@ -80,7 +80,7 @@ provider-mixed samples are descriptive—not evidence of an edge.
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
 | 2026-11-06 | GRAB | US | 66 | 3.4700 | +3.58% | -0.86% | -6.48% | -20.75% | — |
 | 2026-11-05 | ARRY | US | 60 | 5.3200 | +14.16% | +9.96% | -9.96% | -21.24% | — |
-| 2026-10-28 | SOFI | US | 69 | 16.4050 | +13.45% | +7.35% | +6.00% | -0.88% | — |
+| 2026-10-28 | SOFI | US | 69 | 16.4050 | +13.45% | +7.35% | +6.00% | -0.88% | -18.47% |
 | 2026-10-07 | MRVL | US | 60 | 286.5000 | +5.63% | -4.11% | -14.32% | -14.60% | -53.37% |
 | 2026-10-06 | RXRX | US | 65 | 4.7900 | +15.98% | -10.86% | -19.94% | -23.49% | -19.21% |
 | 2026-09-04 | VOW3.DE | EU-XETRA | 65 | 81.3000 | +6.47% | +2.21% | +0.20% | -5.88% | -15.70% |
